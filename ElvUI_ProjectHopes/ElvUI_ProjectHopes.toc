@@ -6,7 +6,7 @@
 
 ## DefaultState: enabled
 ## Author: Hopesedge
-## Version: 20250216
+## Version: 20250217
 
 ## Interface: 110007
 ## X-Required-ElvUI: 13.83
