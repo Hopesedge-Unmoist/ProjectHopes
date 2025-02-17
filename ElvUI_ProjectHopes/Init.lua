@@ -69,19 +69,8 @@ Private.ClassIcon = {
 ------------------------------- Events -------------------------------
 ----------------------------------------------------------------------
 
-function ProjectHopes:PLAYER_ENTERING_WORLD(_, initLogin, isReload)
-	if initLogin or isReload then
-		ProjectHopes:VersionCheck()
-    end
-end
-
-function ProjectHopes:RegisterEvents()
-	ProjectHopes:RegisterEvent('PLAYER_ENTERING_WORLD')
-end
-
 local function Initialize()
     EP:RegisterPlugin(Name, ProjectHopes.Config)
-	ProjectHopes:RegisterEvents()
 end
 
 local function CallbackInitialize()
