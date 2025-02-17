@@ -1,0 +1,55 @@
+name: Package and Release
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  release:
+    runs-on: ubuntu-22.04
+    env:
+      GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Clone project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all tags
+
+      # Get the last commit hash (short version)
+      - name: Get last commit hash
+        run: echo "HASH=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      # Determine next version based on current datetime in local timezone (CET)
+      - name: Determine next version
+        run: |
+          NEXT_VERSION=$(TZ=Europe/Copenhagen date +'%Y-%m-%d-%H-%M')
+          echo "NEXT_VERSION=$NEXT_VERSION" >> $GITHUB_ENV
+          echo "Using Next Version: $NEXT_VERSION"
+
+      # Create a versioned zip package
+      - name: WoW Packager
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -n "{package-name}-${{ env.NEXT_VERSION }}-${{ env.HASH }}"
+
+      # Get the generated package name
+      - name: Get package name
+        run: |
+          echo "PACKAGE=$(find .release -type f -name '*.zip' -printf "%f\n")" >> $GITHUB_ENV
+
+      # Create a new tag for the release
+      - name: Create Git Tag
+        run: |
+          git tag ${{ env.NEXT_VERSION }}
+          git push origin ${{ env.NEXT_VERSION }}
+
+      # Create a GitHub Release and upload the package
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ env.NEXT_VERSION }}" .release/${{ env.PACKAGE }} \
+            --title "${{ env.NEXT_VERSION }}" \
+            --notes "Automated Development release for commit ${{ env.HASH }}"
