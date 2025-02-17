@@ -1,0 +1,19 @@
+package-as: ElvUI_ProjectHopes
+
+enable-nolib-creation: no
+
+move-folders:
+    ElvUI_ProjectHopes/ElvUI_ProjectHopes: ElvUI_ProjectHopes
+
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
+  
+ignore:
+  - .github
+  - .git
+  - .gitignore
+  - .vscode
+  - CHANGELOG.md
+  - LICENSE
+  - .pkgmeta
