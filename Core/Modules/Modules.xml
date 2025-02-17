@@ -1,0 +1,10 @@
+<Ui xmlns='http://www.blizzard.com/wow/ui/'>
+	<Include file="Border\Border.xml"/>
+	<Include file="Minimap\Minimap.xml"/>
+	<Include file="Overshield\Overshield.xml"/>
+	<Include file="TargetGlow\TargetGlow.xml"/>
+	<Include file="Portraits\Portraits.xml"/>
+	<Include file="HealthBackdrop\HealthBackdrop.xml"/>
+	<Include file="QualityOfLife\QualityOfLife.xml"/>
+	<Include file="Misc\Misc.xml"/>
+</Ui>

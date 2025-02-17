@@ -1,0 +1,17 @@
+<Ui xmlns='http://www.blizzard.com/wow/ui/'>
+	<Include file="Modules\Modules.xml"/>
+
+	<!-- <Script file='Compartment.lua'/>-->
+	<Script file='Config.lua'/>
+	<Script file='Core.lua'/>
+	<Script file='Install.lua'/>
+	<Script file='Tags.lua'/>
+	<Script file='GameMenu.lua'/>
+	<Script file='Database.lua'/>
+	<Include file="Changelog\Changelog.lua"/>
+	<Script file='VersionCheck.lua'/>
+
+
+
+
+</Ui>
