@@ -26,3 +26,7 @@ jobs:
         with:
           args: -n "{package-name}-{project-version}"
         
+      - name: Create Package lastest
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -n "{package-name}-{project-version}"
