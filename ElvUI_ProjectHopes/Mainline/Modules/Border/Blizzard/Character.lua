@@ -24,7 +24,8 @@ local utf8sub = string.utf8sub
 local utf8upper = string.utf8upper
 local ENUM_ITEM_CLASS_WEAPON = _G.Enum.ItemClass.Weapon
 
-local GetItemInfo = GetItemInfo
+local GetItemInfo = C_Item.GetItemInfo
+
 local GetInventoryItemID = GetInventoryItemID
 local GetSpecialization = E.Retail and GetSpecialization or GetActiveTalentGroup
 local GetSpecializationInfo = GetSpecializationInfo
@@ -390,30 +391,38 @@ end
 local function CheckMessageCondition(slotOptions)
 	local conditions = slotOptions.warningCondition
 	local enchantNeeded = true
-  
-	if enchantNeeded and conditions.level then enchantNeeded = (conditions.level == UnitLevel("player")) end
-  
-	if enchantNeeded and conditions.primary then
-	  	enchantNeeded = false
-	  	local spec = GetSpecialization()
-	  	if spec then
-			local primaryStat
-  
-			if E.Retail then
-		  		primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
-			end
 
-			enchantNeeded = (conditions.primary == primaryStat)
-	  	end
+	if enchantNeeded and conditions.level then
+			enchantNeeded = (conditions.level == UnitLevel("player"))
 	end
-  
-	if enchantNeeded and conditions.itemType then
-	  	local itemType = select(12, GetItemInfo(GetInventoryItemID("player", slotOptions.id)))
-	  	enchantNeeded = (itemType == conditions.itemType)
+
+	if enchantNeeded and conditions.primary then
+			enchantNeeded = false
+			local spec = GetSpecialization()
+			if spec then
+					local primaryStat
+					if E.Retail then
+							primaryStat = select(6, GetSpecializationInfo(spec, nil, nil, nil, UnitSex("player")))
+					end
+					enchantNeeded = (conditions.primary == primaryStat)
+			end
 	end
-  
+
+	for slotID = 1, 16 do
+			if enchantNeeded and conditions.itemType then
+					local itemID = GetInventoryItemID("player", slotID)
+					if not itemID then
+							return false
+					end
+					local itemType = select(12, GetItemInfo(itemID))
+					enchantNeeded = (itemType == conditions.itemType)
+			end
+	end
+
 	return enchantNeeded
 end
+
+
 
 local function UpdatePageStrings(_, i, _, slot, slotInfo, which)
 	if not slot.enchantText or not slot.iLvlText then return end
