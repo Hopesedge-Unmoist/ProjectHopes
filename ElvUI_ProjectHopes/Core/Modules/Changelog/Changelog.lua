@@ -177,10 +177,10 @@ function Changelog:CheckVersion()
 		E:StaticPopup_Show('ProjectHopes_VC')
 		Private:Print(format('|cffbf0008%s|r', L["Your ElvUI is outdated - please update and reload."]))
 	end
-	Changelog:ToggleChangeLog()
 
 	if not InCombatLockdown() then
 		if not ProjectHopesDB['Version'] or (ProjectHopesDB['Version'] and ProjectHopesDB['Version'] ~= ProjectHopes.versionString) then
+			Changelog:ToggleChangeLog()
 		end
 	else
 			Changelog:RegisterEvent('PLAYER_REGEN_ENABLED', function(event)
