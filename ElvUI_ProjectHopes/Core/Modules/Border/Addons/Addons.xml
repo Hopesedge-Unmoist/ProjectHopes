@@ -1,0 +1,18 @@
+<Ui xmlns='http://www.blizzard.com/wow/ui/'>
+	<Script file='Auctionator.lua'/>
+	<Script file='Baganator.lua'/>
+	<Script file='BigWigs.lua'/>
+	<Script file='BugSack.lua'/>
+	<Script file='ChoreTracker.lua'/>
+	<Script file='Details.lua'/>
+	<Script file='Hekili.lua'/>
+	<Script file='MazeHelper.lua'/>
+	<Script file='OmniCD.lua'/>
+	<Script file='RaiderIO.lua'/>
+	<Script file='RareScanner.lua'/>
+	<Script file='Simulationcraft.lua'/>
+	<Script file='TalentLoadoutsEx.lua'/>
+	<Script file='TalentTreeTweaks.lua'/>
+	<Script file='WarpDeplete.lua'/>
+	<Script file='WeakAurasOptions.lua'/>
+</Ui>

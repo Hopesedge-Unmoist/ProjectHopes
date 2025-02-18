@@ -1,0 +1,20 @@
+## Title: |cff1784d1ElvUI|r |cff858585P|r|cffa49d7fr|r|cffa59661o|r|cff8b7a42j|r|cffd6b43fe|r|cffd6af28c|r|cfff4c112t|r|cffe7b306H|r|cffe9b507o|r|cffe1b00ap|r|cfffdc507e|r|cffffc907s|r
+
+## Notes: Hopesedge's ElvUI Edit
+## Dependencies: ElvUI
+## OptionalDeps: OmniCD, BigWigs, Details, WarpDeplete
+
+## DefaultState: enabled
+## Author: Hopesedge
+## Version: 20250218
+## X-PreviousVersion: 20250217
+## SavedVariables: ProjectHopesDB
+
+## Interface: 110007
+## X-Required-ElvUI: 13.83
+
+## AddonCompartmentFunc: ProjectHopes_OnAddonCompartmentClick
+## IconTexture: Interface\AddOns\ElvUI_ProjectHopes\Media\Textures\phlogotiny.png
+
+Load.xml
+Mainline\Mainline.xml
