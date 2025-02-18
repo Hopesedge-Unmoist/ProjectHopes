@@ -6,7 +6,9 @@
 
 ## DefaultState: enabled
 ## Author: Hopesedge
-## Version: 20250217
+## Version: 20250218
+## X-PreviousVersion: 20250217
+## SavedVariables: ProjectHopesDB
 
 ## Interface: 110007
 ## X-Required-ElvUI: 13.83

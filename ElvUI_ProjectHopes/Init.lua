@@ -11,6 +11,7 @@ local tonumber = tonumber
 local GetAddOnMetadata = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
 
 ProjectHopes = E:NewModule(Name, 'AceConsole-3.0', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+_G[Name] = Private
 
 Private.Config = {}
 Private.Credits = {}
@@ -49,28 +50,29 @@ Private.Font = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Fonts\\Expressway.
 Private.TargetGlow = {bgFile = nil, edgeFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Borders\\BorderTex2.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
 Private.CastbarGlow = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\CastbarGlow.tga"
 Private.HopesUI = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\HopesUI.tga"
-Private.ClassIcon = {
-    DEATHKNIGHT = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\DEATHKNIGHT.tga",
-    DEMONHUNTER = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\DEMONHUNTER.tga",
-    DRUID = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\DRUID.tga",
-    EVOKER = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\EVOKER.tga",
-    HUNTER = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\HUNTER.tga",
-    MAGE = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\MAGE.tga",
-    MONK = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\MONK.tga",
-    PALADIN = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\PALADIN.tga",
-    PRIEST = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\PRIEST.tga",
-    ROGUE = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\ROGUE.tga",
-    SHAMAN = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\SHAMAN.tga",
-    WARLOCK = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\WARLOCK.tga",
-    WARRIOR = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\WARRIOR.tga",
-} 
 
 ----------------------------------------------------------------------
 ------------------------------- Events -------------------------------
 ----------------------------------------------------------------------
+function ProjectHopes:ParseVersionString()
+	local version = GetAddOnMetadata(Name, 'Version')
+	local prevVersion = GetAddOnMetadata(Name, 'X-PreviousVersion')
+	if strfind(version, 'project%-version') then
+		return prevVersion, prevVersion..'-git', nil, true
+	else
+		local release, extra = strmatch(version, '^v?([%d.]+)(.*)')
+		return tonumber(release), release..extra, extra ~= ''
+	end
+end
+
+ProjectHopes.version, ProjectHopes.versionString = ProjectHopes:ParseVersionString()
 
 local function Initialize()
     EP:RegisterPlugin(Name, ProjectHopes.Config)
+    
+    if not ProjectHopesDB then
+        _G.ProjectHopesDB = {}
+    end
 end
 
 local function CallbackInitialize()

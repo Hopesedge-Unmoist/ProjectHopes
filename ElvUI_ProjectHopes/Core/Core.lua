@@ -66,6 +66,12 @@ E.PopupDialogs.ProjectHopes_EDITBOX = {
 	hideOnEscape = 1,
 }
 
+-- Version check popup
+E.PopupDialogs.ProjectHopes_VC = {
+	text = format('|cffC80000%s|r', L["Your ElvUI is outdated - please update and reload."]),
+	whileDead = 1,
+	hideOnEscape = false,
+}
 
 
 
