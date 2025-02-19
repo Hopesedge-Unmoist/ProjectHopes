@@ -324,6 +324,8 @@ function ProjectHopes:Config()
 		"talentTreeTweaks",
 		"talentLoadoutsEx",
 		"choreTracker",
+		"threatClassic2",
+		"spy",
 	}
 	POA.Skins.args.desc = ACH:Header(L["Skins"], 1)
 	POA.Skins.args.AddOns = ACH:Group(L["AddOns"], nil, 1)

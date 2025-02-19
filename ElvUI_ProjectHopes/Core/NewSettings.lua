@@ -29,7 +29,8 @@ ProjectHopes.ChangelogTBL = {
 }
 
 function ProjectHopes:LoadNewSettings()
-
+	E.db["ProjectHopes"]["skins"]["spy"] = true
+	E.db["ProjectHopes"]["skins"]["threatClassic2"] = true
 
 	--- Keep this stuff ---
 	Private:Print("New features is now set. Have fun!")

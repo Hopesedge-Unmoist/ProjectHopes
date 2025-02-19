@@ -156,7 +156,9 @@ P.ProjectHopes = {
 		mazeHelper = false,
 		talentTreeTweaks = false,
 		choreTracker = false,
-
+		spy = false,
+		threatClassic2 = false,
+		
 		-- Blizzard 
 		achievementFrame = false,
 		adventureMap = false,

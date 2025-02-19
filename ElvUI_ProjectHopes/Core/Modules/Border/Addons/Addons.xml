@@ -16,4 +16,6 @@
 	<Script file='TalentTreeTweaks.lua'/>
 	<Script file='WarpDeplete.lua'/>
 	<Script file='WeakAurasOptions.lua'/>
+	<Script file='ThreatClassic2.lua'/>
+	<Script file='Spy.lua'/>
 </Ui>
