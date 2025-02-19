@@ -8,6 +8,7 @@
 ## Author: Hopesedge
 ## Version: 20250218
 ## X-PreviousVersion: 20250217
+## SavedVariables: ProjectHopesDB
 
 ## Interface: 11505
 ## X-Required-ElvUI: 13.81
