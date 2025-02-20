@@ -35,6 +35,8 @@ P.ProjectHopes = {
 	-- UnitFrame Generals
 	unitframe = {
 		unitFramesGlowline = false,
+		unitFramesGlowlinecolor = { r = 1, g = 1, b = 1, a = 1 },
+		unitFramesGlowlineWidth = 5,
 		infopanelontop = false,
 		framelevelPortraits = 20,
 		classPortraits = false, 
