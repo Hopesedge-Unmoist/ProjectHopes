@@ -8,8 +8,6 @@ local pairs = pairs
 function S:Ranker()
 	E:Delay(1, function()
         if not E.db.ProjectHopes.skins.ranker then return end
-		-- ^ this is needed, but needs to be added in Config.lua file, so leaving it out right now. I will add it later.
-
 		--skin main frame & scrollbar
 		S:HandleFrame(_G.RankerMainFrame)
 		S:HandleScrollBar(_G.RankerMainFrameScrollBar)
@@ -18,7 +16,7 @@ function S:Ranker()
 		--position main frame
 		_G.RankerMainFrame:ClearAllPoints()
 		RankerMainFrame:Point('TOPLEFT', _G.HonorFrame, 'TOPRIGHT', -26, -12)
-
+		
 		--skin outer buttons
 		S:HandleButton(_G.RankerToggleButton, nil, nil, nil, true)
 		BORDER:CreateBorder(_G.RankerToggleButton, nil, nil, nil, nil, nil, false, true)
@@ -28,7 +26,7 @@ function S:Ranker()
 		_G.RankerToggleButton:Point('TOPRIGHT', _G.HonorFrame, 'TOPRIGHT', -32, 15)
 		_G.RankerWhatIfButton:ClearAllPoints()
 		_G.RankerWhatIfButton:Point('TOPRIGHT', _G.RankerMainFrame, 'TOPRIGHT', 0, 27)
-
+		
 		--skin main frame elements
 		if _G.RankerWhatIfRankListButton then
 			local width, height = _G.RankerWhatIfRankListButton:GetSize()
