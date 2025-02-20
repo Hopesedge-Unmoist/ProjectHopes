@@ -352,7 +352,8 @@ function ProjectHopes:Config()
 	POA.Skins.args.AddOns.args.talentTreeTweaks = ACH:Toggle(L["Talent Tree Tweaks"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.talentTreeTweaks end,function(_, value) E.db.ProjectHopes.skins.talentTreeTweaks = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("TalentTreeTweaks") end)
 	POA.Skins.args.AddOns.args.talentLoadoutsEx = ACH:Toggle(L["Talent Loadouts Ex"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.talentLoadoutsEx end,function(_, value) E.db.ProjectHopes.skins.talentLoadoutsEx = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("TalentLoadoutsEx") end)
 	POA.Skins.args.AddOns.args.choreTracker = ACH:Toggle(L["Chore Tracker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.choreTracker end,function(_, value) E.db.ProjectHopes.skins.choreTracker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("ChoreTracker") end)
-	
+	POA.Skins.args.AddOns.args.ranker = ACH:Toggle(L["Ranker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.ranker end,function(_, value) E.db.ProjectHopes.skins.ranker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Ranker") end)
+
 
 	local blizzardskins
 	if E.Retail then
