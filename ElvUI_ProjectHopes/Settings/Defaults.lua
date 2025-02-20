@@ -158,6 +158,7 @@ P.ProjectHopes = {
 		choreTracker = false,
 		spy = false,
 		threatClassic2 = false,
+		ranker = false,
 		
 		-- Blizzard 
 		achievementFrame = false,

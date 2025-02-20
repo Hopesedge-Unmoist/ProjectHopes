@@ -167,6 +167,8 @@ function ProjectHopes:Config()
 	POA.UnitFrames.args.general.args.glowline = ACH:Group(L["Health Glowline"], nil, 3)
 	POA.UnitFrames.args.general.args.glowline.inline = true
 	POA.UnitFrames.args.general.args.glowline.args.enable = ACH:Toggle(L["Health Glowline"], nil, 1, nil, false, "full", function() return E.db.ProjectHopes.unitframe.unitFramesGlowline end,function(_, value) E.db.ProjectHopes.unitframe.unitFramesGlowline = value E:StaticPopup_Show('ProjectHopes_RL') end)
+	POA.UnitFrames.args.general.args.glowline.args.color = ACH:Color(L["Enter Color"], nil, 2, true, "full", function() local db = E.db.ProjectHopes.unitframe.unitFramesGlowlinecolor local default = P.ProjectHopes.unitframe.unitFramesGlowlinecolor return db.r, db.g, db.b, db.a, default.r, default.g, default.b, default.a end, function(_, r, g, b, a) local db = E.db.ProjectHopes.unitframe.unitFramesGlowlinecolor db.r, db.g, db.b, db.a = r, g, b, a E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.ProjectHopes.unitframe.unitFramesGlowline end, function() return not E.db.ProjectHopes.unitframe.unitFramesGlowline end)
+	POA.UnitFrames.args.general.args.glowline.args.width = ACH:Range(L["Width"], nil, 3, { min = -20, max = 20, step = 1 }, "full", function() return E.db.ProjectHopes.unitframe.unitFramesGlowlineWidth end, function(_, value) E.db.ProjectHopes.unitframe.unitFramesGlowlineWidth = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.ProjectHopes.unitframe.unitFramesGlowline end, function() return not E.db.ProjectHopes.unitframe.unitFramesGlowline end)
 
 	POA.UnitFrames.args.general.args.portraits = ACH:Group(L["Portraits"], nil, 4)
 	POA.UnitFrames.args.general.args.portraits.inline = true
@@ -327,6 +329,7 @@ function ProjectHopes:Config()
 		"threatClassic2",
 		"spy",
 		"dbm",
+		"ranker",
 	}
 	POA.Skins.args.desc = ACH:Header(L["Skins"], 1)
 	POA.Skins.args.AddOns = ACH:Group(L["AddOns"], nil, 1)
@@ -355,8 +358,12 @@ function ProjectHopes:Config()
 	POA.Skins.args.AddOns.args.talentTreeTweaks = ACH:Toggle(L["Talent Tree Tweaks"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.talentTreeTweaks end,function(_, value) E.db.ProjectHopes.skins.talentTreeTweaks = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("TalentTreeTweaks") end)
 	POA.Skins.args.AddOns.args.talentLoadoutsEx = ACH:Toggle(L["Talent Loadouts Ex"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.talentLoadoutsEx end,function(_, value) E.db.ProjectHopes.skins.talentLoadoutsEx = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("TalentLoadoutsEx") end)
 	POA.Skins.args.AddOns.args.choreTracker = ACH:Toggle(L["Chore Tracker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.choreTracker end,function(_, value) E.db.ProjectHopes.skins.choreTracker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("ChoreTracker") end)
-	POA.Skins.args.AddOns.args.ranker = ACH:Toggle(L["Ranker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.ranker end,function(_, value) E.db.ProjectHopes.skins.ranker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Ranker") end)
-
+	
+	if E.Classic then
+		POA.Skins.args.AddOns.args.threatclassic2 = ACH:Toggle(L["ThreatClassic2"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.threatClassic2 end,function(_, value) E.db.ProjectHopes.skins.threatClassic2 = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("ThreatClassic2") end)
+		POA.Skins.args.AddOns.args.spy = ACH:Toggle(L["Spy"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.spy end,function(_, value) E.db.ProjectHopes.skins.spy = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Spy") end)
+		POA.Skins.args.AddOns.args.ranker = ACH:Toggle(L["Ranker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.ranker end,function(_, value) E.db.ProjectHopes.skins.ranker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Ranker") end)
+	end
 
 	local blizzardskins
 	if E.Retail then
@@ -872,10 +879,11 @@ function ProjectHopes:Config()
 	POA.tags.args.header = ACH:Header(L["Tags"], 1)
 	POA.tags.args.spacer = ACH:Spacer(2, 'full')
 	POA.tags.args.tag1 = ACH:Input(L["Shows the Units role when selected."], nil, 3, nil, 'full', function() return '[Hopes:role]' end, nil, nil)
-	POA.tags.args.tag2 = ACH:Input(L["Shows the percent health and absorb without %."], nil, 4, nil, 'full', function() return '[Hopes:perhp]' end, nil, nil, not E.Retail)
-	POA.tags.args.tag3 = ACH:Input(L["Shows the Units raidmarker when selected."], nil, 5, nil, 'full', function() return '[Hopes:raidmarker]' end, nil, nil)
-	POA.tags.args.tag4 = ACH:Input(L["Shows the Leader Icon or Assist icon if the unit is Leader or Assist."], nil, 6, nil, 'full', function() return '[Hopes:leader]' end, nil, nil, not E.Retail)
-	POA.tags.args.tag5 = ACH:Input(L["Shows heal absorb on unit."], nil, 6, nil, 'full', function() return '[Hopes:healabsorbs]' end, nil, nil, not E.Retail)
+	POA.tags.args.tag2 = ACH:Input(L["Shows the percent health and absorb without %."], nil, 3, nil, 'full', function() return '[Hopes:perhp]' end, nil, nil, not E.Retail)
+	POA.tags.args.tag3 = ACH:Input(L["Shows the Units raidmarker when selected."], nil, 3, nil, 'full', function() return '[Hopes:raidmarker]' end, nil, nil)
+	POA.tags.args.tag4 = ACH:Input(L["Shows the Leader Icon or Assist icon if the unit is Leader or Assist."], nil, 3, nil, 'full', function() return '[Hopes:leader]' end, nil, nil, not E.Retail)
+	POA.tags.args.tag5 = ACH:Input(L["Shows heal absorb on unit."], nil, 3, nil, 'full', function() return '[Hopes:healabsorbs]' end, nil, nil, not E.Retail)
+	POA.tags.args.tag6 = ACH:Input(L["Shows the percent health and absorb without %, and hide it when 0 or 100"], nil, 3, nil, 'full', function() return '[Hopes:perpp]' end, nil, nil, not E.Retail)
 
 	E.Options.args.ProjectHopes = ProjectHopes.Options
 end

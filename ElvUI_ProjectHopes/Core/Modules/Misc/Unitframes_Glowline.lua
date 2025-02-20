@@ -13,7 +13,8 @@ local function UpdateGlowLinePosition(healthBar)
     local healthPercentage = currentHealth / maxHealth
 
     local height = healthBar:GetHeight()
-    healthBar.glowLine:SetSize(5, height)
+    local width = E.db.ProjectHopes.unitframe.unitFramesGlowlineWidth
+    healthBar.glowLine:SetSize(width, height)
 
     if healthPercentage == 0 or healthPercentage == 1 then
         healthBar.glowLine:Hide()
@@ -28,6 +29,8 @@ local function CreateGlowLine(frame)
         frame.glowLine = frame:CreateTexture(nil, "OVERLAY")
         frame.glowLine:SetTexture(Private.Glowline);
         frame.glowLine:SetBlendMode("ADD")
+        local db = E.db.ProjectHopes.unitframe.unitFramesGlowlinecolor
+        frame.glowLine:SetVertexColor(db.r, db.g, db.b, db.a)
     end
 
     frame:HookScript("OnValueChanged", UpdateGlowLinePosition)

@@ -17,9 +17,14 @@ local UnitPowerType = UnitPowerType
 local UnitPowerMax = UnitPowerMax
 local UnitGetIncomingHeals = UnitGetIncomingHeals
 local UnitGetTotalAbsorbs = UnitGetTotalAbsorbs
+local UnitGetTotalHealAbsorbs = UnitGetTotalHealAbsorbs
 local UnitClass = UnitClass
 local strupper = strupper
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
+local UnitIsGroupLeader = UnitIsGroupLeader
+local UnitIsGroupAssistant = UnitIsGroupAssistant
+local GetPartyAssignment = GetPartyAssignment
+local GetRaidTargetIndex = GetRaidTargetIndex
 
 local function abbrev(name)
 	local letters, lastWord = '', strmatch(name, '.+%s(.+)$')
@@ -105,19 +110,16 @@ E:AddTag("Hopes:raidmarker", 'RAID_TARGET_UPDATE', function(unit)
 	return mark
 end)
 
-local formattedText = { CURRENT = 'current', CURRENT_PERCENT = 'current-percent', PERCENT = 'percent' }
+E:AddTag('Hopes:perpp', 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER UNIT_CONNECTION', function(unit)
+	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
+	local powerType = UnitPowerType(unit)
+	local cur = UnitPower(unit, powerType)
+	local max = UnitPowerMax(unit, powerType)
+	local curper = (UnitPower(unit, powerType)/UnitPowerMax(unit, powerType))*100
 
-for textFormatStyle, textFormat in next, formattedText do
-	E:AddTag(format("health:%s:hidefull", textFormat), "UNIT_HEALTH UNIT_MAXHEALTH", format("function(unit)\n    local min, max = UnitHealth(unit), UnitHealthMax(unit)\n    local deficit = max - min\n    local String\n\n    if not (deficit <= 0) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("health:%s:hidedead", textFormat), "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION", format("function(unit)\n    local min, max = UnitHealth(unit), UnitHealthMax(unit)\n    local String\n\n    if not ((min == 0) or (UnitIsGhost(unit))) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("health:%s:hidefull:hidedead", textFormat), "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION", format("function(unit)\n    local min, max = UnitHealth(unit), UnitHealthMax(unit)\n    local deficit = max - min\n    local String\n\n    if not ((deficit <= 0) or (min == 0) or (UnitIsGhost(unit))) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("power:%s:hidefull:hidezero", textFormat), "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER", format("function(unit)\n    local pType = UnitPowerType(unit)\n    local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)\n    local deficit = max - min\n    local String\n\n    if not (deficit <= 0 or min <= 0) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("power:%s:hidedead", textFormat), "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_HEALTH", format("function(unit)\n    local pType = UnitPowerType(unit)\n    local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)\n    local String\n\n    if not ((min == 0) or (UnitIsGhost(unit) or UnitIsDead(unit))) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("power:%s:hidefull", textFormat), "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER", format("function(unit)\n    local pType = UnitPowerType(unit)\n    local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)\n    local deficit = max - min\n    local String\n\n    if not (deficit <= 0) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("health:%s:shortvalue:hidefull", textFormat), "UNIT_HEALTH UNIT_MAXHEALTH", format("function(unit)\n    local min, max = UnitHealth(unit), UnitHealthMax(unit)\n    local deficit = max - min\n    local String\n\n    if not (deficit <= 0) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength, true)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("health:%s:shortvalue:hidedead", textFormat), "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION", format("function(unit)\n    local min, max = UnitHealth(unit), UnitHealthMax(unit)\n    local String\n\n    if not ((min == 0) or (UnitIsGhost(unit))) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength, true)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("health:%s:shortvalue:hidefull:hidedead", textFormat), "UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION", format("function(unit)\n    local min, max = UnitHealth(unit), UnitHealthMax(unit)\n    local deficit = max - min\n    local String\n\n    if not ((deficit <= 0) or (min == 0) or (UnitIsGhost(unit))) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength, true)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("power:%s:shortvalue:hidefull:hidezero", textFormat), "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER", format("function(unit)\n    local pType = UnitPowerType(unit)\n    local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)\n    local deficit = max - min\n    local String\n\n    if not (deficit <= 0 or min <= 0) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength, true)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("power:%s:shortvalue:hidedead", textFormat), "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_HEALTH", format("function(unit)\n    local pType = UnitPowerType(unit)\n    local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)\n    local String\n\n    if not ((min == 0) or (UnitIsGhost(unit) or UnitIsDead(unit))) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength, true)\n    end\n\n    return String\nend", textFormatStyle))
-	E:AddTag(format("power:%s:shortvalue:hidefull", textFormat), "UNIT_DISPLAYPOWER UNIT_POWER_FREQUENT UNIT_MAXPOWER", format("function(unit)\n    local pType = UnitPowerType(unit)\n    local min, max = UnitPower(unit, pType), UnitPowerMax(unit, pType)\n    local deficit = max - min\n    local String\n\n    if not (deficit <= 0) then\n        String = _VARS.E:GetFormattedText('%s', min, max, _VARS.E.db.general.decimalLength, true)\n    end\n\n    return String\nend", textFormatStyle))
-end
+	if (status) or (powerType == 0 and cur == max) or (powerType ~= 0 and cur == 0) then
+		return nil
+	else
+		return format("%.0f", curper)
+	end
+end)

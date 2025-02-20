@@ -36,8 +36,6 @@ function S:SkinButton(i)
 	item:StripTextures(true)
 	item:CreateBackdrop("Transparent")
 	item:Size(155, 45)
-	--item.backdrop:Point("TOPLEFT", -1, 3)
-	--item.backdrop:Point("BOTTOMRIGHT", 2, -3)
 
 	button:StripTextures()
 	button:StyleButton()
@@ -55,7 +53,6 @@ function S:SkinButton(i)
 	money:ClearAllPoints()
 	money:Point("BOTTOMLEFT", button, "BOTTOMRIGHT", 3, 0)
 
-	--S:HandleMerchantItem(i)
 	S:HandleIconBorder(button.IconBorder)
 end
 
@@ -113,8 +110,6 @@ end
 
 local function HandleIconButton(button)
 	BORDER:CreateBorder(button, nil, nil, nil, nil, nil, false, true)
-
-	--BORDER:HandleIcon(button.Icon, true)
 end
 
 function S:MerchantFrame()
