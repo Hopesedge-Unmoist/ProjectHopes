@@ -18,4 +18,5 @@
 	<Script file='WeakAurasOptions.lua'/>
 	<Script file='ThreatClassic2.lua'/>
 	<Script file='Spy.lua'/>
+	<Script file='DBM.lua'/>
 </Ui>

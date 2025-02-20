@@ -326,6 +326,7 @@ function ProjectHopes:Config()
 		"choreTracker",
 		"threatClassic2",
 		"spy",
+		"dbm",
 	}
 	POA.Skins.args.desc = ACH:Header(L["Skins"], 1)
 	POA.Skins.args.AddOns = ACH:Group(L["AddOns"], nil, 1)
