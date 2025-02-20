@@ -3,6 +3,15 @@ local E = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
 	'v|cff99ff3320250218|r 18/02/2025',
+		' • Merchant expanded on classic.',
+		' • Added skin for ThreatClassic2.',
+		' • Added skin for Spy.',
+		' • Added skin for DBM.',
+		' • Added Health Glowline customization(Width and Custom Color)',
+		' • Added new tag, "Hopes:perpp" it hides power number when 100 or 0.',
+		' • TOC Update.',
+	' ',
+	'v|cff99ff3320250218|r 18/02/2025',
 		' • Added this pretty changelog.',
 		' • Removed Class icons and moved into ProjectHopes_Data.',
 		' • Updated TOC on Classic and Era and Retail.',
@@ -31,6 +40,7 @@ ProjectHopes.ChangelogTBL = {
 function ProjectHopes:LoadNewSettings()
 	E.db["ProjectHopes"]["skins"]["spy"] = true
 	E.db["ProjectHopes"]["skins"]["threatClassic2"] = true
+	E.db["ProjectHopes"]["skins"]["ranker"] = true
 
 	--- Keep this stuff ---
 	Private:Print("New features is now set. Have fun!")
