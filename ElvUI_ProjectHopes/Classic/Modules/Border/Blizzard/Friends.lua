@@ -95,7 +95,7 @@ function S:FriendsFrame()
 	BORDER:CreateBorder(_G.FriendsFriendsList)
 	BORDER:CreateBorder(_G.FriendsFriendsScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(_G.FriendsFriendsFrameDropdown, nil, nil, nil, nil, nil, true, true)
-
+	BORDER:CreateBorder(_G.FriendsFrameBroadcastInput, nil, nil, nil, nil, nil, true)
 	-- Ignore List Frame
 	BORDER:CreateBorder(_G.FriendsFrameIgnorePlayerButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.FriendsFrameUnsquelchButton, nil, nil, nil, nil, nil, false, true)
