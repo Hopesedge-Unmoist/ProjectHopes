@@ -160,6 +160,7 @@ P.ProjectHopes = {
 		choreTracker = false,
 		spy = false,
 		threatClassic2 = false,
+		dbm = false,
 		ranker = false,
 		
 		-- Blizzard 
