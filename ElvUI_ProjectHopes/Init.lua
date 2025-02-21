@@ -69,6 +69,7 @@ ProjectHopes.version, ProjectHopes.versionString = ProjectHopes:ParseVersionStri
 
 local function Initialize()
     EP:RegisterPlugin(Name, ProjectHopes.Config)
+    ProjectHopes:RegisterEvents()
     
     if not ProjectHopesDB then
         _G.ProjectHopesDB = {}
