@@ -21,6 +21,9 @@ function S:GossipFrame()
 	BORDER:CreateBorder(GreetingPanel.ScrollBar, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(GreetingPanel.GoodbyeButton, nil, nil, nil, nil, nil, false, true)
 
+	GreetingPanel.GoodbyeButton:ClearAllPoints()
+	GreetingPanel.GoodbyeButton:SetPoint("RIGHT", GreetingPanel.backdrop, "BOTTOMRIGHT", 0, -24)
+
 	local ItemTextFrame = _G.ItemTextFrame
 	BORDER:CreateBorder(ItemTextFrame.backdrop)
 end
