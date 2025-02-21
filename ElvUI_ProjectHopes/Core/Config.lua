@@ -329,6 +329,7 @@ function ProjectHopes:Config()
 		"threatClassic2",
 		"spy",
 		"dbm",
+		"ranker",
 		"leatrix_plus",
 		"whatstraining",
 		"novaworldbuffs",
