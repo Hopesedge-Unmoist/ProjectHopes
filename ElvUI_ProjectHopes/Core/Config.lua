@@ -882,6 +882,21 @@ function ProjectHopes:Config()
 	POA.qualityOfLife.args.frameMover.args.remember.args.rememberPositions = ACH:Toggle(L["Enable"], nil, 2, nil, nil, nil, nil, nil, function(info, value) E.private.ProjectHopes.qualityOfLife.frameMover[info[#info]] = value end)
 	POA.qualityOfLife.args.frameMover.args.remember.args.clearHistory = ACH:Toggle(L["Clear History"], nil, 2, nil, nil, nil, nil, function() E.private.ProjectHopes.qualityOfLife.frameMover.framePositions = {} end)
 
+	POA.qualityOfLife.args.weakAurasAnchors = ACH:Group(L["Weakauras Anchors"], nil, 2, nil)
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc = ACH:Group(L["Description"], nil, 1)
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc.inline = true
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc.args.feature1 = ACH:Description(L["This module provides the feature to add Anchors within ElvUI to anchor weakuras to."], 1, "medium")
+	POA.qualityOfLife.args.weakAurasAnchors.args.enable = ACH:Toggle(L["Enable"], nil, 2, nil, false, "full",function() return E.private.ProjectHopes.qualityOfLife.weakAurasAnchors end,function(_, value) E.private.ProjectHopes.qualityOfLife.weakAurasAnchors = value E:StaticPopup_Show('ProjectHopes_RL') end)
+	POA.qualityOfLife.args.weakAurasAnchors.args.spacer = ACH:Spacer(3)
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc2 = ACH:Group(L["How does it work?"], nil, 3, nil, nil, nil, nil, function() return not E.private.ProjectHopes.qualityOfLife.weakAurasAnchors end)
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc2.inline = true
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc2.args.feature1 = ACH:Description(L["You go into '"].."|cffffc607/wa|r"..L["', and find the weakaura you want to anchor to the new Anchor Frames."], 1, "medium")
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc2.args.feature2 = ACH:Description(L["Once you have found the weakaura, scroll down in '"].."|cffffc607Display|r"..L["' in single weakura or '"].."|cffffc607Group|r"..L["' in group, until you find '"].."|cffffc607Position and Size Settings|r"..L["'."], 2, "medium")
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc2.args.feature3 = ACH:Description(L["When you have expanded '"].."|cffffc607Position and Size Settings|r"..L["' type in the name off one of the new custom Anchors."], 3, "medium")
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc2.args.feature4 = ACH:Description(L["\n"].."|cffffc607Anchor Names|r"..L[":\n"].."|cff81c783ProjectHopesBarAnchor|r"..L["\n"].."|cff81c783ProjectHopesExtraBarAnchor|r"..L["\n"].."|cff81c783ProjectHopesExtraIconAnchor|r"..L["\n"].."|cff81c783ProjectHopesExtraIconAnchor|r"..L["\n"].."|cff81c783ProjectHopesTextAnchor|r"..L["\n"], 4, "medium")
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc2.args.feature5 = ACH:Description(L["After you have typed in one of the anchors, you can go to '"].."|cffffc607/emove|r"..L["' and select '"]..Private.Name..L["' in the '"].."|cffffc607Config Mode|r"..L["' move the Anchors around."], 5, "medium")
+	POA.qualityOfLife.args.weakAurasAnchors.args.desc2.args.feature6 = ACH:Description(" ", 6, nil, 'Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\WeakauraAnchorDemo.tga', nil, 512, 512)
+
 	-- Tags
 	POA.tags = ACH:Group(L["Tags"], nil, 7)
 	POA.tags.icon = 'Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Icons\\tagsicon.tga'
