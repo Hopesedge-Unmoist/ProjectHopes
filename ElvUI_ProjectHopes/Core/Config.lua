@@ -329,7 +329,10 @@ function ProjectHopes:Config()
 		"threatClassic2",
 		"spy",
 		"dbm",
-		"ranker",
+		"leatrix_plus",
+		"whatstraining",
+		"novaworldbuffs",
+		"novaspellrankchecker",
 	}
 	POA.Skins.args.desc = ACH:Header(L["Skins"], 1)
 	POA.Skins.args.AddOns = ACH:Group(L["AddOns"], nil, 1)
@@ -359,11 +362,16 @@ function ProjectHopes:Config()
 	POA.Skins.args.AddOns.args.talentLoadoutsEx = ACH:Toggle(L["Talent Loadouts Ex"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.talentLoadoutsEx end,function(_, value) E.db.ProjectHopes.skins.talentLoadoutsEx = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("TalentLoadoutsEx") end)
 	POA.Skins.args.AddOns.args.choreTracker = ACH:Toggle(L["Chore Tracker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.choreTracker end,function(_, value) E.db.ProjectHopes.skins.choreTracker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("ChoreTracker") end)
 	POA.Skins.args.AddOns.args.dbm = ACH:Toggle(L["DBM"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.dbm end,function(_, value) E.db.ProjectHopes.skins.dbm = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("DBM-Core") end)
+	POA.Skins.args.AddOns.args.leatrix_plus = ACH:Toggle(L["Leatrix Plus"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.leatrix_plus end,function(_, value) E.db.ProjectHopes.skins.leatrix_plus = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Leatrix_Plus") end)
 	
 	if E.Classic then
 		POA.Skins.args.AddOns.args.threatclassic2 = ACH:Toggle(L["ThreatClassic2"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.threatClassic2 end,function(_, value) E.db.ProjectHopes.skins.threatClassic2 = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("ThreatClassic2") end)
 		POA.Skins.args.AddOns.args.spy = ACH:Toggle(L["Spy"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.spy end,function(_, value) E.db.ProjectHopes.skins.spy = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Spy") end)
 		POA.Skins.args.AddOns.args.ranker = ACH:Toggle(L["Ranker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.ranker end,function(_, value) E.db.ProjectHopes.skins.ranker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Ranker") end)
+		POA.Skins.args.AddOns.args.novaworldbuffs = ACH:Toggle(L["Nova World Buffs"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.novaworldbuffs end,function(_, value) E.db.ProjectHopes.skins.novaworldbuffs = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("NovaWorldBuffs") end)
+		POA.Skins.args.AddOns.args.novaworldbuffsposition = ACH:Toggle(L["Nova World Buffs Position"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.novaworldbuffsposition end,function(_, value) E.db.ProjectHopes.skins.novaworldbuffsposition = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("NovaWorldBuffs") end)
+		POA.Skins.args.AddOns.args.novaspellrankchecker = ACH:Toggle(L["Nova Spell Rank Checker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.novaspellrankchecker end,function(_, value) E.db.ProjectHopes.skins.novaspellrankchecker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("NovaSpellRankChecker") end)
+		POA.Skins.args.AddOns.args.whatstraining = ACH:Toggle(L["What's Training"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.whatstraining end,function(_, value) E.db.ProjectHopes.skins.whatstraining = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("WhatsTraining") end)
 	end
 
 	local blizzardskins
