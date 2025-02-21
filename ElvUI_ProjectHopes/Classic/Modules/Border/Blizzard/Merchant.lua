@@ -36,6 +36,8 @@ function S:SkinButton(i)
 	item:StripTextures(true)
 	item:CreateBackdrop("Transparent")
 	item:Size(155, 45)
+	--item.backdrop:Point("TOPLEFT", -1, 3)
+	--item.backdrop:Point("BOTTOMRIGHT", 2, -3)
 
 	button:StripTextures()
 	button:StyleButton()
@@ -53,6 +55,7 @@ function S:SkinButton(i)
 	money:ClearAllPoints()
 	money:Point("BOTTOMLEFT", button, "BOTTOMRIGHT", 3, 0)
 
+	--S:HandleMerchantItem(i)
 	S:HandleIconBorder(button.IconBorder)
 end
 
@@ -61,6 +64,16 @@ function S:UpdateMerchantPositions()
 		local button = _G["MerchantItem" .. i]
 		button:Show()
 		button:ClearAllPoints()
+
+		-- reposition buttons. 
+		_G.MerchantRepairText:ClearAllPoints()
+		_G.MerchantRepairText:SetPoint("RIGHT", _G.MerchantRepairItemButton, "LEFT", -5, 0)
+
+		_G.MerchantRepairItemButton:ClearAllPoints()
+		_G.MerchantRepairItemButton:SetPoint("RIGHT", _G.MerchantRepairAllButton, "LEFT", -5, 0)
+	
+		_G.MerchantRepairAllButton:ClearAllPoints()
+		_G.MerchantRepairAllButton:SetPoint("RIGHT", _G.MerchantBuyBackItemItemButton, "LEFT", -20, 0)
 
 		if (i % BLIZZARD_MERCHANT_ITEMS_PER_PAGE) == 1 then
 			if i == 1 then
@@ -110,6 +123,8 @@ end
 
 local function HandleIconButton(button)
 	BORDER:CreateBorder(button, nil, nil, nil, nil, nil, false, true)
+
+	--BORDER:HandleIcon(button.Icon, true)
 end
 
 function S:MerchantFrame()
@@ -177,6 +192,11 @@ function S:MerchantFrame()
 	_G.MerchantBuyBackItem.backdrop:Hide()
 
 	BORDER:HandleIconBorder(_G.MerchantBuyBackItemItemButton.IconBorder, _G.MerchantBuyBackItemItemButton.border)
+
+
+
+	print(_G.MerchantRepairAllButton:GetPoint())
+
 
 	HandleIconButton(_G.MerchantRepairItemButton)
 	HandleIconButton(_G.MerchantRepairAllButton)
