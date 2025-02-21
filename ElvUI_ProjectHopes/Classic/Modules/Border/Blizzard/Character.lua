@@ -118,6 +118,8 @@ function S:CharacterFrame()
 	BORDER:CreateBorder(_G.SkillDetailScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
 
 	BORDER:CreateBorder(_G.SkillDetailStatusBar)
+	
+	BORDER:CreateBorder(_G.SkillDetailStatusBarUnlearnButton, nil, nil, nil, nil, nil, true, true)
 
 	-- Honor Tab
 	BORDER:CreateBorder(_G.HonorFrameProgressBar)
