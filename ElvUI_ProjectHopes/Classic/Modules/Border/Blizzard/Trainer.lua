@@ -14,7 +14,7 @@ function S:Blizzard_TrainerUI()
 	local ClassTrainerFrame = _G.ClassTrainerFrame
 	BORDER:CreateBorder(ClassTrainerFrame.backdrop)
 
-	BORDER:CreateBorder(_G.ClassTrainerFrame.FilterDropdown, nil, nil, nil, nil, nil, false, true)
+	BORDER:CreateBorder(_G.ClassTrainerFrame.FilterDropdown, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(_G.ClassTrainerListScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(_G.ClassTrainerDetailScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(_G.ClassTrainerTrainButton, nil, nil, nil, nil, nil, false, true)
