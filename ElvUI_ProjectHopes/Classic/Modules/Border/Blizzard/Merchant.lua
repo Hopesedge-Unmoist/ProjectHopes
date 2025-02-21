@@ -193,11 +193,6 @@ function S:MerchantFrame()
 
 	BORDER:HandleIconBorder(_G.MerchantBuyBackItemItemButton.IconBorder, _G.MerchantBuyBackItemItemButton.border)
 
-
-
-	print(_G.MerchantRepairAllButton:GetPoint())
-
-
 	HandleIconButton(_G.MerchantRepairItemButton)
 	HandleIconButton(_G.MerchantRepairAllButton)
 	HandleIconButton(_G.MerchantGuildBankRepairButton)
