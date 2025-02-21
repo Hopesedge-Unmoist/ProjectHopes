@@ -2,7 +2,16 @@ local Name, Private = ...
 local E = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
-	'v|cff99ff3320250218|r 18/02/2025',
+	'v|cff99ff332025021|r 21/02/2025',
+	' • Added debug mode.',
+	' • Added 2 new commands, /projecthopesdebug on/off and /projecthopes to open config.',
+	' • Fixed border issues on Class Trainer (Classic)',
+	' • Fixed overlap of buttons on Gossip (Classic)',
+	' • Fixed overlap of buttons on Merchant window (Classic)',
+	' • Added missing border on profession "Unlean" button.',
+	' • TOC Update.',
+' ',
+	'v|cff99ff3320250220|r 20/02/2025',
 		' • Merchant expanded on classic.',
 		' • Added skin for ThreatClassic2.',
 		' • Added skin for Spy.',
