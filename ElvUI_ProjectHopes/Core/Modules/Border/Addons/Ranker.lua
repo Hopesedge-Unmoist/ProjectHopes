@@ -8,8 +8,9 @@ local _G = _G
 local pairs = pairs
 
 function S:Ranker()
+	if not E.db.ProjectHopes.skins.ranker then return end
+	
 	E:Delay(1, function()
-        if not E.db.ProjectHopes.skins.ranker then return end
 		--skin main frame & scrollbar
 		S:HandleFrame(_G.RankerMainFrame)
 		S:HandleScrollBar(_G.RankerMainFrameScrollBar)
@@ -41,4 +42,5 @@ function S:Ranker()
 		BORDER:CreateBorder(_G.RankerWhatIfRankList, nil, 11, 3, -10, -1)
     end)
 end
+
 S:AddCallbackForAddon("Ranker")
