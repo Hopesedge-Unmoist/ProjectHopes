@@ -10,6 +10,7 @@ function S:Leatrix_Plus()
 	if not E.db.ProjectHopes.skins.leatrix_plus then return end
 
 	E:Delay(1, function()
+		--style quest log enhancer
 		if _G.LeaPlusDB["EnhanceQuestLog"] == "On" and _G.LeaPlusDB["EnhanceQuestTaller"] == "On" then
 			--position and add border to share button
 			_G.QuestFramePushQuestButton:ClearAllPoints()
@@ -21,6 +22,11 @@ function S:Leatrix_Plus()
 			BORDER:CreateBorder(_G.LeaPlusGlobalQuestLogMapButton, nil, nil, nil, nil, nil, false, true)
 		end
 
+		--style flight map enhancer
+		if _G.LeaPlusDB["EnhanceFlightMap"] == "On" then
+			BORDER:CreateBorder(_G.TaxiMap, nil, 15, -62, -36, 80)
+		end
+		
 		--style Cloak and Helm checkboxes
 		if _G.LeaPlusDB["ShowVanityControls"] == "On" then
 			for _, checkbox in pairs({ PaperDollFrame:GetChildren() }) do
@@ -36,6 +42,7 @@ end
 function S:Blizzard_TrainerUI()
 	if not E.db.ProjectHopes.skins.leatrix_plus then return end
 
+	--style trainner enhancer
 	if _G.LeaPlusDB["EnhanceTrainers"] == "On" and _G.LeaPlusDB["ShowTrainAllBtn"] == "On" then
 		-- Position and add border to train all button
 		_G.LeaPlusGlobalTrainAllButton:ClearAllPoints()
