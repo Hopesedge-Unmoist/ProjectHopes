@@ -22,4 +22,5 @@
 	<Script file='NovaAddons.lua'/>
 	<Script file='Leatrix_Plus.lua'/>
 	<Script file='WhatsTraining.lua'/>
+	<Script file='LFGBulletinBoard.lua'/>
 </Ui>
