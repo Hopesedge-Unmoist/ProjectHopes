@@ -34,12 +34,15 @@ function S:LFGBulletinBoard()
 	GroupBulletinBoardFrameResultsFilter:Point('TOPLEFT', GroupBulletinBoardFrame, 'TOPLEFT', 140, -5)
 	BORDER:CreateBorder(GroupBulletinBoardFrameResultsFilter, nil, nil, nil, nil, nil, true, false)
 
-	--skin and position close and settings buttons (it requires elt's glues for UI-Panel-Button-X))
+	--skin and position close,settings and refresh buttons (it requires elt's glues for UI-Panel-Button-X))
 	--border can be removed if ever skinned in glues by Hopes
 	BORDER:CreateBorder(GroupBulletinBoardFrameCloseButton)
 	BORDER:CreateBorder(GroupBulletinBoardFrameSettingsButton)
+	BORDER:CreateBorder(GroupBulletinBoardFrameRefreshButton)
 	GroupBulletinBoardFrameSettingsButton:ClearAllPoints()
 	GroupBulletinBoardFrameSettingsButton:Point('BOTTOMRIGHT', GroupBulletinBoardFrameCloseButton, 'BOTTOMLEFT', -5, 0)
+	GroupBulletinBoardFrameRefreshButton:ClearAllPoints()
+	GroupBulletinBoardFrameRefreshButton:Point('BOTTOMRIGHT', GroupBulletinBoardFrameSettingsButton, 'BOTTOMLEFT', -5, 0)
 end
 
 S:AddCallbackForAddon("LFGBulletinBoard")
