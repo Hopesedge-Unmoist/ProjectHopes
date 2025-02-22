@@ -7,7 +7,7 @@ local _G = _G
 local pairs = pairs
 
 function S:LFGBulletinBoard()
-	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.lfgbulletinboard) then return end
+	if not E.db.ProjectHopes.skins.lfgbulletinboard then return end
 
 	--skin main frame
 	S:HandleFrame(GroupBulletinBoardFrame)
