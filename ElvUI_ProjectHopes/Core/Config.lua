@@ -334,6 +334,7 @@ function ProjectHopes:Config()
 		"whatstraining",
 		"novaworldbuffs",
 		"novaspellrankchecker",
+		"lfgbulletinboard",
 	}
 	POA.Skins.args.desc = ACH:Header(L["Skins"], 1)
 	POA.Skins.args.AddOns = ACH:Group(L["AddOns"], nil, 1)
@@ -373,6 +374,7 @@ function ProjectHopes:Config()
 		POA.Skins.args.AddOns.args.novaworldbuffsposition = ACH:Toggle(L["Nova World Buffs Position"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.novaworldbuffsposition end,function(_, value) E.db.ProjectHopes.skins.novaworldbuffsposition = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("NovaWorldBuffs") or not E.db.ProjectHopes.skins.novaworldbuffs end)
 		POA.Skins.args.AddOns.args.novaspellrankchecker = ACH:Toggle(L["Nova Spell Rank Checker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.novaspellrankchecker end,function(_, value) E.db.ProjectHopes.skins.novaspellrankchecker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("NovaSpellRankChecker") end)
 		POA.Skins.args.AddOns.args.whatstraining = ACH:Toggle(L["What's Training"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.whatstraining end,function(_, value) E.db.ProjectHopes.skins.whatstraining = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("WhatsTraining") end)
+		POA.Skins.args.AddOns.args.lfgbulletinboard = ACH:Toggle(L["LFG Group Bulletin Board"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.lfgbulletinboard end,function(_, value) E.db.ProjectHopes.skins.lfgbulletinboard = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("LFGBulletinBoard") end)
 	end
 
 	local blizzardskins
