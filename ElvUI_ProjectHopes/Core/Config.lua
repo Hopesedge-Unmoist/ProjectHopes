@@ -336,6 +336,7 @@ function ProjectHopes:Config()
 		"novaspellrankchecker",
 		"lfgbulletinboard",
 		"openall",
+		"rxpguides"
 	}
 	POA.Skins.args.desc = ACH:Header(L["Skins"], 1)
 	POA.Skins.args.AddOns = ACH:Group(L["AddOns"], nil, 1)
@@ -367,6 +368,7 @@ function ProjectHopes:Config()
 	POA.Skins.args.AddOns.args.dbm = ACH:Toggle(L["DBM"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.dbm end,function(_, value) E.db.ProjectHopes.skins.dbm = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("DBM-Core") end)
 	POA.Skins.args.AddOns.args.leatrix_plus = ACH:Toggle(L["Leatrix Plus"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.leatrix_plus end,function(_, value) E.db.ProjectHopes.skins.leatrix_plus = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Leatrix_Plus") end)
 	POA.Skins.args.AddOns.args.openall = ACH:Toggle(L["Open All"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.openall end,function(_, value) E.db.ProjectHopes.skins.openall = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("OpenAll") end)
+	POA.Skins.args.AddOns.args.rxpguidesah = ACH:Toggle(L["RXPGuides Auctionhouse"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.rxpguidesah end,function(_, value) E.db.ProjectHopes.skins.rxpguidesah = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("RXPGuides") end)
 
 	if E.Classic then
 		POA.Skins.args.AddOns.args.threatclassic2 = ACH:Toggle(L["ThreatClassic2"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.threatClassic2 end,function(_, value) E.db.ProjectHopes.skins.threatClassic2 = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("ThreatClassic2") end)
