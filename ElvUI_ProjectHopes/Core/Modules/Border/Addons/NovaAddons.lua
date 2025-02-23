@@ -18,7 +18,7 @@ function S:NovaSpellRankChecker()
 
 	--handle Nova Spell Rank Checker position
 	_G.SpellBookFrameButton:ClearAllPoints()
-	_G.SpellBookFrameButton:Point('BOTTOMLEFT', SpellBookFrame, 'BOTTOMLEFT', 25, 100)
+	_G.SpellBookFrameButton:Point('BOTTOMLEFT', _G.SpellBookFrame, 'BOTTOMLEFT', 25, 100)
 end
 
 function S:NovaWorldBuffs()
@@ -35,11 +35,11 @@ function S:NovaWorldBuffs()
 		if E.db.ProjectHopes.skins.novaworldbuffsposition then
 			if E.db.ProjectHopes.minimap.Rectangle then
 				_G.MinimapLayerFrame:ClearAllPoints()
-				_G.MinimapLayerFrame:Point('TOPRIGHT', Minimap, 1, -16)
+				_G.MinimapLayerFrame:Point('TOPRIGHT', _G.Minimap, 1, -16)
 				_G.MinimapLayerFrame:SetMovable(false)
 			else
 				_G.MinimapLayerFrame:ClearAllPoints()
-				_G.MinimapLayerFrame:Point('TOPRIGHT', Minimap, 1, 27)
+				_G.MinimapLayerFrame:Point('TOPRIGHT', _G.Minimap, 1, 27)
 				_G.MinimapLayerFrame:SetMovable(false)
 			end
 		end
