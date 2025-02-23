@@ -19,4 +19,9 @@
 	<Script file='ThreatClassic2.lua'/>
 	<Script file='Spy.lua'/>
 	<Script file='DBM.lua'/>
+	<Script file='NovaAddons.lua'/>
+	<Script file='Leatrix_Plus.lua'/>
+	<Script file='WhatsTraining.lua'/>
+	<Script file='LFGBulletinBoard.lua'/>
+	<Script file='OpenAll.lua'/>
 </Ui>
