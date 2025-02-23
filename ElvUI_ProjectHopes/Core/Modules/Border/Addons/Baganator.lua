@@ -34,7 +34,7 @@ function S:Baganator()
 			if frame.widgetContainer then
 				frame.widgetContainer:SetFrameLevel(13)
 			end
-			
+
 			BORDER:CreateBorder(frame.backdrop)
 			BORDER:HandleIconBorder(frame.IconBorder, frame.backdrop.border)
 		end,
@@ -80,10 +80,46 @@ function S:Baganator()
           func(details.region, details.tags and ConvertTags(details.tags) or {})
         end
     end
-	
+
     for _, details in ipairs(Baganator.API.Skins.GetAllFrames()) do
       SkinFrame(details)
     end
+
+	-- Reposition Category View Buttons
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton:ClearAllPoints()
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton:Point('TOPLEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui, 'TOPLEFT', 4, -2)
+
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters:ClearAllPoints()
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters:Point('LEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton, 'RIGHT', 4, 0)
+
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBagSlotsButton:ClearAllPoints()
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters, 'RIGHT', 4, 0)
+
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton:ClearAllPoints()
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvuiCloseButton, 'LEFT', -2, -2)
+
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.SortButton:ClearAllPoints()
+	_G.Baganator_CategoryViewBackpackViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
+
+	--cant make this work, need your help Hopes
+	--_G.Baganator_CategoryViewBackpackViewFrameelvui.CurrencyButton:ClearAllPoints()
+	--_G.Baganator_CategoryViewBackpackViewFrameelvui.CurrencyButton:Point('BOTTOMRIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui, 'BOTTOMLEFT', 2, 5)
+
+	-- Repoistion Single View Buttons
+	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton:ClearAllPoints()
+	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton:Point('TOPLEFT', _G.Baganator_SingleViewBackpackViewFrameelvui, 'TOPLEFT', 4, -2)
+
+	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters:ClearAllPoints()
+	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters:Point('LEFT', _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton, 'RIGHT', 4, 0)
+
+	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBagSlotsButton:ClearAllPoints()
+	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters, 'RIGHT', 4, 0)
+
+	_G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton:ClearAllPoints()
+	_G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvuiCloseButton, 'LEFT', -2, -2)
+
+	_G.Baganator_SingleViewBackpackViewFrameelvui.SortButton:ClearAllPoints()
+	_G.Baganator_SingleViewBackpackViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
 
     Baganator.API.Skins.RegisterListener(SkinFrame)
 	
