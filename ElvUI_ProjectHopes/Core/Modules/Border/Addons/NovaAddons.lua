@@ -18,7 +18,7 @@ function S:NovaSpellRankChecker()
 
 	--handle Nova Spell Rank Checker position
 	_G.SpellBookFrameButton:ClearAllPoints()
-	_G.SpellBookFrameButton:Point('BOTTOMLEFT', SpellBookFrame, 'BOTTOMLEFT', 25, 100)
+	_G.SpellBookFrameButton:Point('BOTTOMLEFT', _G.SpellBookFrame, 'BOTTOMLEFT', 25, 100)
 end
 
 function S:NovaWorldBuffs()
