@@ -113,6 +113,10 @@ function S:MailFrame()
 	BORDER:CreateBorder(_G.SendMailMailButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.SendMailCancelButton, nil, nil, nil, nil, nil, false, true)
 
+	-- Reposition send mail button
+	S:HandleButton(_G.SendMailMailButton)
+	_G.SendMailMailButton:Point('RIGHT', _G.SendMailCancelButton, 'LEFT', -4, 0)
+	
 	-- Open Mail Frame
 	local OpenMailFrame = _G.OpenMailFrame
 	BORDER:CreateBorder(OpenMailFrame.backdrop)
