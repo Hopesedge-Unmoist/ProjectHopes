@@ -44,7 +44,8 @@ function S:Blizzard_InspectUI()
 
 	-- Honor Frame
 	local InspectHonorFrame = _G.InspectHonorFrame
-	BORDER:CreateBorder(InspectHonorFrame, nil, nil, nil, nil, nil, true, false)
+	--ORDER:CreateBorder(InspectHonorFrame, nil, nil, nil, nil, nil, true, false)
+	InspectHonorFrame.backdrop:Kill()
 
 	local InspectHonorFrameProgressBar = _G.InspectHonorFrameProgressBar
 	BORDER:CreateBorder(InspectHonorFrameProgressBar, nil, nil, nil, nil, nil, false, false)

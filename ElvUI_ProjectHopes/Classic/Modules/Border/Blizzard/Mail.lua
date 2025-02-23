@@ -93,6 +93,8 @@ function S:MailFrame()
 	end
 
 	-- Reposition Tabs
+	_G.MailFrameTab1:ClearAllPoints()
+	_G.MailFrameTab2:ClearAllPoints()
 	_G.MailFrameTab1:Point('TOPLEFT', _G.MailFrame, 'BOTTOMLEFT', -15, -5)
 	_G.MailFrameTab2:Point('TOPLEFT', _G.MailFrameTab1, 'TOPRIGHT', -14, 0)
 
@@ -113,6 +115,10 @@ function S:MailFrame()
 	BORDER:CreateBorder(_G.SendMailMailButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.SendMailCancelButton, nil, nil, nil, nil, nil, false, true)
 
+	-- Reposition send mail button
+	S:HandleButton(_G.SendMailMailButton)
+	_G.SendMailMailButton:Point('RIGHT', _G.SendMailCancelButton, 'LEFT', -4, 0)
+	
 	-- Open Mail Frame
 	local OpenMailFrame = _G.OpenMailFrame
 	BORDER:CreateBorder(OpenMailFrame.backdrop)
@@ -145,6 +151,14 @@ function S:MailFrame()
 	BORDER:CreateBorder(_G.OpenMailDeleteButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.OpenMailCancelButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.OpenMailScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
+
+	-- Repositions
+	_G.OpenMailReplyButton:ClearAllPoints()
+	_G.OpenMailReplyButton:Point('RIGHT', _G.OpenMailDeleteButton, 'LEFT', -4, 0)
+
+	_G.OpenMailDeleteButton:ClearAllPoints()
+	_G.OpenMailDeleteButton:Point('RIGHT', _G.OpenMailCancelButton, 'LEFT', -4, 0)
+
 end
 
 S:AddCallback('MailFrame')

@@ -30,16 +30,16 @@ local MAX_REQUIRED_ITEMS = MAX_REQUIRED_ITEMS
 local function handleItemButton(item, text, link)
 	if not item then return end
 	item:SetBackdrop()
-	
+
 	if item.Icon then
 		BORDER:HandleIcon(item.Icon, true)
 	end
-	
+
 	if item.IconBorder then
 		BORDER:HandleIconBorder(item.IconBorder, item.Icon.backdrop.border)
 	end
-	
-	if link then 
+
+	if link then
 		local quality = GetItemQualityByID(link or 0)
 		if quality and quality > 1 then
 			local r, g, b = GetItemQualityColor(quality)
@@ -176,6 +176,16 @@ function S:BlizzardQuestFrames()
 	_G.QuestProgressScrollFrame.backdrop:SetBackdrop()
 	_G.QuestGreetingScrollFrame.backdrop:SetBackdrop()
 
+	-- Repositions
+	_G.QuestLogFrameAbandonButton:Width(108)
+	_G.QuestFramePushQuestButton:Width(108)
+	_G.QuestFrameExitButton:Width(108)
+
+	_G.QuestFramePushQuestButton:ClearAllPoints()
+	_G.QuestFramePushQuestButton:Point('RIGHT', _G.QuestFrameExitButton, 'LEFT', -5, 0)
+
+	_G.QuestLogFrameAbandonButton:ClearAllPoints()
+	_G.QuestLogFrameAbandonButton:Point('RIGHT', _G.QuestFramePushQuestButton, 'LEFT', -5, 0)
 end
 
 S:AddCallback('BlizzardQuestFrames')
