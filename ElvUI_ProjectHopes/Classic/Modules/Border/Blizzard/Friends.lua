@@ -117,6 +117,9 @@ function S:FriendsFrame()
 	BORDER:CreateBorder(_G.GuildFrameGuildInformationButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.GuildFrameAddMemberButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.GuildFrameControlButton, nil, nil, nil, nil, nil, false, true)
+	BORDER:CreateBorder(_G.GuildMOTDEditButton, nil, nil, nil, nil, nil, true, true)
+	BORDER:CreateBorder(_G.GuildMemberDetailFrame, nil, nil, nil, nil, nil, true, true)
+	BORDER:CreateBorder(_G.GuildFrameLFGFrame, nil, nil, nil, nil, nil, true, true)
 
 	if _G.GuildFrameImpeachButton then
 		BORDER:CreateBorder(_G.GuildFrameImpeachButton, nil, nil, nil, nil, nil, false, true)
@@ -151,6 +154,24 @@ function S:FriendsFrame()
 
 	-- Raid Info Frame
 	BORDER:CreateBorder(_G.RaidInfoScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
+
+	-- Repositions
+	_G.GuildFrameGuildInformationButton:Width(108)
+	_G.GuildFrameAddMemberButton:Width(108)
+	_G.GuildFrameControlButton:Width(108)
+
+	_G.GuildFrameAddMemberButton:ClearAllPoints()
+	_G.GuildFrameAddMemberButton:Point('RIGHT', _G.GuildFrameControlButton, 'LEFT', -5, 0)
+
+	_G.GuildFrameGuildInformationButton:ClearAllPoints()
+	_G.GuildFrameGuildInformationButton:Point('RIGHT', _G.GuildFrameAddMemberButton, 'LEFT', -5, 0)
+
+	_G.GuildMemberRemoveButton:Width(98)
+	_G.GuildMemberGroupInviteButton:Width(98)
+	_G.GuildMemberRemoveButton:Point('BOTTOMLEFT', 5, 5)
+	_G.GuildMemberGroupInviteButton:ClearAllPoints()
+	_G.GuildMemberGroupInviteButton:Point('LEFT', _G.GuildMemberRemoveButton, 'RIGHT', 6, 0)
+
 end
 
 S:AddCallback('FriendsFrame')
