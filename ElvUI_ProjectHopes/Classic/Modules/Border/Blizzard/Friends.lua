@@ -172,6 +172,15 @@ function S:FriendsFrame()
 	_G.GuildMemberGroupInviteButton:ClearAllPoints()
 	_G.GuildMemberGroupInviteButton:Point('LEFT', _G.GuildMemberRemoveButton, 'RIGHT', 6, 0)
 
+	_G.WhoFrameWhoButton:Width(108)
+	_G.WhoFrameAddFriendButton:Width(108)
+	_G.WhoFrameGroupInviteButton:Width(108)
+
+	_G.WhoFrameAddFriendButton:ClearAllPoints()
+	_G.WhoFrameAddFriendButton:Point('RIGHT', _G.WhoFrameGroupInviteButton, 'LEFT', -5, 0)
+
+	_G.WhoFrameWhoButton:ClearAllPoints()
+	_G.WhoFrameWhoButton:Point('RIGHT', _G.WhoFrameAddFriendButton, 'LEFT', -5, 0)
 end
 
 S:AddCallback('FriendsFrame')
