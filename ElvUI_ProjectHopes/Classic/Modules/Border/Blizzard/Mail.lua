@@ -149,6 +149,14 @@ function S:MailFrame()
 	BORDER:CreateBorder(_G.OpenMailDeleteButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.OpenMailCancelButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.OpenMailScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
+
+	-- Repositions
+	S:HandleButton(_G.OpenMailReplyButton)
+	_G.OpenMailReplyButton:Point('RIGHT', _G.OpenMailDeleteButton, 'LEFT', -4, 0)
+
+	S:HandleButton(_G.OpenMailDeleteButton)
+	_G.OpenMailDeleteButton:Point('RIGHT', _G.OpenMailCancelButton, 'LEFT', -4, 0)
+
 end
 
 S:AddCallback('MailFrame')
