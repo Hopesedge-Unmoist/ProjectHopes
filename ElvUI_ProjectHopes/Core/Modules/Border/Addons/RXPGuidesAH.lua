@@ -7,7 +7,7 @@ local _G = _G
 local pairs = pairs
 
 function S:RXPGuides()
-	if not E.db.ProjectHopes.skins.rxpguidesah then return end
+	if not E.db.ProjectHopes.skins.rxpguides then return end
 
 	_G.RXP_IU_AH_SearchButton:StripTextures()
 	_G.RXP_IU_AH_BuyButton:StripTextures()
