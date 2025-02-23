@@ -93,6 +93,8 @@ function S:MailFrame()
 	end
 
 	-- Reposition Tabs
+	_G.MailFrameTab1:ClearAllPoints()
+	_G.MailFrameTab2:ClearAllPoints()
 	_G.MailFrameTab1:Point('TOPLEFT', _G.MailFrame, 'BOTTOMLEFT', -15, -5)
 	_G.MailFrameTab2:Point('TOPLEFT', _G.MailFrameTab1, 'TOPRIGHT', -14, 0)
 
@@ -151,10 +153,10 @@ function S:MailFrame()
 	BORDER:CreateBorder(_G.OpenMailScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
 
 	-- Repositions
-	S:HandleButton(_G.OpenMailReplyButton)
+	_G.OpenMailReplyButton:ClearAllPoints()
 	_G.OpenMailReplyButton:Point('RIGHT', _G.OpenMailDeleteButton, 'LEFT', -4, 0)
 
-	S:HandleButton(_G.OpenMailDeleteButton)
+	_G.OpenMailDeleteButton:ClearAllPoints()
 	_G.OpenMailDeleteButton:Point('RIGHT', _G.OpenMailCancelButton, 'LEFT', -4, 0)
 
 end
