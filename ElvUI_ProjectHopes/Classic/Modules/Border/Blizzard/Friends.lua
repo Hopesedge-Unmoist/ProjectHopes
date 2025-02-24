@@ -133,6 +133,8 @@ function S:FriendsFrame()
 	BORDER:CreateBorder(_G.GuildInfoFrameScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(_G.GuildInfoSaveButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.GuildInfoCancelButton, nil, nil, nil, nil, nil, false, true)
+	BORDER:CreateBorder(_G.GuildInfoFrame, nil, nil, nil, nil, nil, true, true)
+	BORDER:CreateBorder(_G.GuildInfoTextBackground, nil, nil, nil, nil, nil, false, true)
 
 	-- Guild Control Frame (Guild Master Only)
 	BORDER:CreateBorder(_G.GuildControlPopupFrameDropdown, nil, nil, nil, nil, nil, true, true)

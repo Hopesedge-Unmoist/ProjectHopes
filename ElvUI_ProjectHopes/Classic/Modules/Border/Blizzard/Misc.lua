@@ -146,6 +146,7 @@ function S:BlizzardMiscFrames()
 	BORDER:CreateBorder(ColorPPBoxG, nil, nil, nil, nil, nil, true)
 	BORDER:CreateBorder(ColorPPBoxB, nil, nil, nil, nil, nil, true)
 	BORDER:CreateBorder(ColorPPBoxA, nil, nil, nil, nil, nil, true)
+	BORDER:CreateBorder(ColorPPBoxH, nil, nil, nil, nil, nil, true)
 	
 	BORDER:CreateBorder(ColorPPCopy, nil, -7, 7, 7, -7, false, true)
 	ColorPPCopy:SetBackdrop('')

@@ -114,10 +114,6 @@ function S:MailFrame()
 
 	BORDER:CreateBorder(_G.SendMailMailButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.SendMailCancelButton, nil, nil, nil, nil, nil, false, true)
-
-	-- Reposition send mail button
-	S:HandleButton(_G.SendMailMailButton)
-	_G.SendMailMailButton:Point('RIGHT', _G.SendMailCancelButton, 'LEFT', -4, 0)
 	
 	-- Open Mail Frame
 	local OpenMailFrame = _G.OpenMailFrame
@@ -153,6 +149,9 @@ function S:MailFrame()
 	BORDER:CreateBorder(_G.OpenMailScrollFrameScrollBar, nil, nil, nil, nil, nil, true, true)
 
 	-- Repositions
+	_G.SendMailMailButton:ClearAllPoints()
+	_G.SendMailMailButton:Point('RIGHT', _G.SendMailCancelButton, 'LEFT', -4, 0)
+
 	_G.OpenMailReplyButton:ClearAllPoints()
 	_G.OpenMailReplyButton:Point('RIGHT', _G.OpenMailDeleteButton, 'LEFT', -4, 0)
 

@@ -24,4 +24,5 @@
 	<Script file='WhatsTraining.lua'/>
 	<Script file='LFGBulletinBoard.lua'/>
 	<Script file='OpenAll.lua'/>
+	<Script file='RXPGuidesAH.lua'/>
 </Ui>
