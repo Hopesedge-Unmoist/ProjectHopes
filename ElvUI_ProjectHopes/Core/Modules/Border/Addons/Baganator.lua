@@ -10,6 +10,8 @@ local pairs = pairs
 local type = type
 local unpack = unpack
 
+local Baganator = Baganator
+
 local function ConvertTags(tags)
 	local res = {}
 	for _, tag in ipairs(tags) do
@@ -19,7 +21,6 @@ local function ConvertTags(tags)
 end
 
 function S:Baganator()
-
 	if not E.db.ProjectHopes.skins.Baganator then return end
 
 	local skinners = {
@@ -39,10 +40,11 @@ function S:Baganator()
 			BORDER:HandleIconBorder(frame.IconBorder, frame.backdrop.border)
 		end,
 		IconButton = function(frame)
-			BORDER:CreateBorder(frame, nil, nil, nil, nil, nil, false, true)
+			BORDER:CreateBorder(frame, nil, -5, 6, 5, -6, false, true)
+      frame:SetBackdrop(nil)
 		end,
 		Button = function(frame)
-			BORDER:CreateBorder(frame, nil, nil, nil, nil, nil, false, true)
+		  BORDER:CreateBorder(frame, nil, nil, nil, nil, nil, false, true)
 		end,
 		ButtonFrame = function(frame)
 			BORDER:CreateBorder(frame)
@@ -64,7 +66,6 @@ function S:Baganator()
 		end,
 		TrimScrollBar = function(frame)
 			BORDER:CreateBorder(frame.Track.Thumb, nil, nil, nil, nil, nil, false, true)
-
 		end,
 		CheckBox = function(frame)
 			BORDER:CreateBorder(frame, nil, nil, nil, nil, nil, true, true)
@@ -74,97 +75,18 @@ function S:Baganator()
 		end,
 	}
 
-    local function SkinFrame(details)
-        local func = skinners[details.regionType]
-        if func then
-          func(details.region, details.tags and ConvertTags(details.tags) or {})
-        end
-    end
+  local function SkinFrame(details)
+      local func = skinners[details.regionType]
+      if func then
+        func(details.region, details.tags and ConvertTags(details.tags) or {})
+      end
+  end
 
-    for _, details in ipairs(Baganator.API.Skins.GetAllFrames()) do
-      SkinFrame(details)
-    end
+  for _, details in ipairs(Baganator.API.Skins.GetAllFrames()) do
+    SkinFrame(details)
+  end
 
-    -- Reposition Category Backpack View Buttons
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton:ClearAllPoints()
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton:Point('TOPLEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui, 'TOPLEFT', 4, -2)
-
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters:ClearAllPoints()
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters:Point('LEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton, 'RIGHT', 4, 0)
-
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBagSlotsButton:ClearAllPoints()
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters, 'RIGHT', 4, 0)
-
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton:ClearAllPoints()
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvuiCloseButton, 'LEFT', -2, -2)
-
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.SortButton:ClearAllPoints()
-    _G.Baganator_CategoryViewBackpackViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
-
-    --cant make this work, need your help Hopes --TransferButton
-    --_G.Baganator_CategoryViewBackpackViewFrameelvui.TransferButton:ClearAllPoints()
-    --_G.Baganator_CategoryViewBackpackViewFrameelvui.TransferButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
-
-    --cant make this work, need your help Hopes --CurrencyButton
-    --_G.Baganator_CategoryViewBackpackViewFrameelvui.CurrencyButton:ClearAllPoints()
-    --_G.Baganator_CategoryViewBackpackViewFrameelvui.CurrencyButton:Point('BOTTOMRIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui, 'BOTTOMLEFT', 2, 5)
-
-    -- Repoistion Single Backpack View Buttons
-    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton:ClearAllPoints()
-    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton:Point('TOPLEFT', _G.Baganator_SingleViewBackpackViewFrameelvui, 'TOPLEFT', 4, -2)
-
-    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters:ClearAllPoints()
-    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters:Point('LEFT', _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton, 'RIGHT', 4, 0)
-
-    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBagSlotsButton:ClearAllPoints()
-    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters, 'RIGHT', 4, 0)
-
-    _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton:ClearAllPoints()
-    _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvuiCloseButton, 'LEFT', -2, -2)
-
-    _G.Baganator_SingleViewBackpackViewFrameelvui.SortButton:ClearAllPoints()
-    _G.Baganator_SingleViewBackpackViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
-
-    --cant make this work, need your help Hopes --TransferButton
-    --_G.Baganator_SingleViewBackpackViewFrameelvui.TransferButton:ClearAllPoints()
-    --_G.Baganator_SingleViewBackpackViewFrameelvui.TransferButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
-
-    -- Reposition Category Bank View Buttons
-    _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleAllCharacters:ClearAllPoints()
-    _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleAllCharacters:Point('TOPLEFT', _G.Baganator_CategoryViewBankViewFrameelvui, 'TOPLEFT', 4, -2)
-
-    _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleBagSlotsButton:ClearAllPoints()
-    _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleAllCharacters, 'RIGHT', 4, 0)
-
-    _G.Baganator_CategoryViewBankViewFrameelvui.CustomiseButton:ClearAllPoints()
-    _G.Baganator_CategoryViewBankViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_CategoryViewBankViewFrameelvuiCloseButton, 'LEFT', -2, -2)
-
-    _G.Baganator_CategoryViewBankViewFrameelvui.SortButton:ClearAllPoints()
-    _G.Baganator_CategoryViewBankViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_CategoryViewBankViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
-
-    --cant make this work, need your help Hopes --TransferButton
-    --_G.Baganator_CategoryViewBankViewFrameelvui.TransferButton:ClearAllPoints()
-    --_G.Baganator_CategoryViewBankViewFrameelvui.TransferButton:Point('RIGHT', _G.Baganator_CategoryViewBankViewFrameelvui.SortButton, 'LEFT', -4, 0)
-
-    -- Reposition Single Bank View Buttons
-    _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleAllCharacters:ClearAllPoints()
-    _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleAllCharacters:Point('TOPLEFT', _G.Baganator_SingleViewBankViewFrameelvui, 'TOPLEFT', 4, -2)
-
-    _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleBagSlotsButton:ClearAllPoints()
-    _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleAllCharacters, 'RIGHT', 4, 0)
-
-    _G.Baganator_SingleViewBankViewFrameelvui.CustomiseButton:ClearAllPoints()
-    _G.Baganator_SingleViewBankViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_SingleViewBankViewFrameelvuiCloseButton, 'LEFT', -2, -2)
-
-    _G.Baganator_SingleViewBankViewFrameelvui.SortButton:ClearAllPoints()
-    _G.Baganator_SingleViewBankViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_SingleViewBankViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
-
-    --cant make this work, need your help Hopes --TransferButton
-    --_G.Baganator_SingleViewBankViewFrameelvui.TransferButton:ClearAllPoints()
-    --_G.Baganator_SingleViewBankViewFrameelvui.TransferButton:Point('RIGHT', _G.Baganator_SingleViewBankViewFrameelvui.SortButton, 'LEFT', -4, 0)
-
-    Baganator.API.Skins.RegisterListener(SkinFrame)
-	
+  Baganator.API.Skins.RegisterListener(SkinFrame)
 end
 
 
