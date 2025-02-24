@@ -85,41 +85,83 @@ function S:Baganator()
       SkinFrame(details)
     end
 
-	-- Reposition Category View Buttons
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton:ClearAllPoints()
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton:Point('TOPLEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui, 'TOPLEFT', 4, -2)
+    -- Reposition Category Backpack View Buttons
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton:ClearAllPoints()
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton:Point('TOPLEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui, 'TOPLEFT', 4, -2)
 
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters:ClearAllPoints()
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters:Point('LEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton, 'RIGHT', 4, 0)
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters:ClearAllPoints()
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters:Point('LEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBankButton, 'RIGHT', 4, 0)
 
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBagSlotsButton:ClearAllPoints()
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters, 'RIGHT', 4, 0)
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBagSlotsButton:ClearAllPoints()
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_CategoryViewBackpackViewFrameelvui.ToggleAllCharacters, 'RIGHT', 4, 0)
 
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton:ClearAllPoints()
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvuiCloseButton, 'LEFT', -2, -2)
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton:ClearAllPoints()
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvuiCloseButton, 'LEFT', -2, -2)
 
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.SortButton:ClearAllPoints()
-	_G.Baganator_CategoryViewBackpackViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.SortButton:ClearAllPoints()
+    _G.Baganator_CategoryViewBackpackViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
 
-	--cant make this work, need your help Hopes
-	--_G.Baganator_CategoryViewBackpackViewFrameelvui.CurrencyButton:ClearAllPoints()
-	--_G.Baganator_CategoryViewBackpackViewFrameelvui.CurrencyButton:Point('BOTTOMRIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui, 'BOTTOMLEFT', 2, 5)
+    --cant make this work, need your help Hopes --TransferButton
+    --_G.Baganator_CategoryViewBackpackViewFrameelvui.TransferButton:ClearAllPoints()
+    --_G.Baganator_CategoryViewBackpackViewFrameelvui.TransferButton:Point('RIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
 
-	-- Repoistion Single View Buttons
-	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton:ClearAllPoints()
-	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton:Point('TOPLEFT', _G.Baganator_SingleViewBackpackViewFrameelvui, 'TOPLEFT', 4, -2)
+    --cant make this work, need your help Hopes --CurrencyButton
+    --_G.Baganator_CategoryViewBackpackViewFrameelvui.CurrencyButton:ClearAllPoints()
+    --_G.Baganator_CategoryViewBackpackViewFrameelvui.CurrencyButton:Point('BOTTOMRIGHT', _G.Baganator_CategoryViewBackpackViewFrameelvui, 'BOTTOMLEFT', 2, 5)
 
-	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters:ClearAllPoints()
-	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters:Point('LEFT', _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton, 'RIGHT', 4, 0)
+    -- Repoistion Single Backpack View Buttons
+    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton:ClearAllPoints()
+    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton:Point('TOPLEFT', _G.Baganator_SingleViewBackpackViewFrameelvui, 'TOPLEFT', 4, -2)
 
-	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBagSlotsButton:ClearAllPoints()
-	_G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters, 'RIGHT', 4, 0)
+    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters:ClearAllPoints()
+    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters:Point('LEFT', _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBankButton, 'RIGHT', 4, 0)
 
-	_G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton:ClearAllPoints()
-	_G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvuiCloseButton, 'LEFT', -2, -2)
+    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBagSlotsButton:ClearAllPoints()
+    _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_SingleViewBackpackViewFrameelvui.ToggleAllCharacters, 'RIGHT', 4, 0)
 
-	_G.Baganator_SingleViewBackpackViewFrameelvui.SortButton:ClearAllPoints()
-	_G.Baganator_SingleViewBackpackViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
+    _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton:ClearAllPoints()
+    _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvuiCloseButton, 'LEFT', -2, -2)
+
+    _G.Baganator_SingleViewBackpackViewFrameelvui.SortButton:ClearAllPoints()
+    _G.Baganator_SingleViewBackpackViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
+
+    --cant make this work, need your help Hopes --TransferButton
+    --_G.Baganator_SingleViewBackpackViewFrameelvui.TransferButton:ClearAllPoints()
+    --_G.Baganator_SingleViewBackpackViewFrameelvui.TransferButton:Point('RIGHT', _G.Baganator_SingleViewBackpackViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
+
+    -- Reposition Category Bank View Buttons
+    _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleAllCharacters:ClearAllPoints()
+    _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleAllCharacters:Point('TOPLEFT', _G.Baganator_CategoryViewBankViewFrameelvui, 'TOPLEFT', 4, -2)
+
+    _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleBagSlotsButton:ClearAllPoints()
+    _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_CategoryViewBankViewFrameelvui.Character.ToggleAllCharacters, 'RIGHT', 4, 0)
+
+    _G.Baganator_CategoryViewBankViewFrameelvui.CustomiseButton:ClearAllPoints()
+    _G.Baganator_CategoryViewBankViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_CategoryViewBankViewFrameelvuiCloseButton, 'LEFT', -2, -2)
+
+    _G.Baganator_CategoryViewBankViewFrameelvui.SortButton:ClearAllPoints()
+    _G.Baganator_CategoryViewBankViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_CategoryViewBankViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
+
+    --cant make this work, need your help Hopes --TransferButton
+    --_G.Baganator_CategoryViewBankViewFrameelvui.TransferButton:ClearAllPoints()
+    --_G.Baganator_CategoryViewBankViewFrameelvui.TransferButton:Point('RIGHT', _G.Baganator_CategoryViewBankViewFrameelvui.SortButton, 'LEFT', -4, 0)
+
+    -- Reposition Single Bank View Buttons
+    _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleAllCharacters:ClearAllPoints()
+    _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleAllCharacters:Point('TOPLEFT', _G.Baganator_SingleViewBankViewFrameelvui, 'TOPLEFT', 4, -2)
+
+    _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleBagSlotsButton:ClearAllPoints()
+    _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleBagSlotsButton:Point('LEFT', _G.Baganator_SingleViewBankViewFrameelvui.Character.ToggleAllCharacters, 'RIGHT', 4, 0)
+
+    _G.Baganator_SingleViewBankViewFrameelvui.CustomiseButton:ClearAllPoints()
+    _G.Baganator_SingleViewBankViewFrameelvui.CustomiseButton:Point('RIGHT', _G.Baganator_SingleViewBankViewFrameelvuiCloseButton, 'LEFT', -2, -2)
+
+    _G.Baganator_SingleViewBankViewFrameelvui.SortButton:ClearAllPoints()
+    _G.Baganator_SingleViewBankViewFrameelvui.SortButton:Point('RIGHT', _G.Baganator_SingleViewBankViewFrameelvui.CustomiseButton, 'LEFT', -4, 0)
+
+    --cant make this work, need your help Hopes --TransferButton
+    --_G.Baganator_SingleViewBankViewFrameelvui.TransferButton:ClearAllPoints()
+    --_G.Baganator_SingleViewBankViewFrameelvui.TransferButton:Point('RIGHT', _G.Baganator_SingleViewBankViewFrameelvui.SortButton, 'LEFT', -4, 0)
 
     Baganator.API.Skins.RegisterListener(SkinFrame)
 	
