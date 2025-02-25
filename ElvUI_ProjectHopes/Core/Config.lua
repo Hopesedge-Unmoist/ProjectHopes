@@ -17,7 +17,7 @@ local MiniMapButtonSelect = {NOANCHOR = 'No Anchor Bar', HORIZONTAL = 'Horizonta
 local MiniMapButtonDirection = {NORMAL = 'Normal', REVERSED = 'Reversed'}
 local PORTRAITANCHORPOINT = {RIGHT = 'Right', LEFT, 'Right'}
 
-local SPECIALTHANKS = { '|cffffc607Ayije|r', '|cff14b4d3Jiberish|r' }
+local SPECIALTHANKS = { '|cffffc607Ayije|r', '|cff14b4d3Jiberish|r', E:TextGradient('Angelos', 0.7, 0.3, 1, 1, 0.9, 0.2), }
 local PLUGINSUPPORT = { 
 	'|cffa207faRepooc|r',
 	E:TextGradient('Simpy but my name needs to be longer.', 0.18,1.00,0.49, 0.32,0.85,1.00, 0.55,0.38,0.85, 1.00,0.55,0.71, 1.00,0.68,0.32), 
@@ -26,6 +26,8 @@ local PLUGINSUPPORT = {
 	'|cff919191Toxi|r', 
 	'|cff919191fang2shou|r',
 	'|cffc4c9ceBlinkii|r',
+	'|cffdb171eTrenchy|r',
+	
 }
 
 local function CheckRaid()
@@ -307,289 +309,202 @@ function ProjectHopes:Config()
 	-- Skins
 	POA.Skins = ACH:Group(L["Skins"], nil, 5, 'tab')
 	POA.Skins.icon = 'Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Icons\\skinicon.tga'
-
-	local addonskins = {
-		"warpdeplete",
-		"bigwigsqueue",
-		"auctionator",
-		"bugsack",
-		"raiderio",
-		"omnicd",
-		"rareScanner",
-		"hekili",
-		"weakAurasOptions",
-		"simulationcraft",
-		"Baganator",
-		"details",
-		"detailsresize",
-		"mazeHelper",
-		"talentTreeTweaks",
-		"talentLoadoutsEx",
-		"choreTracker",
-		"threatClassic2",
-		"spy",
-		"dbm",
-		"ranker",
-		"leatrix_plus",
-		"whatstraining",
-		"novaworldbuffs",
-		"novaspellrankchecker",
-		"lfgbulletinboard",
-		"openall",
-		"rxpguides"
-	}
 	POA.Skins.args.desc = ACH:Header(L["Skins"], 1)
+
+	local addontoggles = {}
+	if E.Classic or E.Cata or E.Retail then
+		if IsAddOnLoaded("BigWigs") then addontoggles.bigwigsqueue = L["BigWigs Queue"] end
+		if IsAddOnLoaded("Auctionator") then addontoggles.auctionator = L["Auctionator"] end
+		if IsAddOnLoaded("BugSack") then addontoggles.bugsack = L["BugSack"] end
+		if IsAddOnLoaded("OmniCD") then addontoggles.omnicd = L["OmniCD"] end
+		if IsAddOnLoaded("RareScanner") then addontoggles.rareScanner = L["Rare Scanner"] end
+		if IsAddOnLoaded("Weakauras") then addontoggles.weakAurasOptions = L["Weakauras Option"] end
+		if IsAddOnLoaded("Baganator") then addontoggles.Baganator = L["Baganator"] end
+		if IsAddOnLoaded("Details") then addontoggles.details = L["Details"] end
+		if IsAddOnLoaded("DBM-Core") then addontoggles.dbm = L["DBM"] end
+		if IsAddOnLoaded("Leatrix_Plus") then addontoggles.leatrix_plus = L["Leatrix Plus"] end
+		if IsAddOnLoaded("OpenAll") then addontoggles.openall = L["Open All"] end
+		if IsAddOnLoaded("RXPGuides") then addontoggles.rxpguides = L["RXPGuides AH"] end
+	end
+
+	if E.Retail then
+		if IsAddOnLoaded("WarpDeplete") then addontoggles.warpDeplete = L["WarpDeplete"] end
+		if IsAddOnLoaded("RaiderIO") then addontoggles.raiderio = L["RaiderIO"] end
+		if IsAddOnLoaded("Simulationcraft") then addontoggles.simulationcraft = L["Simulationcraft"] end
+		if IsAddOnLoaded("MazeHelper") then addontoggles.mazeHelper = L["Maze Helper"] end
+		if IsAddOnLoaded("TalentTreeTweaks") then addontoggles.talentTreeTweaks = L["Talent Tree Tweaks"] end
+		if IsAddOnLoaded("TalentLoadoutsEx") then addontoggles.talentLoadoutsEx = L["Talent Loadouts Ex"] end
+		if IsAddOnLoaded("ChoreTracker") then addontoggles.choreTracker = L["Chore Tracker"] end
+	end
+
+	if E.Classic then
+		if IsAddOnLoaded("Ranker") then addontoggles.ranker = L["Ranker"] end
+		if IsAddOnLoaded("NovaSpellRankChecker") then addontoggles.novaspellrankchecker = L["Nova Spell Rank Checker"] end
+	end
+
+	if E.Cata then
+	end
+
+	if E.Cata or E.Retail then
+		if IsAddOnLoaded("Hekili") then addontoggles.hekili = L["Hekili"] end
+	end
+
+	if E.Classic or E.Cata then
+		if IsAddOnLoaded("ThreatClassic2") then addontoggles.threatclassic2 = L["ThreatClassic2"] end
+		if IsAddOnLoaded("NovaWorldBuffs") then addontoggles.novaworldbuffs = L["Nova World Buffs"] end
+		if IsAddOnLoaded("NovaWorldBuffs") and E.db.ProjectHopes.skins.novaworldbuffs then addontoggles.novaworldbuffsposition = L["Nova World Buffs Position"] end
+		if IsAddOnLoaded("WhatsTraining") then addontoggles.whatstraining = L["What's Training"] end
+		if IsAddOnLoaded("LFGBulletinBoard") then addontoggles.lfgbulletinboard = L["LFG Group Bulletin Board"] end
+	end
+
+	if E.Classic or E.Retail then
+		if IsAddOnLoaded("Spy") then addontoggles.spy = L["Spy"] end
+	end
+
+	local function ToggleAddOnsSkins(value)
+		E:StaticPopup_Show('ProjectHopes_RL')
+    for key, _ in pairs(addontoggles) do
+			if key ~= 'enable' then
+				E.db.ProjectHopes.skins[key] = value
+			end
+		end
+	end
+
 	POA.Skins.args.AddOns = ACH:Group(L["AddOns"], nil, 1)
 	POA.Skins.args.AddOns.args.desc = ACH:Group(L["Description"], nil, 1)
 	POA.Skins.args.AddOns.args.desc.inline = true
 	POA.Skins.args.AddOns.args.desc.args.feature = ACH:Description(L["Skins Addons to fit ProjectHopes."], 1, "medium")
-	POA.Skins.args.AddOns.args.spacer = ACH:Header(L[""], 2)
 	POA.Skins.args.AddOns.args.buttonGroup = ACH:Group(L[""], nil, 3)
 	POA.Skins.args.AddOns.args.buttonGroup.inline = true
-	POA.Skins.args.AddOns.args.buttonGroup.args.enableAll = ACH:Execute(L["Enable All"], nil, 1, function() for _, skin in ipairs(addonskins) do E.db.ProjectHopes.skins[skin] = true end E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.AddOns.args.buttonGroup.args.disableAll = ACH:Execute(L["Disable All"], nil, 2, function() for _, skin in ipairs(addonskins) do E.db.ProjectHopes.skins[skin] = false end E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.AddOns.args.warpDeplete = ACH:Toggle(L["WarpDeplete"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.warpdeplete end,function(_, value) E.db.ProjectHopes.skins.warpdeplete = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("WarpDeplete") end)
-	POA.Skins.args.AddOns.args.bigwigsqueue = ACH:Toggle(L["BigWigs Queue"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.bigwigsqueue end,function(_, value) E.db.ProjectHopes.skins.bigwigsqueue = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("BigWigs") end)
-	POA.Skins.args.AddOns.args.auctionator = ACH:Toggle(L["Auctionator"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.auctionator end,function(_, value) E.db.ProjectHopes.skins.auctionator = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Auctionator") end)
-	POA.Skins.args.AddOns.args.bugsack = ACH:Toggle(L["BugSack"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.bugsack end,function(_, value) E.db.ProjectHopes.skins.bugsack = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("BugSack") end)
-	POA.Skins.args.AddOns.args.raiderio = ACH:Toggle(L["RaiderIO"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.raiderio end,function(_, value) E.db.ProjectHopes.skins.raiderio = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("RaiderIO") end)
-	POA.Skins.args.AddOns.args.omnicd = ACH:Toggle(L["OmniCD"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.omnicd end,function(_, value) E.db.ProjectHopes.skins.omnicd = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("OmniCD") end)
-	POA.Skins.args.AddOns.args.rareScanner = ACH:Toggle(L["Rare Scanner"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.rareScanner end,function(_, value) E.db.ProjectHopes.skins.rareScanner = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("RareScanner") end)
-	POA.Skins.args.AddOns.args.hekili = ACH:Toggle(L["Hekili"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.hekili end,function(_, value) E.db.ProjectHopes.skins.hekili = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Hekili") end)
-	POA.Skins.args.AddOns.args.weakAurasOptions = ACH:Toggle(L["Weakauras Option"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.weakAurasOptions end,function(_, value) E.db.ProjectHopes.skins.weakAurasOptions = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Weakauras") end)
-	POA.Skins.args.AddOns.args.simulationcraft = ACH:Toggle(L["Simulationcraft"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.simulationcraft end,function(_, value) E.db.ProjectHopes.skins.simulationcraft = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Simulationcraft") end)
-	POA.Skins.args.AddOns.args.Baganator = ACH:Toggle(L["Baganator"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.Baganator end,function(_, value) E.db.ProjectHopes.skins.Baganator = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Baganator") end)
-	POA.Skins.args.AddOns.args.details = ACH:Toggle(L["Details"], L["Adds a border, background and separators to Details\n\n|cFFFF0000This will only work 100% with ProjectHopes Details Profile.|r"], 3, nil, false, nil, function() return E.db.ProjectHopes.skins.details end,function(_, value) E.db.ProjectHopes.skins.details = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Details") end)
-	POA.Skins.args.AddOns.args.detailsResize = ACH:Toggle(L["Details AutoResizer"], L["Resize Details Window 2 based on Zone type.\n   - Shows 2 players for none/party zone.\n   - Shows 5 players in raid zone."], 3, nil, false, nil, function() return E.db.ProjectHopes.skins.detailsresize end,function(_, value) E.db.ProjectHopes.skins.detailsresize = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.ProjectHopes.skins.details end, function() return not E.db.ProjectHopes.skins.details end)
-	POA.Skins.args.AddOns.args.mazeHelper = ACH:Toggle(L["Maze Helper"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.mazeHelper end,function(_, value) E.db.ProjectHopes.skins.mazeHelper = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("MazeHelper") end)
-	POA.Skins.args.AddOns.args.talentTreeTweaks = ACH:Toggle(L["Talent Tree Tweaks"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.talentTreeTweaks end,function(_, value) E.db.ProjectHopes.skins.talentTreeTweaks = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("TalentTreeTweaks") end)
-	POA.Skins.args.AddOns.args.talentLoadoutsEx = ACH:Toggle(L["Talent Loadouts Ex"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.talentLoadoutsEx end,function(_, value) E.db.ProjectHopes.skins.talentLoadoutsEx = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("TalentLoadoutsEx") end)
-	POA.Skins.args.AddOns.args.choreTracker = ACH:Toggle(L["Chore Tracker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.choreTracker end,function(_, value) E.db.ProjectHopes.skins.choreTracker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("ChoreTracker") end)
-	POA.Skins.args.AddOns.args.dbm = ACH:Toggle(L["DBM"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.dbm end,function(_, value) E.db.ProjectHopes.skins.dbm = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("DBM-Core") end)
-	POA.Skins.args.AddOns.args.leatrix_plus = ACH:Toggle(L["Leatrix Plus"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.leatrix_plus end,function(_, value) E.db.ProjectHopes.skins.leatrix_plus = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Leatrix_Plus") end)
-	POA.Skins.args.AddOns.args.openall = ACH:Toggle(L["Open All"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.openall end,function(_, value) E.db.ProjectHopes.skins.openall = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("OpenAll") end)
-	POA.Skins.args.AddOns.args.rxpguides = ACH:Toggle(L["RXPGuides AH"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.rxpguides end,function(_, value) E.db.ProjectHopes.skins.rxpguides = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("RXPGuides") end)
+	POA.Skins.args.AddOns.args.disableAddOnsSkins = ACH:Execute(L["Disable AddOns Skins"], nil, 3, function() ToggleAddOnsSkins(false) end)
+	POA.Skins.args.AddOns.args.enableAddOnsSkins = ACH:Execute(L["Enable AddOns Skins"], nil, 4, function() ToggleAddOnsSkins(true) end)
+	POA.Skins.args.AddOns.args.addons = ACH:MultiSelect(L["AddOns"], L["Enable/Disable this skin."], -1, addontoggles, nil, nil, function(_, key) return E.db.ProjectHopes.skins[key] end, function(_, key, value) E.db.ProjectHopes.skins[key] = value; E:StaticPopup_Show('ProjectHopes_RL') end, nil, nil, true)
 
-	if E.Classic then
-		POA.Skins.args.AddOns.args.threatclassic2 = ACH:Toggle(L["ThreatClassic2"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.threatClassic2 end,function(_, value) E.db.ProjectHopes.skins.threatClassic2 = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("ThreatClassic2") end)
-		POA.Skins.args.AddOns.args.spy = ACH:Toggle(L["Spy"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.spy end,function(_, value) E.db.ProjectHopes.skins.spy = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Spy") end)
-		POA.Skins.args.AddOns.args.ranker = ACH:Toggle(L["Ranker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.ranker end,function(_, value) E.db.ProjectHopes.skins.ranker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("Ranker") end)
-		POA.Skins.args.AddOns.args.novaworldbuffs = ACH:Toggle(L["Nova World Buffs"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.novaworldbuffs end,function(_, value) E.db.ProjectHopes.skins.novaworldbuffs = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("NovaWorldBuffs") end)
-		POA.Skins.args.AddOns.args.novaworldbuffsposition = ACH:Toggle(L["Nova World Buffs Position"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.novaworldbuffsposition end,function(_, value) E.db.ProjectHopes.skins.novaworldbuffsposition = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("NovaWorldBuffs") or not E.db.ProjectHopes.skins.novaworldbuffs end)
-		POA.Skins.args.AddOns.args.novaspellrankchecker = ACH:Toggle(L["Nova Spell Rank Checker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.novaspellrankchecker end,function(_, value) E.db.ProjectHopes.skins.novaspellrankchecker = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("NovaSpellRankChecker") end)
-		POA.Skins.args.AddOns.args.whatstraining = ACH:Toggle(L["What's Training"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.whatstraining end,function(_, value) E.db.ProjectHopes.skins.whatstraining = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("WhatsTraining") end)
-		POA.Skins.args.AddOns.args.lfgbulletinboard = ACH:Toggle(L["LFG Group Bulletin Board"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.lfgbulletinboard end,function(_, value) E.db.ProjectHopes.skins.lfgbulletinboard = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not IsAddOnLoaded("LFGBulletinBoard") end)
+	local blizzardtoggles = {
+		addonList = L["AddOn Manager"],
+		auctionHouse = L["AUCTIONS"],
+		bags = L["Bags"],
+		bgmap = L["BG Map"],
+		bgscore = L["BG Score"],
+		binding = L["KEY_BINDINGS"],
+		blizzardOptions = L["INTERFACE_OPTIONS"],
+		channels = L["CHANNELS"],
+		character = L["Character Frame"],
+		communities = L["COMMUNITIES"],
+		debugTools = L["Debug Tools"],
+		dressingRoom = L["DRESSUP_FRAME"],
+		eventTrace = L["Event Log"],
+		friends = format(E.Retail and '%s' or '%s & %s', L["Friends"], L["Guild"]),
+		gossip = L["Gossip Frame"],
+		guildControl = L["Guild Control Frame"],
+		guildRegistrar = L["Guild Registrar"],
+		help = L["Help Frame"],
+		inspect = L["Inspect"],
+		lookingForGroup = L["LFG_TITLE"],
+		loot = L["Loot Frame"],
+		macro = L["MACROS"],
+		mail = L["Mail Frame"],
+		merchant = L["Merchant Frame"],
+		mirrorTimers = L["Mirror Timers"],
+		misc = L["Misc Frames"],
+		petition = L["Petition Frame"],
+		quest = L["Quest Frames"],
+		questChoice = L["Quest Choice"],
+		raid = L["Raid Frame"],
+		itemSocketing = L["Socket Frame"],
+		spellBook = L["SPELLBOOK"],
+		stable = L["Stable"],
+		tabard = L["Tabard Frame"],
+		talent = L["TALENTS"],
+		flightMap = L["FLIGHT_MAP"],
+		taxi = L["Taxi"],
+		timeManager = L["TIMEMANAGER_TITLE"],
+		tooltip = L["Tooltip"],
+		trade = L["TRADE"],
+		tradeskill = L["TRADESKILLS"],
+		trainer = L["Trainer Frame"],
+		tutorial = L["Tutorials"],
+		worldMap = L["WORLD_MAP"]
+	}
+
+	if E.Cata or E.Retail then
+		blizzardtoggles.achievementFrame = L["ACHIEVEMENTS"]
+		blizzardtoggles.alertframes = L["Alert Frames"]
+		blizzardtoggles.archaeology = L["Archaeology Frame"]
+		blizzardtoggles.barbershop = L["BARBERSHOP"]
+		blizzardtoggles.calendar = L["Calendar Frame"]
+		blizzardtoggles.collections = L["COLLECTIONS"]
+		blizzardtoggles.encounterJournal = L["ENCOUNTER_JOURNAL"]
+		blizzardtoggles.subscriptionInterstitial = L["Subscription Interstitial"]
+		blizzardtoggles.guildBank = L["Guild Bank"]
+		blizzardtoggles.pvp = L["PvP Frames"]
+	end
+	
+	if not E.Retail then
+		blizzardtoggles.questTimers = L["Quest Timers"]
+	end
+	
+	if E.Retail then
+		blizzardtoggles.adventureMap = L["ADVENTURE_MAP_TITLE"]
+		blizzardtoggles.alliedRaces = L["Allied Races"]
+		blizzardtoggles.animaDiversionFrame = L["Anima Diversion"]
+		blizzardtoggles.artifactFrame = L["ITEM_QUALITY6_DESC"]
+		blizzardtoggles.azerite = L["Azerite"]
+		blizzardtoggles.azeriteEssence = L["Azerite Essence"]
+		blizzardtoggles.azeriteRespec = L["AZERITE_RESPEC_TITLE"]
+		blizzardtoggles.blackMarket = L["BLACK_MARKET_AUCTION_HOUSE"]
+		blizzardtoggles.chromieTime = L["Chromie Time Frame"]
+		blizzardtoggles.contribution = L["Contribution"]
+		blizzardtoggles.covenantPreview = L["Covenant Preview"]
+		blizzardtoggles.covenantRenown = L["Covenant Renown"]
+		blizzardtoggles.covenantSanctum = L["Covenant Sanctum"]
+		blizzardtoggles.deathRecap = L["DEATH_RECAP_TITLE"]
+		blizzardtoggles.editModeManager = L["Editor Manager"]
+		blizzardtoggles.expansionLandingPage = L["Expansion Landing Page"]
+		blizzardtoggles.garrison = L["GARRISON_LOCATION_TOOLTIP"]
+		blizzardtoggles.genericTrait = L["Generic Trait"]
+		blizzardtoggles.gmChat = L["GM Chat"]
+		blizzardtoggles.guide = L["Guide Frame"]
+		blizzardtoggles.guild = L["Guild"]
+		blizzardtoggles.islandQueue = L["ISLANDS_HEADER"]
+		blizzardtoggles.islandsPartyPose = L["Island Party Pose"]
+		blizzardtoggles.itemInteraction = L["Item Interaction"]
+		blizzardtoggles.itemUpgrade = L["Item Upgrade"]
+		blizzardtoggles.lfguild = L["LF Guild Frame"]
+		blizzardtoggles.lossOfControl = L["LOSS_OF_CONTROL"]
+		blizzardtoggles.majorFactions = L["Major Factions"]
+		blizzardtoggles.nonraid = L["Non-Raid Frame"]
+		blizzardtoggles.objectiveTracker = L["OBJECTIVES_TRACKER_LABEL"]
+		blizzardtoggles.obliterum = L["OBLITERUM_FORGE_TITLE"]
+		blizzardtoggles.orderHall = L["Orderhall"]
+		blizzardtoggles.perksProgram = L["Trading Post"]
+		blizzardtoggles.petBattle = L["Pet Battle"]
+		blizzardtoggles.playerChoice = L["Player Choice Frame"]
+		blizzardtoggles.runeforge = L["Runeforge"]
+		blizzardtoggles.scrappingMachine = L["SCRAP_BUTTON"]
+		blizzardtoggles.soulbinds = L["Soulbinds"]
+		blizzardtoggles.talkingHead = L["Talking Head"]
+		blizzardtoggles.torghastLevelPicker = L["Torghast Level Picker"]
+		blizzardtoggles.transmogrify = L["TRANSMOGRIFY"]
+		blizzardtoggles.ticketStatus = L["Ticket Status"]
+		blizzardtoggles.voidstorage = L["VOID_STORAGE"]
+		blizzardtoggles.weeklyRewards = L["Weekly Rewards"]
+	elseif E.Cata then
+		blizzardtoggles.arenaRegistrar = L["Arena Registrar"]
+		blizzardtoggles.reforge = L["Reforge"]
+	elseif E.Classic then
+		blizzardtoggles.engraving = L["Engraving"]
+		blizzardtoggles.battlefield = L["Battlefield"]
+		blizzardtoggles.craft = L["Craft"]
 	end
 
-	local blizzardskins
-	if E.Retail then
-		blizzardskins = {
-			"achievementFrame",
-			"adventureMap",
-			"addonList",
-			"alertframes",
-			"alliedRaces",
-			"animaDiversionFrame",
-			"artifactFrame",
-			"auctionHouse",
-			"azerite",
-			"archaeologyFrame",
-			"azeriteEssence",
-			"azeriteRespec",
-			"barbershop",
-			"bag",
-			"battleNet",
-			"binding",
-			"blackMarket",
-			"calendar",
-			"challenges",
-			"channels",
-			"chatConfig",
-			"character",
-			"chromieTime",
-			"classTalent",
-			"clickBinding",
-			"collections",
-			"contribution",
-			"transmogrify",
-			"communities",
-			"covenantPreview",
-			"covenantRenown",
-			"covenantSanctum",
-			"debugTools",
-			"deathRecap",
-			"dressingRoom",
-			"editModeManager",
-			"encounterJournal",
-			"eventTrace",
-			"expansionLandingPage",
-			"flightMap",
-			"friends",
-			"garrison", 
-			"genericTrait",
-			"gossip",
-			"guild",
-			"guildBank",
-			"guildControl",
-			"guildRegistrar",
-			"guide",
-			"help",
-			"inputMethodEditor",
-			"inspect",
-			"itemInteraction",
-			"itemSocketing",
-			"itemUpgrade",
-			"islandQueue",
-			"islandsPartyPose",
-			"lookingForGroup",
-			"lfguild",
-			"loot",
-			"lossOfControl",
-			"macro",
-			"mail",
-			"majorFactions",
-			"merchant",
-			"microButtons",
-			"mirrorTimers",
-			"misc",
-			"objectiveTracker",
-			"obliterum",
-			"orderHall",
-			"perksProgram",
-			"petBattle",
-			"petition",
-			"playerChoice",
-			"professions",
-			"professionsCustomerOrders",
-			"bgscore",
-			"quest",
-			"questChoice",
-			"runeforge",
-			"scenario",
-			"scrappingMachine",
-			"settingsPanel",
-			"soulbinds",
-			"spellBook",
-			"blizzardstaticPopup",
-			"stable",
-			"subscriptionInterstitial",
-			"tabard",
-			"talkingHead",
-			"taxi",
-			"ticketStatus",
-			"timeManager",
-			"tooltips",
-			"tooltipscolor",
-			"torghastLevelPicker",
-			"trade",
-			"trainer",
-			"tutorial",
-			"voidstorage",
-			"warboard",
-			"weeklyRewards",
-			"worldMap",
-		}
-	elseif E.Classic then
-		blizzardskins = {
-			"addonList",
-			"auctionHouse",
-			"battleNet",
-			"channels",
-			"character",
-			"communities",
-			"debugTools",
-			"dressingRoom",
-			"eventTrace",
-			"flightMap",
-			"friends",
-			"gossip",
-			"guildControl",
-			"guildRegistrar",
-			"help",
-			"inputMethodEditor",
-			"inspect",
-			"lookingForGroup",
-			"loot",
-			"macro",
-			"mail",
-			"merchant",
-			"mirrorTimers",
-			"misc",
-			"petition",
-			"quest",
-			"settingsPanel",
-			"spellBook",
-			"stable",
-			"subscriptionInterstitial",
-			"tabard",
-			"taxi",
-			"timeManager",
-			"tooltips",
-			"trade",
-			"trainer",
-			"tutorial",
-			"worldMap",
-			"battlefield",
-			"bgmap",
-			"bgscore",
-			"craft",
-			"engraving",
-			"gmChat",
-			"questTimers",
-			"talent",
-			"tradeskill",    
-		}
-	elseif E.Cata then
-		blizzardskins = {
-			"achievementFrame",
-			"addonList",
-			"auctionHouse",
-			"barbershop",
-			"battleNet",
-			"bgmap",
-			"bgscore",
-			"settingsPanel",
-			"calendar",
-			"channels",
-			"character",
-			"collections",
-			"transmogrify",
-			"communities",
-			"debugTools",
-			"dressingRoom",
-			"encounterJournal",
-			"eventTrace",
-			"friends",
-			"gossip",
-			"guildControl",
-			"guildRegistrar",
-			"help",
-			"inputMethodEditor",
-			"inspect",
-			"lookingForGroup",
-			"loot",
-			"macro",
-			"mail",
-			"misc",
-			"merchant",
-			"mirrorTimers",
-			"petition",
-			"quest",
-			"runeforge",
-			"settingsPanel",
-			"itemSocketing",
-			"spellBook",
-			"stable",
-			"tabard",
-			"talent",
-			"taxi",
-			"timeManager",
-			"tooltips",
-			"trade",
-			"tradeskill",
-			"trainer",
-			"worldMap",  
-		}
+	local function ToggleBlizzardSkins(value)
+		E:StaticPopup_Show('ProjectHopes_RL')
+    for key, _ in pairs(blizzardtoggles) do
+			if key ~= 'enable' then
+				E.db.ProjectHopes.skins[key] = value
+			end
+		end
 	end
 	
 	POA.Skins.args.Blizzard = ACH:Group(L["Blizzard"], nil, 1)
@@ -599,260 +514,50 @@ function ProjectHopes:Config()
 	POA.Skins.args.Blizzard.args.spacer = ACH:Header(L[""], 2)
 	POA.Skins.args.Blizzard.args.buttonGroup = ACH:Group(L[""], nil, 3)
 	POA.Skins.args.Blizzard.args.buttonGroup.inline = true
-	POA.Skins.args.Blizzard.args.buttonGroup.args.enableAll = ACH:Execute(L["Enable All"], nil, 1, function() for _, skin in ipairs(blizzardskins) do E.db.ProjectHopes.skins[skin] = true end E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Blizzard.args.buttonGroup.args.disableAll = ACH:Execute(L["Disable All"], nil, 2, function() for _, skin in ipairs(blizzardskins) do E.db.ProjectHopes.skins[skin] = false end E:StaticPopup_Show('ProjectHopes_RL') end)
-	
+	POA.Skins.args.Blizzard.args.disableBlizzardSkins = ACH:Execute(L["Disable Blizzard Skins"], nil, 3, function() ToggleBlizzardSkins(false) end)
+	POA.Skins.args.Blizzard.args.enableBlizzardSkins = ACH:Execute(L["Enable Blizzard Skins"], nil, 4, function() ToggleBlizzardSkins(true) end)
+	POA.Skins.args.Blizzard.args.blizzard = ACH:MultiSelect(L["Blizzard"], L["Enable/Disable this skin."], -1, blizzardtoggles, nil, nil, function(_, key) return E.db.ProjectHopes.skins[key] end, function(_, key, value) E.db.ProjectHopes.skins[key] = value; E:StaticPopup_Show('ProjectHopes_RL') end, nil, nil, true)
+
+	local elvuitoggles = {
+		actionBarsBackdrop = L["Actionbars Backdrop"],
+		actionBarsButton = L["Actionbars Button"],
+		afk = L["AFK Mode"],
+		altPowerBar = L["Alt Power"],
+		chatDataPanels = L["Chat Data Panels"],
+		chatPanels = L["Chat Panels"],
+		chatVoicePanel = L["Chat Voice Panels"],
+		lootRoll = L["Loot Roll"],
+		options = L["Options"],
+		panels = L["Panels"],
+		raidUtility = L["Raid Utility"],
+		staticPopup = L["Static Popup"],
+		statusReport = L["Status Report"],
+		totemTracker = L["Totem Tracker"],
+		tooltips = L["Tooltips"],
+		Minimap = L["Minimap"],
+		dataPanels = L["DataPanels"],
+	}
+
 	if E.Retail then
-		POA.Skins.args.Blizzard.args.achievementFrame = ACH:Toggle(L["Achievements"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.achievementFrame end,function(_, value) E.db.ProjectHopes.skins.achievementFrame = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.adventureMap = ACH:Toggle(L["Adventure Map"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.adventureMap end,function(_, value) E.db.ProjectHopes.skins.adventureMap = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.addonList = ACH:Toggle(L["AddOn Manager"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.addonList end,function(_, value) E.db.ProjectHopes.skins.addonList = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.alertframes = ACH:Toggle(L["Alert Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.alertframes end,function(_, value) E.db.ProjectHopes.skins.alertframes = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.alliedRaces = ACH:Toggle(L["Allied Races"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.alliedRaces end,function(_, value) E.db.ProjectHopes.skins.alliedRaces = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.animaDiversionFrame = ACH:Toggle(L["Anima Diversion"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.animaDiversionFrame end,function(_, value) E.db.ProjectHopes.skins.animaDiversionFrame = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.artifactFrame = ACH:Toggle(L["Artifact"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.artifactFrame end,function(_, value) E.db.ProjectHopes.skins.artifactFrame = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.auctionHouse = ACH:Toggle(L["Auction House"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.auctionHouse end,function(_, value) E.db.ProjectHopes.skins.auctionHouse = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.azerite = ACH:Toggle(L["Azerite"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.azerite end,function(_, value) E.db.ProjectHopes.skins.azerite = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.archaeology = ACH:Toggle(L["Archaeology"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.archaeologyFrame end,function(_, value) E.db.ProjectHopes.skins.archaeologyFrame = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.azeriteEssence = ACH:Toggle(L["Azerite Essence"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.azeriteEssence end,function(_, value) E.db.ProjectHopes.skins.azeriteEssence = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.azeriteRespec = ACH:Toggle(L["Azerite Respec"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.azeriteRespec end,function(_, value) E.db.ProjectHopes.skins.azeriteRespec = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.barbershop = ACH:Toggle(L["Barber Shop"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.barbershop end,function(_, value) E.db.ProjectHopes.skins.barbershop = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.bag = ACH:Toggle(L["Bag/Bank"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.bag end,function(_, value) E.db.ProjectHopes.skins.bag = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.battleNet = ACH:Toggle(L["Battle Net"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.battleNet end,function(_, value) E.db.ProjectHopes.skins.battleNet = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.binding = ACH:Toggle(L["Binding"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.binding end,function(_, value) E.db.ProjectHopes.skins.binding = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.blackMarket = ACH:Toggle(L["Black Market"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.blackMarket end,function(_, value) E.db.ProjectHopes.skins.blackMarket = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.calendar = ACH:Toggle(L["Calendar"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.calendar end,function(_, value) E.db.ProjectHopes.skins.calendar = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.challenges = ACH:Toggle(L["Challenges"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.challenges end,function(_, value) E.db.ProjectHopes.skins.challenges = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.channels = ACH:Toggle(L["Channels"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.channels end,function(_, value) E.db.ProjectHopes.skins.channels = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.chatConfig = ACH:Toggle(L["Chat Config"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.chatConfig end,function(_, value) E.db.ProjectHopes.skins.chatConfig = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.character = ACH:Toggle(L["Character"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.character end,function(_, value) E.db.ProjectHopes.skins.character = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.chromieTime = ACH:Toggle(L["Chromie Time"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.chromieTime end,function(_, value) E.db.ProjectHopes.skins.chromieTime = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.classTalent = ACH:Toggle(L["Class Talent"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.classTalent end,function(_, value) E.db.ProjectHopes.skins.classTalent = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.clickBinding = ACH:Toggle(L["Click Binding"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.clickBinding end,function(_, value) E.db.ProjectHopes.skins.clickBinding = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.collections = ACH:Toggle(L["Collections"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.collections end,function(_, value) E.db.ProjectHopes.skins.collections = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.contribution = ACH:Toggle(L["Contribution"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.contribution end,function(_, value) E.db.ProjectHopes.skins.contribution = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.transmogrify = ACH:Toggle(L["Transmogrify"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.transmogrify end,function(_, value) E.db.ProjectHopes.skins.transmogrify = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.communities = ACH:Toggle(L["Communities"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.communities end,function(_, value) E.db.ProjectHopes.skins.communities = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.covenantPreview = ACH:Toggle(L["Covenant Preview"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.covenantPreview end,function(_, value) E.db.ProjectHopes.skins.covenantPreview = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.covenantRenown = ACH:Toggle(L["Covenant Renown"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.covenantRenown end,function(_, value) E.db.ProjectHopes.skins.covenantRenown = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.covenantSanctum = ACH:Toggle(L["Covenant Sanctum"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.covenantSanctum end,function(_, value) E.db.ProjectHopes.skins.covenantSanctum = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.debugTools = ACH:Toggle(L["Debug Tools"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.debugTools end,function(_, value) E.db.ProjectHopes.skins.debugTools = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.deathRecap = ACH:Toggle(L["Death Recap"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.deathRecap end,function(_, value) E.db.ProjectHopes.skins.deathRecap = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.dressingRoom = ACH:Toggle(L["Dressing Room"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.dressingRoom end,function(_, value) E.db.ProjectHopes.skins.dressingRoom = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.editModeManager = ACH:Toggle(L["Edit Mode Manager"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.editModeManager end,function(_, value) E.db.ProjectHopes.skins.editModeManager = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.encounterJournal = ACH:Toggle(L["Encounter Journal"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.encounterJournal end,function(_, value) E.db.ProjectHopes.skins.encounterJournal = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.eventTrace = ACH:Toggle(L["Event Trace"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.eventTrace end,function(_, value) E.db.ProjectHopes.skins.eventTrace = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.expansionLandingPage = ACH:Toggle(L["Expansion Landing Page"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.expansionLandingPage end,function(_, value) E.db.ProjectHopes.skins.expansionLandingPage = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.flightMap = ACH:Toggle(L["Flight Map"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.flightMap end,function(_, value) E.db.ProjectHopes.skins.flightMap = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.friends = ACH:Toggle(L["Friend List"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.friends end,function(_, value) E.db.ProjectHopes.skins.friends = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.garrison = ACH:Toggle(L["Garrison"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.garrison end,function(_, value) E.db.ProjectHopes.skins.garrison = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.genericTrait = ACH:Toggle(L["Generic Trait"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.genericTrait end,function(_, value) E.db.ProjectHopes.skins.genericTrait = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.gossip = ACH:Toggle(L["Gossip Frame"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.gossip end,function(_, value) E.db.ProjectHopes.skins.gossip = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.guild = ACH:Toggle(L["Guild"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.guild end,function(_, value) E.db.ProjectHopes.skins.guild= value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.guildBank = ACH:Toggle(L["Guild Bank"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.guildBank end,function(_, value) E.db.ProjectHopes.skins.guildBank = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.guildControl = ACH:Toggle(L["Guild Control"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.guildControl end,function(_, value) E.db.ProjectHopes.skins.guildControl = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.guildRegistrar = ACH:Toggle(L["Guild Registrar"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.guildRegistrar end,function(_, value) E.db.ProjectHopes.skins.guildRegistrar = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.guide = ACH:Toggle(L["Guide"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.guide end,function(_, value) E.db.ProjectHopes.skins.guide = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.help = ACH:Toggle(L["Help Frame"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.help end,function(_, value) E.db.ProjectHopes.skins.help = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.inputMethodEditor = ACH:Toggle(L["Input Method Editor"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.inputMethodEditor end,function(_, value) E.db.ProjectHopes.skins.inputMethodEditor = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.inspect = ACH:Toggle(L["Inspect"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.inspect end,function(_, value) E.db.ProjectHopes.skins.inspect = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.itemInteraction = ACH:Toggle(L["Item Interaction"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.itemInteraction end,function(_, value) E.db.ProjectHopes.skins.itemInteraction = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.itemSocketing = ACH:Toggle(L["Item Socketing"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.itemSocketing end,function(_, value) E.db.ProjectHopes.skins.itemSocketing = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.itemUpgrade = ACH:Toggle(L["Item Upgrade"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.itemUpgrade end,function(_, value) E.db.ProjectHopes.skins.itemUpgrade = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.islandQueue = ACH:Toggle(L["Island Queue"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.islandQueue end,function(_, value) E.db.ProjectHopes.skins.islandQueue = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.islandsPartyPose = ACH:Toggle(L["Islands PartyPose"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.islandsPartyPose end,function(_, value) E.db.ProjectHopes.skins.islandsPartyPose = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.lookingForGroup = ACH:Toggle(L["Looking For Group"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.lookingForGroup end,function(_, value) E.db.ProjectHopes.skins.lookingForGroup = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.lfguild = ACH:Toggle(L["Looking For Guild"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.lfguild end,function(_, value) E.db.ProjectHopes.skins.lfguild = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.loot = ACH:Toggle(L["Loot Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.loot end,function(_, value) E.db.ProjectHopes.skins.loot = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.lossOfControl = ACH:Toggle(L["Loss Of Control"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.lossOfControl end,function(_, value) E.db.ProjectHopes.skins.lossOfControl = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.macro = ACH:Toggle(L["Macros"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.macro end,function(_, value) E.db.ProjectHopes.skins.macro = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.mail = ACH:Toggle(L["Mail Frame"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.mail end,function(_, value) E.db.ProjectHopes.skins.mail = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.majorFactions = ACH:Toggle(L["Major Factions"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.majorFactions end,function(_, value) E.db.ProjectHopes.skins.majorFactions = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.merchant = ACH:Toggle(L["Merchant"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.merchant end,function(_, value) E.db.ProjectHopes.skins.merchant = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.microButtons = ACH:Toggle(L["Micro Bar"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.microButtons end,function(_, value) E.db.ProjectHopes.skins.microButtons = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.mirrorTimers = ACH:Toggle(L["Mirror Timers"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.mirrorTimers end,function(_, value) E.db.ProjectHopes.skins.mirrorTimers = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.misc = ACH:Toggle(L["Misc Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.misc end,function(_, value) E.db.ProjectHopes.skins.misc = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.objectiveTracker = ACH:Toggle(L["Objective Tracker"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.objectiveTracker end,function(_, value) E.db.ProjectHopes.skins.objectiveTracker = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.obliterum = ACH:Toggle(L["Obliterum"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.obliterum end,function(_, value) E.db.ProjectHopes.skins.obliterum = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.orderHall = ACH:Toggle(L["Orderhall"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.orderHall end,function(_, value) E.db.ProjectHopes.skins.orderHall = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.perksProgram = ACH:Toggle(L["Perks Program"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.perksProgram end,function(_, value) E.db.ProjectHopes.skins.perksProgram = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.petBattle = ACH:Toggle(L["Pet Battle"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.petBattle end,function(_, value) E.db.ProjectHopes.skins.petBattle = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.petition = ACH:Toggle(L["Petition"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.petition end,function(_, value) E.db.ProjectHopes.skins.petition = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.playerChoice = ACH:Toggle(L["Player Choice"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.playerChoice end,function(_, value) E.db.ProjectHopes.skins.playerChoice = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.professions = ACH:Toggle(L["Professions"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.professions end,function(_, value) E.db.ProjectHopes.skins.professions = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.professionsCustomerOrders = ACH:Toggle(L["Professions Customer Orders"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.professionsCustomerOrders end,function(_, value) E.db.ProjectHopes.skins.professionsCustomerOrders = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.bgscore = ACH:Toggle(L["PVP Match"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.bgscore end,function(_, value) E.db.ProjectHopes.skins.bgscore = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.quest = ACH:Toggle(L["Quest Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.quest end,function(_, value) E.db.ProjectHopes.skins.quest = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.questChoice = ACH:Toggle(L["Quest Choice"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.questChoice end,function(_, value) E.db.ProjectHopes.skins.questChoice = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.runeforge = ACH:Toggle(L["Runeforge"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.runeforge end,function(_, value) E.db.ProjectHopes.skins.runeforge = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.scenario = ACH:Toggle(L["Scenario"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.scenario end,function(_, value) E.db.ProjectHopes.skins.scenario = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.scrappingMachine = ACH:Toggle(L["Scrapping Machine"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.scrappingMachine end,function(_, value) E.db.ProjectHopes.skins.scrappingMachine = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.settingsPanel = ACH:Toggle(L["Setting Panel"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.settingsPanel end,function(_, value) E.db.ProjectHopes.skins.settingsPanel = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.soulbinds = ACH:Toggle(L["Soulbinds"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.soulbinds end,function(_, value) E.db.ProjectHopes.skins.soulbinds = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.spellBook = ACH:Toggle(L["Spell Book"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.spellBook end,function(_, value) E.db.ProjectHopes.skins.spellBook = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.staticPopup = ACH:Toggle(L["Static Popup"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.blizzardstaticPopup end,function(_, value) E.db.ProjectHopes.skins.blizzardstaticPopup = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.stable = ACH:Toggle(L["Stable"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.stable end,function(_, value) E.db.ProjectHopes.skins.stable = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.subscriptionInterstitial = ACH:Toggle(L["Subscription Interstitial"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.subscriptionInterstitial end,function(_, value) E.db.ProjectHopes.skins.subscriptionInterstitial = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tabard = ACH:Toggle(L["Tabard"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tabard end,function(_, value) E.db.ProjectHopes.skins.tabard = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.talkingHead = ACH:Toggle(L["Talking Head"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.talkingHead end,function(_, value) E.db.ProjectHopes.skins.talkingHead = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.taxi = ACH:Toggle(L["Taxi"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.taxi end,function(_, value) E.db.ProjectHopes.skins.taxi = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.ticketStatus = ACH:Toggle(L["Ticket Status"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.ticketStatus end,function(_, value) E.db.ProjectHopes.skins.ticketStatus = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.timeManager = ACH:Toggle(L["Stopwatch"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.timeManager end,function(_, value) E.db.ProjectHopes.skins.timeManager = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tooltips = ACH:Toggle(L["Tooltips"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tooltips end,function(_, value) E.db.ProjectHopes.skins.tooltips = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tooltipscolor = ACH:Toggle(L["Tooltips Color"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tooltipscolor end,function(_, value) E.db.ProjectHopes.skins.tooltipscolor = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.torghastLevelPicker = ACH:Toggle(L["Torghast Level Picker"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.torghastLevelPicker end,function(_, value) E.db.ProjectHopes.skins.torghastLevelPicker = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.trade = ACH:Toggle(L["Trade"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.trade end,function(_, value) E.db.ProjectHopes.skins.trade = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.trainer = ACH:Toggle(L["Trainer"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.trainer end,function(_, value) E.db.ProjectHopes.skins.trainer = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tutorial = ACH:Toggle(L["Tutorials"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tutorial end,function(_, value) E.db.ProjectHopes.skins.tutorial = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.voidstorage = ACH:Toggle(L["Void Storage"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.voidstorage end,function(_, value) E.db.ProjectHopes.skins.voidstorage = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.warboard = ACH:Toggle(L["Warboard"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.warboard end,function(_, value) E.db.ProjectHopes.skins.warboard = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.weeklyRewards = ACH:Toggle(L["Weekly Rewards"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.weeklyRewards end,function(_, value) E.db.ProjectHopes.skins.weeklyRewards = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.worldMap = ACH:Toggle(L["World Map"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.worldMap end,function(_, value) E.db.ProjectHopes.skins.worldMap = value E:StaticPopup_Show('ProjectHopes_RL') end)	
-	elseif E.Classic then
-		POA.Skins.args.Blizzard.args.addonList = ACH:Toggle(L["AddOn Manager"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.addonList end,function(_, value) E.db.ProjectHopes.skins.addonList = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.auctionHouse = ACH:Toggle(L["Auction House"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.auctionHouse end,function(_, value) E.db.ProjectHopes.skins.auctionHouse = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.battleNet = ACH:Toggle(L["Battle Net"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.battleNet end,function(_, value) E.db.ProjectHopes.skins.battleNet = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.channels = ACH:Toggle(L["Channels"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.channels end,function(_, value) E.db.ProjectHopes.skins.channels = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.character = ACH:Toggle(L["Character"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.character end,function(_, value) E.db.ProjectHopes.skins.character = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.communities = ACH:Toggle(L["Communities"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.communities end,function(_, value) E.db.ProjectHopes.skins.communities = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.debugTools = ACH:Toggle(L["Debug Tools"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.debugTools end,function(_, value) E.db.ProjectHopes.skins.debugTools = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.dressingRoom = ACH:Toggle(L["Dressing Room"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.dressingRoom end,function(_, value) E.db.ProjectHopes.skins.dressingRoom = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.eventTrace = ACH:Toggle(L["Event Trace"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.eventTrace end,function(_, value) E.db.ProjectHopes.skins.eventTrace = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.flightMap = ACH:Toggle(L["Flight Map"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.flightMap end,function(_, value) E.db.ProjectHopes.skins.flightMap = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.friends = ACH:Toggle(L["Friend List"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.friends end,function(_, value) E.db.ProjectHopes.skins.friends = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.gossip = ACH:Toggle(L["Gossip Frame"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.gossip end,function(_, value) E.db.ProjectHopes.skins.gossip = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.guildControl = ACH:Toggle(L["Guild Control"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.guildControl end,function(_, value) E.db.ProjectHopes.skins.guildControl = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.guildRegistrar = ACH:Toggle(L["Guild Registrar"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.guildRegistrar end,function(_, value) E.db.ProjectHopes.skins.guildRegistrar = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.help = ACH:Toggle(L["Help Frame"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.help end,function(_, value) E.db.ProjectHopes.skins.help = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.inputMethodEditor = ACH:Toggle(L["Input Method Editor"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.inputMethodEditor end,function(_, value) E.db.ProjectHopes.skins.inputMethodEditor = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.inspect = ACH:Toggle(L["Inspect"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.inspect end,function(_, value) E.db.ProjectHopes.skins.inspect = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.lookingForGroup = ACH:Toggle(L["Looking For Group"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.lookingForGroup end,function(_, value) E.db.ProjectHopes.skins.lookingForGroup = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.loot = ACH:Toggle(L["Loot Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.loot end,function(_, value) E.db.ProjectHopes.skins.loot = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.macro = ACH:Toggle(L["Macros"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.macro end,function(_, value) E.db.ProjectHopes.skins.macro = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.mail = ACH:Toggle(L["Mail Frame"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.mail end,function(_, value) E.db.ProjectHopes.skins.mail = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.merchant = ACH:Toggle(L["Merchant"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.merchant end,function(_, value) E.db.ProjectHopes.skins.merchant = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.mirrorTimers = ACH:Toggle(L["Mirror Timers"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.mirrorTimers end,function(_, value) E.db.ProjectHopes.skins.mirrorTimers = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.misc = ACH:Toggle(L["Misc Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.misc end,function(_, value) E.db.ProjectHopes.skins.misc = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.petition = ACH:Toggle(L["Petition"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.petition end,function(_, value) E.db.ProjectHopes.skins.petition = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.quest = ACH:Toggle(L["Quest Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.quest end,function(_, value) E.db.ProjectHopes.skins.quest = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.settingsPanel = ACH:Toggle(L["Setting Panel"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.settingsPanel end,function(_, value) E.db.ProjectHopes.skins.settingsPanel = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.spellBook = ACH:Toggle(L["Spell Book"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.spellBook end,function(_, value) E.db.ProjectHopes.skins.spellBook = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.stable = ACH:Toggle(L["Stable"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.stable end,function(_, value) E.db.ProjectHopes.skins.stable = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.subscriptionInterstitial = ACH:Toggle(L["Subscription Interstitial"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.subscriptionInterstitial end,function(_, value) E.db.ProjectHopes.skins.subscriptionInterstitial = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tabard = ACH:Toggle(L["Tabard"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tabard end,function(_, value) E.db.ProjectHopes.skins.tabard = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.taxi = ACH:Toggle(L["Taxi"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.taxi end,function(_, value) E.db.ProjectHopes.skins.taxi = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.timeManager = ACH:Toggle(L["Stopwatch"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.timeManager end,function(_, value) E.db.ProjectHopes.skins.timeManager = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tooltips = ACH:Toggle(L["Tooltips"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tooltips end,function(_, value) E.db.ProjectHopes.skins.tooltips = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.trade = ACH:Toggle(L["Trade"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.trade end,function(_, value) E.db.ProjectHopes.skins.trade = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.trainer = ACH:Toggle(L["Trainer"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.trainer end,function(_, value) E.db.ProjectHopes.skins.trainer = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tutorial = ACH:Toggle(L["Tutorials"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tutorial end,function(_, value) E.db.ProjectHopes.skins.tutorial = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.worldMap = ACH:Toggle(L["World Map"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.worldMap end,function(_, value) E.db.ProjectHopes.skins.worldMap = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.battlefield = ACH:Toggle(L["Battle Field"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.battlefield end,function(_, value) E.db.ProjectHopes.skins.battlefield = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.bgmap = ACH:Toggle(L["BG Map"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.bgmap end,function(_, value) E.db.ProjectHopes.skins.bgmap = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.bgscore = ACH:Toggle(L["BG Score"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.bgscore end,function(_, value) E.db.ProjectHopes.skins.bgscore = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.craft = ACH:Toggle(L["Craft"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.craft end,function(_, value) E.db.ProjectHopes.skins.craft = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.engraving = ACH:Toggle(L["Engraving"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.engraving end,function(_, value) E.db.ProjectHopes.skins.engraving = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.gmChat = ACH:Toggle(L["GM Chat"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.gmChat end,function(_, value) E.db.ProjectHopes.skins.gmChat = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.questTimers = ACH:Toggle(L["Quest Timers"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.questTimers end,function(_, value) E.db.ProjectHopes.skins.questTimers = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.talent = ACH:Toggle(L["Talent"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.talent end,function(_, value) E.db.ProjectHopes.skins.talent = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tradeskill = ACH:Toggle(L["Tradeskill"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tradeskill end,function(_, value) E.db.ProjectHopes.skins.tradeskill = value E:StaticPopup_Show('ProjectHopes_RL') end)
-
-	elseif E.Cata then
-		POA.Skins.args.Blizzard.args.achievementFrame = ACH:Toggle(L["Achievements"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.achievementFrame end,function(_, value) E.db.ProjectHopes.skins.achievementFrame = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.addonList = ACH:Toggle(L["AddOn Manager"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.addonList end,function(_, value) E.db.ProjectHopes.skins.addonList = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.auctionHouse = ACH:Toggle(L["Auction House"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.auctionHouse end,function(_, value) E.db.ProjectHopes.skins.auctionHouse = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.barbershop = ACH:Toggle(L["Barber Shop"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.barbershop end,function(_, value) E.db.ProjectHopes.skins.barbershop = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.battleNet = ACH:Toggle(L["Battle Net"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.battleNet end,function(_, value) E.db.ProjectHopes.skins.battleNet = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.bgmap = ACH:Toggle(L["BG Map"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.bgmap end,function(_, value) E.db.ProjectHopes.skins.bgmap = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.bgscore = ACH:Toggle(L["BG Score"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.bgscore end,function(_, value) E.db.ProjectHopes.skins.bgscore = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.settingsPanel = ACH:Toggle(L["Setting Panel"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.settingsPanel end,function(_, value) E.db.ProjectHopes.skins.settingsPanel = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.calendar = ACH:Toggle(L["Calendar"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.calendar end,function(_, value) E.db.ProjectHopes.skins.calendar = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.channels = ACH:Toggle(L["Channels"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.channels end,function(_, value) E.db.ProjectHopes.skins.channels = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.character = ACH:Toggle(L["Character"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.character end,function(_, value) E.db.ProjectHopes.skins.character = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.collections = ACH:Toggle(L["Collections"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.collections end,function(_, value) E.db.ProjectHopes.skins.collections = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.transmogrify = ACH:Toggle(L["Transmogrify"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.transmogrify end,function(_, value) E.db.ProjectHopes.skins.transmogrify = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.communities = ACH:Toggle(L["Communities"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.communities end,function(_, value) E.db.ProjectHopes.skins.communities = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.debugTools = ACH:Toggle(L["Debug Tools"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.debugTools end,function(_, value) E.db.ProjectHopes.skins.debugTools = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.dressingRoom = ACH:Toggle(L["Dressing Room"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.dressingRoom end,function(_, value) E.db.ProjectHopes.skins.dressingRoom = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.encounterJournal = ACH:Toggle(L["Encounter Journal"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.encounterJournal end,function(_, value) E.db.ProjectHopes.skins.encounterJournal = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.eventTrace = ACH:Toggle(L["Event Trace"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.eventTrace end,function(_, value) E.db.ProjectHopes.skins.eventTrace = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.friends = ACH:Toggle(L["Friend List"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.friends end,function(_, value) E.db.ProjectHopes.skins.friends = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.gossip = ACH:Toggle(L["Gossip Frame"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.gossip end,function(_, value) E.db.ProjectHopes.skins.gossip = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.guildControl = ACH:Toggle(L["Guild Control"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.guildControl end,function(_, value) E.db.ProjectHopes.skins.guildControl = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.guildRegistrar = ACH:Toggle(L["Guild Registrar"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.guildRegistrar end,function(_, value) E.db.ProjectHopes.skins.guildRegistrar = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.help = ACH:Toggle(L["Help Frame"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.help end,function(_, value) E.db.ProjectHopes.skins.help = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.inputMethodEditor = ACH:Toggle(L["Input Method Editor"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.inputMethodEditor end,function(_, value) E.db.ProjectHopes.skins.inputMethodEditor = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.inspect = ACH:Toggle(L["Inspect"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.inspect end,function(_, value) E.db.ProjectHopes.skins.inspect = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.lookingForGroup = ACH:Toggle(L["Looking For Group"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.lookingForGroup end,function(_, value) E.db.ProjectHopes.skins.lookingForGroup = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.loot = ACH:Toggle(L["Loot Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.loot end,function(_, value) E.db.ProjectHopes.skins.loot = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.macro = ACH:Toggle(L["Macros"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.macro end,function(_, value) E.db.ProjectHopes.skins.macro = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.mail = ACH:Toggle(L["Mail Frame"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.mail end,function(_, value) E.db.ProjectHopes.skins.mail = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.misc = ACH:Toggle(L["Misc Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.misc end,function(_, value) E.db.ProjectHopes.skins.misc = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.merchant = ACH:Toggle(L["Merchant"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.merchant end,function(_, value) E.db.ProjectHopes.skins.merchant = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.mirrorTimers = ACH:Toggle(L["Mirror Timers"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.mirrorTimers end,function(_, value) E.db.ProjectHopes.skins.mirrorTimers = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.petition = ACH:Toggle(L["Petition"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.petition end,function(_, value) E.db.ProjectHopes.skins.petition = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.quest = ACH:Toggle(L["Quest Frames"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.quest end,function(_, value) E.db.ProjectHopes.skins.quest = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.runeforge = ACH:Toggle(L["Runeforge"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.runeforge end,function(_, value) E.db.ProjectHopes.skins.runeforge = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.settingsPanel = ACH:Toggle(L["Setting Panel"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.settingsPanel end,function(_, value) E.db.ProjectHopes.skins.settingsPanel = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.itemSocketing = ACH:Toggle(L["Item Socketing"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.itemSocketing end,function(_, value) E.db.ProjectHopes.skins.itemSocketing = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.spellBook = ACH:Toggle(L["Spell Book"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.spellBook end,function(_, value) E.db.ProjectHopes.skins.spellBook = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.stable = ACH:Toggle(L["Stable"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.stable end,function(_, value) E.db.ProjectHopes.skins.stable = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tabard = ACH:Toggle(L["Tabard"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tabard end,function(_, value) E.db.ProjectHopes.skins.tabard = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.talent = ACH:Toggle(L["Talent"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.talent end,function(_, value) E.db.ProjectHopes.skins.talent = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.taxi = ACH:Toggle(L["Taxi"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.taxi end,function(_, value) E.db.ProjectHopes.skins.taxi = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.timeManager = ACH:Toggle(L["Stopwatch"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.timeManager end,function(_, value) E.db.ProjectHopes.skins.timeManager = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tooltips = ACH:Toggle(L["Tooltips"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tooltips end,function(_, value) E.db.ProjectHopes.skins.tooltips = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.trade = ACH:Toggle(L["Trade"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.trade end,function(_, value) E.db.ProjectHopes.skins.trade = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tradeskill = ACH:Toggle(L["Tradeskill"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tradeskill end,function(_, value) E.db.ProjectHopes.skins.tradeskill = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.trainer = ACH:Toggle(L["Trainer"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.trainer end,function(_, value) E.db.ProjectHopes.skins.trainer = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.tutorial = ACH:Toggle(L["Tutorials"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.tutorial end,function(_, value) E.db.ProjectHopes.skins.tutorial = value E:StaticPopup_Show('ProjectHopes_RL') end)
-		POA.Skins.args.Blizzard.args.worldMap = ACH:Toggle(L["World Map"], nil, 99, nil, false, nil, function() return E.db.ProjectHopes.skins.worldMap end,function(_, value) E.db.ProjectHopes.skins.worldMap = value E:StaticPopup_Show('ProjectHopes_RL') end)
-
+		elvuitoggles.tooltipscolor = L["Tooltips"]
 	end
 
-	local elvuiskins = {
-		"actionBarsBackdrop",
-		"actionBarsButton",
-		"afk",
-		"altPowerBar",
-		"chatDataPanels",
-		"chatPanels",
-		"chatVoicePanel",
-		"chatCopyFrame",
-		"lootRoll",
-		"options",
-		"panels",
-		"raidUtility",
-		"staticPopup",
-		"statusReport",
-		"totemTracker",
-		"Minimap",
-	}
+	local function ToggleElvUISkins(value)
+		E:StaticPopup_Show('ProjectHopes_RL')
+    for key, _ in pairs(elvuitoggles) do
+			if key ~= 'enable' then
+				E.db.ProjectHopes.skins[key] = value
+			end
+		end
+	end
+
 	POA.Skins.args.Elvui = ACH:Group(L["ElvUI"], nil, 1)
 	POA.Skins.args.Elvui.args.desc = ACH:Group(L["Description"], nil, 1)
 	POA.Skins.args.Elvui.args.desc.inline = true
-	POA.Skins.args.Elvui.args.desc.args.feature = ACH:Description(L["Skins ElvUi frames to fit PeojectHopes."], 1, "medium")
-	POA.Skins.args.Elvui.args.spacer = ACH:Header(L[""], 2)
-	POA.Skins.args.Elvui.args.buttonGroup = ACH:Group(L[""], nil, 3)
-	POA.Skins.args.Elvui.args.buttonGroup.inline = true
-	POA.Skins.args.Elvui.args.buttonGroup.args.enableAll = ACH:Execute(L["Enable All"], nil, 1, function() for _, skin in ipairs(elvuiskins) do E.db.ProjectHopes.skins[skin] = true end E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.buttonGroup.args.disableAll = ACH:Execute(L["Disable All"], nil, 2, function() for _, skin in ipairs(elvuiskins) do E.db.ProjectHopes.skins[skin] = false end E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.actionBarsBackdrop = ACH:Toggle(L["Actionbars Backdrop"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.actionBarsBackdrop end,function(_, value) E.db.ProjectHopes.skins.actionBarsBackdrop = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.actionBarsButton = ACH:Toggle(L["Actionbars Button"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.actionBarsButton end,function(_, value) E.db.ProjectHopes.skins.actionBarsButton = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.afk = ACH:Toggle(L["AFK Mode"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.afk end,function(_, value) E.db.ProjectHopes.skins.afk = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.altPowerBar = ACH:Toggle(L["Alt Power"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.altPowerBar end,function(_, value) E.db.ProjectHopes.skins.altPowerBar = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.chatDataPanels = ACH:Toggle(L["Chat Data Panels"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.chatDataPanels end,function(_, value) E.db.ProjectHopes.skins.chatDataPanels = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.chatPanels = ACH:Toggle(L["Chat Panels"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.chatPanels end,function(_, value) E.db.ProjectHopes.skins.chatPanels = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.chatVoicePanel = ACH:Toggle(L["Chat Voice Panel"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.chatVoicePanel end,function(_, value) E.db.ProjectHopes.skins.chatVoicePanel = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.chatCopyFrame = ACH:Toggle(L["Chat Copy Frame"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.chatCopyFrame end,function(_, value) E.db.ProjectHopes.skins.chatCopyFrame = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.lootRoll = ACH:Toggle(L["Loot Roll"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.lootRoll end,function(_, value) E.db.ProjectHopes.skins.lootRoll = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.options = ACH:Toggle(L["Options"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.options end,function(_, value) E.db.ProjectHopes.skins.options = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.panels = ACH:Toggle(L["Panels"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.panels end,function(_, value) E.db.ProjectHopes.skins.panels = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.raidUtility = ACH:Toggle(L["Raid Utility"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.raidUtility end,function(_, value) E.db.ProjectHopes.skins.raidUtility = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.staticPopup = ACH:Toggle(L["Static Popup"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.staticPopup end,function(_, value) E.db.ProjectHopes.skins.staticPopup = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.statusReport = ACH:Toggle(L["Status Report"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.statusReport end,function(_, value) E.db.ProjectHopes.skins.statusReport = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.totemTracker = ACH:Toggle(L["Totem Tracker"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.totemTracker end,function(_, value) E.db.ProjectHopes.skins.totemTracker = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	POA.Skins.args.Elvui.args.minimap = ACH:Toggle(L["MiniMap"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.Minimap end,function(_, value) E.db.ProjectHopes.skins.Minimap = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.private.general.minimap.enable end)
-	POA.Skins.args.Elvui.args.dataPanels = ACH:Toggle(L["DataPanels"], nil, 3, nil, false, nil, function() return E.db.ProjectHopes.skins.dataPanels end,function(_, value) E.db.ProjectHopes.skins.dataPanels = value E:StaticPopup_Show('ProjectHopes_RL') end)
+	POA.Skins.args.Elvui.args.desc.args.feature = ACH:Description(L["Skins ElvUi frames to fit ProjectHopes."], 1, "medium")
+	POA.Skins.args.Elvui.args.disableElvUISkins = ACH:Execute(L["Disable ElvUI Skins"], nil, 3, function() ToggleElvUISkins(false) end)
+	POA.Skins.args.Elvui.args.enableElvUISkins = ACH:Execute(L["Enable ElvUI Skins"], nil, 4, function() ToggleElvUISkins(true) end)
+	POA.Skins.args.Elvui.args.elvui = ACH:MultiSelect(L["ElvUI"], L["Enable/Disable this skin."], -1, elvuitoggles, nil, nil, function(_, key) return E.db.ProjectHopes.skins[key] end, function(_, key, value) E.db.ProjectHopes.skins[key] = value; E:StaticPopup_Show('ProjectHopes_RL') end, nil, nil, true)
 
 	-- Quality Of Life
 	POA.qualityOfLife = ACH:Group(L["Quality Of Life"], nil, 6, 'tab')
@@ -863,6 +568,7 @@ function ProjectHopes:Config()
 	POA.qualityOfLife.args.misc.args.autoAcceptQuests = ACH:Toggle(L["Auto Accept/Complete Quests"], L["Automatically accepts and complete quests, when not holding SHIFT"], 4, nil, false, 'full')
 	POA.qualityOfLife.args.misc.args.borederDarkmode = ACH:Toggle(L["Border Darkmode"], L["Changes the border used to black, works on Plater and Weakauras."], 4, nil, false, 'full')
 	POA.qualityOfLife.args.misc.args.fastLoot = ACH:Toggle(L["Fast Loot"], nil, 4, nil, false, 'full')
+	POA.qualityOfLife.args.misc.args.detailsResize = ACH:Toggle(L["Details AutoResizer"], L["Resize Details Window 2 based on Zone type.\n   - Shows 2 players for none/party zone.\n   - Shows 5 players in raid zone."], 4, nil, false, 'full')
 
 	if E.Retail then
 		POA.qualityOfLife.args.misc.args.upgradeLevel = ACH:Toggle(L["Tooltip Upgrade Level"], L["Tooltip: Shows Upgrade Level of items."], 4, nil, false, 'full')

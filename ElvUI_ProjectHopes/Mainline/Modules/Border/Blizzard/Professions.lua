@@ -88,7 +88,7 @@ end
 
 function S:Blizzard_Professions()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.tradeskill) then return end
-	if not E.db.ProjectHopes.skins.professions then return end
+	if not E.db.ProjectHopes.skins.tradeskill then return end
 
 	local ProfessionsFrame = _G.ProfessionsFrame
 	BORDER:CreateBorder(ProfessionsFrame)

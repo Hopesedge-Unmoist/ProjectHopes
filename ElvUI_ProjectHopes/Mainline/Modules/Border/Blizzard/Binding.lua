@@ -46,7 +46,7 @@ end
 
 function S:Blizzard_ClickBindingUI()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.binding) then return end
-	if not E.db.ProjectHopes.skins.clickBinding then return end
+	if not E.db.ProjectHopes.skins.binding then return end
 
 	local ClickBindingFrame = _G.ClickBindingFrame
 	BORDER:CreateBorder(ClickBindingFrame.Bg)

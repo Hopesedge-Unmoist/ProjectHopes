@@ -47,10 +47,13 @@ ProjectHopes.ChangelogTBL = {
 }
 
 function ProjectHopes:LoadNewSettings()
-	E.db["ProjectHopes"]["skins"]["spy"] = true
-	E.db["ProjectHopes"]["skins"]["threatClassic2"] = true
-	E.db["ProjectHopes"]["skins"]["ranker"] = true
+	
+	E.db["ProjectHopes"]["skins"]["blizzardOptions"] = true
+	E.db["ProjectHopes"]["skins"]["binding"] = true
+	E.db["ProjectHopes"]["skins"]["tradeskill"] = true
+	E.private["ProjectHopes"]["qualityOfLife"]["detailsResize"] = true
 
+	
 	--- Keep this stuff ---
 	Private:Print("New features is now set. Have fun!")
 	E:StaticPopup_Show('ProjectHopes_RL')

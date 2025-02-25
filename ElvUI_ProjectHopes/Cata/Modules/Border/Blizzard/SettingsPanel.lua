@@ -52,7 +52,7 @@ end
 
 function S:SettingsPanel()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.blizzardOptions) then return end
-	if not E.db.ProjectHopes.skins.settingsPanel then return end
+	if not E.db.ProjectHopes.skins.blizzardOptions then return end
 
 	local SettingsPanel = _G.SettingsPanel
 	BORDER:CreateBorder(SettingsPanel)

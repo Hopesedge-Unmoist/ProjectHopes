@@ -8,7 +8,7 @@ local _G = _G
 local NUM_CHAT_WINDOWS = NUM_CHAT_WINDOWS
 
 function S:InputMethodEditor()
-	if not E.db.ProjectHopes.skins.inputMethodEditor then return end
+	if not E.db.ProjectHopes.skins.misc then return end
 
 	for i = 1, NUM_CHAT_WINDOWS do
 		local editBox = _G["ChatFrame" .. i .. "EditBox"]

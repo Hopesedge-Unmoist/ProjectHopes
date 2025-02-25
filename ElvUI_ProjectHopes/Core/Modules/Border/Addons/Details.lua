@@ -122,7 +122,7 @@ function S:Details()
         DetailsSkin()
     end
     
-    if E.db.ProjectHopes.skins.detailsresize then
+    if E.private.ProjectHopes.qualityOfLife.detailsResize then
         DetailsResizer()
     end
 end

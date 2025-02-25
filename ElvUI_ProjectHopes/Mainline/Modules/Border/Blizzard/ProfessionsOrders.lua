@@ -139,7 +139,7 @@ end
 
 function S:Blizzard_ProfessionsCustomerOrders()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.tradeskill) then return end
-	if not E.db.ProjectHopes.skins.professionsCustomerOrders then return end
+	if not E.db.ProjectHopes.skins.tradeskill then return end
 
 	local frame = _G.ProfessionsCustomerOrdersFrame
 	if frame then

@@ -12,7 +12,7 @@ local hooksecurefunc = hooksecurefunc
 
 function S:ChatConfig()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.blizzardOptions) then return end
-	if not E.db.ProjectHopes.skins.chatConfig then return end
+	if not E.db.ProjectHopes.skins.blizzardOptions then return end
 
 	local ChatConfigFrame = _G.ChatConfigFrame
 

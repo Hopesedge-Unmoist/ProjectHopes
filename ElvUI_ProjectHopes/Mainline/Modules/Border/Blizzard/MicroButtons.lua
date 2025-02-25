@@ -22,7 +22,7 @@ local MICRO_BUTTONS = _G.MICRO_BUTTONS
 	}
 
 function S:MicroButtons()
-	if not E.db.ProjectHopes.skins.microButtons then return end
+	if not E.db.ProjectHopes.skins.misc then return end
 
 	for i = 1, #MICRO_BUTTONS do
 		if _G[MICRO_BUTTONS[i]] then

@@ -9,7 +9,7 @@ local next = next
 
 function S:BattleNetFrames()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.misc) then return end
-    if not E.db.ProjectHopes.skins.battleNet then return end
+    if not E.db.ProjectHopes.skins.misc then return end
 
 	local skins = {
 		_G.BNToastFrame,

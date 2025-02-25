@@ -18,6 +18,7 @@ V.ProjectHopes = {
 	qualityOfLife = {
 		easyDelete = false,
 		autoAcceptQuests = false,
+		detailsResize = false,
 		frameMover = {
 		
 		},
@@ -154,7 +155,6 @@ P.ProjectHopes = {
 		simulationcraft = false, 
 		Baganator = false,
 		details = false,
-		detailsresize = false,
 		mazeHelper = false,
 		talentTreeTweaks = false,
 		choreTracker = false,
