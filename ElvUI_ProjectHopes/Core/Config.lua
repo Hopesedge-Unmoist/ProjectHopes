@@ -363,7 +363,7 @@ function ProjectHopes:Config()
 
 	local function ToggleAddOnsSkins(value)
 		E:StaticPopup_Show('ProjectHopes_RL')
-    for key, _ in pairs(addontoggles) do
+    for key in pairs(addontoggles) do
 			if key ~= 'enable' then
 				E.db.ProjectHopes.skins[key] = value
 			end
@@ -500,7 +500,7 @@ function ProjectHopes:Config()
 
 	local function ToggleBlizzardSkins(value)
 		E:StaticPopup_Show('ProjectHopes_RL')
-    for key, _ in pairs(blizzardtoggles) do
+    for key in pairs(blizzardtoggles) do
 			if key ~= 'enable' then
 				E.db.ProjectHopes.skins[key] = value
 			end
