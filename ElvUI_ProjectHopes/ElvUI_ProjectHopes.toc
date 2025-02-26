@@ -6,12 +6,12 @@
 
 ## DefaultState: enabled
 ## Author: Hopesedge
-## Version: 20250221
-## X-PreviousVersion: 20250220
+## Version: 20250226
+## X-PreviousVersion: 20250221
 ## SavedVariables: ProjectHopesDB
 
-## Interface: 110007
-## X-Required-ElvUI: 13.83
+## Interface: 110100
+## X-Required-ElvUI: 13.85
 
 ## AddonCompartmentFunc: ProjectHopes_OnAddonCompartmentClick
 ## IconTexture: Interface\AddOns\ElvUI_ProjectHopes\Media\Textures\phlogotiny.png
