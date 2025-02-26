@@ -350,7 +350,7 @@ function ProjectHopes:Config()
 	end
 
 	if E.Classic or E.Cata then
-		if IsAddOnLoaded("ThreatClassic2") then addontoggles.threatclassic2 = L["ThreatClassic2"] end
+		if IsAddOnLoaded("ThreatClassic2") then addontoggles.threatClassic2 = L["ThreatClassic2"] end
 		if IsAddOnLoaded("NovaWorldBuffs") then addontoggles.novaworldbuffs = L["Nova World Buffs"] end
 		if IsAddOnLoaded("NovaWorldBuffs") and E.db.ProjectHopes.skins.novaworldbuffs then addontoggles.novaworldbuffsposition = L["Nova World Buffs Position"] end
 		if IsAddOnLoaded("WhatsTraining") then addontoggles.whatstraining = L["What's Training"] end
