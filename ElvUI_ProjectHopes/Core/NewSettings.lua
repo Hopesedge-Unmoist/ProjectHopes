@@ -2,7 +2,21 @@ local Name, Private = ...
 local E = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
-	'v|cff99ff332025021|r 21/02/2025',
+	'v|cff99ff33---|r ---',
+	' • Added missing border on Friends frame, Classic.',
+	' • Added Custom anchors.',
+	' • Added skin for Nova World Buffs (Thanks Angelos).',
+	' • Added skin for Nova Spell Ranker (Thanks Angelos).',
+	' • Added skin for Open All (Thanks Angelos).',
+	" • Added skin for What's Training (Thanks Angelos).",
+	' • Added skin for Leatrix Plus (Thanks Angelos).',
+	' • Added skin for Ranker (Thanks Angelos).',
+	' • Fix some skin overlaps on wow classic (Thanks Angelos).',
+	' • Fixed up Baganator skin.',
+	' • Alot of changes to skinning config.',
+	' • TOC Update.',
+' ',
+	'v|cff99ff3320250221|r 21/02/2025',
 	' • Added debug mode.',
 	' • Added 2 new commands, /projecthopesdebug on/off and /projecthopes to open config.',
 	' • Fixed border issues on Class Trainer (Classic)',
