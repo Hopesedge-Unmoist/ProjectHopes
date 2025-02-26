@@ -89,7 +89,9 @@ local function DetailsResizer()
     local function eventHandler(self, event, ...)
         if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
             C_Timer.After(1.2, function()  -- Delay of 1 second
-                DetailsSkin()  -- Call DetailsSkin function to update panels
+							if E.db.ProjectHopes.skins.details then
+								DetailsSkin()
+							end
 
                 local window2 = Details:GetWindow(2)
                 if (window2) then        
