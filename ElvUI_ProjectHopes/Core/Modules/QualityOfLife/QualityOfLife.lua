@@ -149,12 +149,12 @@ local function AddCustomLine(tooltip, ...)
         local foundLine = false
         local foundText = nil
         local upgradeOrder = {
-            "Explorer - 558-580",
-            "Adventurer - 571-593",
-            "Veteran - 584-610",
-            "Champion - 597-619",
-            "Hero - 610-626",
-            "Mythic - 623-639",
+            "Explorer - 597-619",
+            "Adventurer - 610-632",
+            "Veteran - 623-645",
+            "Champion - 636-658",
+            "Hero - 649-665",
+            "Mythic - 662-678",
         }
         
         local upgradeTextMapping = {
