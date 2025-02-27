@@ -145,9 +145,9 @@ local function SkinMountFrame()
 	BORDER:CreateBorder(_G.MountJournalSummonRandomFavoriteButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.MountJournal.FilterDropdown, nil, nil, nil, nil, nil, false, true)
 
-	local Flyout = _G.MountJournal.DynamicFlightFlyout            
-	HandleDynamicFlightButton(Flyout.DynamicFlightModeButton, 4)
-	HandleDynamicFlightButton(Flyout.OpenDynamicFlightSkillTreeButton, 4)
+--	local Flyout = _G.MountJournal.DynamicFlightFlyout            
+--	HandleDynamicFlightButton(Flyout.DynamicFlightModeButton, 4)
+--	HandleDynamicFlightButton(Flyout.OpenDynamicFlightSkillTreeButton, 4)
 	HandleDynamicFlightButton(_G.MountJournal.ToggleDynamicFlightFlyoutButton, 1)
 
 	local MountJournal = _G.MountJournal
