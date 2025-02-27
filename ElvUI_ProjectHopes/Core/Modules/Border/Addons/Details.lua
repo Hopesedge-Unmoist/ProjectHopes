@@ -73,7 +73,7 @@ local function CreatePanel(panelName, baseFrame, border, separator, background)
 end
 
 local function DetailsSkin()
-	for i = 1, 5 do
+	for i = 1, 10 do
 		if _G["DetailsBaseFrame"..i] then
 			CreatePanel("Details_Panel"..i, _G["DetailsBaseFrame"..i.."FullWindowFrame"], Private.Border, Private.Separator, Private.BackgroundTexture)
 		end
