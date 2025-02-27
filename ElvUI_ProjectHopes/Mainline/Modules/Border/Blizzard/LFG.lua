@@ -434,11 +434,18 @@ function S:LookingForGroupFrames()
 	LFGListFrame.ApplicationViewer.ItemLevelColumnHeader:SetBackdrop()
 	LFGListFrame.ApplicationViewer.RatingColumnHeader:SetBackdrop()
 
-	BORDER:CreateBorder(LFGListFrame.ApplicationViewer.RefreshButton, nil, nil, nil, nil, nil, false, true)
+	BORDER:CreateBorder(LFGListFrame.ApplicationViewer.RefreshButton, nil, -7, 7, 7, -7, false, true)
+	BORDER:CreateBorder(LFGListFrame.ApplicationViewer.RemoveEntryButton, nil, -7, 7, 7, -7, false, true)
+	BORDER:CreateBorder(LFGListFrame.ApplicationViewer.EditButton, nil, -7, 7, 7, -7, false, true)
+	BORDER:CreateBorder(LFGListFrame.ApplicationViewer.BrowseGroupsButton, nil, -7, 7, 7, -7, false, true)
 
-	BORDER:CreateBorder(LFGListFrame.ApplicationViewer.RemoveEntryButton, nil, nil, nil, nil, nil, false, true)
-	BORDER:CreateBorder(LFGListFrame.ApplicationViewer.EditButton, nil, nil, nil, nil, nil, false, true)
-	BORDER:CreateBorder(LFGListFrame.ApplicationViewer.BrowseGroupsButton, nil, nil, nil, nil, nil, false, true)
+	LFGListFrame.ApplicationViewer.RemoveEntryButton:SetSize(70, 18)
+	LFGListFrame.ApplicationViewer.EditButton:SetSize(70, 18)
+	LFGListFrame.ApplicationViewer.BrowseGroupsButton:SetHeight(18)
+
+	LFGListFrame.ApplicationViewer.RemoveEntryButton:SetBackdrop(nil)
+	LFGListFrame.ApplicationViewer.EditButton:SetBackdrop(nil)
+	LFGListFrame.ApplicationViewer.BrowseGroupsButton:SetBackdrop(nil)
 
 	BORDER:CreateBorder(LFGListFrame.ApplicationViewer.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 
