@@ -31,10 +31,10 @@ function S:Atlas()
 		}
 
 		local dropdownData = {
-			{dropdown = _G.AtlasFrameDropDown, size = 235, dropdownbutton = _G.AtlasFrameDropDownButton, borderParams = {nil, nil, nil, nil, nil, true, true}},
-			{dropdown = _G.AtlasFrameDropDownType, size = 235, dropdownbutton = _G.AtlasFrameDropDownTypeButton, borderParams = {nil, nil, nil, nil, nil, true, true}},
-			{dropdown = _G.AtlasFrameSmallDropDown, size = 235, dropdownbutton = _G.AtlasFrameSmallDropDownButton, borderParams = {nil, nil, nil, nil, nil, true, true}},
-			{dropdown = _G.AtlasFrameSmallDropDownType, size = 235, dropdownbutton = _G.AtlasFrameSmallDropDownTypeButton, borderParams = {nil, nil, nil, nil, nil, true, true}},
+			{dropdown = _G.AtlasFrameDropDown, width = 235, dropdownbutton = _G.AtlasFrameDropDownButton, borderParams = {nil, nil, nil, nil, nil, true, true}},
+			{dropdown = _G.AtlasFrameDropDownType, width = 235, dropdownbutton = _G.AtlasFrameDropDownTypeButton, borderParams = {nil, nil, nil, nil, nil, true, true}},
+			{dropdown = _G.AtlasFrameSmallDropDown, width = 235, dropdownbutton = _G.AtlasFrameSmallDropDownButton, borderParams = {nil, nil, nil, nil, nil, true, true}},
+			{dropdown = _G.AtlasFrameSmallDropDownType, width = 235, dropdownbutton = _G.AtlasFrameSmallDropDownTypeButton, borderParams = {nil, nil, nil, nil, nil, true, true}},
 		}
 
 		-- Apply the skinning
