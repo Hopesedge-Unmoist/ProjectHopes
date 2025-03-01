@@ -25,4 +25,6 @@
 	<Script file='LFGBulletinBoard.lua'/>
 	<Script file='OpenAll.lua'/>
 	<Script file='RXPGuidesAH.lua'/>
+	<Script file='Atlas.lua'/>
+	<Script file='SimpleAddonManager.lua'/>
 </Ui>
