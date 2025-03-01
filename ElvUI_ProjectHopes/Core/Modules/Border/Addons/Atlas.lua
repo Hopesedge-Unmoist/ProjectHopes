@@ -6,10 +6,7 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 function S:Atlas()
-	if not E.db.ProjectHopes.skins.atlas then return end
-
 	local function SkinOnFrameShow()
-
 		local frameData = {
 			{frame = _G.AtlasFrame},
 			{frame = _G.AtlasFrameSmall},
@@ -45,7 +42,7 @@ function S:Atlas()
 		BORDER:SkinEditboxList(editboxData)
 
 		-- Adjust Sizes
-		BORDER:AdjustSize(_G.AtlasFrameSmall,10,0)
+		BORDER:AdjustSize(_G.AtlasFrameSmall,15,0)
 		BORDER:AdjustSize(_G.AtlasSearchEditBox,-40,-8)
 
 		-- Positions
@@ -96,6 +93,7 @@ function S:Atlas()
 		expandButton:SetPushedTexture("Interface\\AddOns\\ElvUI\\Core\\Media\\Textures\\ArrowRight")
 		expandButton:GetPushedTexture():SetTexCoord(0, 1, 1, 0) -- Flip differently for expanding
 		expandButton:GetPushedTexture():SetVertexColor(0.8, 0.8, 0.8)
+		S:Unhook(_G.AtlasFrame, "OnShow")
 	end
 
 	S:SecureHookScript(_G.AtlasFrame, "OnShow", SkinOnFrameShow)
