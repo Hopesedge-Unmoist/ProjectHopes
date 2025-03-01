@@ -326,6 +326,7 @@ function ProjectHopes:Config()
 		if IsAddOnLoaded("OpenAll") then addontoggles.openall = L["Open All"] end
 		if IsAddOnLoaded("RXPGuides") then addontoggles.rxpguides = L["RXPGuides AH"] end
 		if IsAddOnLoaded("Atlas") then addontoggles.atlas = L["Atlas"] end
+		if IsAddOnLoaded("SimpleAddonManager") then addontoggles.simpleaddonmanager = L["SimpleAddonManager"] end
 	end
 
 	if E.Retail then
