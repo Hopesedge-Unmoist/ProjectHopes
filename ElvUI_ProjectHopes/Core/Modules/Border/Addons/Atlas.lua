@@ -6,9 +6,9 @@ local S = E:GetModule('Skins')
 local _G = _G
 
 function S:Atlas()
+	if not E.db.ProjectHopes.skins.atlas then return end
+	
 	local function SkinOnFrameShow()
-		if not E.db.ProjectHopes.skins.atlas then return end
-
 		local frameData = {
 			{frame = _G.AtlasFrame},
 			{frame = _G.AtlasFrameSmall},
