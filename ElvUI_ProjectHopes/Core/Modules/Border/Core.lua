@@ -30,8 +30,8 @@ function BORDER:CreateBorder(frame, frameLevel, SetPoint1, SetPoint2, SetPoint3,
         local border = CreateFrame("Frame", nil, frame.backdrop, "BackdropTemplate")
         border:SetFrameLevel((frameLevel and frame:GetFrameLevel() + frameLevel) or frame:GetFrameLevel() + 2)
         border:SetBackdrop(Private.Border)
-        border:SetPoint("TOPLEFT" , Point1 or frame.backdrop, "TOPLEFT", SetPoint1 or -8, SetPoint2 or 8) 
-        border:SetPoint("BOTTOMRIGHT", Point2 or frame.backdrop, "BOTTOMRIGHT", SetPoint3 or 8, SetPoint4 or -8) 
+        border:SetPoint("TOPLEFT" , Point1 or frame.backdrop, "TOPLEFT", SetPoint1 or -8, SetPoint2 or 8)
+        border:SetPoint("BOTTOMRIGHT", Point2 or frame.backdrop, "BOTTOMRIGHT", SetPoint3 or 8, SetPoint4 or -8)
         border:SetBackdropBorderColor(1, 1, 1)
         if event then
             frame:HookScript("OnEnter", function()
@@ -52,8 +52,8 @@ function BORDER:CreateBorder(frame, frameLevel, SetPoint1, SetPoint2, SetPoint3,
         local border = CreateFrame("Frame", nil, frame, "BackdropTemplate")
         border:SetFrameLevel((frameLevel and frame:GetFrameLevel() + frameLevel) or frame:GetFrameLevel() + 2)
         border:SetBackdrop(Private.Border)
-        border:SetPoint("TOPLEFT" , Point1 or frame, "TOPLEFT", SetPoint1 or -8, SetPoint2 or 8) 
-        border:SetPoint("BOTTOMRIGHT", Point2 or frame, "BOTTOMRIGHT", SetPoint3 or 8, SetPoint4 or -8) 
+        border:SetPoint("TOPLEFT" , Point1 or frame, "TOPLEFT", SetPoint1 or -8, SetPoint2 or 8)
+        border:SetPoint("BOTTOMRIGHT", Point2 or frame, "BOTTOMRIGHT", SetPoint3 or 8, SetPoint4 or -8)
         border:SetBackdropBorderColor(1, 1, 1)
         frame.border = border
         if event then
@@ -125,8 +125,8 @@ function BORDER:HandleIcon(icon, backdrop)
         local border = CreateFrame("Frame", nil, icon.backdrop, "BackdropTemplate")
         border:SetFrameLevel(icon.backdrop:GetFrameLevel() + 2)
         border:SetBackdrop(Private.Border)
-        border:SetPoint("TOPLEFT" , icon.backdrop, "TOPLEFT", -8, 8) 
-        border:SetPoint("BOTTOMRIGHT", icon.backdrop, "BOTTOMRIGHT", 8, -8) 
+        border:SetPoint("TOPLEFT" , icon.backdrop, "TOPLEFT", -8, 8)
+        border:SetPoint("BOTTOMRIGHT", icon.backdrop, "BOTTOMRIGHT", 8, -8)
         border:SetBackdropBorderColor(1, 1, 1)
         icon.backdrop.border = border
     end
@@ -148,7 +148,7 @@ do
     local function colorAtlas(border, atlas)
         local color = iconColors[atlas]
         if not color then return end
-    
+
         if border.customFunc then
             local br, bg, bb = 1, 1, 1
             border.customFunc(border, color.r, color.g, color.b, 1, br, bg, bb)
@@ -160,7 +160,7 @@ do
             border.customBackdrop:SetBackdropBorderColor(color.r, color.g, color.b)
         end
     end
-    
+
     local function colorVertex(border, r, g, b, a)
         if border.customFunc then
             local br, bg, bb = 1, 1, 1
@@ -225,7 +225,7 @@ do
         if not border.IconBorderHooked_hope then
             border.IconBorderHooked_hope = true
             border:Hide()
-            
+
             hooksecurefunc(border, 'SetAtlas', colorAtlas)
             hooksecurefunc(border, 'SetVertexColor', colorVertex)
             hooksecurefunc(border, 'SetShown', borderShown)
@@ -287,8 +287,8 @@ do
 end
 
 function BORDER:SetBackdropBorderColor(frame, script)
-	if frame.border then 
-        frame = frame.border 
+	if frame.border then
+        frame = frame.border
     end
 
 	if frame.SetBackdropBorderColor then
@@ -328,7 +328,7 @@ function BORDER:UpdateBorderColor(border, r, g, b)
     r = r or 1
     g = g or 1
     b = b or 1
-    
+
     border:SetBackdropColor(r, g, b, 0)
     border:SetBackdropBorderColor(r, g, b, 1)
 end
@@ -485,6 +485,109 @@ do
 				frame[regionKey]:Kill()
 			end
 		end
+	end
+end
+
+
+-- Helper function to skin an element with optional border
+local function SkinElement(element, skinFunction, params)
+    if element and not element.IsSkinned then
+        skinFunction(element)
+        if params and next(params) then -- Apply specific border if param exists, else generic
+            BORDER:CreateBorder(element, unpack(params))
+        else
+            BORDER:CreateBorder(element)
+        end
+        element.IsSkinned = true
+    end
+end
+
+-- Function to skin multiple dropdowns with unique parameters
+function BORDER:SkinDropDownList(dropdownData)
+    for _, data in ipairs(dropdownData) do
+        local dropdown = data.dropdown
+        local dropdownButton = data.dropdownbutton
+        local params = data.borderParams
+
+        -- Skin the dropdown box
+        SkinElement(dropdown, function(dropdown) S:HandleDropDownBox(dropdown) end, params)
+
+        -- Position the dropdown button if provided
+        if dropdownButton then
+            BORDER:ClearAndSetPoint(dropdownButton, "RIGHT", dropdown, "RIGHT", 0, 0)
+        end
+    end
+end
+
+-- Function to skin multiple buttons with unique parameters
+function BORDER:SkinButtonList(buttonData)
+    for _, data in ipairs(buttonData) do
+        local button = data.button
+        local params = data.borderParams
+
+        -- Skin the button box
+        SkinElement(button, function(button) S:HandleButton(button) end, params)
+    end
+end
+
+-- Function to skin multiple frames with unique parameters
+function BORDER:SkinFrameList(frameData)
+    for _, data in ipairs(frameData) do
+        local frame = data.frame
+        local scrollBar = data.scrollbar
+        local params = data.borderParams
+
+        -- Skin the frame box
+        SkinElement(frame, function(frame) S:HandleFrame(frame) end, params)
+
+         -- Skin scrollbar if provided
+        if scrollBar then
+            SkinElement(scrollBar, function(scrollBar) S:HandleScrollBar(scrollBar) end, params)
+        end
+    end
+end
+
+-- Function to skin multiple editboxs with unique parameters
+function BORDER:SkinEditboxList(editboxData)
+    for _, data in ipairs(editboxData) do
+        local editbox = data.editbox
+        local params = data.borderParams
+
+        -- Skin the editbox box
+        SkinElement(editbox, function(editbox) S:HandleEditBox(editbox) end, params)
+    end
+end
+
+-- Function to skin multiple tabs with unique parameters
+function BORDER:SkinTabList(tabData)
+    for _, data in ipairs(tabData) do
+        local tab = data.tab
+        local params = data.borderParams
+
+        -- Skin the tab box
+        SkinElement(tab, function(tab) S:HandleTab(tab) end, params)
+    end
+end
+
+-- Function to clean all points and position elements
+function BORDER:ClearAndSetPoint(element, anchor, relativeElement, relativeElementAnchor, x, y)
+    if element then
+		element:ClearAllPoints()
+
+		-- If relativeElement is provided and is a valid frame, use full SetPoint method
+		if type(relativeElement) == "table" then
+			element:SetPoint(anchor, relativeElement, relativeElementAnchor, x, y)
+		else
+			-- If relativeElement is missing, assume x and y are direct offsets
+			element:SetPoint(anchor, relativeElement, relativeElementAnchor) -- Adjusts parameters
+		end
+	end
+end
+
+-- Function to resize a frame
+function BORDER:AdjustSize(element,width,height)
+	if element then
+    	element:SetSize(element:GetWidth() + width, element:GetHeight() + height)
 	end
 end
 
