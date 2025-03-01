@@ -508,9 +508,14 @@ function BORDER:SkinDropDownList(dropdownData)
         local dropdown = data.dropdown
         local dropdownButton = data.dropdownbutton
         local params = data.borderParams
+		local size = data.width
 
         -- Skin the dropdown box
         SkinElement(dropdown, function(dropdown) S:HandleDropDownBox(dropdown) end, params)
+
+		if width then
+			dropdown.SetWidth(width)
+		end
 
         -- Position the dropdown button if provided
         if dropdownButton then
