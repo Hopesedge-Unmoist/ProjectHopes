@@ -325,6 +325,7 @@ function ProjectHopes:Config()
 		if IsAddOnLoaded("Leatrix_Plus") then addontoggles.leatrix_plus = L["Leatrix Plus"] end
 		if IsAddOnLoaded("OpenAll") then addontoggles.openall = L["Open All"] end
 		if IsAddOnLoaded("RXPGuides") then addontoggles.rxpguides = L["RXPGuides AH"] end
+		if IsAddOnLoaded("Atlas") then addontoggles.atlas = L["Atlas"] end
 	end
 
 	if E.Retail then
