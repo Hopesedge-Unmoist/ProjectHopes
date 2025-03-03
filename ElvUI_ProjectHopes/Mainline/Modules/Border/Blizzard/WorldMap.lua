@@ -52,6 +52,69 @@ local function QuestLogQuests()
 	end
 end
 
+local EventsFrameHookedElements = {}
+local function EventsFrameHighlightTexture(element)
+	local rr, gg, bb = unpack(E.media.rgbvaluecolor)
+	element:SetTexture(E.Media.Textures.White8x8)
+	element:SetVertexColor(rr, gg, bb)
+	element:SetAlpha(0.2)
+end
+
+local function EventsFrameBackgroundNormal(element, texture)
+	if texture ~= E.Media.Textures.NormTex then
+		local r, g, b = unpack(E.media.backdropcolor)
+		element:SetTexture(E.Media.Textures.NormTex)
+		element:SetVertexColor(r, g, b)
+		element:SetAlpha(0.5)
+
+		local parent = element:GetParent()
+		if parent and parent.Highlight then
+			EventsFrameHighlightTexture(parent.Highlight)
+		end
+	end
+end
+
+local EventsFrameFunctions = {
+	function(element) -- 1: OngoingHeader
+		if not element.Background.backdrop then
+			element.Background:StripTextures()
+			element.Background:CreateBackdrop('Transparent')
+			BORDER:CreateBorder(element.Background.backdrop, nil, nil, nil, nil, nil, false, false)
+		end
+
+		element.Label:SetTextColor(1, 1, 1)
+	end,
+	function(element) -- 2: OngoingEvent
+		if not EventsFrameHookedElements[element] then
+			hooksecurefunc(element.Background, 'SetAtlas', EventsFrameBackgroundNormal)
+			EventsFrameHookedElements[element] = element.Background
+		end
+	end,
+	function(element) -- 3: ScheduledHeader
+		if not element.Background.backdrop then
+			element.Background:StripTextures()
+			element.Background:CreateBackdrop('Transparent')
+			BORDER:CreateBorder(element.Background.backdrop, nil, -8, 6, 8, -6, false, false)
+		end
+
+		element.Label:SetTextColor(1, 1, 1)
+	end,
+	function(element) -- 4: ScheduledEvent
+		if element.Highlight then
+			EventsFrameHighlightTexture(element.Highlight)
+		end
+	end
+}
+
+local function EventsFrameCallback(_, frame, elementData)
+	if not elementData.data then return end
+
+	local func = EventsFrameFunctions[elementData.data.entryType]
+	if func then
+		func(frame)
+	end
+end
+
 function S:WorldMapFrame()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.worldmap) then return end
 	if not E.db.ProjectHopes.skins.worldMap then return end
@@ -61,9 +124,40 @@ function S:WorldMapFrame()
 
 	local MapNavBar = WorldMapFrame.NavBar
 	BORDER:CreateBorder(MapNavBar.homeButton, nil, nil, nil, nil, nil, false, true)
+	BORDER.HandleNavBarButtons(WorldMapFrame.NavBar)
 
 	-- Quest Frames
 	local QuestMapFrame = _G.QuestMapFrame
+	-- 11.1 New Side Tabs
+	local tabs = {
+		QuestMapFrame.QuestsTab,
+		QuestMapFrame.EventsTab,
+		QuestMapFrame.MapLegendTab
+	}
+
+	for i, tab in next, tabs do
+		BORDER:CreateBorder(tab, nil, nil, nil, nil, nil, true, true)
+	end
+
+	QuestMapFrame.EventsTab:ClearAllPoints()
+	QuestMapFrame.EventsTab:SetPoint("TOP", QuestMapFrame.QuestsTab, "BOTTOM", 0, -8)
+	QuestMapFrame.MapLegendTab:ClearAllPoints()
+	QuestMapFrame.MapLegendTab:SetPoint("TOP", QuestMapFrame.EventsTab, "BOTTOM", 0, -8)
+
+	local EventsFrame = QuestMapFrame.EventsFrame
+	if EventsFrame then
+		local EventsFrameScrollBox = EventsFrame.ScrollBox
+
+		EventsFrameScrollBox:SetBackdrop()
+		BORDER:CreateBorder(EventsFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
+
+		_G.ScrollUtil.AddAcquiredFrameCallback(EventsFrameScrollBox, EventsFrameCallback, EventsFrame, true)
+
+	end
+
+	local MapLegend = QuestMapFrame.MapLegend
+	local MapLegendScroll = MapLegend.ScrollFrame
+	MapLegendScroll:SetBackdrop()
 
 	local DetailsFrame = QuestMapFrame.DetailsFrame
 	BORDER:CreateBorder(DetailsFrame, nil, nil, nil, nil, nil, true, false)
