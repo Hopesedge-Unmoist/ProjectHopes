@@ -123,3 +123,46 @@ E:AddTag('Hopes:perpp', 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER UNI
 		return format("%.0f", curper)
 	end
 end)
+
+
+-- Hex colors for raid markers
+local markerToHex = {
+	[1] = "|cFFEAEA0D", -- Yellow Star
+	[2] = "|cFFEAB10D", -- Orange Circle
+	[3] = "|cFFCD00FF", -- Purple Diamond
+	[4] = "|cFF06D425", -- Green Triangle
+	[5] = "|cFFB3E3D8", -- Light Blue Moon
+	[6] = "|cFF0CD2EA", -- Blue Square
+	[7] = "|cFFD6210B", -- Red Cross
+	[8] = "|cFFFFFFFF", -- White Skull
+}
+
+-- Words to remove from names
+local nameBlacklist = {
+	["the"] = true, ["of"] = true, ["Tentacle"] = true,
+	["Apprentice"] = true, ["Denizen"] = true, ["Emissary"] = true,
+	["Howlis"] = true, ["Terror"] = true, ["Totem"] = true,
+	["Waycrest"] = true, ["Aspect"] = true
+}
+
+E:AddTag("Hopes:name", "UNIT_NAME_UPDATE UNIT_HEALTH UNIT_TARGET PLAYER_FLAGS_CHANGED RAID_TARGET_UPDATE", function(unit)
+	local name = UnitName(unit)
+	if not name then
+			return ""
+	end
+	
+	local a, b, c, d, e, f = strsplit(" ", name, 5)
+
+	if nameBlacklist[b] then
+			name = a or b or c or d or e or f or name
+	else
+			name = f or e or d or c or b or a or name
+	end
+
+	local marker = GetRaidTargetIndex(unit)
+	if marker and markerToHex[marker] then
+			name = markerToHex[marker] .. name .. "|r"
+	end
+
+	return name
+end)
