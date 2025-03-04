@@ -122,6 +122,11 @@ end
 local function LoadCommands()
 	ProjectHopes:RegisterChatCommand('projectHopesdebug', 'DebugMode')
 	ProjectHopes:RegisterChatCommand('projecthopes', 'Toggles')
+
+	if not ProjectHopes.ConfigModeAddedProjectHopes then
+		E:ConfigMode_AddGroup("PROJECTHOPES", E:TextGradient('ProjectHopes', 0.6, 0.6, 0.6, 1, 0.78, 0.03))
+		ProjectHopes.ConfigModeAddedProjectHopes = true
+	end
 end
 
 -- Events
