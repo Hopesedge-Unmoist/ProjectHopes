@@ -12,9 +12,9 @@ function S:Spy()
 	local frameData = {
     	{frame = _G.Spy_MainWindow},
 		{frame = _G.Spy_AlertWindow},
-		{frame = _G.SpyStatsFrame.StatsFrame, scrollbar = _G.SpyStatsTabFrameTabContentFrameScrollFrameScrollBar},
+		{frame = _G.SpyStatsFrame.StatsFrame},
 		{frame = _G.SpyStatsPlayerHistoryFrame},
-		{frame = _G.SpyStatsTabFrameTabContentFrame},
+		{frame = _G.SpyStatsTabFrameTabContentFrame, scrollbar = _G.SpyStatsTabFrameTabContentFrameScrollFrameScrollBar},
 		{frame = _G.SpyStatsTabFrameTabContentFrame.ContentFrame},
 	}
 
