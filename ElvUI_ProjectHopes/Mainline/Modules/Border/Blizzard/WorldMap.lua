@@ -152,7 +152,6 @@ function S:WorldMapFrame()
 		BORDER:CreateBorder(EventsFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 
 		_G.ScrollUtil.AddAcquiredFrameCallback(EventsFrameScrollBox, EventsFrameCallback, EventsFrame, true)
-
 	end
 
 	local MapLegend = QuestMapFrame.MapLegend
