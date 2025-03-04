@@ -31,6 +31,15 @@ function S:InputMethodEditor()
 		BORDER:CreateBorder(_G.LeftChatPanel)
 	end
 
+	if E.db.chat.panelBackdrop == "RIGHT" then
+		BORDER:CreateBorder(_G.RightChatPanel)
+	end
+
+	if E.db.chat.panelBackdrop == "SHOWBOTH" then
+		BORDER:CreateBorder(_G.LeftChatPanel)
+		BORDER:CreateBorder(_G.RightChatPanel)
+	end
+
 
 	local IMECandidatesFrame = _G.IMECandidatesFrame
 	if not IMECandidatesFrame then
