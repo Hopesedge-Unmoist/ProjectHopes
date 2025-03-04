@@ -52,7 +52,7 @@ function UGL:ElvUI_UnitFramesGroup(_, group, numGroup)
         local unit = group..i
         local frame = UF[unit]
         if frame then
-            local healthBar = _G[frame:GetName() .. "_HealthBar"]
+            local healthBar = _G[frame:GetName() .. "_HealthBar_OtherBar"]
             if healthBar then
                 RegisterHealthEvents(healthBar, unit, UpdateGlowLine)
                 UpdateGlowLine(healthBar, unit, healthBar:GetHeight())
@@ -67,7 +67,7 @@ function UGL:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, hea
 
     for _, baseName in ipairs(partyUnits) do
         for i = 1, 5 do
-            local healthBar = _G[baseName..i.."_HealthBar"]
+            local healthBar = _G[baseName..i.."_HealthBar_OtherBar"]
             local unit = _G[baseName..i] and _G[baseName..i].unit
             if healthBar and unit then
                 RegisterHealthEvents(healthBar, unit, UpdateGlowLine)
@@ -79,7 +79,7 @@ function UGL:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, hea
     for _, baseName in ipairs(raidUnits) do
         for k = 1, 8 do
             for l = 1, 5 do
-                local healthBar = _G[baseName..k.."UnitButton"..l.."_HealthBar"]
+                local healthBar = _G[baseName..k.."UnitButton"..l.."_HealthBar_OtherBar"]
                 local unit = _G[baseName..k.."UnitButton"..l] and _G[baseName..k.."UnitButton"..l].unit
                 if healthBar and unit then
                     RegisterHealthEvents(healthBar, unit, UpdateGlowLine)
