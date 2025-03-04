@@ -526,6 +526,17 @@ function BORDER:SkinButtonList(buttonData)
     end
 end
 
+-- Function to skin multiple checkboxes with unique parameters
+function BORDER:SkinCheckBoxes(checkboxData)
+    for _, data in ipairs(checkboxData) do
+        local checkbox = data.checkbox
+        local params = data.borderParams
+
+        -- Skin the button box
+        SkinElement(checkbox, function(checkbox) S:HandleCheckBox(checkbox) end, params)
+    end
+end
+
 -- Function to skin multiple frames with unique parameters
 function BORDER:SkinFrameList(frameData)
     for _, data in ipairs(frameData) do
@@ -548,9 +559,14 @@ function BORDER:SkinEditboxList(editboxData)
     for _, data in ipairs(editboxData) do
         local editbox = data.editbox
         local params = data.borderParams
+		local size = data.width
 
         -- Skin the editbox box
         SkinElement(editbox, function(editbox) S:HandleEditBox(editbox) end, params)
+
+		if size then
+			editbox:SetWidth(size)
+		end
     end
 end
 
