@@ -15,14 +15,14 @@ function S:ReskinWarpDepleteBars()
 		local bar = barFrame.bar
 		if not bar.Border then
 			bar:SetTemplate("Transparent")
-			BORDER:CreateBorder(bar, 0, -9, 8, 9, -8)
+			BORDER:CreateBorder(bar)
 			bar.Border = true
 		end
 	end
 
 	if not Warp.forces.bar.border then
 		Warp.forces.bar:SetTemplate("Transparent")
-		BORDER:CreateBorder(Warp.forces.bar, 0, -9, 8, 9, -8)
+		BORDER:CreateBorder(Warp.forces.bar, nil, -9, 9, 9, -9)
 	end
 end
 
