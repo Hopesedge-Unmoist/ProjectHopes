@@ -1,58 +1,74 @@
 local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 local BORDER = E:GetModule('BORDER')
-
 local S = E:GetModule('Skins')
 
 local _G = _G
-local hooksecurefunc = hooksecurefunc
 local pairs = pairs
-local type = type
-local unpack = unpack
 
 function S:Spy()
-	if not E.db.ProjectHopes.skins.spy then
-		return
-	end
+	if not E.db.ProjectHopes.skins.spy then return end
 
-	local Spy_MainWindow = _G.Spy_MainWindow
-	S:HandleFrame(Spy_MainWindow)
-	BORDER:CreateBorder(Spy_MainWindow)
-	local Spy_AlertWindow = _G.Spy_AlertWindow
-	S:HandleFrame(Spy_AlertWindow)
-	BORDER:CreateBorder(Spy_AlertWindow)
-	local Icon = Spy_AlertWindow.Icon
-	Icon:CreateBackdrop()
-	BORDER:CreateBorder(Icon)
-	local SpyStatsFrame = _G.SpyStatsFrame
-	S:HandlePortraitFrame(SpyStatsFrame)
-	SpyStatsFrame.StatsFrame:StripTextures()
-	SpyStatsFrame.StatsFrame:SetTemplate('Transparent')
-	BORDER:CreateBorder(SpyStatsFrame)
-	_G.SpyStatsTabFrameTabContentFrame:StripTextures()
-	_G.SpyStatsTabFrameTabContentFrame:SetTemplate('Transparent')
-	S:HandleCloseButton(SpyStatsFrameTopCloseButton)
-	BORDER:CreateBorder(_G.SpyStatsTabFrameTabContentFrame)
-	SpyStatsFrame_Title:ClearAllPoints()
-	SpyStatsFrame_Title:SetPoint("TOP", SpyStatsFrame, "TOP", 0, -15)
+	local frameData = {
+    	{frame = _G.Spy_MainWindow},
+		{frame = _G.Spy_AlertWindow},
+		{frame = _G.SpyStatsFrame.StatsFrame, scrollbar = _G.SpyStatsTabFrameTabContentFrameScrollFrameScrollBar},
+		{frame = _G.SpyStatsPlayerHistoryFrame},
+		{frame = _G.SpyStatsTabFrameTabContentFrame},
+		{frame = _G.SpyStatsTabFrameTabContentFrame.ContentFrame},
+	}
+
+	local editboxData = {
+		{editbox = _G.SpyStatsFilterBox.FilterBox, borderParams = {nil, nil, nil, nil, nil, true, false}},
+	}
+
+	local buttonData = {
+		{button = _G.SpyStatsRefreshButton, borderParams = {nil, nil, nil, nil, nil, false, true}},
+	}
+
+	local checkboxData = {
+		{checkbox = _G.SpyStatsKosCheckbox, borderParams = {nil, nil, nil, nil, nil, true, true}},
+		{checkbox = _G.SpyStatsRealmCheckbox, borderParams = {nil, nil, nil, nil, nil, true, true}},
+		{checkbox = _G.SpyStatsWinsLosesCheckbox, borderParams = {nil, nil, nil, nil, nil, true, true}},
+		{checkbox = _G.SpyStatsReasonCheckbox, borderParams = {nil, nil, nil, nil, nil, true, true}},
+	}
+	-- Need this before skinning
 	_G.SpyStatsFilterBox.FilterBox:StripTextures()
-	S:HandleEditBox(_G.SpyStatsFilterBox.FilterBox)
-	_G.SpyStatsFilterBox:SetSize(150, 15)
-	BORDER:CreateBorder(_G.SpyStatsFilterBox.FilterBox)
-	S:HandleCheckBox(_G.SpyStatsKosCheckbox)
-	BORDER:CreateBorder(_G.SpyStatsKosCheckbox, nil, nil, nil, nil, nil, true, true)
-	S:HandleCheckBox(_G.SpyStatsRealmCheckbox)
-	BORDER:CreateBorder(_G.SpyStatsRealmCheckbox, nil, nil, nil, nil, nil, true, true)
-	S:HandleCheckBox(_G.SpyStatsWinsLosesCheckbox)
-	BORDER:CreateBorder(_G.SpyStatsWinsLosesCheckbox, nil, nil, nil, nil, nil, true, true)
-	S:HandleCheckBox(_G.SpyStatsReasonCheckbox)
-	BORDER:CreateBorder(_G.SpyStatsReasonCheckbox, nil, nil, nil, nil, nil, true, true)
-	S:HandleButton(_G.SpyStatsRefreshButton)
-	_G.SpyStatsRefreshButton:ClearAllPoints()
-	_G.SpyStatsRefreshButton:SetPoint("BOTTOMRIGHT", SpyStatsFrame, "BOTTOMRIGHT", -12, 5)
+
+	-- Apply the skinning
+	BORDER:SkinFrameList(frameData)
+	BORDER:SkinEditboxList(editboxData)
+	BORDER:SkinButtonList(buttonData)
+	BORDER:SkinCheckBoxes(checkboxData)
+
+	-- Position
+	BORDER:ClearAndSetPoint(_G.SpyStatsRefreshButton, "BOTTOMRIGHT", _G.SpyStatsFrame, "BOTTOMRIGHT", -12, 5)
+	BORDER:ClearAndSetPoint(_G.SpyStatsFrame_Title, "TOP", _G.SpyStatsFrame, "TOP", 0, -15)
+
+	-- Adjust sizes
+	BORDER:AdjustSize(_G.SpyStatsFilterBox,-20,-12)
+	BORDER:AdjustSize(_G.SpyStatsKosCheckbox,-4,-4)
+	BORDER:AdjustSize(_G.SpyStatsRealmCheckbox,-4,-4)
+	BORDER:AdjustSize(_G.SpyStatsWinsLosesCheckbox,-4,-4)
+	BORDER:AdjustSize(_G.SpyStatsReasonCheckbox,-4,-4)
+
+	-- Additional Things
+	-- Remove backdrop from Refresh button
 	_G.SpyStatsRefreshButton:SetBackdrop()
-	BORDER:CreateBorder(_G.SpyStatsRefreshButton, nil, nil, nil, nil, nil, false, true)
-	BORDER:CreateBorder(_G.SpyStatsTabFrameTabContentFrameScrollFrameScrollBar, nil, nil, nil, nil, nil, false, true)
+
+	-- Skin Close Button
+	S:HandleCloseButton(_G.SpyStatsFrameTopCloseButton)
+	S:HandleCloseButton(_G.Spy_MainWindow.CloseButton)
+
+	-- Skin Portait Frame
+	S:HandlePortraitFrame(_G.SpyStatsFrame)
+
+	-- Skin Alert Icon
+	_G.Spy_AlertWindow.Icon:CreateBackdrop()
+	BORDER:CreateBorder(_G.Spy_AlertWindow.Icon)
+
+	-- Hide Titlebar
+    _G.Spy_MainWindow.TitleBar:SetAlpha(0)
 end
 
 S:AddCallbackForAddon("Spy")
