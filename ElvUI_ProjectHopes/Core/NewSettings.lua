@@ -2,6 +2,13 @@ local Name, Private = ...
 local E = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+	'v|cff99ff20250304|r 04/03/2025',
+	' • Skin fixes.',
+	' • Raid and M+ Weakauras.',
+	' • New Sounds.',
+	' • New name tag.',
+	' • TOC Update.',
+' ',
 	'v|cff99ff3320250226|r 26/02/2025',
 	' • Added missing border on Friends frame, Classic.',
 	' • Added Custom anchors.',
