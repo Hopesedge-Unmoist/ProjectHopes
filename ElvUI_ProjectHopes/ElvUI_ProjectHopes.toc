@@ -6,8 +6,8 @@
 
 ## DefaultState: enabled
 ## Author: Hopesedge
-## Version: 20250226
-## X-PreviousVersion: 20250221
+## Version: 20250304
+## X-PreviousVersion: 20250226
 ## SavedVariables: ProjectHopesDB
 
 ## Interface: 110100
