@@ -238,50 +238,41 @@ end
 do
 	local NavBarCheck = {
 		EncounterJournal = function()
-			return E.private.skins.blizzard.encounterjournal
+			return S.db.blizzard.encounterjournal
 		end,
 		WorldMapFrame = function()
-			return E.private.skins.blizzard.worldmap
+			return S.db.blizzard.worldmap
 		end,
 		HelpFrameKnowledgebase = function()
-			return E.private.skins.blizzard.help
+			return S.db.blizzard.help
 		end
 	}
 
-	local function NavButtonXOffset(button, point, anchor, point2, _, yoffset, skip)
+    local function NavButtonXOffset(button, point, anchor, point2, _, yoffset, skip)
 		if not skip then
-			button:Point(point, anchor, point2, 5, yoffset, true)
+			button:Point(point, anchor, point2, 1, yoffset, true)
 		end
 	end
 
-	function BORDER:HandleNavBarButtons()
+    function BORDER:SkinNavBarButton(button, index)
+		if button and not button.IsBorder then
+            BORDER:CreateBorder(button, nil, nil, nil, nil, nil, false, true)
+
+			button.IsBorder = true
+		end
+	end
+
+	function BORDER:HandleNavBarButtons(data)
 		local func = NavBarCheck[self:GetParent():GetName()]
 		if func and not func() then return end
 
-		local total = #self.navList
-		local button = self.navList[total]
-		if button and not button.IsBorder then
-			BORDER:CreateBorder(button, nil, nil, nil, nil, nil, false, true)
-
-			local arrow = button.MenuArrowButton
-			if arrow then
-				arrow:StripTextures()
-
-				local art = arrow.Art
-				if art then
-					art:SetTexture(E.Media.Textures.ArrowUp)
-					art:SetTexCoord(0, 1, 0, 1)
-					art:SetRotation(3.14)
-				end
+		if not data then -- init call
+			for index, nav in next, self.navList do
+				BORDER:SkinNavBarButton(nav, index)
 			end
-
-			-- setting the xoffset will cause a taint, use the hook below instead to lock the xoffset to 1
-			if total > 1 then
-				NavButtonXOffset(button, button:GetPoint())
-				hooksecurefunc(button, 'SetPoint', NavButtonXOffset)
-			end
-
-			button.IsBorder = true
+		else
+			local lastIndex = #self.navList
+			BORDER:SkinNavBarButton(self.navList[lastIndex], lastIndex)
 		end
 	end
 end
