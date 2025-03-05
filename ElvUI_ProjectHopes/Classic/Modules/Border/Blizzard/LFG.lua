@@ -47,7 +47,7 @@ function S:Blizzard_GroupFinder_VanillaStyle()
 	LFGListingFrame:HookScript('OnShow', LFGTabs)
 
 	local LFGBrowseFrame = _G.LFGBrowseFrame
-	BORDER:CreateBorder(_G.LFGListingFrameActivityViewScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
+	--BORDER:CreateBorder(_G.LFGListingFrameActivityViewScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true) --this taints according to ElvUI https://github.com/tukui-org/ElvUI/commit/8f49b25b95418c8902128000303769a45e0a8f5c
 	BORDER:CreateBorder(LFGBrowseFrame, nil, nil, nil, nil, nil, true, false)
 	LFGBrowseFrame:HookScript('OnShow', LFGTabs)
 
