@@ -1,4 +1,5 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui/'>
 	<Script file='QualityOfLife.lua'/>
 	<Script file='Weakauras_Anchors.lua'/>
+	<Script file='MythicTab.lua'/>
 </Ui>
