@@ -9,10 +9,6 @@ local GameTooltip, GameTooltipStatusBar = GameTooltip, GameTooltipStatusBar
 local TELEPORT_TO_DUNGEON = TELEPORT_TO_DUNGEON
 local SPELL_FAILED_NOT_KNOWN = SPELL_FAILED_NOT_KNOWN
 
-local C_ChallengeMode.GetSpecificDungeonOverallScoreRarityColor = C_ChallengeMode.GetSpecificDungeonOverallScoreRarityColor
-local C_MythicPlus.GetSeasonBestAffixScoreInfoForMap = C_MythicPlus.GetSeasonBestAffixScoreInfoForMap
-local SelectBestSpellID = SelectBestSpellID
-
 MTb.MAP_ID_TO_SPELL_IDS = {        
   -- Cataclysm
   [438] = {410080}, -- The Vortex Pinnacle
