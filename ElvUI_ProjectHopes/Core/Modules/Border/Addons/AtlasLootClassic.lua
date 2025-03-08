@@ -30,8 +30,6 @@ function S:AtlasLootClassic()
 		local dropdownData = {
 			{dropdown = _G["AtlasLoot-DropDown-1"], borderParams = {nil, nil, nil, nil, nil, true, true}},
 			{dropdown = _G["AtlasLoot-DropDown-2"], borderParams = {nil, nil, nil, nil, nil, true, true}},
-			{dropdown = _G["AtlasLoot-DropDown-3"], borderParams = {nil, nil, nil, nil, nil, true, true}},
-			{dropdown = _G["AtlasLoot-DropDown-4"], borderParams = {nil, nil, nil, nil, nil, true, true}},
 		}
 
 		-- Apply the skinning
