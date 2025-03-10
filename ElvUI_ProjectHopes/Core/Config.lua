@@ -412,6 +412,7 @@ function ProjectHopes:Config()
 	if E.Classic then
 		if IsAddOnLoaded("Ranker") then addontoggles.ranker = L["Ranker"] end
 		if IsAddOnLoaded("NovaSpellRankChecker") then addontoggles.novaspellrankchecker = L["Nova Spell Rank Checker"] end
+		if IsAddOnLoaded("AtlasLootClassic") then addontoggles.atlaslootclassic = L["Atlas Loot Classic"] end
 	end
 
 	if E.Cata then
