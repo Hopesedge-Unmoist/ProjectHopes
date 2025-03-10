@@ -15,7 +15,7 @@ _G[Name] = Private
 
 Private.Config = {}
 Private.Credits = {}
-Private.Logo = 'Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\phlogotiny.tga'
+Private.Logo = 'Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ProjectHopes2025logo.tga'
 Private.Name = E:TextGradient('ProjectHopes', 0.6, 0.6, 0.6, 1, 0.78, 0.03)
 Private.Texture = 'HopesUI'
 Private.RequiredElvUI = tonumber(GetAddOnMetadata(Name, 'X-Required-ElvUI'))
