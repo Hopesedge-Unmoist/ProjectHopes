@@ -2,6 +2,14 @@ local Name, Private = ...
 local E = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+	'v|cff99ff20250310|r 10/03/2025',
+	' • New logo yea. ',
+	' • Updated Plugin page to be better and stronger lol',
+	' • Added Chat border on both side. ',
+	' • Fixed Glowline to be better',
+	' • Updated M+ dungoen teleports. ',
+	' • Removed a taint from Classic (ElvUI recommend) ',
+' ',
 	'v|cff99ff20250304|r 04/03/2025',
 	' • Skin fixes.',
 	' • Raid and M+ Weakauras.',
