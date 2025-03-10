@@ -23,7 +23,7 @@ function GM:Initialize()
                 E.Libs['AceConfigDialog']:SelectGroup('ElvUI', 'ProjectHopes')
                 HideUIPanel(_G.GameMenuFrame)
             end)
-            Menubutton:SetText("|TInterface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\phlogotiny.tga:0:0:0:0|t".. Private.Name)
+            Menubutton:SetText("|TInterface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ProjectHopes2025logo.tga:0:0:0:0|t".. Private.Name)
             S:HandleButton(Menubutton, nil, nil, nil, true)
 
 			Menubutton:Size(200, 36)
