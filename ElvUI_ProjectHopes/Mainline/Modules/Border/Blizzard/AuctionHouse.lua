@@ -189,7 +189,6 @@ local function LoadSkin()
 	ItemBuyFrame.BidFrame.BidButton:Point('LEFT', ItemBuyFrame.BidFrame.BidAmount, 'RIGHT', 6, -2)
 	BORDER:CreateBorder(ItemBuyFrame.BuyoutFrame.BuyoutButton, nil, -7, 7, 7, -7, false, true)
 	ItemBuyFrame.BuyoutFrame.BuyoutButton:Point('RIGHT', nil, 'RIGHT', -4, -2)
-	_G.AuctionHouseFrameGold:Point('TOPLEFT', nil, 'TOPLEFT', 0, -1)
 
 	-- Item Sell Frame | TAB 2
 	local SellFrame = AuctionHouseFrame.ItemSellFrame
