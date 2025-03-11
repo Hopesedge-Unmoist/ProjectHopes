@@ -5,6 +5,7 @@ local S = E:GetModule('Skins')
 
 local _G = _G
 local pairs = pairs
+local IsAddOnLoaded = _G.C_AddOns and _G.C_AddOns.IsAddOnLoaded or _G.IsAddOnLoaded
 
 function S:Leatrix_Plus()
 	if not E.db.ProjectHopes.skins.leatrix_plus then return end
@@ -40,7 +41,7 @@ function S:Leatrix_Plus()
 end
 
 function S:Blizzard_TrainerUI()
-	if not E.db.ProjectHopes.skins.leatrix_plus then return end
+	if not E.db.ProjectHopes.skins.leatrix_plus and not IsAddOnLoaded("Leatrix_Plus") then return end
 
 	--style trainner enhancer
 	if _G.LeaPlusDB["EnhanceTrainers"] == "On" and _G.LeaPlusDB["ShowTrainAllBtn"] == "On" then
