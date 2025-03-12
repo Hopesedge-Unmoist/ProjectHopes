@@ -10,11 +10,12 @@ local pairs = pairs
 local hooksecurefunc = hooksecurefunc
 
 function BORDER:PlayerChoice_SetupButtons(buttons)
-	if buttons and buttons.buttonPool then
-		for button in buttons.buttonPool:EnumerateActive() do
-			if not button.IsBorder then
-				BORDER:CreateBorder(button, nil, nil, nil, nil, nil, false, true)
-				button.IsBorder = true
+	if buttons and buttons.buttonFramePool then
+		for buttonFrame in buttons.buttonFramePool:EnumerateActive() do
+			if not buttonFrame.IsBorder then
+				BORDER:CreateBorder(buttonFrame.Button, nil, nil, nil, nil, nil, false, true)
+
+				buttonFrame.IsBorder = true
 			end
 		end
 	end
@@ -39,38 +40,31 @@ local function ReskinSpellWidget(spell)
 	end
 end
 
-local function PlayerChoice_SetupOptions(frame)
-	if not frame.IsBorder then
-		BORDER:CreateBorder(frame)
-		frame.IsBorder = true
+function BORDER:PlayerChoice_SetupOptions()
+	if not self.IsBorder then
+		BORDER:CreateBorder(self)
+		self.IsBorder = true
 	end
 
-	if frame.border then
-		frame.border:SetShown(frame.template and frame.template == "Transparent")
+	if self.border then
+		self.border:SetShown(self.template and self.template == "Transparent")
 
 		hooksecurefunc(
-			frame,
+			self,
 			"SetTemplate",
 			function(_, template)
-				frame.border:SetShown(template and template == "Transparent")
+				self.border:SetShown(template and template == "Transparent")
 			end
 		)
 	end
 
-	if frame.optionFrameTemplate and frame.optionPools then
-		local parchmentRemover = E.private.skins.parchmentRemoverEnable
-		local noParchment = not kit and parchmentRemover
-
-		for option in frame.optionPools:EnumerateActiveByTemplate(frame.optionFrameTemplate) do
-			local header = option.Header
-			local contents = header and header.Contents
-
+	if self.optionFrameTemplate and self.optionPools then
+		for option in self.optionPools:EnumerateActiveByTemplate(self.optionFrameTemplate) do
 			BORDER:PlayerChoice_SetupRewards(option.rewards)
 			BORDER:PlayerChoice_SetupButtons(option.buttons)
-
 			local container = option.WidgetContainer
 			if container and container.widgetFrames then
-				for _, frame in pairs(container.widgetFrames) do                
+				for _, frame in pairs(container.widgetFrames) do
 					if frame.Spell then
 						ReskinSpellWidget(frame.Spell)
 					end
@@ -88,7 +82,7 @@ function S:Blizzard_PlayerChoice()
 		BORDER:CreateBorder(_G.GenericPlayerChoiceToggleButton, nil, nil, nil, nil, nil, false, true)
 	end
 
-	hooksecurefunc(_G.PlayerChoiceFrame, 'SetupOptions', PlayerChoice_SetupOptions)
+	hooksecurefunc(_G.PlayerChoiceFrame, 'SetupOptions', BORDER.PlayerChoice_SetupOptions)
 end
 
 S:AddCallbackForAddon('Blizzard_PlayerChoice')
