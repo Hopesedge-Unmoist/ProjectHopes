@@ -46,7 +46,7 @@ function DB:Initialize()
     icon = "interface/icons/inv_viciousgoblintrike",
     OnClick = ToggleDRIVE,
     OnTooltipShow = function(tooltip)
-      tooltip:AddLine("DRIVE")
+      tooltip:AddLine("Open DRIVE Configuration menu.")
     end,
   })
 
