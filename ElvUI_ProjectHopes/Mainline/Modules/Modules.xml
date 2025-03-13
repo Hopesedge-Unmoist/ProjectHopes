@@ -1,4 +1,5 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui/'>
 	<Include file="Border\Border.xml"/>
+	<Include file="Misc\Misc.xml"/>
 
 </Ui>

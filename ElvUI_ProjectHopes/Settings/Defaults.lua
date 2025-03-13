@@ -49,6 +49,7 @@ P.ProjectHopes = {
 	-- qualityOfLife
 	qualityOfLife = {
 		mplusimprovements = false,
+		driveButton = false,
 	},
 	-- Rectangle Minimap
 	minimap = {
