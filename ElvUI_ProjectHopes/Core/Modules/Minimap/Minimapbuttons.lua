@@ -5,6 +5,7 @@ local MB = E:NewModule('MinimapButtons', 'AceHook-3.0', 'AceEvent-3.0', 'AceTime
 local LO = E:GetModule('Layout')
 local Skins = E:GetModule('Skins')
 local BORDER = E:GetModule('BORDER')
+local EM = E:GetModule("Minimap")
 
 local _G = _G
 local LibDBIcon = LibStub('LibDBIcon-1.0')
@@ -361,17 +362,28 @@ function MB:CreateFrames()
 	self:SkinMinimapButtons()
 end
 
+function MB:SetUpdateHook()
+	if not self.initialized then
+		self:SecureHook(EM, "SetGetMinimapShape", "UpdateLayout")
+		self:SecureHook(EM, "UpdateSettings", "UpdateLayout")
+		self:SecureHook(E, "UpdateAll", "UpdateLayout")
+		self.initialized = true
+	end
+end
+
 function MB:PLAYER_ENTERING_WORLD()
     self:UnregisterEvent("PLAYER_ENTERING_WORLD")
     self:SetUpdateHook()
-    E:Delay(1, self.SkinMinimapButtons, self)
+    E:Delay(0.1, self.SkinMinimapButtons, self)
 end
 
 function MB:Initialize()
 	if not E.db.ProjectHopes.minimapbutton.enable then return end
 	E.minimapbuttons = MB
 	E.minimapbuttons.db = E.db.ProjectHopes.minimapbutton
-	
+
+	self:RegisterEvent("PLAYER_ENTERING_WORLD")
+
 	self:CreateFrames()
 end
 

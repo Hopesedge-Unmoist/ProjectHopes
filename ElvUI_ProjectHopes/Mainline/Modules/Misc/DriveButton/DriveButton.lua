@@ -52,6 +52,7 @@ function DB:Initialize()
 
   local eventWatcher = CreateFrame("Frame")
   eventWatcher:RegisterEvent("TRAIT_CONFIG_LIST_UPDATED")
+  eventWatcher:RegisterEvent("PLAYER_ENTERING_WORLD")
   eventWatcher:RegisterEvent("TRAIT_CONFIG_CREATED")
   eventWatcher:SetScript("OnEvent", function() CheckRegistration(buttonLDB) end)
 
