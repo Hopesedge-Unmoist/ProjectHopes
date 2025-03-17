@@ -14,7 +14,7 @@
 ## X-Required-ElvUI: 13.85
 
 ## AddonCompartmentFunc: ProjectHopes_OnAddonCompartmentClick
-## IconTexture: Interface\AddOns\ElvUI_ProjectHopes\Media\Textures\phlogotiny.png
+## IconTexture: Interface\AddOns\ElvUI_ProjectHopes\Media\Textures\ProjectHopes2025logo
 
 Load.xml
 Mainline\Mainline.xml
