@@ -11,6 +11,8 @@ local NUM_STANCE_SLOTS = NUM_STANCE_SLOTS or 10
 local NUM_PET_ACTION_SLOTS = NUM_PET_ACTION_SLOTS or 10
 local NUM_ACTIONBAR_BUTTONS = NUM_ACTIONBAR_BUTTONS
 
+local LAB = E.Libs.LAB
+
 function S:ElvUI_ActionBar_SkinButton(button, useBackdrop)
 	if button.border then
 		if useBackdrop then
@@ -19,33 +21,13 @@ function S:ElvUI_ActionBar_SkinButton(button, useBackdrop)
 			button.border:Show()
 		end
 	else
-		BORDER:CreateBorder(button, 1)
+		BORDER:CreateBorder(button, 2)
 	end
 
-	local function MouseUp()
-		button:GetPushedTexture():SetAlpha(0)
-		button.border:SetBackdrop(Private.Border)
-		if E.private.ProjectHopes.qualityOfLife.borederDarkmode then
-			button.border:SetBackdropBorderColor(0, 0, 0)
-		else
-			button.border:SetBackdropBorderColor(1, 1, 1)
-		end
-	end
-
-	local function MouseDown()
-		button:GetPushedTexture():SetAlpha(0)
-		button.border:SetBackdrop(Private.BorderLight)
-		button.border:SetBackdropBorderColor(1, 0.78, 0.03)
-	end
-
-	button:RegisterEvent("GLOBAL_MOUSE_UP")
-	button:HookScript('OnMouseUp', MouseUp)
-	button:HookScript('OnMouseDown', MouseDown)
-	button:SetScript("OnEvent", function(_, event)
-		if event == "GLOBAL_MOUSE_UP" then
-			MouseUp()
-		end
-	end)
+	button.BorderShadow:Kill()
+	button:GetPushedTexture():SetAlpha(0)
+	button:GetHighlightTexture():SetAlpha(0)
+	button:GetCheckedTexture():SetAlpha(0)
 end
 
 function S:ElvUI_ActionBar_SkinBar(bar, type)
@@ -126,6 +108,80 @@ function S:ElvUI_ActionBar_LoadKeyBinder()
 	BORDER:CreateBorder(_G.ElvUIBindPopupWindowSaveButton, nil, nil, nil, nil, nil, false, true)
 end
 
+function S:LAB_MouseUp()
+	if not self.border then return end
+	self:GetPushedTexture():SetAlpha(0)
+	self:GetHighlightTexture():SetAlpha(0)
+	self:GetCheckedTexture():SetAlpha(0)
+
+	self.border:SetBackdrop(Private.Border)
+	self.border:SetBackdropBorderColor(1, 1, 1)
+end
+
+function S:LAB_MouseDown()
+	if not self.border then return end
+	self:GetCheckedTexture():SetAlpha(0)
+	self:GetPushedTexture():SetAlpha(0)
+	self:GetHighlightTexture():SetAlpha(0)
+
+	self.border:SetBackdrop(Private.BorderLight)
+	self.border:SetBackdropBorderColor(1, .82, .25)
+end
+
+function S:LAB_EnterMouse()
+	if not self.border then return end
+	self.border:SetBackdrop(Private.BorderLight)
+	self:GetHighlightTexture():SetAlpha(0)
+	self.border:SetBackdropBorderColor(1, .82, .25)
+end
+
+function S:LAB_LeaveMouse()
+	if not self.border then return end
+	self.border:SetBackdrop(Private.Border)
+	self.border:SetBackdropBorderColor(1, 1, 1)
+end
+
+function S:OnButtonEvent(event, key, down, spellID)
+	if not self.border then return end
+
+	if event == "UNIT_SPELLCAST_RETICLE_TARGET" then
+			if (self.abilityID == spellID) and not self.TargetReticleAnimFrame:IsShown() then
+					self.border:SetBackdrop(Private.BorderLight)
+					self.border:SetBackdropBorderColor(1, .82, .25)
+			end
+	elseif event == "UNIT_SPELLCAST_RETICLE_CLEAR" 
+			or event == "UNIT_SPELLCAST_STOP" 
+			or event == "UNIT_SPELLCAST_SUCCEEDED" 
+			or event == "UNIT_SPELLCAST_FAILED" then
+
+			self.border:SetBackdrop(Private.Border)
+			self.border:SetBackdropBorderColor(1, 1, 1)
+	elseif event == "GLOBAL_MOUSE_UP" then
+			self:UnregisterEvent(event)  -- Prevent infinite event firing
+	end
+end
+
+function S:LAB_ButtonCreated(button)
+	if not button then return end
+
+	button:RegisterUnitEvent('UNIT_SPELLCAST_STOP', 'player')
+	button:RegisterUnitEvent('UNIT_SPELLCAST_SUCCEEDED', 'player')
+	button:RegisterUnitEvent('UNIT_SPELLCAST_FAILED', 'player')
+	button:RegisterUnitEvent('UNIT_SPELLCAST_RETICLE_TARGET', 'player')
+	button:RegisterUnitEvent('UNIT_SPELLCAST_RETICLE_CLEAR', 'player')
+
+	-- Prevent duplicate hooks
+	if not button.ProjectHopes_hooks_applied then
+			button:HookScript('OnMouseUp', S.LAB_MouseUp)
+			button:HookScript('OnMouseDown', S.LAB_MouseDown)
+			button:HookScript('OnEnter', S.LAB_EnterMouse)
+			button:HookScript('OnLeave', S.LAB_LeaveMouse)
+			button:SetScript("OnEvent", S.OnButtonEvent)
+			button.ProjectHopes_hooks_applied = true
+	end
+end
+
+
 function S:ElvUI_ActionBars()
 	if not (E.db.ProjectHopes.skins.actionBarsButton or E.db.ProjectHopes.skins.actionBarsBackdrop) then
 		return 
@@ -157,8 +213,8 @@ function S:ElvUI_ActionBars()
 
 
     if not E.db.ProjectHopes.skins.actionBarsButton then
-        return
-    end
+			return
+	end
 
 	if E.Retail then
 		-- Extra action bar
@@ -185,12 +241,12 @@ function S:ElvUI_ActionBars()
 			"SetupFlyoutButton",
 			function(_, button)
 				BORDER:CreateBorder(button)
-			end
-		)
+			end)
 	end
 
     -- Keybind
     S:ElvUI_ActionBar_LoadKeyBinder()
+		LAB.RegisterCallback(AB, 'OnButtonUpdate', S.LAB_ButtonCreated)
 end
 
 S:AddCallback("ElvUI_ActionBars")
