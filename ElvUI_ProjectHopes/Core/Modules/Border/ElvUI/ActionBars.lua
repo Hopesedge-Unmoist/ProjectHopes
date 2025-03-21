@@ -148,14 +148,18 @@ function S:OnButtonEvent(event, key, down, spellID)
 			if (self.abilityID == spellID) and not self.TargetReticleAnimFrame:IsShown() then
 					self.border:SetBackdrop(Private.BorderLight)
 					self.border:SetBackdropBorderColor(1, .82, .25)
+					self.TargetReticleAnimFrame:Show()
+					self.TargetReticleAnimFrame:SetAlpha(0)
 			end
 	elseif event == "UNIT_SPELLCAST_RETICLE_CLEAR" 
 			or event == "UNIT_SPELLCAST_STOP" 
 			or event == "UNIT_SPELLCAST_SUCCEEDED" 
 			or event == "UNIT_SPELLCAST_FAILED" then
-
-			self.border:SetBackdrop(Private.Border)
-			self.border:SetBackdropBorderColor(1, 1, 1)
+				if self.TargetReticleAnimFrame:IsShown() then
+					self.TargetReticleAnimFrame:Hide()
+					self.border:SetBackdrop(Private.Border)
+					self.border:SetBackdropBorderColor(1, 1, 1)
+				end
 	elseif event == "GLOBAL_MOUSE_UP" then
 			self:UnregisterEvent(event)  -- Prevent infinite event firing
 	end
@@ -181,12 +185,10 @@ function S:LAB_ButtonCreated(button)
 	end
 end
 
-
 function S:ElvUI_ActionBars()
 	if not (E.db.ProjectHopes.skins.actionBarsButton or E.db.ProjectHopes.skins.actionBarsBackdrop) then
 		return 
 	end
-
     -- ElvUI action bar
     if not E.private.actionbar.masque.actionbars then
         for id = 1, 15 do
@@ -195,23 +197,18 @@ function S:ElvUI_ActionBars()
                 S:ElvUI_ActionBar_SkinBar(bar, "PLAYER")
             end
         end
-
         S:SecureHook(AB, "PositionAndSizeBar", "ElvUI_ActionBar_PositionAndSizeBar")
     end
-
     -- Pet bar
     if not E.private.actionbar.masque.petBar then
         S:ElvUI_ActionBar_SkinBar(_G.ElvUI_BarPet, "PET")
         S:SecureHook(AB, "PositionAndSizeBarPet", "ElvUI_ActionBar_PositionAndSizeBarPet")
     end
-
     -- Stance bar
     if not E.private.actionbar.masque.stanceBar then
         S:ElvUI_ActionBar_SkinBar(_G.ElvUI_StanceBar, "STANCE")
         S:SecureHook(AB, "PositionAndSizeBarShapeShift", "ElvUI_ActionBar_PositionAndSizeBarShapeShift")
     end
-
-
     if not E.db.ProjectHopes.skins.actionBarsButton then
 			return
 	end
@@ -227,13 +224,11 @@ function S:ElvUI_ActionBars()
 			end
 		end
 	end
-
     -- Vehicle leave button
     do
         local button = _G.MainMenuBarVehicleLeaveButton
         BORDER:CreateBorder(button, nil, nil, nil, nil, nil, true, true)
     end
-
 	if E.Retail then
 		-- Flyout
 		S:SecureHook(
@@ -243,7 +238,6 @@ function S:ElvUI_ActionBars()
 				BORDER:CreateBorder(button)
 			end)
 	end
-
     -- Keybind
     S:ElvUI_ActionBar_LoadKeyBinder()
 		LAB.RegisterCallback(AB, 'OnButtonUpdate', S.LAB_ButtonCreated)
