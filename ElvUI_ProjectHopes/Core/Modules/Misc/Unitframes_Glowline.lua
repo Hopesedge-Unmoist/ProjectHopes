@@ -20,15 +20,15 @@ local function UpdateGlowLinePosition(healthBar)
         healthBar.glowLine:Hide()
     else
         healthBar.glowLine:Show()
-        healthBar.glowLine:SetPoint("LEFT", healthBar, "LEFT", healthBar:GetWidth() * healthPercentage - 5, 0)
-    end
+        local xOffset = math.floor(healthBar:GetWidth() * healthPercentage - 5 + 0.5)
+        healthBar.glowLine:SetPoint("LEFT", healthBar, "LEFT", xOffset, 0)    end
 end
 
 local function CreateGlowLine(frame)
     if not frame.glowLine then
         frame.glowLine = frame:CreateTexture(nil, "OVERLAY")
         frame.glowLine:SetTexture(Private.Glowline);
-        frame.glowLine:SetBlendMode("ADD")
+        frame.glowLine:SetBlendMode("BLEND")
 
         local db = E.db.ProjectHopes.unitframe.unitFramesGlowlinecolor
         frame.glowLine:SetVertexColor(db.r, db.g, db.b, db.a)
