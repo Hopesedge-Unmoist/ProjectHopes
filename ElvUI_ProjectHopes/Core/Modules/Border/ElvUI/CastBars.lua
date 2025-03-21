@@ -15,7 +15,7 @@ function S:ElvUI_UnitFrames_SkinCastBar(_, frame)
 	frame.Castbar:SetStatusBarTexture("Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\blizzcast.tga")
 	frame.Castbar.bg:SetTexture("Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\blizzcastback.tga")
 	
-	BORDER:CreateBorder(frame.Castbar.backdrop, 1)
+	BORDER:CreateBorder(frame.Castbar.backdrop)
 	BORDER:CreateBorder(frame.Castbar.ButtonIcon.bg)
 
 	frame.Castbar:HookScript("OnValueChanged", function(self)
