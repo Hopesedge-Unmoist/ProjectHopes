@@ -2,7 +2,7 @@ local Name, Private = ...
 local E = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
-	'v|cff99ff20250310|r 10/03/2025',
+	'v|cff99ff20250321|r 21/03/2025',
 	' • Better Actionbar skinning. ',
 	' • Better Minimap scaling.',
 	' • Added My own touch on castbars.',
