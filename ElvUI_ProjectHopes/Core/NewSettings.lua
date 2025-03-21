@@ -3,6 +3,17 @@ local E = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
 	'v|cff99ff20250310|r 10/03/2025',
+	' • Better Actionbar skinning. ',
+	' • Better Minimap scaling.',
+	' • Added My own touch on castbars.',
+	' • Fix some minimap button not getting skinned.',
+	' • Added DriveButton to minimap Buttons.',
+	' • Removed unused libs.',
+	' • Added new libs.',
+	' • Fix Playerchoice skinning.',
+	' • Fix Unitframe Glowline.',
+' ',
+	'v|cff99ff20250310|r 10/03/2025',
 	' • New logo yea. ',
 	' • Updated Plugin page to be better and stronger lol',
 	' • Added Chat border on both side. ',
@@ -77,11 +88,7 @@ ProjectHopes.ChangelogTBL = {
 
 function ProjectHopes:LoadNewSettings()
 	
-	E.db["ProjectHopes"]["skins"]["blizzardOptions"] = true
-	E.db["ProjectHopes"]["skins"]["binding"] = true
-	E.db["ProjectHopes"]["skins"]["tradeskill"] = true
-	E.private["ProjectHopes"]["qualityOfLife"]["detailsResize"] = true
-
+	E.db["ProjectHopes"]["skins"]["castbar"] = true
 	
 	--- Keep this stuff ---
 	Private:Print("New features is now set. Have fun!")
