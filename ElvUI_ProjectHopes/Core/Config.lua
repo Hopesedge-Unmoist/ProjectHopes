@@ -595,6 +595,7 @@ function ProjectHopes:Config()
 		afk = L["AFK Mode"],
 		altPowerBar = L["Alt Power"],
 		chatDataPanels = L["Chat Data Panels"],
+		castbar = L["CastBars"],
 		chatPanels = L["Chat Panels"],
 		chatVoicePanel = L["Chat Voice Panels"],
 		lootRoll = L["Loot Roll"],

@@ -275,6 +275,7 @@ P.ProjectHopes = {
 		actionBarsButton = false,
 		afk = false,
 		altPowerBar = false,
+		castbar = false,
 		chatDataPanels = false,
 		chatPanels = false,
 		chatVoicePanel = false,
