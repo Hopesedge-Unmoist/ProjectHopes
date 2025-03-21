@@ -80,7 +80,7 @@ function RMM:Initialize()
 		local mmScale = E.db.general.minimap.scale
 
 		_G.Minimap:SetClampedToScreen(true)
-		_G.Minimap:SetMaskTexture(Engine.MinimapRectangle)
+		_G.Minimap:SetMaskTexture(Private.MinimapRectangle)
 		_G.Minimap:SetHitRectInsets(0, 0, halfDiff, halfDiff)
 		_G.Minimap:SetClampRectInsets(0, 0, 0, 0)
 		_G.Minimap:ClearAllPoints()
