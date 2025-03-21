@@ -6,12 +6,12 @@
 
 ## DefaultState: enabled
 ## Author: Hopesedge
-## Version: 20250304
-## X-PreviousVersion: 20250226
+## Version: 20250321
+## X-PreviousVersion: 20250304
 ## SavedVariables: ProjectHopesDB
 
-## Interface: 40401
-## X-Required-ElvUI: 13.81
+## Interface: 40402
+## X-Required-ElvUI: 13.87
 
 Load.xml
 Cata\Cata.xml
