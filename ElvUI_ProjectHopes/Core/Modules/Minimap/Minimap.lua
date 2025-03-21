@@ -74,16 +74,22 @@ end
 function RMM:Initialize()
 	if E.db.ProjectHopes.minimap.Rectangle then
 
+		local diff = E.MinimapSize - E.MinimapSize * 87 / 128
+		local halfDiff = ceil(diff / 2)
+		local mmOffset = E.PixelMode and 1 or 3
+		local mmScale = E.db.general.minimap.scale
+
 		_G.Minimap:SetClampedToScreen(true)
-		_G.Minimap:SetMaskTexture(Private.MinimapRectangle)
-		_G.Minimap:Size(E.MinimapSize, E.MinimapSize)
-		_G.Minimap:SetHitRectInsets(0, 0, (E.MinimapSize/6.1)*E.mult, (E.MinimapSize/6.1)*E.mult)
+		_G.Minimap:SetMaskTexture(Engine.MinimapRectangle)
+		_G.Minimap:SetHitRectInsets(0, 0, halfDiff, halfDiff)
 		_G.Minimap:SetClampRectInsets(0, 0, 0, 0)
 		_G.Minimap:ClearAllPoints()
 		_G.Minimap:Point('TOPRIGHT', _G.ElvUI_MinimapHolder, 'TOPRIGHT', -E.Border, E.Border)
-		_G.Minimap.backdrop:SetOutside(_G.Minimap, 1, -(E.MinimapSize/6.1)+1)
-		_G.MinimapBackdrop:ClearAllPoints()
-		_G.MinimapBackdrop:SetAllPoints(Minimap)
+		
+		-- Update the size and position of the Minimap
+		_G.Minimap.backdrop:ClearAllPoints()
+		_G.Minimap.backdrop:SetOutside(Minimap, mmOffset, -halfDiff * mmScale + mmOffset)
+
 		RMM:UpdateLocationText()
 		RMM:UpdateMoverSize()
 		RMM:RightClickVault()
