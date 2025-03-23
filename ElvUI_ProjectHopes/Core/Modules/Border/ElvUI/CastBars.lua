@@ -9,6 +9,10 @@ local _G = _G
 
 local CreateFrame = CreateFrame
 
+function S:ElvUI_ToggleTransparentStatusBar()
+	E.db.unitframe.colors.transparentCastbar = false
+end
+
 function S:ElvUI_UnitFrames_SkinCastBar(_, frame)
 	if not frame.Castbar then return end
 
@@ -46,6 +50,7 @@ function S:ElvUI_CastBars()
 	if not E.db.ProjectHopes.skins.castbar then return end
 
 	S:SecureHook(UF, "Configure_Castbar", "ElvUI_UnitFrames_SkinCastBar")
+	S:SecureHook(UF, "ToggleTransparentStatusBar", "ElvUI_ToggleTransparentStatusBar")
 end
 
 S:AddCallback("ElvUI_CastBars")
