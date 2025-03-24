@@ -21,20 +21,55 @@ function S:OmniCD_ConfigGUI()
 	end)
 end
 
-function S:OmniCD_Party_Icon()
-	hooksecurefunc(_G.OmniCD[1].Party, "AcquireIcon", function(_, barFrame, iconIndex, unitBar)
-		local icon = barFrame.icons[iconIndex]
-		if icon and not icon.Border then
-			BORDER:CreateBorder(icon)
-			icon.Border = true
+function S:OmniCD_Party_Icons()
+	local OmniCD = _G.OmniCD and _G.OmniCD[1]
+	if not OmniCD then return end
+
+	hooksecurefunc(OmniCD.Party.BarFrameIconMixin, "SetBorder", function(icon)
+		if not icon or not icon.GetObjectType then return end
+
+		if icon:GetObjectType() == "Texture" then
+				icon = icon:GetParent()
 		end
+
+		if icon.border then
+				icon.border:Kill()
+		end
+
+		local border = CreateFrame("Frame", nil, icon, BackdropTemplateMixin and "BackdropTemplate")
+		if not border then return end
+
+		local width = icon:GetWidth() + 16
+		local height = icon:GetHeight() + 16
+		local x, y = icon:GetCenter()
+
+		border:SetFrameStrata(icon:GetFrameStrata())
+		border:SetFrameLevel(icon:GetFrameLevel() + 3)
+		border:SetBackdrop(Private.Border)
+		border:SetSize(width, height)
+
+		if x and y then
+				border:ClearAllPoints()
+				border:SetPoint("CENTER", UIParent, "BOTTOMLEFT", math.floor(x), math.floor(y + 0.7))
+		end
+
+		icon.border = border
+	end)
+
+	hooksecurefunc(OmniCD.Party.BarFrameIconMixin, "SetExIconName", function(icon)
+			if icon and not icon.Border then
+					BORDER:CreateBorder(icon)
+					icon.Border = true
+			end
 	end)
 end
 
+
 function S:OmniCD()
 	if not E.db.ProjectHopes.skins.omnicd then return end
+
 	S:OmniCD_ConfigGUI()
-	S:OmniCD_Party_Icon()
+	S:OmniCD_Party_Icons()
 end
 
 S:AddCallbackForAddon("OmniCD")
