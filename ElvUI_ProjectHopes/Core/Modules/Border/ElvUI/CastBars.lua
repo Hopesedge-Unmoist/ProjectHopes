@@ -5,12 +5,9 @@ local BORDER = E:GetModule('BORDER')
 local S = E:GetModule('Skins')
 local UF = E:GetModule("UnitFrames")
 
-function S:ElvUI_ToggleTransparentStatusBar()
-	E.db.unitframe.colors.transparentCastbar = false
-end
-
 function S:ElvUI_UnitFrames_SkinCastBar(_, frame)
 	if not frame.Castbar then return end
+	if frame.CastbarSkinned then return end
 
 	frame.Castbar:SetStatusBarTexture("Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\blizzcast.tga")
 	frame.Castbar.bg:SetTexture("Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\blizzcastback.tga")
@@ -37,6 +34,7 @@ function S:ElvUI_UnitFrames_SkinCastBar(_, frame)
 			self.bg:SetVertexColor(1, 1, 1)  
 		end
 	end)
+	frame.CastbarSkinned = true
 end
 
 function S:ElvUI_CastBars()
@@ -44,7 +42,6 @@ function S:ElvUI_CastBars()
 	if not E.db.ProjectHopes.skins.castbar then return end
 
 	S:SecureHook(UF, "Configure_Castbar", "ElvUI_UnitFrames_SkinCastBar")
-	S:SecureHook(UF, "ToggleTransparentStatusBar", "ElvUI_ToggleTransparentStatusBar")
 end
 
 S:AddCallback("ElvUI_CastBars")
