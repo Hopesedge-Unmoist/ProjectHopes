@@ -27,7 +27,8 @@ function S:OmniCD_Party_Icons()
 
 	hooksecurefunc(OmniCD.Party.BarFrameIconMixin, "SetExIconName", function(icon)
 		if not icon or not icon.GetObjectType then return end
-	
+		if icon.BORDEREX then return end
+
 		if icon:GetObjectType() == "Texture" then
 				icon = icon:GetParent()
 		end
@@ -45,10 +46,12 @@ function S:OmniCD_Party_Icons()
 		border:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 7.8, -7.8)
 		
 		icon.border = border
+		icon.BORDEREX = true
 	end)
 
 	hooksecurefunc(OmniCD.Party.BarFrameIconMixin, "SetBorder", function(icon)
 		if not icon or not icon.GetObjectType then return end
+		if icon.BORDERSET then return end
 
 		if icon:GetObjectType() == "Texture" then
 				icon = icon:GetParent()
@@ -67,6 +70,8 @@ function S:OmniCD_Party_Icons()
 		border:SetPoint("BOTTOMRIGHT", icon, "BOTTOMRIGHT", 8, -8)
 		
 		icon.border = border
+		icon.BORDERSET = true
+
 	end)
 end
 
