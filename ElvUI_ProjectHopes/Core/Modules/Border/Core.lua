@@ -18,9 +18,10 @@ local ITEM_QUALITY_COLORS = ITEM_QUALITY_COLORS
 
 -- Functions
 function BORDER:CreateBorder(frame, frameLevel, SetPoint1, SetPoint2, SetPoint3, SetPoint4, backdrop, event, Point1, Point2)
-    if not frame or frame.border then
-        return
-    end
+    -- Early exit checks
+    if not frame then return end
+    if frame.border then return end -- Already has a border
+    if frame.IsBorder then return end -- Already processed
 
     if frame:GetObjectType() == "Texture" then
         frame = frame:GetParent()
@@ -30,8 +31,8 @@ function BORDER:CreateBorder(frame, frameLevel, SetPoint1, SetPoint2, SetPoint3,
         local border = CreateFrame("Frame", nil, frame.backdrop, "BackdropTemplate")
         border:SetFrameLevel((frameLevel and frame:GetFrameLevel() + frameLevel) or frame:GetFrameLevel() + 2)
         border:SetBackdrop(Private.Border)
-        border:SetPoint("TOPLEFT" , Point1 or frame.backdrop, "TOPLEFT", SetPoint1 or -8, SetPoint2 or 8)
-        border:SetPoint("BOTTOMRIGHT", Point2 or frame.backdrop, "BOTTOMRIGHT", SetPoint3 or 8, SetPoint4 or -8)
+        border:SetPoint("TOPLEFT" , Point1 or frame.backdrop, "TOPLEFT", SetPoint1 or -8, SetPoint2 or 8) 
+        border:SetPoint("BOTTOMRIGHT", Point2 or frame.backdrop, "BOTTOMRIGHT", SetPoint3 or 8, SetPoint4 or -8) 
         border:SetBackdropBorderColor(1, 1, 1)
         if event then
             frame:HookScript("OnEnter", function()
@@ -52,8 +53,8 @@ function BORDER:CreateBorder(frame, frameLevel, SetPoint1, SetPoint2, SetPoint3,
         local border = CreateFrame("Frame", nil, frame, "BackdropTemplate")
         border:SetFrameLevel((frameLevel and frame:GetFrameLevel() + frameLevel) or frame:GetFrameLevel() + 2)
         border:SetBackdrop(Private.Border)
-        border:SetPoint("TOPLEFT" , Point1 or frame, "TOPLEFT", SetPoint1 or -8, SetPoint2 or 8)
-        border:SetPoint("BOTTOMRIGHT", Point2 or frame, "BOTTOMRIGHT", SetPoint3 or 8, SetPoint4 or -8)
+        border:SetPoint("TOPLEFT" , Point1 or frame, "TOPLEFT", SetPoint1 or -8, SetPoint2 or 8) 
+        border:SetPoint("BOTTOMRIGHT", Point2 or frame, "BOTTOMRIGHT", SetPoint3 or 8, SetPoint4 or -8) 
         border:SetBackdropBorderColor(1, 1, 1)
         frame.border = border
         if event then
@@ -71,6 +72,8 @@ function BORDER:CreateBorder(frame, frameLevel, SetPoint1, SetPoint2, SetPoint3,
             end)
         end
     end
+    
+    frame.IsBorder = true -- Mark as processed
 end
 
 do
