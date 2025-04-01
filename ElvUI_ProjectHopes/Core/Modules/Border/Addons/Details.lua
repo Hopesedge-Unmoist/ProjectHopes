@@ -17,33 +17,23 @@ local createdSeparators = {}
 local function CreateDetailsBarPanel()
 	-- Iterate through each barra
 	for i = 1, 2 do
-		for j = 1, 4 do
-			local barFrame = _G["DetailsBarra_"..i.."_"..j]
-			if barFrame then
-				-- Remove old separators if they exist
-				if createdSeparators[barFrame] then
-					createdSeparators[barFrame]:Hide()
-					createdSeparators[barFrame] = nil
-				end
-				local Panel_barSeparator = CreateFrame("Frame", nil, barFrame, "BackdropTemplate")
-				Panel_barSeparator:SetHeight(16)
-				Panel_barSeparator:SetBackdrop(Private.Separator)
-				Panel_barSeparator:SetFrameLevel(barFrame:GetFrameLevel() + 3)
-				Panel_barSeparator:SetPoint("BOTTOMLEFT", 0, -15)
-				Panel_barSeparator:SetPoint("BOTTOMRIGHT", 0, 0)
-				createdSeparators[barFrame] = Panel_barSeparator
+			for j = 1, 4 do
+					local barFrame = _G["DetailsBarra_"..i.."_"..j]
+					if barFrame and not createdSeparators[barFrame] then
+							local Panel_barSeparator = CreateFrame("Frame", nil, barFrame, "BackdropTemplate")
+							Panel_barSeparator:SetHeight(16)
+							Panel_barSeparator:SetBackdrop(Private.Separator)
+							Panel_barSeparator:SetFrameLevel(barFrame:GetFrameLevel() + 3)
+							Panel_barSeparator:SetPoint("BOTTOMLEFT", 0, -15)
+							Panel_barSeparator:SetPoint("BOTTOMRIGHT", 0, 0)
+							createdSeparators[barFrame] = Panel_barSeparator
+					end
 			end
-		end
 	end
 end
 
 local function CreatePanel(panelName, baseFrame, border, separator, background)
-	-- Remove old panels if they exist
-	if createdPanels[panelName] then
-		createdPanels[panelName].Panel:Hide()
-		createdPanels[panelName].Panel_Separator:Hide()
-		createdPanels[panelName].Panel_Background:Hide()
-	end
+	if createdPanels[panelName] then return end -- Prevent duplicate creation
 
 	local Panel = CreateFrame("Frame", panelName, baseFrame, "BackdropTemplate")
 	Panel:SetBackdrop(Private.Border)
@@ -66,11 +56,12 @@ local function CreatePanel(panelName, baseFrame, border, separator, background)
 	Panel_Background:SetBackdropColor(0.125, 0.125, 0.125, 1)
 
 	createdPanels[panelName] = {
-		Panel = Panel,
-		Panel_Separator = Panel_Separator,
-		Panel_Background = Panel_Background
+			Panel = Panel,
+			Panel_Separator = Panel_Separator,
+			Panel_Background = Panel_Background
 	}
 end
+
 
 local function DetailsSkin()
 	for i = 1, 5 do
@@ -82,50 +73,51 @@ local function DetailsSkin()
 end
 
 local function DetailsResizer()
-    -- Create a frame to listen for events
-    local DetailsResizer = CreateFrame("Frame")
-    -- Define the function that will run when the event fires
-    local function eventHandler(self, event, ...)
-        if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
-            C_Timer.After(1.2, function()  -- Delay of 1 second
-							if E.db.ProjectHopes.skins.details then
-								DetailsSkin()
-							end
+	local frame = CreateFrame("Frame")
 
-                local window2 = Details:GetWindow(2)
-                if (window2) then        
-                    local currentZoneType = Details.zone_type
-                    if (currentZoneType == "party" or currentZoneType == "none") then
-                        window2:SetSize(236, 57) 
-                        DetailsBaseFrame2:ClearAllPoints()
-                        DetailsBaseFrame2:SetPoint("BOTTOMRIGHT",-45,213)
-                    elseif (currentZoneType == "raid") then
-                        window2:SetSize(236, 141) 
-                        DetailsBaseFrame2:ClearAllPoints()
-                        DetailsBaseFrame2:SetPoint("BOTTOMRIGHT",-45,213)
-                    end
-                end
-            end)
-        end
-    end
-    
-    -- Register the event with the frame
-    DetailsResizer:RegisterEvent("PLAYER_ENTERING_WORLD")
-    DetailsResizer:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-    DetailsResizer:RegisterEvent("ZONE_CHANGED")
-    DetailsResizer:RegisterEvent("ZONE_CHANGED_INDOORS")
-    -- Associate the handler with the frame
-    DetailsResizer:SetScript("OnEvent", eventHandler)
+	local function ResizeDetailsWindow()
+			if not Details then return end
+
+			local window2 = Details:GetWindow(2)
+			if not window2 then return end
+
+			local zoneType = Details.zone_type
+			local width, height = 236, (zoneType == "raid") and 141 or 57
+
+			window2:SetSize(width, height)
+			DetailsBaseFrame2:ClearAllPoints()
+			DetailsBaseFrame2:SetPoint("BOTTOMRIGHT", -45, 213)
+	end
+
+	local function eventHandler(self, event)
+			if event == "ZONE_CHANGED_NEW_AREA" or event == "PLAYER_ENTERING_WORLD" then
+					-- Unregister the events to prevent redundant calls
+					self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+					self:UnregisterEvent("ZONE_CHANGED_NEW_AREA")
+
+					E:Delay(1.2, function()
+							if E.db.ProjectHopes.skins.details then
+									DetailsSkin()
+							end
+							ResizeDetailsWindow()
+					end)
+			end
+	end
+
+	frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+	frame:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	frame:SetScript("OnEvent", eventHandler)
 end
 
+
 function S:Details()
-    if E.db.ProjectHopes.skins.details then
-        DetailsSkin()
-    end
+  if E.db.ProjectHopes.skins.details then
+    DetailsSkin()
+  end
     
-    if E.private.ProjectHopes.qualityOfLife.detailsResize then
-        DetailsResizer()
-    end
+  if E.private.ProjectHopes.qualityOfLife.detailsResize then
+     DetailsResizer()
+  end
 end
 
 S:AddCallbackForAddon("Details")
