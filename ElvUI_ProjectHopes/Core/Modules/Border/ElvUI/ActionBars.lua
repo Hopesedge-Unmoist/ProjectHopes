@@ -151,13 +151,13 @@ function S:OnButtonEvent(event, key, down, spellID)
 
 	-- Cache border state to prevent redundant updates
 	local border = self.border
-	local isLight = border:GetBackdrop() == Engine.BorderLight
+	local isLight = border:GetBackdrop() == Private.BorderLight
 	local currentColor = {border:GetBackdropBorderColor()}
 
 	if event == "UNIT_SPELLCAST_RETICLE_TARGET" then
 			if (self.abilityID == spellID) and not self.TargetReticleAnimFrame:IsShown() then
 					if not isLight then
-							border:SetBackdrop(Engine.BorderLight)
+							border:SetBackdrop(Private.BorderLight)
 							border:SetBackdropBorderColor(1, .82, .25)
 					end
 					self.TargetReticleAnimFrame:Show()
@@ -170,7 +170,7 @@ function S:OnButtonEvent(event, key, down, spellID)
 			if self.TargetReticleAnimFrame:IsShown() then
 					self.TargetReticleAnimFrame:Hide()
 					if isLight then
-							border:SetBackdrop(Engine.Border)
+							border:SetBackdrop(Private.Border)
 							border:SetBackdropBorderColor(1, 1, 1)
 					end
 			end

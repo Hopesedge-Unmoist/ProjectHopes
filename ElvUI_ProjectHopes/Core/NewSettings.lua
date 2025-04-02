@@ -7,7 +7,7 @@ ProjectHopes.ChangelogTBL = {
 	' • Better OMNICD skin. .',
 	' • Fix for Castbar. ',
 	' • Fix for automation tab. ',
-' '
+' ',
 	'v|cff99ff20250321|r 21/03/2025',
 	' • Better Actionbar skinning. ',
 	' • Better Minimap scaling.',
