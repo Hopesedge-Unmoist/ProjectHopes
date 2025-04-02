@@ -115,7 +115,7 @@ function S:Details()
     DetailsSkin()
   end
     
-  if E.private.ProjectHopes.qualityOfLife.detailsResize then
+  if E.private.ProjectHopes.qualityOfLife.automation.detailsResize then
      DetailsResizer()
   end
 end

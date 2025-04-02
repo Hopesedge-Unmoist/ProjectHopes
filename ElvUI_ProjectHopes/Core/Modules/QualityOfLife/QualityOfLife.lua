@@ -109,10 +109,8 @@ local function AddCustomLine(tooltip, ...)
 end
 
 function QoL:UpgradeLevel()
-    if not E.private.ProjectHopes.qualityOfLife.upgradeLevel then
-        return
-    end
-
+    if not E.private.ProjectHopes.qualityOfLife.automation.upgradeLevel then return end
+    
     -- Flag to ensure hooks are only added once
     if self.hooksAdded then
         return
@@ -132,9 +130,7 @@ end
 
 
 function QoL:EasyDelete()
-	if not E.private.ProjectHopes.qualityOfLife.easyDelete then 
-        return 
-    end
+	if not E.private.ProjectHopes.qualityOfLife.automation.easyDelete then return end
 
 	-- Higher quality than green
 	hooksecurefunc(StaticPopupDialogs.DELETE_GOOD_ITEM, 'OnShow', function(frame)
@@ -148,9 +144,7 @@ function QoL:EasyDelete()
 end
 
 function QoL:AutoAcceptQuests()
-	if not E.private.ProjectHopes.qualityOfLife.autoAcceptQuests then 
-        return 
-    end
+	if not E.private.ProjectHopes.qualityOfLife.automation.autoAcceptQuests then return end
 
     local lastgossip
     QoLAutoAcceptQuests:RegisterEvent("QUEST_GREETING")

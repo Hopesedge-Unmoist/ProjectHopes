@@ -7,6 +7,7 @@ local norm = format("|cff1eff00%s|r", L["[ABBR] Normal"])
 local hero = format("|cff0070dd%s|r", L["[ABBR] Heroic"])
 local myth = format("|cffa335ee%s|r", L["[ABBR] Mythic"])
 local lfr = format("|cffff8000%s|r", L["[ABBR] Looking for raid"])
+
 -- Defaults: E.global.ProjectHopes
 G.ProjectHopes = {
 	dev = false,
@@ -16,9 +17,6 @@ G.ProjectHopes = {
 -- Defaults: E.private.ProjectHopes
 V.ProjectHopes = {
 	qualityOfLife = {
-		easyDelete = false,
-		autoAcceptQuests = false,
-		detailsResize = false,
 		frameMover = {
 		
 		},
@@ -26,9 +24,11 @@ V.ProjectHopes = {
 		automation = {
 			resurrect = false,
 			combatresurrect = false,
+			easyDelete = false,
+			autoAcceptQuests = false,
+			detailsResize = false,
 		}
 	},
-
 }
 
 -- Defaults: E.db.ProjectHopes
