@@ -7,6 +7,7 @@
 	<Script file='CastBars.lua'/>
 	<Script file='ChatVoicePanel.lua'/>
 	<Script file='CopyChatFrame.lua'/>
+	<Script file='ClassBars.lua'/>
 	<Script file='LootRoll.lua'/>
 	<Script file='MiniMap.lua'/>
 	<Script file='Option.lua'/>

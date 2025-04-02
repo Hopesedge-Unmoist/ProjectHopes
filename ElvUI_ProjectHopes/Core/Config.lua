@@ -598,6 +598,7 @@ function ProjectHopes:Config()
 		castbar = L["CastBars"],
 		chatPanels = L["Chat Panels"],
 		chatVoicePanel = L["Chat Voice Panels"],
+		classBars = L["Class Bars"],
 		lootRoll = L["Loot Roll"],
 		options = L["Options"],
 		panels = L["Panels"],

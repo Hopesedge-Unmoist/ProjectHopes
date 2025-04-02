@@ -280,6 +280,7 @@ P.ProjectHopes = {
 		chatPanels = false,
 		chatVoicePanel = false,
 		chatCopyFrame = false,
+		classBars = false,
 		lootRoll = false,
 		options = false,
 		panels = false,
