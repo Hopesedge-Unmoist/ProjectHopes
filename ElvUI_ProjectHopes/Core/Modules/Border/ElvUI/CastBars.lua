@@ -7,10 +7,14 @@ local UF = E:GetModule("UnitFrames")
 
 function S:ElvUI_UnitFrames_SkinCastBar(_, frame)
 	if not frame.Castbar then return end
-	if frame.CastbarSkinned then return end
 
-	frame.Castbar:SetStatusBarTexture("Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\blizzcast.tga")
-	frame.Castbar.bg:SetTexture("Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\blizzcastback.tga")
+	if not frame.TEXTURESET then
+		frame.Castbar:SetStatusBarTexture("Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\blizzcast.tga")
+		frame.Castbar.bg:SetTexture("Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\blizzcastback.tga")
+		frame.TEXTURESET = true
+	end
+
+	if frame.CastbarSkinned then return end
 	
 	BORDER:CreateBorder(frame.Castbar.backdrop)
 	BORDER:CreateBorder(frame.Castbar.ButtonIcon.bg)
