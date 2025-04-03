@@ -31,11 +31,7 @@ function S:BlizzardMiscFrames()
 
 	BORDER:CreateBorder(_G.StaticPopup1ExtraButton, nil, nil, nil, nil, nil, false, true)
 
-	BORDER:CreateBorder(_G.ElvUI_ReputationBarHolder)
-	BORDER:CreateBorder(_G.ElvUI_ExperienceBarHolder)
-	BORDER:CreateBorder(_G.ElvUI_ThreatBarHolder)
-	BORDER:CreateBorder(_G.ElvUI_HonorBarHolder)
-	BORDER:CreateBorder(_G.ElvUI_AzeriteBarHolder)
+
 	if _G.TimerTrackerTimer1StatusBar then 
 		BORDER:CreateBorder(_G.TimerTrackerTimer1StatusBar)
 		TimerTrackerTimer1StatusBar:SetHeight(16)

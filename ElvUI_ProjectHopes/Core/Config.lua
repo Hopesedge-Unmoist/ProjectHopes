@@ -599,6 +599,8 @@ function ProjectHopes:Config()
 		chatPanels = L["Chat Panels"],
 		chatVoicePanel = L["Chat Voice Panels"],
 		classBars = L["Class Bars"],
+		dataPanels = L["DataPanels"],
+		dataBars = L["Data Bars"],
 		lootRoll = L["Loot Roll"],
 		options = L["Options"],
 		panels = L["Panels"],
@@ -608,7 +610,6 @@ function ProjectHopes:Config()
 		totemTracker = L["Totem Tracker"],
 		tooltips = L["Tooltips"],
 		Minimap = L["Minimap"],
-		dataPanels = L["DataPanels"],
 	}
 
 	if E.Retail then

@@ -281,6 +281,8 @@ P.ProjectHopes = {
 		chatVoicePanel = false,
 		chatCopyFrame = false,
 		classBars = false,
+		dataPanels = false,
+		dataBars = false,
 		lootRoll = false,
 		options = false,
 		panels = false,
@@ -289,6 +291,5 @@ P.ProjectHopes = {
 		statusReport = false,
 		totemTracker = false,
 		Minimap = false,
-		dataPanels = false,
 	},
 }
