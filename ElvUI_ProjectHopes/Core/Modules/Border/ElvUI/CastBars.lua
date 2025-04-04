@@ -12,12 +12,8 @@ local blizzcastnonbreakable = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Sta
 
 function S:ElvUI_UnitFrames_SkinCastBar(_, frame)
 	if not frame.Castbar then return end
-
-	if not frame.TEXTURESET then
-		frame.Castbar:SetStatusBarTexture(blizzcast)
-		frame.Castbar.bg:SetTexture(blizzcastback)
-		frame.TEXTURESET = true
-	end
+	frame.Castbar:SetStatusBarTexture(blizzcast)
+	frame.Castbar.bg:SetTexture(blizzcastback)
 
 	if frame.CastbarSkinned then return end
 	
