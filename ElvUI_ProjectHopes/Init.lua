@@ -23,7 +23,8 @@ Private.Version = tonumber(GetAddOnMetadata(Name, 'Version'))
 
 E.private.ProjectHopes = E.private.ProjectHopes or {}
 E.private.ProjectHopes.qualityOfLife = E.private.ProjectHopes.qualityOfLife or {}
-if E.private.ProjectHopes.qualityOfLife.borederDarkmode then
+E.private.ProjectHopes.qualityOfLife.automation = E.private.ProjectHopes.qualityOfLife.automation or {}
+if E.private.ProjectHopes.qualityOfLife.automation.borederDarkmode then
     Private.Border = {bgFile = nil, edgeFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Borders\\HopesUI_Dark.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
     Private.Separator = {bgFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\HopesUI_Separator_Dark.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}}
     Private.vSeparator = {bgFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\HopesUI_vSeparator_Dark.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}} 

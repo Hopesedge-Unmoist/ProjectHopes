@@ -20,7 +20,8 @@ LSM:Register('statusbar','Blizzard Desat', [[Interface\AddOns\ElvUI_ProjectHopes
 -- Borders
 E.private.ProjectHopes = E.private.ProjectHopes or {}
 E.private.ProjectHopes.qualityOfLife = E.private.ProjectHopes.qualityOfLife or {}
-if E.private.ProjectHopes.qualityOfLife.borederDarkmode then
+E.private.ProjectHopes.qualityOfLife.automation = E.private.ProjectHopes.qualityOfLife.automation or {}
+if E.private.ProjectHopes.qualityOfLife.automation.borederDarkmode then
     LSM:Register('border', 'HopesUI', [[Interface\Addons\ElvUI_ProjectHopes\Media\Borders\HopesUI_Dark.tga]])
 else
     LSM:Register('border', 'HopesUI', [[Interface\Addons\ElvUI_ProjectHopes\Media\Borders\HopesUI.tga]])
