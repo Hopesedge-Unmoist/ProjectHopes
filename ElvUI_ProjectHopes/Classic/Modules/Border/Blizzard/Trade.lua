@@ -18,9 +18,9 @@ function S:TradeFrame()
 	BORDER:CreateBorder(_G.TradeFrameTradeButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.TradeFrameCancelButton, nil, nil, nil, nil, nil, false, true)
 
-	BORDER:CreateBorder(_G.TradePlayerInputMoneyFrameGold, nil, nil, nil, nil, nil, true, true)
-	BORDER:CreateBorder(_G.TradePlayerInputMoneyFrameSilver, nil, nil, nil, nil, nil, true, true)
-	BORDER:CreateBorder(_G.TradePlayerInputMoneyFrameCopper, nil, nil, nil, nil, nil, true, true)
+	--BORDER:CreateBorder(_G.TradePlayerInputMoneyFrameGold, nil, nil, nil, nil, nil, true, true)
+	--BORDER:CreateBorder(_G.TradePlayerInputMoneyFrameSilver, nil, nil, nil, nil, nil, true, true)
+	--BORDER:CreateBorder(_G.TradePlayerInputMoneyFrameCopper, nil, nil, nil, nil, nil, true, true)
 
 	for i = 1, _G.MAX_TRADE_ITEMS do
 		local player = _G['TradePlayerItem'..i..'ItemButton']
