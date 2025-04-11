@@ -48,7 +48,7 @@ Private.AbsorbTexture = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\
 Private.Portrait = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\CircleMaskScalable.tga"
 Private.PortraitBorderColor = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\PortraitBorder(Colorable).tga"
 Private.Font = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Fonts\\Expressway.ttf"
-Private.TargetGlow = {bgFile = nil, edgeFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Borders\\BorderTex2.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
+Private.TargetGlow = {bgFile = nil, edgeFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Borders\\Targetglow.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
 Private.CastbarGlow = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\CastbarGlow.tga"
 Private.HopesUI = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\HopesUI.tga"
 

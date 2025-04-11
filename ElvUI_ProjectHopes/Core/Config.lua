@@ -146,7 +146,7 @@ function ProjectHopes:Config()
 	POAUFA.customtargetborder.args.desc = ACH:Group(L["Description"], nil, 1)
 	POAUFA.customtargetborder.args.desc.inline = true
 	POAUFA.customtargetborder.args.desc.args.feature = ACH:Description(L["Makes the Target Border a Solid frame and bring it in front of Unitframes."], 1, "medium")
-	POAUFA.customtargetborder.args.enable = ACH:Toggle(L["Enable"], L['Toggle the Target Border frame. (Target Frame Glow MUST be enabled.)'], 2, nil, false, nil, function(info) return E.db.ProjectHopes.targetGlow.foreground end, function(info, value) E.db.ProjectHopes.targetGlow.foreground = value; TG:Update() end, disabled, hidden)
+	POAUFA.customtargetborder.args.enable = ACH:Toggle(L["Enable"], L['Toggle the Target Border frame. (Target Frame Glow MUST be enabled.)'], 2, nil, false, nil, function() return E.db.ProjectHopes.targetGlow.foreground end,function(_, value) E.db.ProjectHopes.targetGlow.foreground = value E:StaticPopup_Show('ProjectHopes_RL') end)
 	
 	POAUFA.cbackdrop = ACH:Group(L["Health Backdrop"], nil, 1)
 	POAUFA.cbackdrop.args.desc = ACH:Group(L["Description"], nil, 1)
