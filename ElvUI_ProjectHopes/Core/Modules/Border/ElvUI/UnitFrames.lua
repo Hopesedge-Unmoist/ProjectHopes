@@ -7,46 +7,42 @@ local UF = E:GetModule("UnitFrames")
 local GetTime = GetTime
 
 local function BorderAndSeparator(f)
-    if not f then return end
-    
-    -- Cache border states to prevent redundant updates
-    local hasBorder = f.border and f.border:IsShown()
-    local hasHealthBorder = f.Health.border and f.Health.border:IsShown()
-    local hasPowerBorder = f.Power.border and f.Power.border:IsShown()
-    local hasPowerSeparator = f.Power.separator and f.Power.separator:IsShown()
+    if f then
+        if f.POWERBAR_DETACHED or f.USE_POWERBAR_OFFSET then
+            if f.border then
+                f.border:Hide()
+            end
 
-    if f.POWERBAR_DETACHED or f.USE_POWERBAR_OFFSET then
-        if hasBorder then
-            f.border:Hide()
-        end
-
-        if not f.Health.backdrop.border then
             BORDER:CreateBorder(f.Health.backdrop)
-        end
-    else
-        if hasHealthBorder then
-            f.Health.border:Hide()
-        end
+        else
+            if f.Health.border then
+                f.Health.border:Hide()
+            end
 
-        if not hasBorder then
             BORDER:CreateBorder(f, 15)
         end
-    end
 
-    if f.USE_POWERBAR and (hasBorder or f.Health.backdrop.border) then
-        if f.POWERBAR_DETACHED or f.USE_POWERBAR_OFFSET then
-            if not hasPowerBorder then
-                BORDER:CreateBorder(f.Power.backdrop)
-            end
-            if hasPowerSeparator then
-                f.Power.separator:Hide()
-            end
-        else
-            if not hasPowerSeparator then
-                BORDER:CreateSeparator(f.Power)
-            end
-            if hasPowerBorder then
-                f.Power.border:Hide()
+        if f.USE_POWERBAR and (f.border or f.Health.backdrop.border) then
+            local border = f.Power.border
+            local separator = f.Power.separator
+            if f.POWERBAR_DETACHED or f.USE_POWERBAR_OFFSET then
+                if not border then
+                    BORDER:CreateBorder(f.Power.backdrop)
+                else
+                    border:Show()
+                end
+                if separator then
+                    separator:Hide()
+                end
+            else
+                if not separator then
+                    BORDER:CreateSeparator(f.Power)
+                else
+                    separator:Show()
+                end
+                if border then
+                    border:Hide()
+                end
             end
         end
     end
