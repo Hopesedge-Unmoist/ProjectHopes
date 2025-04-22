@@ -29,7 +29,9 @@ function S:ElvUI_ActionBar_SkinButton(button, useBackdrop)
 	end
 
 	BORDER:CreateBorder(button, 2)
-	button.BorderShadow:Kill()
+	if button.BorderShadow then
+		button.BorderShadow:Kill()
+	end
 	button:GetPushedTexture():SetAlpha(0)
 	button:GetHighlightTexture():SetAlpha(0)
 	button:GetCheckedTexture():SetAlpha(0)
