@@ -109,6 +109,7 @@ local function AddCustomLine(tooltip, ...)
 end
 
 function QoL:UpgradeLevel()
+    if not E.Retail then return end
     if not E.private.ProjectHopes.qualityOfLife.upgradeLevel then return end
     
     -- Flag to ensure hooks are only added once
