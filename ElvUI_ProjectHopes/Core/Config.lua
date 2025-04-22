@@ -206,7 +206,7 @@ function ProjectHopes:Config()
 	POATPA.hideCrafterdesc.args.feature = ACH:Description(L[" "], 1, "medium", function() return "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ToolTipCrafterName.tga", 155, 68 end)
 	POATPA.hideCrafterdesc.args.hideCrafter = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, nil, nil, nil, not E.Retail)
 
-	POA.Automation = ACH:Group(E:TextGradient(L["Automation"], 0.6, 0.6, 0.6, 0.25, 0.70, 1), nil, 3, nil, function(info) return E.private.ProjectHopes.qualityOfLife.automation[info[#info]] end, function(info, value) E.private.ProjectHopes.qualityOfLife.automation[info[#info]] = value E:StaticPopup_Show("ProjectHopes_RL") end, not E.Retail, not E.Retail)
+	POA.Automation = ACH:Group(E:TextGradient(L["Automation"], 0.6, 0.6, 0.6, 0.25, 0.70, 1), nil, 3, nil, function(info) return E.private.ProjectHopes.qualityOfLife.automation[info[#info]] end, function(info, value) E.private.ProjectHopes.qualityOfLife.automation[info[#info]] = value E:StaticPopup_Show("ProjectHopes_RL") end)
 	local POAANA = POA.Automation.args
 	POAANA.desc = ACH:Group(L["Description"], nil, 1)
 	POAANA.desc.inline = true
