@@ -242,6 +242,7 @@ function ProjectHopes:Config()
 	POAMSA.desc.args.feature = ACH:Description(L["This is where you can find all the miscellaneous modules that dont fit a catagory."], 1, "medium")
 	POAMSA.mplusimprovements = ACH:Toggle(L["Mythic+ Tab Improvements"], nil, 4, nil, false, 'full', function() return E.db.ProjectHopes.qualityOfLife.mplusimprovements end,function(_, value) E.db.ProjectHopes.qualityOfLife.mplusimprovements = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
 	POAMSA.driveButton = ACH:Toggle(L["Drive Minimap Button, for faster config of DRIVE"], nil, 4, nil, false, 'full', function() return E.db.ProjectHopes.qualityOfLife.driveButton end,function(_, value) E.db.ProjectHopes.qualityOfLife.driveButton = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
+	POAMSA.BigWigsIcons = ACH:Toggle(L["BigWigs Nameplate Icons"], L["If enabled it disables all BigWigs nameplate Icons, if Disabled it activates all."], 4, nil, false, 'full', function() return E.db.ProjectHopes.qualityOfLife.BigWigsIcons end,function(_, value) E.db.ProjectHopes.qualityOfLife.BigWigsIcons = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
 
 	POA.frameMover = ACH:Group(E:TextGradient(L["Frame Mover"], 0.6, 0.6, 0.6, 0.98, 0.34, 1), nil, 5, nil, function(info) return E.private.ProjectHopes.qualityOfLife.frameMover[info[#info]] end, function(info, value) E.private.ProjectHopes.qualityOfLife.frameMover[info[#info]] = value E:StaticPopup_Show("ProjectHopes_RL") end)
 	local POAFMA = POA.frameMover.args
