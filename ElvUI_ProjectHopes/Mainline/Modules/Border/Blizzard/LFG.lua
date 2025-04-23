@@ -306,12 +306,12 @@ function S:LookingForGroupFrames()
 	_G.PVEFrameTab4:Point('TOPLEFT', _G.PVEFrameTab3, 'TOPRIGHT', 0, 0)
 
 	-- Scenario Tab [[New in 10.2.7]]
-	local ScenarioQueueFrame = _G.ScenarioQueueFrame
-	if ScenarioQueueFrame then
-		BORDER:CreateBorder(_G.ScenarioQueueFrameTypeDropdown, nil, nil, nil, nil, nil, true, true)
-		BORDER:CreateBorder(_G.ScenarioQueueFrameRandomScrollFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
-		BORDER:CreateBorder(_G.ScenarioQueueFrameFindGroupButton, nil, nil, nil, nil, nil, false, true)
-	end
+	--local ScenarioQueueFrame = _G.ScenarioQueueFrame
+	--if ScenarioQueueFrame then
+	--	BORDER:CreateBorder(_G.ScenarioQueueFrameTypeDropdown, nil, nil, nil, nil, nil, true, true)
+	--	BORDER:CreateBorder(_G.ScenarioQueueFrameRandomScrollFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
+	--	BORDER:CreateBorder(_G.ScenarioQueueFrameFindGroupButton, nil, nil, nil, nil, nil, false, true)
+	--end
 
 	-- Dungoen finder
 	BORDER:CreateBorder(_G.LFDQueueFrameFindGroupButton, nil, nil, nil, nil, nil, false, true)

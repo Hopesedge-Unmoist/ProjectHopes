@@ -187,8 +187,10 @@ function S:LAB_ButtonCreated(button)
 	button:RegisterUnitEvent('UNIT_SPELLCAST_STOP', 'player')
 	button:RegisterUnitEvent('UNIT_SPELLCAST_SUCCEEDED', 'player')
 	button:RegisterUnitEvent('UNIT_SPELLCAST_FAILED', 'player')
-	button:RegisterUnitEvent('UNIT_SPELLCAST_RETICLE_TARGET', 'player')
-	button:RegisterUnitEvent('UNIT_SPELLCAST_RETICLE_CLEAR', 'player')
+	if E.Retail then
+		button:RegisterUnitEvent('UNIT_SPELLCAST_RETICLE_TARGET', 'player')
+		button:RegisterUnitEvent('UNIT_SPELLCAST_RETICLE_CLEAR', 'player')
+	end
 
 	-- Prevent duplicate hooks
 	if not button.ProjectHopes_hooks_applied then
