@@ -2,6 +2,10 @@ local Name, Private = ...
 local E = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+	'v|cff99ff20250423|r 23/04/2025',
+	' • Fix Actionbar for Classic.',
+	' • Patch bugs fixed.',
+' ',
 	'v|cff99ff20250415|r 15/04/2025',
 	' • Fix for Castbar when changing spec.',
 	' • Better Targetglow',
