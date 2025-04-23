@@ -5,6 +5,7 @@ ProjectHopes.ChangelogTBL = {
 	'v|cff99ff20250423|r 23/04/2025',
 	' • Fix Actionbar for Classic.',
 	' • Patch bugs fixed.',
+	' • BigWigs disabler weeee built in.',
 ' ',
 	'v|cff99ff20250415|r 15/04/2025',
 	' • Fix for Castbar when changing spec.',
