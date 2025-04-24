@@ -7,12 +7,26 @@ local S = E:GetModule('Skins')
 local _G = _G
 local hooksecurefunc = hooksecurefunc
 
-local function HandleRewardButton(box)
-	local container = box.ContentsContainer
-	if container and not container.IsBorder then
-		container.IsBorder = true
+local function HandleRewardButton(child)
+	local container = child.ContentsContainer
+	if not container then return end
 
+	local icon = container.Icon
+	if icon then
 		BORDER:HandleIcon(container.Icon, true)
+
+		container.IconMask:Hide()
+	end
+
+	local priceIcon = container.PriceIcon
+	if priceIcon then
+		BORDER:HandleIcon(priceIcon, true)
+	end
+
+	local cartButton = container.CartToggleButton
+	if cartButton then
+		BORDER:HandleIcon(cartButton, true)
+
 	end
 end
 
@@ -29,7 +43,6 @@ function S:Blizzard_PerksProgram()
 	local PerksProgramFrame = _G.PerksProgramFrame
 
 	local products = PerksProgramFrame.ProductsFrame
-	BORDER:CreateBorder(products)
 
 	if products then
 		BORDER:CreateBorder(products.PerksProgramFilter, nil, nil, nil, nil, nil, false, true)
@@ -69,7 +82,10 @@ function S:Blizzard_PerksProgram()
 		if purchase then
 			BORDER:CreateBorder(footer.LeaveButton, nil, nil, nil, nil, nil, false, true)
 			BORDER:CreateBorder(footer.RefundButton, nil, nil, nil, nil, nil, false, true)
-			BORDER:CreateBorder(footer.PurchaseButton, nil, nil, nil, nil, nil, false, true)           
+			BORDER:CreateBorder(footer.PurchaseButton, nil, nil, nil, nil, nil, false, true)        
+			BORDER:CreateBorder(footer.ViewCartButton, nil, nil, nil, nil, nil, false, true)  
+			BORDER:CreateBorder(footer.AddToCartButton, nil, nil, nil, nil, nil, false, true)  
+			BORDER:CreateBorder(footer.RemoveFromCartButton, nil, nil, nil, nil, nil, false, true)  
 		end
 
 		local rotate = footer.RotateButtonContainer
