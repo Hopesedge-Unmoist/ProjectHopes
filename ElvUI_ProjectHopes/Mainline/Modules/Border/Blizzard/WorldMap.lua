@@ -159,7 +159,7 @@ function S:WorldMapFrame()
 	MapLegendScroll:SetBackdrop()
 
 	local DetailsFrame = QuestMapFrame.DetailsFrame
-	BORDER:CreateBorder(DetailsFrame, nil, nil, nil, nil, nil, true, false)
+	--BORDER:CreateBorder(DetailsFrame, nil, nil, nil, nil, nil, true, false)
 	DetailsFrame.BackFrame.BackButton:ClearAllPoints()
 	DetailsFrame.BackFrame.BackButton:SetPoint("TOPLEFT", DetailsFrame.BackFrame, "TOPLEFT", 5, -17)
 	BORDER:CreateBorder(DetailsFrame.BackFrame.BackButton, nil, nil, nil, nil, nil, false, true)
