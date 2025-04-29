@@ -34,6 +34,7 @@ local C_MythicPlus = C_MythicPlus
 local C_MythicPlus_GetRewardLevelForDifficultyLevel = C_MythicPlus.GetRewardLevelForDifficultyLevel
 local C_MythicPlus_GetCurrentAffixes = C_MythicPlus.GetCurrentAffixes
 local C_MythicPlus_GetRunHistory = C_MythicPlus.GetRunHistory
+local C_DelvesUI_GetDelvesMinRequiredLevel = C_DelvesUI.GetDelvesMinRequiredLevel
 
 local LE_PARTY_CATEGORY_HOME = LE_PARTY_CATEGORY_HOME
 
@@ -305,6 +306,11 @@ function S:LookingForGroupFrames()
 	_G.PVEFrameTab3:Point('TOPLEFT', _G.PVEFrameTab2, 'TOPRIGHT', 0, 0)
 	_G.PVEFrameTab4:Point('TOPLEFT', _G.PVEFrameTab3, 'TOPRIGHT', 0, 0)
 
+	hooksecurefunc('PVEFrame_ShowFrame', function()
+		if _G.PVEFrameTab4 and (E.mylevel >= C_DelvesUI_GetDelvesMinRequiredLevel()) then
+			_G.PVEFrameTab4:Point('TOPLEFT', _G.PVEFrameTab3, 'TOPRIGHT', 0, 0)
+		end
+	end)
 	-- Scenario Tab [[New in 10.2.7]]
 	--local ScenarioQueueFrame = _G.ScenarioQueueFrame
 	--if ScenarioQueueFrame then
