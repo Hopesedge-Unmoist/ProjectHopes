@@ -196,9 +196,11 @@ local function SkinPetFrame()
 		BORDER:CreateBorder(btn)
 	end
 
-	BORDER:CreateBorder(_G.PetJournalPetCardPetInfo, 0, nil, nil, nil, nil, true, false)
+	local Card = _G.PetJournalPetCard
+	BORDER:HandleIcon(Card.PetInfo.icon, true)
+	BORDER:HandleIconBorder(Card.PetInfo.qualityBorder, Card.PetInfo.icon.backdrop.border)
 
-	_G.PetJournalPetCard:SetBackdrop(nil)
+	Card:SetBackdrop(nil)
 
 	for i=1, 6 do
 		local frame = _G['PetJournalPetCardSpell'..i]
@@ -257,6 +259,13 @@ local function HandleTabs()
 		index = index + 1
 		tab = _G['CollectionsJournalTab'..index]
 	end
+
+	-- Blizzard clears points on the wardrobe tab
+	hooksecurefunc('CollectionsJournal_CheckAndDisplayHeirloomsTab', function()
+		if _G.CollectionsJournalTab5 then
+			_G.CollectionsJournalTab5:Point('TOPLEFT', _G.CollectionsJournalTab4, 'TOPRIGHT', 0, 0)
+		end
+	end)
 end
 
 local function SetsFrame_ScrollBoxUpdate(button)
