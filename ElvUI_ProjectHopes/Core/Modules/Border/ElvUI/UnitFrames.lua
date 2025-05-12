@@ -347,6 +347,212 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
     end
 
+    if name == "Raid2" and enable and E.db.ProjectHopes.border.raid then
+        local Raid2Frames = _G["ElvUF_Raid2"]
+        BORDER:CreateBorder(Raid2Frames, 20, -9, 9, 9, -9)
+        if E.db.ProjectHopes.border.raidbackdrop then
+            BORDER:CreateBackground(Raid2Frames, -2, 2, 2, -2)
+        end
+
+        local Raid2BorderVSeparator = {}
+        for i = 1, 5 do
+            Raid2BorderVSeparator[i] = CreateFrame("Frame", nil, Raid2Frames, BackdropTemplateMixin and "BackdropTemplate")
+            Raid2BorderVSeparator[i]:SetBackdrop(Private.vSeparator)
+            Raid2BorderVSeparator[i]:SetWidth(16)
+            Raid2BorderVSeparator[i]:SetFrameLevel(Raid2Frames:GetFrameLevel() + 22)
+            Raid2BorderVSeparator[i]:SetPoint("TOPLEFT", _G["ElvUF_Raid2Group1UnitButton"..i], -4, 0)
+            Raid2BorderVSeparator[i]:SetPoint("BOTTOMLEFT", Raid2Frames, 0, 0)
+            Raid2BorderVSeparator[i]:Hide()
+        end
+
+        local Raid2BorderHSeparator = {}
+        for i = 2, 8 do
+            Raid2BorderHSeparator[i] = CreateFrame("Frame", nil, Raid2Frames, BackdropTemplateMixin and "BackdropTemplate")
+            Raid2BorderHSeparator[i]:SetBackdrop(Private.Separator)
+            Raid2BorderHSeparator[i]:SetHeight(16)
+            Raid2BorderHSeparator[i]:SetFrameLevel(Raid2Frames:GetFrameLevel() + 21)
+            Raid2BorderHSeparator[i]:SetPoint("TOPRIGHT", _G["ElvUF_Raid2Group"..i], 0, 4)
+            Raid2BorderHSeparator[i]:SetPoint("LEFT", Raid2Frames, 0, 0)
+            Raid2BorderHSeparator[i]:Hide()
+        end
+
+        local function UpdateRaid3Border()
+            local members = GetNumGroupMembers()
+            local maxSubgroup = 1
+            for j = 1, members do
+                local _, rank, subgroup = GetRaidRosterInfo(j)
+                if subgroup > maxSubgroup then
+                    maxSubgroup = subgroup
+                end
+            end
+            for i = 2, 8 do
+                if i <= maxSubgroup then
+                    Raid2BorderHSeparator[i]:Show() 
+                else
+                    Raid2BorderHSeparator[i]:Hide()
+                end
+            end
+                
+            for i = 1, 5 do
+                if i <= 4 then -- And this condition
+                    Raid2BorderVSeparator[i]:Show()
+                    Raid2BorderVSeparator[i]:SetPoint("BOTTOMLEFT", _G["ElvUF_Raid2Group"..maxSubgroup], 0, 0)
+                else
+                    Raid2BorderVSeparator[i]:Hide()
+                end
+            end
+            
+            local groupnum = "ElvUF_Raid2Group" .. maxSubgroup
+            Raid2Frames.border:SetPoint("TOPLEFT", Raid2Frames, -9, 9)
+            Raid2Frames.border:SetPoint("TOPRIGHT", Raid2Frames, 9, -9)
+            Raid2Frames.border:SetPoint("BOTTOMRIGHT", groupnum, 9, -9)
+            if E.db.ProjectHopes.border.raidbackdrop then
+                Raid2Frames.background:SetPoint("TOPLEFT", Raid2Frames, -3, 3)
+                Raid2Frames.background:SetPoint("TOPRIGHT", Raid2Frames, 3, -3)
+                Raid2Frames.background:SetPoint("BOTTOMRIGHT", groupnum, 3, -3)	
+            end
+        end
+
+        Raid2Frames.border:RegisterEvent("GROUP_ROSTER_UPDATE")
+        Raid2Frames.border:SetScript("OnEvent", function(self, event, ...)
+                UpdateRaid3Border()
+        end)
+    end
+
+    if name == "Raid2" and enable and E.db.ProjectHopes.border.raiddps then
+        for k = 1, 8 do
+            for l = 1, 5 do
+                local slots = {_G["ElvUF_Raid2Group"..k..'UnitButton'..l]}
+                for _, button in pairs(slots) do
+                    if button and not button.border then
+                        if button.db.power.enable then
+                            if button.db.power.width == "spaced" then
+                                BORDER:CreateBorder(button.Health)
+
+                                BORDER:CreateBorder(button.Power)
+                            elseif button.db.power.width == "offset" then
+                                BORDER:CreateBorder(button)
+
+                                if button.db.power.offset > 0 then
+                                    if not button.Power.border then
+                                        BORDER:CreateBorder(button.Power)
+                                    end
+                                end
+                            else
+                                BORDER:CreateBorder(button)
+                            end
+                        else
+                            BORDER:CreateBorder(button, 22, -9, 9, 9, -9)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    if name == "Raid3" and enable and E.db.ProjectHopes.border.raid then
+        local Raid3Frames = _G["ElvUF_Raid3"]
+        BORDER:CreateBorder(Raid3Frames, 20, -9, 9, 9, -9)
+        if E.db.ProjectHopes.border.raidbackdrop then
+            BORDER:CreateBackground(Raid3Frames, -2, 2, 2, -2)
+        end
+
+        local Raid3BorderVSeparator = {}
+        for i = 1, 5 do
+            Raid3BorderVSeparator[i] = CreateFrame("Frame", nil, Raid3Frames, BackdropTemplateMixin and "BackdropTemplate")
+            Raid3BorderVSeparator[i]:SetBackdrop(Private.vSeparator)
+            Raid3BorderVSeparator[i]:SetWidth(16)
+            Raid3BorderVSeparator[i]:SetFrameLevel(Raid3Frames:GetFrameLevel() + 22)
+            Raid3BorderVSeparator[i]:SetPoint("TOPLEFT", _G["ElvUF_Raid3Group1UnitButton"..i], -4, 0)
+            Raid3BorderVSeparator[i]:SetPoint("BOTTOMLEFT", Raid3Frames, 0, 0)
+            Raid3BorderVSeparator[i]:Hide()
+        end
+
+        local Raid3BorderHSeparator = {}
+        for i = 2, 8 do
+            Raid3BorderHSeparator[i] = CreateFrame("Frame", nil, Raid3Frames, BackdropTemplateMixin and "BackdropTemplate")
+            Raid3BorderHSeparator[i]:SetBackdrop(Private.Separator)
+            Raid3BorderHSeparator[i]:SetHeight(16)
+            Raid3BorderHSeparator[i]:SetFrameLevel(Raid3Frames:GetFrameLevel() + 21)
+            Raid3BorderHSeparator[i]:SetPoint("TOPRIGHT", _G["ElvUF_Raid3Group"..i], 0, 4)
+            Raid3BorderHSeparator[i]:SetPoint("LEFT", Raid3Frames, 0, 0)
+            Raid3BorderHSeparator[i]:Hide()
+        end
+
+        local function UpdateRaid3Border()
+            local members = GetNumGroupMembers()
+            local maxSubgroup = 1
+            for j = 1, members do
+                local _, rank, subgroup = GetRaidRosterInfo(j)
+                if subgroup > maxSubgroup then
+                    maxSubgroup = subgroup
+                end
+            end
+            for i = 2, 8 do
+                if i <= maxSubgroup then
+                    Raid3BorderHSeparator[i]:Show() 
+                else
+                    Raid3BorderHSeparator[i]:Hide()
+                end
+            end
+                
+            for i = 1, 5 do
+                if i <= 4 then -- And this condition
+                    Raid3BorderVSeparator[i]:Show()
+                    Raid3BorderVSeparator[i]:SetPoint("BOTTOMLEFT", _G["ElvUF_Raid3Group"..maxSubgroup], 0, 0)
+                else
+                    Raid3BorderVSeparator[i]:Hide()
+                end
+            end
+            
+            local groupnum = "ElvUF_Raid3Group" .. maxSubgroup
+            Raid3Frames.border:SetPoint("TOPLEFT", Raid3Frames, -9, 9)
+            Raid3Frames.border:SetPoint("TOPRIGHT", Raid3Frames, 9, -9)
+            Raid3Frames.border:SetPoint("BOTTOMRIGHT", groupnum, 9, -9)
+            if E.db.ProjectHopes.border.raidbackdrop then
+                Raid3Frames.background:SetPoint("TOPLEFT", Raid3Frames, -3, 3)
+                Raid3Frames.background:SetPoint("TOPRIGHT", Raid3Frames, 3, -3)
+                Raid3Frames.background:SetPoint("BOTTOMRIGHT", groupnum, 3, -3)	
+            end
+        end
+
+        Raid3Frames.border:RegisterEvent("GROUP_ROSTER_UPDATE")
+        Raid3Frames.border:SetScript("OnEvent", function(self, event, ...)
+                UpdateRaid3Border()
+        end)
+    end
+
+    if name == "Raid3" and enable and E.db.ProjectHopes.border.raiddps then
+        for k = 1, 8 do
+            for l = 1, 5 do
+                local slots = {_G["ElvUF_Raid3Group"..k..'UnitButton'..l]}
+                for _, button in pairs(slots) do
+                    if button and not button.border then
+                        if button.db.power.enable then
+                            if button.db.power.width == "spaced" then
+                                BORDER:CreateBorder(button.Health)
+
+                                BORDER:CreateBorder(button.Power)
+                            elseif button.db.power.width == "offset" then
+                                BORDER:CreateBorder(button)
+
+                                if button.db.power.offset > 0 then
+                                    if not button.Power.border then
+                                        BORDER:CreateBorder(button.Power)
+                                    end
+                                end
+                            else
+                                BORDER:CreateBorder(button)
+                            end
+                        else
+                            BORDER:CreateBorder(button, 22, -9, 9, 9, -9)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
     if name == "Tank" and enable and E.db.ProjectHopes.border.Maintankofftank then
         for i = 1, 2 do 
             local TankFrame = _G["ElvUF_TankUnitButton"..i]
