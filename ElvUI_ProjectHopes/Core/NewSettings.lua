@@ -2,6 +2,11 @@ local Name, Private = ...
 local E = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+	'v|cff99ff20250512|r 12/05/2025',
+	' • Raid border now works for Raid 2+3',
+	' • Minimap button fix, when changing spec.',
+	' • Skin fixes.',
+' ',
 	'v|cff99ff20250423|r 23/04/2025',
 	' • Fix Actionbar for Classic.',
 	' • Patch bugs fixed.',
@@ -103,7 +108,7 @@ ProjectHopes.ChangelogTBL = {
 
 function ProjectHopes:LoadNewSettings()
 	
-	E.db["ProjectHopes"]["skins"]["castbar"] = true
+
 	
 	--- Keep this stuff ---
 	Private:Print("New features is now set. Have fun!")
