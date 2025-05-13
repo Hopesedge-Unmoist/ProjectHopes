@@ -8,7 +8,7 @@
 ]]
 
 local Name, Private = ...
-local E = unpack(ElvUI)
+local E, L, V, P, G = unpack(ElvUI)
 local BORDER = E:GetModule('BORDER')
 
 local S = E:GetModule('Skins')

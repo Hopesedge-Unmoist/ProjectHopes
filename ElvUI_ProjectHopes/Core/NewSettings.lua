@@ -1,5 +1,5 @@
 local Name, Private = ...
-local E = unpack(ElvUI)
+local E, L, V, P, G = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
 	'v|cff99ff20250512|r 12/05/2025',
