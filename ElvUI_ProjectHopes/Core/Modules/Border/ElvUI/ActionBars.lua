@@ -28,6 +28,8 @@ function S:ElvUI_ActionBar_SkinButton(button, useBackdrop)
 			return
 	end
 
+
+
 	BORDER:CreateBorder(button, 2)
 	if button.BorderShadow then
 		button.BorderShadow:Kill()
@@ -35,6 +37,10 @@ function S:ElvUI_ActionBar_SkinButton(button, useBackdrop)
 	button:GetPushedTexture():SetAlpha(0)
 	button:GetHighlightTexture():SetAlpha(0)
 	button:GetCheckedTexture():SetAlpha(0)
+	
+	if button.ProfessionQualityOverlayFrame then
+		button.ProfessionQualityOverlayFrame:SetFrameLevel(button.border:GetFrameLevel() + 1)
+	end
 end
 
 function S:ElvUI_ActionBar_SkinBar(bar, type)
