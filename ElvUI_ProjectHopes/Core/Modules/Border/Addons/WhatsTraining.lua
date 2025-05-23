@@ -22,9 +22,10 @@ function S:WhatsTraining()
 		BORDER:CreateBorder(_G.WhatsTrainingFrameScrollBarScrollBarThumbTexture)
 
 		--position search box
-		_G.WhatsTrainingFrameSearchBox:ClearAllPoints()
-		WhatsTrainingFrameSearchBox:Point('TOPLEFT', _G.SpellBookFrame, 'TOPLEFT', 20, -10)
-
+		if _G.WhatsTrainingFrameSearchBox then
+			_G.WhatsTrainingFrameSearchBox:ClearAllPoints()
+			WhatsTrainingFrameSearchBox:Point('TOPLEFT', _G.SpellBookFrame, 'TOPLEFT', 20, -10)
+		end
 		--raise strata of close button
 		SpellBookCloseButton:SetFrameStrata('HIGH')
 	end)

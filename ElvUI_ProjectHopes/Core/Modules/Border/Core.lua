@@ -435,7 +435,7 @@ do
 			if scrollFrame then
 				self:CreateBorder(scrollFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 			end
-		else
+		elseif frame.IconSelector.ScrollBar.Track.Thumb then
 			self:CreateBorder(frame.IconSelector.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 		end
 

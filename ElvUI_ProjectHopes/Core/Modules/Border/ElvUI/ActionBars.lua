@@ -177,13 +177,15 @@ function S:OnButtonEvent(event, key, down, spellID)
 			or event == "UNIT_SPELLCAST_STOP" 
 			or event == "UNIT_SPELLCAST_SUCCEEDED" 
 			or event == "UNIT_SPELLCAST_FAILED" then
-			if self.TaqrgetReticleAnimFrame:IsShown() and E.Retail then
+			if E.Retail then
+				if self.TaqrgetReticleAnimFrame:IsShown() then
 					self.TargetReticleAnimFrame:Hide()
 					if isLight then
 							border:SetBackdrop(Private.Border)
 							border:SetBackdropBorderColor(1, 1, 1)
 					end
 			end
+		end
 	elseif event == "GLOBAL_MOUSE_UP" then
 			self:UnregisterEvent(event)
 	end
