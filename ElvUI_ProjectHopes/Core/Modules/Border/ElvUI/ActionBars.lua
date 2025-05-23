@@ -168,14 +168,16 @@ function S:OnButtonEvent(event, key, down, spellID)
 							border:SetBackdrop(Private.BorderLight)
 							border:SetBackdropBorderColor(1, .82, .25)
 					end
-					self.TargetReticleAnimFrame:Show()
-					self.TargetReticleAnimFrame:SetAlpha(0)
+					if self.TargetReticleAnimFrame and E.Retail then
+						self.TargetReticleAnimFrame:Show()
+						self.TargetReticleAnimFrame:SetAlpha(0)
+					end
 			end
 	elseif event == "UNIT_SPELLCAST_RETICLE_CLEAR" 
 			or event == "UNIT_SPELLCAST_STOP" 
 			or event == "UNIT_SPELLCAST_SUCCEEDED" 
 			or event == "UNIT_SPELLCAST_FAILED" then
-			if self.TargetReticleAnimFrame:IsShown() then
+			if self.TaqrgetReticleAnimFrame:IsShown() and E.Retail then
 					self.TargetReticleAnimFrame:Hide()
 					if isLight then
 							border:SetBackdrop(Private.Border)
