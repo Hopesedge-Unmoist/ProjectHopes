@@ -162,30 +162,26 @@ function S:OnButtonEvent(event, key, down, spellID)
 	local isLight = border:GetBackdrop() == Private.BorderLight
 	local currentColor = {border:GetBackdropBorderColor()}
 
-	if event == "UNIT_SPELLCAST_RETICLE_TARGET" then
+	if event == "UNIT_SPELLCAST_RETICLE_TARGET" and E.Retail then
 			if (self.abilityID == spellID) and not self.TargetReticleAnimFrame:IsShown() then
 					if not isLight then
 							border:SetBackdrop(Private.BorderLight)
 							border:SetBackdropBorderColor(1, .82, .25)
 					end
-					if self.TargetReticleAnimFrame and E.Retail then
-						self.TargetReticleAnimFrame:Show()
-						self.TargetReticleAnimFrame:SetAlpha(0)
-					end
+					self.TargetReticleAnimFrame:Show()
+					self.TargetReticleAnimFrame:SetAlpha(0)
 			end
-	elseif event == "UNIT_SPELLCAST_RETICLE_CLEAR" 
+	elseif (event == "UNIT_SPELLCAST_RETICLE_CLEAR" and E.Retail)
 			or event == "UNIT_SPELLCAST_STOP" 
 			or event == "UNIT_SPELLCAST_SUCCEEDED" 
 			or event == "UNIT_SPELLCAST_FAILED" then
-			if E.Retail then
-				if self.TaqrgetReticleAnimFrame:IsShown() then
+			if self.TargetReticleAnimFrame:IsShown() then
 					self.TargetReticleAnimFrame:Hide()
 					if isLight then
 							border:SetBackdrop(Private.Border)
 							border:SetBackdropBorderColor(1, 1, 1)
 					end
 			end
-		end
 	elseif event == "GLOBAL_MOUSE_UP" then
 			self:UnregisterEvent(event)
 	end
