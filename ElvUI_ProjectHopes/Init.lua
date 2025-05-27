@@ -21,6 +21,8 @@ Private.Texture = 'HopesUI'
 Private.RequiredElvUI = tonumber(GetAddOnMetadata(Name, 'X-Required-ElvUI'))
 Private.Version = tonumber(GetAddOnMetadata(Name, 'Version'))
 
+E.Media.Textures.RoleIcons = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\RoleIcons.tga" -- White Role Icons. 
+
 E.private.ProjectHopes = E.private.ProjectHopes or {}
 E.private.ProjectHopes.qualityOfLife = E.private.ProjectHopes.qualityOfLife or {}
 E.private.ProjectHopes.qualityOfLife.automation = E.private.ProjectHopes.qualityOfLife.automation or {}
