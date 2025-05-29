@@ -1,7 +1,6 @@
-local E, _, V, P, G = unpack(ElvUI)
 local Name, Private = ...
 
-local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale)
+local E, _, V, P, G = unpack(ElvUI)
 local EP = LibStub('LibElvUIPlugin-1.0')
 local PI = E:GetModule('PluginInstaller')
 
@@ -21,38 +20,35 @@ Private.Texture = 'HopesUI'
 Private.RequiredElvUI = tonumber(GetAddOnMetadata(Name, 'X-Required-ElvUI'))
 Private.Version = tonumber(GetAddOnMetadata(Name, 'Version'))
 
-E.Media.Textures.RoleIcons = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\RoleIcons.tga" -- White Role Icons. 
-
 E.private.ProjectHopes = E.private.ProjectHopes or {}
 E.private.ProjectHopes.qualityOfLife = E.private.ProjectHopes.qualityOfLife or {}
 E.private.ProjectHopes.qualityOfLife.automation = E.private.ProjectHopes.qualityOfLife.automation or {}
-if E.private.ProjectHopes.qualityOfLife.automation.borederDarkmode then
-    Private.Border = {bgFile = nil, edgeFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Borders\\HopesUI_Dark.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
-    Private.Separator = {bgFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\HopesUI_Separator_Dark.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-    Private.vSeparator = {bgFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\HopesUI_vSeparator_Dark.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}} 
-    Private.Circle = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\PortraitBorderMain_Dark.tga"
-    Private.PortraitBorder = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\PortraitBorder(NoShadow)_Dark.tga"
-else
-    Private.Border = {bgFile = nil, edgeFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Borders\\HopesUI.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
-    Private.Separator = {bgFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\HopesUI_Separator.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-    Private.vSeparator = {bgFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\HopesUI_vSeparator.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-    Private.Circle = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\PortraitBorderMain.tga"
-    Private.PortraitBorder = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\PortraitBorder(NoShadow).tga"
-end
 
-Private.BorderLight = {bgFile = nil, edgeFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Borders\\HopesUI_Light.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
-Private.BackgroundTexture = {bgFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\Square_White.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-Private.Glowline = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\Glowline.tga"
-Private.MinimapRectangle = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\Rectangle.tga"
-Private.AbsorbOverlay = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\Shield-Overlay.blp"
-Private.AbsorbGlow = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\Shield-Overshield.blp"
-Private.AbsorbTexture = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\Shield-Fill.tga"
-Private.Portrait = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\CircleMaskScalable.tga"
-Private.PortraitBorderColor = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\PortraitBorder(Colorable).tga"
-Private.Font = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Fonts\\Expressway.ttf"
-Private.TargetGlow = {bgFile = nil, edgeFile = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Borders\\Targetglow.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
-Private.CastbarGlow = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\CastbarGlow.tga"
-Private.HopesUI = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Statusbar\\HopesUI.tga"
+local darkMode = E.private.ProjectHopes.qualityOfLife.automation.borederDarkmode
+local suffix = darkMode and "_Dark" or ""
+local noShadow = "(NoShadow)" .. suffix
+local path = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\"
+
+Private.Border = {bgFile = nil, edgeFile = path .. "Borders\\HopesUI" .. suffix .. ".tga", tileSize = 0, edgeSize = 16, insets = { left = 8, right = 8, top = 8, bottom = 8 }}
+Private.Separator = {bgFile = path .. "Textures\\HopesUI_Separator" .. suffix .. ".tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = { left = 0, right = 0, top = 0, bottom = 0 }}
+Private.vSeparator = {bgFile = path .. "Textures\\HopesUI_vSeparator" .. suffix .. ".tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = { left = 0, right = 0, top = 0, bottom = 0 }}
+Private.Circle = path .. "Textures\\PortraitBorderMain" .. suffix .. ".tga"
+Private.PortraitBorder = path .. "Textures\\PortraitBorder" .. noShadow .. ".tga"
+Private.BorderLight = {bgFile = nil, edgeFile = path .. "Borders\\HopesUI_Light.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
+Private.BackgroundTexture = {bgFile = path .. "Textures\\Square_White.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}}
+Private.Glowline = path .. "Textures\\Glowline.tga"
+Private.MinimapRectangle = path .. "Textures\\Rectangle.tga"
+Private.AbsorbOverlay = path .. "Textures\\Shield-Overlay.blp"
+Private.AbsorbGlow = path .. "Textures\\Shield-Overshield.blp"
+Private.AbsorbTexture = path .. "Textures\\Shield-Fill.tga"
+Private.Portrait = path .. "Textures\\CircleMaskScalable.tga"
+Private.PortraitBorderColor = path .. "Textures\\PortraitBorder(Colorable).tga"
+Private.Font = path .. "Fonts\\Expressway.ttf"
+Private.TargetGlow = {bgFile = nil, edgeFile = path .. "Borders\\Targetglow.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
+Private.CastbarGlow = path .. "Textures\\CastbarGlow.tga"
+Private.HopesUI = path .. "Statusbar\\HopesUI.tga"
+
+E.Media.Textures.RoleIcons = path .. "Textures\\RoleIcons.tga" -- White Role Icons. 
 
 ----------------------------------------------------------------------
 ------------------------------- Events -------------------------------
