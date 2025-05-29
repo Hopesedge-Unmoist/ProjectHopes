@@ -298,7 +298,9 @@ function S:BlizzardMiscFrames()
    
 	BORDER:HandleIcon(ColorPickerFrame.Content.ColorSwatchCurrent, true)
 	BORDER:HandleIcon(ColorPickerFrame.Content.ColorSwatchOriginal, true)
-	BORDER:HandleIcon(ColorPPCopyColorSwatch, true)
+	if ColorPPCopyColorSwatch then
+		BORDER:HandleIcon(ColorPPCopyColorSwatch, true)
+	end
 
 	ColorPickerFrame.Content.ColorSwatchCurrent:Point('TOPLEFT', ColorPickerFrame.Content, 'TOPRIGHT', -120, -32)
 	ColorPickerFrame.Content.ColorSwatchOriginal:Point('TOPLEFT', ColorPickerFrame.Content.ColorSwatchCurrent, 'BOTTOMLEFT', 0, -5)
