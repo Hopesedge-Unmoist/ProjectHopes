@@ -615,6 +615,13 @@ function S:ElvUI_UnitFrames_Construct_AuraBars(_, f)
     end
 end
 
+function S:ElvUI_UnitFrames_Buffindicator(_, button)
+    if not E.db.ProjectHopes.border.AuraUF then
+        return
+    end
+    
+    BORDER:CreateBorder(button)
+end
 
 function S:UnitFrames()
     -- Player, Target, Target of Target, Focus, Focus Target, Pet, Pet Target, Target of Target of Target. 
@@ -626,8 +633,11 @@ function S:UnitFrames()
     -- Party and Raid.
     S:SecureHook(UF, "CreateAndUpdateHeaderGroup", "ElvUI_UnitFramesGroupRaidParty")
 
-    --Aura's on Unitframes. 
+    -- Aura's on Unitframes. 
     S:SecureHook(UF, "PostUpdateAura", "ElvUI_UnitFrames_PostUpdateAura")
+
+    -- Buff indicator 
+    S:SecureHook(UF, "BuffIndicator_PostCreateIcon", "ElvUI_UnitFrames_Buffindicator")
 
     -- Status bar
 	S:SecureHook(UF, "Configure_AuraBars", "ElvUI_UnitFrames_Configure_AuraBars")
