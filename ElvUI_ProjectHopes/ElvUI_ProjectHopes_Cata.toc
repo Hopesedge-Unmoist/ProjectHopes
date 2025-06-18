@@ -5,12 +5,12 @@
 ## OptionalDeps: OmniCD, BigWigs, Details, WarpDeplete
 
 ## DefaultState: enabled
-## Version: 20250512
-## X-PreviousVersion: 20250423
+## Version: 20250618
+## X-PreviousVersion: 20250512
 ## SavedVariables: ProjectHopesDB
 
 ## Interface: 40402
-## X-Required-ElvUI: 13.90
+## X-Required-ElvUI: 13.92
 
 Load.xml
 Cata\Cata.xml
