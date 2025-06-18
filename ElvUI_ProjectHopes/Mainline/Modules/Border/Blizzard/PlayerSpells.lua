@@ -133,7 +133,6 @@ function S:Blizzard_PlayerSpells()
 	local SpellBookFrame = PlayerSpellsFrame.SpellBookFrame
 	if SpellBookFrame then
 		BORDER:CreateBorder(SpellBookFrame.SearchBox, nil, nil, nil, nil, nil, true, false)
-		BORDER:CreateBorder(SpellBookFrame.HidePassivesCheckButton.Button, nil, nil, nil, nil, nil, true, true)
 
 		for _, tab in next, { SpellBookFrame.CategoryTabSystem:GetChildren() } do
 			BORDER:CreateBorder(tab, nil, nil, nil, nil, nil, true, true)
