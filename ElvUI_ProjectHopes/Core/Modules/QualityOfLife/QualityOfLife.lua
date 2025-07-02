@@ -382,7 +382,7 @@ function QoL:LOOT_READY()
 				if QoL:GetFreeSlots() > 0 then
 					LootSlot(i)
 				else
-					Private.Print(L["Bags are full"])
+					Private:Print(L["Bags are full"])
 				end
 			end
 			tDelay = GetTime()
