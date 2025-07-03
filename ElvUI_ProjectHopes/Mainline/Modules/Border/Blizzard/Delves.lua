@@ -31,26 +31,18 @@ local function HandleOptionSlot(frame, skip)
 	end
 end
 
-local function SetRewards(frame)
-	for rewardFrame in frame.rewardPool:EnumerateActive() do
-		if not rewardFrame.IsBorder then
-			BORDER:CreateBorder(rewardFrame)
-			BORDER:HandleIcon(rewardFrame.Icon, true)
-
-			rewardFrame.IsBorder = true
-		end
+local function SetRewards(rewardFrame)
+	if rewardFrame.backdrop then
+		rewardFrame.backdrop:Kill()
+		
+		BORDER:HandleIcon(rewardFrame.Icon, true)
+		rewardFrame.Icon.backdrop.border:SetBackdrop(Private.BorderLight)
+		S:HandleIconBorder(rewardFrame.IconBorder, rewardFrame.Icon.backdrop.border)
 	end
 end
 
-local function SetRewards(frame)
-	for rewardFrame in frame.rewardPool:EnumerateActive() do
-		if not rewardFrame.IsBorder then
-			BORDER:CreateBorder(rewardFrame)
-			BORDER:HandleIcon(rewardFrame.Icon, true)
-
-			rewardFrame.IsBorder = true
-		end
-	end
+local function DifficultyPickerFrame_Update(frame)
+	frame:ForEachFrame(SetRewards)
 end
 
 function S:Blizzard_DelvesCompanionConfiguration()
@@ -100,7 +92,7 @@ function S:Blizzard_DelvesDifficultyPicker()
 	BORDER:CreateBorder(DifficultyPickerFrame.Dropdown, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(DifficultyPickerFrame.EnterDelveButton, nil, nil, nil, nil, nil, false, true)
 
-	hooksecurefunc(DifficultyPickerFrame.DelveRewardsContainerFrame, 'SetRewards', SetRewards)
+	hooksecurefunc(DifficultyPickerFrame.DelveRewardsContainerFrame.ScrollBox, 'Update', DifficultyPickerFrame_Update)
 end
 
 S:AddCallbackForAddon('Blizzard_DelvesDifficultyPicker')
