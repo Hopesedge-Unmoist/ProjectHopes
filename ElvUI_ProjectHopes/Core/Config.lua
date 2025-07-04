@@ -610,6 +610,7 @@ function ProjectHopes:Config()
 		totemTracker = L["Totem Tracker"],
 		tooltips = L["Tooltips"],
 		Minimap = L["Minimap"],
+		nameplates = L["Nameplates"],
 	}
 
 	if E.Retail then

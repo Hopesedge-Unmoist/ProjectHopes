@@ -14,6 +14,7 @@
 	<Script file='DataPanels.lua'/>
 	<Script file='LootRoll.lua'/>
 	<Script file='MiniMap.lua'/>
+	<Script file='Nameplates.lua'/>
 	<Script file='Option.lua'/>
 	<Script file='RaidUtility.lua'/>
 	<Script file='StaticPopup.lua'/>

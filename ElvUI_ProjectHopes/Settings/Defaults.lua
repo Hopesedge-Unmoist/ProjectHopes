@@ -292,5 +292,6 @@ P.ProjectHopes = {
 		statusReport = false,
 		totemTracker = false,
 		Minimap = false,
+		nameplates = false,
 	},
 }
