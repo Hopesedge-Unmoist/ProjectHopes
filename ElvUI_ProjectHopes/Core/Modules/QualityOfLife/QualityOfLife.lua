@@ -147,220 +147,150 @@ end
 function QoL:AutoAcceptQuests()
 	if not E.private.ProjectHopes.qualityOfLife.automation.autoAcceptQuests then return end
 
-    local lastgossip
-    QoLAutoAcceptQuests:RegisterEvent("QUEST_GREETING")
-    QoLAutoAcceptQuests:RegisterEvent("GOSSIP_SHOW")
-    QoLAutoAcceptQuests:RegisterEvent("QUEST_DETAIL")
-    QoLAutoAcceptQuests:RegisterEvent("QUEST_COMPLETE")
-    QoLAutoAcceptQuests:RegisterEvent("QUEST_ACCEPT_CONFIRM")
-    QoLAutoAcceptQuests:RegisterEvent("QUEST_PROGRESS")
-    QoLAutoAcceptQuests:SetScript("OnEvent", function(_, event)
-        local normal = IsShiftKeyDown()
-        if normal then
-            return
-        else
-            if event == 'QUEST_GREETING' then
-                --if accepting quests
-                for i = 1, GetNumAvailableQuests() do
-                    SelectAvailableQuest(i)
-                end
+	local ignoredNPCs = {
+		[164079] = true, [174871] = true, [164173] = true, [111243] = true,
+		[142063] = true, [141584] = true, [88570]  = true, [87391]  = true,
+		[18166]  = true, [142700] = true, [143005] = true, [142685] = true,
+		[142975] = true, [143007] = true, [142992] = true, [142997] = true,
+		[142998] = true, [142983] = true, [142995] = true, [142993] = true,
+		[142981] = true, [143004] = true, [142973] = true, [142970] = true,
+		[142994] = true, [142969] = true, [142157] = true, [143008] = true,
+		[142158] = true, [142159] = true, [142977] = true, [172925] = true,
+		[169501] = true, [181059] = true, [182681] = true, [54334]  = true,
+		[55382]  = true, [54346]  = true, [28160]  = true, [26673]  = true,
+		[29155]  = true, [29156]  = true, [196499] = true, [199366] = true,
+		[194584] = true, [113617] = true, [193110] = true, [222413] = true,
+	}
 
-                --if completing quests
-                for i = 1, GetNumActiveQuests() do
-                    local _, completed = GetActiveTitle(i)
-                    if E.Retail then
-                        if completed and not C_QuestLog.IsWorldQuest(GetActiveQuestID(i)) then
-                            SelectActiveQuest(i)
-                        end
-                    end
-                end
-            end
+	local lastGossipOption
 
-            if event == 'QUEST_DETAIL' then
-                if E.Retail then
-                    if QuestGetAutoAccept() then
-                        CloseQuest()
-                    else
-                        AcceptQuest()
-                    end
-                end
-            end
+	local function GetNPCID()
+		local guid = UnitGUID("npc")
+		if guid then
+			return tonumber(string.match(guid, "Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
+		end
+		return nil
+	end
 
-            if event == 'QUEST_ACCEPT_CONFIRM' then
-                ConfirmAcceptQuest()
-                StaticPopup_Hide("QUEST_ACCEPT")
-            end
+	local function SelectAvailableAndActiveQuests()
+		for i = 1, GetNumAvailableQuests() do
+			SelectAvailableQuest(i)
+		end
 
-            if event == 'GOSSIP_SHOW' then
-                local guid = UnitGUID("npc")
-                if guid == nil then
-                    return
-                end
-                local NPC_ID = tonumber(string.match(guid, "Creature%-%d+%-%d+%-%d+%-%d+%-(%d+)"))
-                local ignoredNPCS = {
-                    [164079] = true,
-                    [174871] = true,
-                    [164173] = true,
-                    [111243] = true,
-                    [142063] = true,
-                    [141584] = true,
-                    [88570] = true,
-                    [87391] = true,
-                    [18166] = true,
-                    [142700] = true,
-                    [143005] = true,
-                    [142685] = true,
-                    [142975] = true,
-                    [143007] = true,
-                    [142992] = true,
-                    [142997] = true,
-                    [142998] = true,
-                    [142983] = true,
-                    [142995] = true,
-                    [142993] = true,
-                    [142981] = true,
-                    [143004] = true,
-                    [142973] = true,
-                    [142970] = true,
-                    [142994] = true,
-                    [142969] = true,
-                    [142157] = true,
-                    [143008] = true,
-                    [142158] = true,
-                    [142159] = true,
-                    [142977] = true,
-                    [172925] = true,
-                    [169501] = true,
-                    [181059] = true,
-                    [182681] = true,
-                    [54334] = true, --darkmoon tp
-                    [55382] = true, --darkmoon tp
-                    [54346] = true, --darkmoon tp
-                    [28160] = true, --free teleport guy for wrath to scholazar
-                    [26673] = true, --magical kingdom of dalaran alliance free tp to dalaran
-                    [29155] = true, --magical kingdom of dalaran horde free tp to dalaran
-                    [29156] = true, --magical kingdom of dalaran free tp to dalaran
-                    [196499] = true, --therazal, aiding the accord quest that drops scaling gear, so should be delayed
-                    [199366] = true, --therazal, aiding the accord quest that drops scaling gear, so should be delayed
-                    [194584] = true, --Khuri, fishing npc
-                    [113617] = true, --cos teleport back npc
-                    [193110] = true, --Khadin, profession npc
-                    [222413] = true, --Zalgo
-                }
-                if ignoredNPCS[NPC_ID] then
-                    return
-                else
-                    --https://wowpedia.fandom.com/wiki/Category:API_namespaces/C_GossipInfo
-                    --if E.Retail or E.Cata then
-                    local active = C_GossipInfo.GetActiveQuests()
-                    local available = C_GossipInfo.GetAvailableQuests()
-                    local notcomplete = 0
-                    local completed = 0
-                    local loopcomplete = false
-                    if available[1] and available[1].title ~= nil then
-                        for _, k in next, C_GossipInfo.GetAvailableQuests() do --quests to grab
-                            for l, v in next, k do
-                                if l == "questID" then
-                                    C_GossipInfo.SelectAvailableQuest(v)
-                                end
-                            end
-                        end
-                    elseif active[1] and active[1].title ~= nil then
-                        for i, _ in next, C_GossipInfo.GetActiveQuests() do --quests already grabbed
-                            if active[i].isComplete then
-                                completed = completed + 1
-                            elseif active[i].isComplete ~= true then
-                                notcomplete = notcomplete +1
-                            end
-                            loopcomplete = true
-                        end
-                        if loopcomplete then
-                            for i, k in next, C_GossipInfo.GetActiveQuests() do
-                                if completed >= 1 then
-                                    for l, v in next, k do
-                                        if l == "questID" then
-                                            C_GossipInfo.SelectActiveQuest(v)
-                                        end
-                                    end
-                                end
-                                if completed == 0 then
-                                    local gossipInfoTable = C_GossipInfo.GetOptions()
+		for i = 1, GetNumActiveQuests() do
+			local _, completed = GetActiveTitle(i)
+			if completed and (not E.Retail or not C_QuestLog.IsWorldQuest(GetActiveQuestID(i))) then
+				SelectActiveQuest(i)
+			end
+		end
+	end
 
-                                    if #gossipInfoTable == 1 then
-                                        if NPC_ID == 153897 then
-                                            return
-                                        else
-                                            if gossipInfoTable[i] and gossipInfoTable[i].gossipOptionID then
-                                                if lastgossip ~= gossipInfoTable[i].gossipOptionID then
-                                                    C_GossipInfo.SelectOption(gossipInfoTable[i].gossipOptionID)
-                                                    lastgossip = gossipInfoTable[i].gossipOptionID
-                                                end
-                                            end
-                                        end
-                                    else
-                                        for infonumber = 1, #gossipInfoTable do
-                                            local text = gossipInfoTable[infonumber].name
-                                            if text and text:match("|cFF0000FF") then --quests are marked with a blue (Quests) text too
-                                                C_GossipInfo.SelectOption(gossipInfoTable[infonumber].gossipOptionID)
-                                            end
-                                        end
-                                    end
-                                end
-                            end
-                        end
+	local function HandleGossip()
+		local NPC_ID = GetNPCID()
+		if not NPC_ID or ignoredNPCs[NPC_ID] then return end
 
-                    elseif (not active[1] or active[1].title == nil) or (not available[1] or available[1].title == nil) then
-                        local gossipInfoTable = C_GossipInfo.GetOptions()
-                        if E.Retail and C_Map.GetBestMapForUnit('player') == 762 then return end
-                        if #gossipInfoTable == 1 then
-                            if NPC_ID == 153897 then
-                                return
-                            elseif gossipInfoTable[1].name:match("|cFFFF0000") then
-                                return
-                            else
-                                C_GossipInfo.SelectOption(gossipInfoTable[1].gossipOptionID)
-                            end
-                        else
-                            for i = 1, #gossipInfoTable do
-                                local text = gossipInfoTable[i].name
-                                if text and text:match("|cFF0000FF") then --quests are marked with a blue (Quests) text too
-                                    C_GossipInfo.SelectOption(gossipInfoTable[i].gossipOptionID)
-                                end
-                            end
-                        end
-                    end
-                end
-            end
+		local activeQuests = C_GossipInfo.GetActiveQuests()
+		local availableQuests = C_GossipInfo.GetAvailableQuests()
+		local gossipOptions = C_GossipInfo.GetOptions()
 
-            if event == 'QUEST_PROGRESS' then
-                if GetQuestMoneyToGet() > 0 then
-                    return
-                else
-                    if C_GossipInfo.GetNumActiveQuests() == 0 then --maybe npc only has 1 quest, or its laurent from revendreth and it has a turn in with 0
-                        CompleteQuest()
-                    end
-                    for i, _ in next, C_GossipInfo.GetActiveQuests() do --quests already grabbed
-                        local questdump = C_GossipInfo.GetActiveQuests()
-                        if not questdump[i].isComplete then
-                            return
-                        elseif questdump[i].isComplete then
-                            CompleteQuest()
-                        end
-                    end
-                end
-            end
+		if #availableQuests > 0 then
+			for _, quest in ipairs(availableQuests) do
+				C_GossipInfo.SelectAvailableQuest(quest.questID)
+			end
+		elseif #activeQuests > 0 then
+			local completed = false
+			for _, quest in ipairs(activeQuests) do
+				if quest.isComplete then
+					C_GossipInfo.SelectActiveQuest(quest.questID)
+					completed = true
+				end
+			end
 
-            if event == 'QUEST_COMPLETE' then
-                if GetQuestMoneyToGet() > 0 then
-                    return
-                else
-                    if GetNumQuestChoices() <= 1 then
-                        GetQuestReward(GetNumQuestChoices())
-                    end
-                end
-            end
-        end
-    end)
+			if not completed and #gossipOptions == 1 then
+				-- Only one option, no active quest complete
+				if NPC_ID ~= 153897 and not gossipOptions[1].name:match("|cFFFF0000") then
+					local optionID = gossipOptions[1].gossipOptionID
+					if lastGossipOption ~= optionID then
+						C_GossipInfo.SelectOption(optionID)
+						lastGossipOption = optionID
+					end
+				end
+			else
+				for _, option in ipairs(gossipOptions) do
+					if option.name:match("|cFF0000FF") then -- Blue colored quest options
+						C_GossipInfo.SelectOption(option.gossipOptionID)
+					end
+				end
+			end
+
+		else
+			if E.Retail and C_Map.GetBestMapForUnit("player") == 762 then return end
+			if #gossipOptions == 1 then
+				if NPC_ID ~= 153897 and not gossipOptions[1].name:match("|cFFFF0000") then
+					C_GossipInfo.SelectOption(gossipOptions[1].gossipOptionID)
+				end
+			else
+				for _, option in ipairs(gossipOptions) do
+					if option.name:match("|cFF0000FF") then
+						C_GossipInfo.SelectOption(option.gossipOptionID)
+					end
+				end
+			end
+		end
+	end
+
+	local function HandleQuestProgress()
+		if GetQuestMoneyToGet() > 0 then return end
+
+		local activeQuests = C_GossipInfo.GetActiveQuests()
+		if #activeQuests == 0 then
+			CompleteQuest()
+			return
+		end
+
+		for _, quest in ipairs(activeQuests) do
+			if quest.isComplete then
+				CompleteQuest()
+			end
+		end
+	end
+
+	local function HandleQuestComplete()
+		if GetQuestMoneyToGet() > 0 then return end
+		if GetNumQuestChoices() <= 1 then
+			GetQuestReward(GetNumQuestChoices())
+		end
+	end
+
+	QoLAutoAcceptQuests:RegisterEvent("QUEST_GREETING")
+	QoLAutoAcceptQuests:RegisterEvent("GOSSIP_SHOW")
+	QoLAutoAcceptQuests:RegisterEvent("QUEST_DETAIL")
+	QoLAutoAcceptQuests:RegisterEvent("QUEST_COMPLETE")
+	QoLAutoAcceptQuests:RegisterEvent("QUEST_ACCEPT_CONFIRM")
+	QoLAutoAcceptQuests:RegisterEvent("QUEST_PROGRESS")
+
+	QoLAutoAcceptQuests:SetScript("OnEvent", function(_, event)
+		if IsShiftKeyDown() then return end
+
+		if event == "QUEST_GREETING" then
+			SelectAvailableAndActiveQuests()
+		elseif event == "QUEST_DETAIL" then
+			if E.Retail and QuestGetAutoAccept() then
+				CloseQuest()
+			else
+				AcceptQuest()
+			end
+		elseif event == "QUEST_ACCEPT_CONFIRM" then
+			ConfirmAcceptQuest()
+			StaticPopup_Hide("QUEST_ACCEPT")
+		elseif event == "GOSSIP_SHOW" then
+			HandleGossip()
+		elseif event == "QUEST_PROGRESS" then
+			HandleQuestProgress()
+		elseif event == "QUEST_COMPLETE" then
+			HandleQuestComplete()
+		end
+	end)
 end
 
 function QoL:GetFreeSlots()
@@ -382,7 +312,7 @@ function QoL:LOOT_READY()
 				if QoL:GetFreeSlots() > 0 then
 					LootSlot(i)
 				else
-					Private:Print(L["Bags are full"])
+					Private.Print(L["Bags are full"])
 				end
 			end
 			tDelay = GetTime()
