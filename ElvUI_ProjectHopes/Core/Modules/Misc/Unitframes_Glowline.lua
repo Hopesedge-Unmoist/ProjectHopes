@@ -4,12 +4,15 @@ local UGL = E:NewModule('UnitFramesGlowline', 'AceHook-3.0', 'AceEvent-3.0', 'Ac
 
 local EP = LibStub("LibElvUIPlugin-1.0");
 local UF = E:GetModule("UnitFrames");
+local S = E:GetModule('Skins')
 
 local function UpdateGlowLinePosition(healthBar)
     if not healthBar.glowLine then return end
 
     local currentHealth = healthBar:GetValue()
-    local maxHealth = select(2, healthBar:GetMinMaxValues())
+    local minHealth, maxHealth = healthBar:GetMinMaxValues()
+    if maxHealth == 0 then return end
+
     local healthPercentage = currentHealth / maxHealth
 
     local height = healthBar:GetHeight()
@@ -20,8 +23,24 @@ local function UpdateGlowLinePosition(healthBar)
         healthBar.glowLine:Hide()
     else
         healthBar.glowLine:Show()
-        local xOffset = math.floor(healthBar:GetWidth() * healthPercentage - 5 + 0.5)
-        healthBar.glowLine:SetPoint("LEFT", healthBar, "LEFT", xOffset, 0)    end
+
+        local reverse = false
+        if healthBar.__owner and healthBar.__owner.db and healthBar.__owner.db.health then
+            reverse = healthBar.__owner.db.health.reverseFill
+        end
+
+        local barWidth = healthBar:GetWidth()
+        local xOffset
+        if reverse then
+            xOffset = -math.floor(barWidth * healthPercentage - 5 + 0.5)
+            healthBar.glowLine:ClearAllPoints()
+            healthBar.glowLine:SetPoint("RIGHT", healthBar, "RIGHT", xOffset, 0)
+        else
+            xOffset = math.floor(barWidth * healthPercentage - 5 + 0.5)
+            healthBar.glowLine:ClearAllPoints()
+            healthBar.glowLine:SetPoint("LEFT", healthBar, "LEFT", xOffset, 0)
+        end
+    end
 end
 
 local function CreateGlowLine(frame)
