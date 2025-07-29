@@ -383,7 +383,7 @@ function ProjectHopes:Config()
 	POABS.Addons.args.desc.args.feature = ACH:Description(L["Skins Addons to fit ProjectHopes."], 1, "medium")
 
 	local addontoggles = {}
-	if E.Classic or E.Cata or E.Retail then
+	if E.Classic or E.Mists or E.Retail then
 		if IsAddOnLoaded("BigWigs") then addontoggles.bigwigsqueue = L["BigWigs Queue"] end
 		if IsAddOnLoaded("Auctionator") then addontoggles.auctionator = L["Auctionator"] end
 		if IsAddOnLoaded("BugSack") then addontoggles.bugsack = L["BugSack"] end
@@ -416,14 +416,14 @@ function ProjectHopes:Config()
 		if IsAddOnLoaded("AtlasLootClassic") then addontoggles.atlaslootclassic = L["Atlas Loot Classic"] end
 	end
 
-	if E.Cata then
+	if E.Mists then
 	end
 
-	if E.Cata or E.Retail then
+	if E.Mists or E.Retail then
 		if IsAddOnLoaded("Hekili") then addontoggles.hekili = L["Hekili"] end
 	end
 
-	if E.Classic or E.Cata then
+	if E.Classic or E.Mists then
 		if IsAddOnLoaded("ThreatClassic2") then addontoggles.threatClassic2 = L["ThreatClassic2"] end
 		if IsAddOnLoaded("NovaWorldBuffs") then addontoggles.novaworldbuffs = L["Nova World Buffs"] end
 		if IsAddOnLoaded("NovaWorldBuffs") and E.db.ProjectHopes.skins.novaworldbuffs then addontoggles.novaworldbuffsposition = L["Nova World Buffs Position"] end
@@ -473,6 +473,7 @@ function ProjectHopes:Config()
 		guildRegistrar = L["Guild Registrar"],
 		help = L["Help Frame"],
 		inspect = L["Inspect"],
+		inputMethodEditor = L["Input Method Editor"],
 		lookingForGroup = L["LFG_TITLE"],
 		loot = L["Loot Frame"],
 		macro = L["MACROS"],
@@ -492,7 +493,7 @@ function ProjectHopes:Config()
 		flightMap = L["FLIGHT_MAP"],
 		taxi = L["Taxi"],
 		timeManager = L["TIMEMANAGER_TITLE"],
-		tooltip = L["Tooltip"],
+		tooltips = L["Tooltip"],
 		trade = L["TRADE"],
 		tradeskill = L["TRADESKILLS"],
 		trainer = L["Trainer Frame"],
@@ -500,23 +501,24 @@ function ProjectHopes:Config()
 		worldMap = L["WORLD_MAP"]
 	}
 
-	if E.Cata or E.Retail then
-		blizzardtoggles.achievementFrame = L["ACHIEVEMENTS"]
-		blizzardtoggles.alertframes = L["Alert Frames"]
-		blizzardtoggles.archaeology = L["Archaeology Frame"]
-		blizzardtoggles.barbershop = L["BARBERSHOP"]
-		blizzardtoggles.calendar = L["Calendar Frame"]
-		blizzardtoggles.collections = L["COLLECTIONS"]
-		blizzardtoggles.encounterJournal = L["ENCOUNTER_JOURNAL"]
-		blizzardtoggles.subscriptionInterstitial = L["Subscription Interstitial"]
-		blizzardtoggles.guildBank = L["Guild Bank"]
-		blizzardtoggles.pvp = L["PvP Frames"]
+	if E.Mists or E.Retail then
+	blizzardtoggles.achievementFrame = L["ACHIEVEMENTS"]
+	blizzardtoggles.alertframes = L["Alert Frames"]
+	blizzardtoggles.archaeology = L["Archaeology Frame"]
+	blizzardtoggles.barbershop = L["BARBERSHOP"]
+	blizzardtoggles.calendar = L["Calendar Frame"]
+	blizzardtoggles.collections = L["COLLECTIONS"]
+	blizzardtoggles.encounterJournal = L["ENCOUNTER_JOURNAL"]
+	blizzardtoggles.guildBank = L["Guild Bank"]
+	blizzardtoggles.pvp = L["PvP Frames"]
+	blizzardtoggles.petBattle = L["Pet Battle"]
+	blizzardtoggles.transmogrify = L["TRANSMOGRIFY"]
 	end
-	
+
 	if not E.Retail then
 		blizzardtoggles.questTimers = L["Quest Timers"]
 	end
-	
+
 	if E.Retail then
 		blizzardtoggles.adventureMap = L["ADVENTURE_MAP_TITLE"]
 		blizzardtoggles.alliedRaces = L["Allied Races"]
@@ -526,7 +528,9 @@ function ProjectHopes:Config()
 		blizzardtoggles.azeriteEssence = L["Azerite Essence"]
 		blizzardtoggles.azeriteRespec = L["AZERITE_RESPEC_TITLE"]
 		blizzardtoggles.blackMarket = L["BLACK_MARKET_AUCTION_HOUSE"]
+		blizzardtoggles.campsites = L["Campsite"]
 		blizzardtoggles.chromieTime = L["Chromie Time Frame"]
+		blizzardtoggles.cooldownManager = L["Cooldown Manager"]
 		blizzardtoggles.contribution = L["Contribution"]
 		blizzardtoggles.covenantPreview = L["Covenant Preview"]
 		blizzardtoggles.covenantRenown = L["Covenant Renown"]
@@ -544,25 +548,23 @@ function ProjectHopes:Config()
 		blizzardtoggles.itemInteraction = L["Item Interaction"]
 		blizzardtoggles.itemUpgrade = L["Item Upgrade"]
 		blizzardtoggles.lfguild = L["LF Guild Frame"]
-		blizzardtoggles.lossOfControl = L["LOSS_OF_CONTROL"]
+		blizzardtoggles.losscontrol = L["LOSS_OF_CONTROL"]
 		blizzardtoggles.majorFactions = L["Major Factions"]
 		blizzardtoggles.nonraid = L["Non-Raid Frame"]
 		blizzardtoggles.objectiveTracker = L["OBJECTIVES_TRACKER_LABEL"]
 		blizzardtoggles.obliterum = L["OBLITERUM_FORGE_TITLE"]
 		blizzardtoggles.orderHall = L["Orderhall"]
 		blizzardtoggles.perksProgram = L["Trading Post"]
-		blizzardtoggles.petBattle = L["Pet Battle"]
 		blizzardtoggles.playerChoice = L["Player Choice Frame"]
 		blizzardtoggles.runeforge = L["Runeforge"]
 		blizzardtoggles.scrappingMachine = L["SCRAP_BUTTON"]
 		blizzardtoggles.soulbinds = L["Soulbinds"]
-		blizzardtoggles.talkingHead = L["Talking Head"]
+		blizzardtoggles.talkinghead = L["Talking Head"]
 		blizzardtoggles.torghastLevelPicker = L["Torghast Level Picker"]
-		blizzardtoggles.transmogrify = L["TRANSMOGRIFY"]
-		blizzardtoggles.ticketStatus = L["Ticket Status"]
 		blizzardtoggles.voidstorage = L["VOID_STORAGE"]
 		blizzardtoggles.weeklyRewards = L["Weekly Rewards"]
-	elseif E.Cata then
+		blizzardtoggles.ticketStatus = L["Ticket Status"]
+	elseif E.Mists then
 		blizzardtoggles.arenaRegistrar = L["Arena Registrar"]
 		blizzardtoggles.reforge = L["Reforge"]
 	elseif E.Classic then
@@ -610,7 +612,6 @@ function ProjectHopes:Config()
 		totemTracker = L["Totem Tracker"],
 		tooltips = L["Tooltips"],
 		Minimap = L["Minimap"],
-		nameplates = L["Nameplates"],
 	}
 
 	if E.Retail then
