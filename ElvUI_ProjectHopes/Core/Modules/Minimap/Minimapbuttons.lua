@@ -64,8 +64,6 @@ local whiteList = {
 local moveButtons = {}
 local minimapButtonBarAnchor, minimapButtonBar
 
-
-
 local function OnEnter(self)
 	if not E.minimapbuttons.db.mouseover or E.minimapbuttons.db.skinStyle == 'NOANCHOR' then return end
 	UIFrameFadeIn(MinimapButtonBar, 0.2, MinimapButtonBar:GetAlpha(), 1)
@@ -173,7 +171,7 @@ function MB:SkinButton(frame)
 				end
 			end
 		end
-		frame:SetTemplate("Tranparent")
+		frame:SetTemplate("Transparent")
 
 		tinsert(moveButtons, name)
 		frame.isSkinned = true
@@ -226,7 +224,7 @@ function MB:UpdateLayout()
 	else
 		minimapButtonBar:SetPoint(direction and 'TOP' or 'BOTTOM', minimapButtonBarAnchor, direction and 'TOP' or 'BOTTOM', -2, 0)
 	end
-	minimapButtonBar:SetSize(E.minimapbuttons.db.buttonSize + 4, E.minimapbuttons.db.buttonSize + 4)
+	minimapButtonBar:SetSize(E.minimapbuttons.db.buttonSize + 4 or 44, E.minimapbuttons.db.buttonSize + 4 or 44)
 	
 	local lastFrame, anchor1, anchor2, offsetX, offsetY
 	
@@ -315,8 +313,6 @@ function MB:UpdateLayout()
 	end
 end
 
-
-
 function MB:ChangeMouseOverSetting()
 	if E.minimapbuttons.db.mouseover then
 		minimapButtonBar:SetAlpha(0)
@@ -377,14 +373,22 @@ function MB:PLAYER_ENTERING_WORLD()
     E:Delay(0.1, self.SkinMinimapButtons, self)
 end
 
-function MB:Initialize()
-	if not E.db.ProjectHopes.minimapbutton.enable then return end
-	E.minimapbuttons = MB
-	E.minimapbuttons.db = E.db.ProjectHopes.minimapbutton
-
-	self:RegisterEvent("PLAYER_ENTERING_WORLD")
-
-	self:CreateFrames()
+function MB:ProfileUpdate()
+    E.minimapbuttons.db = E.db.ProjectHopes.minimapbutton
+    MB:UpdateLayout()
 end
+
+function MB:Initialize()
+    if not E.db.ProjectHopes or not E.db.ProjectHopes.minimapbutton.enable then return end
+
+    E.minimapbuttons = MB
+    E.minimapbuttons.db = E.db.ProjectHopes.minimapbutton
+
+    self:CreateFrames()
+    self:RegisterEvent("PLAYER_ENTERING_WORLD")
+
+    hooksecurefunc(E, "StaggeredUpdateAll", function() MB:ProfileUpdate() end)
+end
+
 
 E:RegisterModule(MB:GetName())
