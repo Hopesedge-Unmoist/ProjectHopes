@@ -48,166 +48,79 @@ local function BorderAndSeparator(f)
     end
 end
 
+
 function S:ElvUI_UnitFrames(_, unit)
     local frameName = gsub(E:StringTitle(unit), 't(arget)', 'T%1')
-    local frame = UF[unit]
     local enabled = UF.db.units[unit].enable
 
-    -- Player
-    if frameName == 'Player' and enabled then
-        if E.db.ProjectHopes.border.Player then
-            local PF = UF['player']
-            BorderAndSeparator(PF)
-            if E.db.ProjectHopes.border.Playersep then
-                if PF.Power.separator then
-                    PF.Power.separator:Show()
-                    PF.Power.separator:SetIgnoreParentAlpha(false)
-                end
-            else
-                if PF.Power.separator then
-                    PF.Power.separator:Hide()
-                end
-            end
+    local config = E.db.ProjectHopes and E.db.ProjectHopes.border
+    if not config then return end
 
-            if E.db.unitframe.units.player.infoPanel.enable and E.db.ProjectHopes.border.infopanelontop then
-                PF.border:SetPoint("TOPLEFT", PF.InfoPanel, "TOPLEFT", -8, 8)
-                PF.border:SetPoint("BOTTOMRIGHT", PF.Power, "BOTTOMRIGHT", 8, -8)
-                BORDER:CreateSeparator(PF.Health)
-            end
-        end
-    end
+    local f = UF[unit]
+    if not f then return end
 
-    -- Target
-    if frameName == 'Target' and enabled then
-        if E.db.ProjectHopes.border.Target then
-            local TF = UF['target']
-            BorderAndSeparator(TF)
-            if E.db.ProjectHopes.border.Targetsep then
-                if TF.Power.separator then
-                    TF.Power.separator:Show()
-                    TF.Power.separator:SetIgnoreParentAlpha(false)
-                end
-            else
-                if TF.Power.separator then
-                    TF.Power.separator:Hide()
-                end
-            end
-            if E.db.unitframe.units.target.infoPanel.enable and E.db.ProjectHopes.border.infopanelontop then
-                TF.border:SetPoint("TOPLEFT", TF.InfoPanel, "TOPLEFT", -8, 8)
-                TF.border:SetPoint("BOTTOMRIGHT", TF.Power, "BOTTOMRIGHT", 8, -8)
-                BORDER:CreateSeparator(TF.Health)
-            end
+    if frameName == 'Player' and enabled and config.Player then
+        BorderAndSeparator(f)
+        if config.Playersep and f.Power and f.Power.separator then
+            f.Power.separator:Show()
+            f.Power.separator:SetIgnoreParentAlpha(false)
+        elseif f.Power and f.Power.separator then
+            f.Power.separator:Hide()
         end
-    end
-
-    -- Target of Target
-    if frameName == 'TargetTarget' and enabled then
-        if E.db.ProjectHopes.border.TargetofTarget then
-            local TTF = UF['targettarget']
-            BorderAndSeparator(TTF)
+    elseif frameName == 'Target' and enabled and config.Target then
+        BorderAndSeparator(f)
+        if config.Targetsep and f.Power and f.Power.separator then
+            f.Power.separator:Show()
+            f.Power.separator:SetIgnoreParentAlpha(false)
+        elseif f.Power and f.Power.separator then
+            f.Power.separator:Hide()
         end
-        if E.db.unitframe.units.targettarget.infoPanel.enable and E.db.ProjectHopes.border.infopanelontop then
-            TTF.border:SetPoint("TOPLEFT", TTF.InfoPanel, "TOPLEFT", -8, 8)
-            TTF.border:SetPoint("BOTTOMRIGHT", TTF.Power, "BOTTOMRIGHT", 8, -8)
-            BORDER:CreateSeparator(TTF.Health)
-        end
-    end
-
-    -- Focus
-    if frameName == 'Focus' and enabled then
-        if E.db.ProjectHopes.border.Focus then
-            local FF = UF['focus']
-            BorderAndSeparator(FF)
-        end
-        if E.db.unitframe.units.focus.infoPanel.enable and E.db.ProjectHopes.border.infopanelontop then
-            FF.border:SetPoint("TOPLEFT", FF.InfoPanel, "TOPLEFT", -8, 8)
-            FF.border:SetPoint("BOTTOMRIGHT", FF.Power, "BOTTOMRIGHT", 8, -8)
-            BORDER:CreateSeparator(FF.Health)
-        end
-    end
-
-    -- Focus Target
-    if frameName == 'FocusTarget' and enabled then
-        if E.db.ProjectHopes.border.FocusTarget then
-            local FTF = UF['focustarget']
-            BorderAndSeparator(FTF)
-        end
-        if E.db.unitframe.units.focustarget.infoPanel.enable and E.db.ProjectHopes.border.infopanelontop then
-            FTF.border:SetPoint("TOPLEFT", FTF.InfoPanel, "TOPLEFT", -8, 8)
-            FTF.border:SetPoint("BOTTOMRIGHT", FTF.Power, "BOTTOMRIGHT", 8, -8)
-            BORDER:CreateSeparator(FTF.Health)
-        end
-    end
-
-    -- Pet
-    if frameName == 'Pet' and enabled then
-        if E.db.ProjectHopes.border.Pet then
-            local PetFrame = UF['pet']
-            BorderAndSeparator(PetFrame)
-        end
-        if E.db.unitframe.units.pet.infoPanel.enable and E.db.ProjectHopes.border.infopanelontop then
-            PetFrame.border:SetPoint("TOPLEFT", PetFrame.InfoPanel, "TOPLEFT", -8, 8)
-            PetFrame.border:SetPoint("BOTTOMRIGHT", PetFrame.Power, "BOTTOMRIGHT", 8, -8)
-            BORDER:CreateSeparator(PetFrame.Health)
-        end
-    end
-
-    -- Pet Target
-    if frameName == 'PetTarget' and enabled then
-        if E.db.ProjectHopes.border.PetTarget then
-            local PettargetFrame = UF['pettarget']
-            BorderAndSeparator(PettargetFrame)
-        end
-    end
-
-    -- Target of Target of Target
-    if frameName == 'TargetTargetTarget' and enabled then
-        if E.db.ProjectHopes.border.TargetofTargetofTarget  then
-            local TTTF = UF['targettargettarget']
-            BorderAndSeparator(TTTF)
-        end
-        if E.db.unitframe.units.targettargettarget.infoPanel.enable and E.db.ProjectHopes.border.infopanelontop then
-            TTTF.border:SetPoint("TOPLEFT", TTTF.InfoPanel, "TOPLEFT", -8, 8)
-            TTTF.border:SetPoint("BOTTOMRIGHT", TTTF.Power, "BOTTOMRIGHT", 8, -8)
-            BORDER:CreateSeparator(TTTF.Health)
-        end
+    elseif frameName == 'TargetTarget' and enabled and config.TargetofTarget then
+        BorderAndSeparator(f)
+    elseif frameName == 'Focus' and enabled and config.Focus then
+        BorderAndSeparator(f)
+    elseif frameName == 'FocusTarget' and enabled and config.FocusTarget then
+        BorderAndSeparator(f)
+    elseif frameName == 'Pet' and enabled and config.Pet then
+        BorderAndSeparator(f)
+    elseif frameName == 'PetTarget' and enabled and config.PetTarget then
+        BorderAndSeparator(f)
+    elseif frameName == 'TargetTargetTarget' and enabled and config.TargetofTargetofTarget then
+        BorderAndSeparator(f)
     end
 end
 
-function S:ElvUI_UnitFramesGroup (_, group, numGroup)
-	for i = 1, numGroup do
-		local unit = group..i
-		local frame = UF[unit]
-		local enabled = UF.db.units[group].enable
+function S:ElvUI_UnitFramesGroup(_, group, numGroup)
+    local config = E.db.ProjectHopes and E.db.ProjectHopes.border
+    if not config then return end
 
-        if unit == "boss"..i and enabled then
-            if E.db.ProjectHopes.border.Boss and E.db.unitframe.units.boss.enable then
-                local BF = _G["ElvUF_Boss"..i]
-                BorderAndSeparator(BF)
-                if BF.Power.separator then
-                    BF.Power.separator:SetIgnoreParentAlpha(false)
-                end
-                if BF.border then
-                    BF.border:SetFrameLevel(22)
-                    BF.border:SetPoint("TOPLEFT", BF, "TOPLEFT", -9, 9) 
-                    BF.border:SetPoint("BOTTOMRIGHT", BF, "BOTTOMRIGHT", 9, -9) 
-                end
+    for i = 1, numGroup do
+        local unit = group .. i
+        local enabled = UF.db.units[group].enable
+
+        if unit == "boss"..i and enabled and config.Boss and E.db.unitframe.units.boss.enable then
+            local BF = _G["ElvUF_Boss"..i]
+            BorderAndSeparator(BF)
+            if BF.Power and BF.Power.separator then
+                BF.Power.separator:SetIgnoreParentAlpha(false)
+            end
+            if BF.border then
+                BF.border:SetFrameLevel(22)
             end
         end
 
-        if unit == "arena"..i and enabled then
-            if E.db.ProjectHopes.border.Arena and E.db.unitframe.units.arena.enable then
-                for i = 1, 5 do
-                    local AF = _G["ElvUF_Arena"..i]
-                    BorderAndSeparator(AF)
-                end
-            end
+        if unit == "arena"..i and enabled and config.Arena and E.db.unitframe.units.arena.enable then
+            local AF = _G["ElvUF_Arena"..i]
+            BorderAndSeparator(AF)
         end
     end
 end
 
 function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, headerTemplate, skip)
 	local db = UF.db.units[group]
+    local config = E.db.ProjectHopes and E.db.ProjectHopes.border
+    if not config then return end
+
 	local Header = UF[group]
 
 	local enable = db.enable
@@ -553,29 +466,31 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
     end
 
-    if name == "Tank" and enable and E.db.ProjectHopes.border.Maintankofftank then
-        for i = 1, 2 do 
-            local TankFrame = _G["ElvUF_TankUnitButton"..i]
-            BorderAndSeparator(TankFrame)
-        end
-    end
+    for i = 1, numGroup do
+        local unit = group .. i
+        local enabled = UF.db.units[group].enable
 
-    if name == "Assist" and enable and E.db.ProjectHopes.border.AssistUnits then
-        for i = 1, 2 do 
-            local AssistFrame = _G["ElvUF_AssistUnitButton"..i]
-            BorderAndSeparator(AssistFrame)
+        if unit == "boss"..i and enabled and config.Boss and E.db.unitframe.units.boss.enable then
+            local BF = _G["ElvUF_Boss"..i]
+            BorderAndSeparator(BF)
+            if BF.Power and BF.Power.separator then
+                BF.Power.separator:SetIgnoreParentAlpha(false)
+            end
+            if BF.border then
+                BF.border:SetFrameLevel(22)
+            end
+        end
+
+        if unit == "arena"..i and enabled and config.Arena and E.db.unitframe.units.arena.enable then
+            local AF = _G["ElvUF_Arena"..i]
+            BorderAndSeparator(AF)
         end
     end
 end
 
 function S:ElvUI_UnitFrames_PostUpdateAura(uf, _, button)
-    if not E.db.ProjectHopes.border.AuraUF then
-        return
-    end
-
-    if uf.isNameplate then
-        return
-    end
+    if not E.db.ProjectHopes or not E.db.ProjectHopes.border.AuraUF then return end
+    if uf.isNameplate then return end
 
     if not button.IsBorder then
         BORDER:CreateBorder(button)
@@ -592,21 +507,15 @@ end
 
 
 function S:ElvUI_UnitFrames_Configure_AuraBars(_, f)
-	local auraBars = f.AuraBars
-	local db = f.db
-	if db.aurabar.enable then
-		for _, statusBar in ipairs(auraBars) do
-			S:ElvUI_UnitFrames_Construct_AuraBars(nil, statusBar)
-		end
-	end
+    if not f.db or not f.db.aurabar or not f.db.aurabar.enable then return end
+    for _, statusBar in ipairs(f.AuraBars) do
+        S:ElvUI_UnitFrames_Construct_AuraBars(nil, statusBar)
+    end
 end
 
 function S:ElvUI_UnitFrames_Construct_AuraBars(_, f)
     if not f then return end
-    
     f.icon:SetPoint("RIGHT", f, "LEFT", -9, 0)
-
-    -- Cache processed children to prevent redundant updates
     for _, child in next, { f:GetChildren() } do
         if not child.IsBorder then
             BORDER:CreateBorder(child)
@@ -621,6 +530,41 @@ function S:ElvUI_UnitFrames_Buffindicator(_, button)
     end
     
     BORDER:CreateBorder(button)
+end
+
+function S:ProfileUpdate()
+    local config = E.db.ProjectHopes and E.db.ProjectHopes.border
+    if not config then return end
+
+    local units = { "player", "target", "targettarget", "focus", "focustarget", "pet", "pettarget", "targettargettarget" }
+    for _, unit in ipairs(units) do
+        local f = UF[unit]
+        if f and UF.db.units[unit] and UF.db.units[unit].enable then
+            BorderAndSeparator(f)
+        end
+    end
+
+    for i = 1, 5 do
+        local boss = _G["ElvUF_Boss"..i]
+        if boss and config.Boss and E.db.unitframe.units.boss.enable then
+            BorderAndSeparator(boss)
+        end
+        local arena = _G["ElvUF_Arena"..i]
+        if arena and config.Arena and E.db.unitframe.units.arena.enable then
+            BorderAndSeparator(arena)
+        end
+    end
+
+    for i = 1, 2 do
+        local tank = _G["ElvUF_TankUnitButton"..i]
+        if tank and config.Maintankofftank then
+            BorderAndSeparator(tank)
+        end
+        local assist = _G["ElvUF_AssistUnitButton"..i]
+        if assist and config.AssistUnits then
+            BorderAndSeparator(assist)
+        end
+    end
 end
 
 function S:UnitFrames()
@@ -642,6 +586,8 @@ function S:UnitFrames()
     -- Status bar
 	S:SecureHook(UF, "Configure_AuraBars", "ElvUI_UnitFrames_Configure_AuraBars")
 	S:SecureHook(UF, "Construct_AuraBars", "ElvUI_UnitFrames_Construct_AuraBars")
+
+     hooksecurefunc(E, "StaggeredUpdateAll", function() S:ProfileUpdate() end)
 end
 
 S:AddCallback("UnitFrames")
