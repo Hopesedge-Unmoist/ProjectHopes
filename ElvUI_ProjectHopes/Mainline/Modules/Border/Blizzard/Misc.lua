@@ -140,6 +140,7 @@ function S:BlizzardMiscFrames()
 	end
 
 	-- reskin popup buttons
+	--[[
 	for i = 1, 4 do
 		local StaticPopup = _G['StaticPopup'..i]
 		BORDER:CreateBorder(StaticPopup)
@@ -162,10 +163,10 @@ function S:BlizzardMiscFrames()
 		BORDER:CreateBorder(_G['StaticPopup'..i..'MoneyInputFrameCopper'], nil, nil, nil, nil, nil, true, false)
 		BORDER:CreateBorder(editbox, nil, nil, nil, nil, nil, true, false)
 
-		local itemFrame = _G['StaticPopup'..i..'ItemFrame']
-		BORDER:CreateBorder(itemFrame, nil, -8, 8, 7, -8)
-		BORDER:HandleIconBorder(itemFrame.IconBorder, itemFrame.border)
-
+		--local itemFrame = _G['StaticPopup'..i..'ItemFrame'] --removed for now
+		--BORDER:CreateBorder(itemFrame, nil, -8, 8, 7, -8)
+		--BORDER:HandleIconBorder(itemFrame.IconBorder, itemFrame.border)
+]]
 	end
 
 	-- UIWidget

@@ -640,11 +640,7 @@ function S:Blizzard_UIPanels_Game()
 	BORDER:CreateBorder(_G.TokenFramePopup.CurrencyTransferToggleButton, nil, nil, nil, nil, nil, false, true)
 
 	local currencyTransfer = _G.CurrencyTransferMenu
-	BORDER:CreateBorder(currencyTransfer)
-	BORDER:CreateBorder(currencyTransfer.SourceSelector.Dropdown, nil, nil, nil, nil, nil, true, true)
-	BORDER:CreateBorder(currencyTransfer.AmountSelector.InputBox)
-	BORDER:CreateBorder(currencyTransfer.ConfirmButton, nil, nil, nil, nil, nil, false, true)
-	BORDER:CreateBorder(currencyTransfer.CancelButton, nil, nil, nil, nil, nil, false, true)
+
 
 	hooksecurefunc(_G.ReputationFrame.ScrollBox, 'Update', UpdateFactionSkins)
 	hooksecurefunc(_G.TokenFrame.ScrollBox, 'Update', UpdateTokenSkins)
