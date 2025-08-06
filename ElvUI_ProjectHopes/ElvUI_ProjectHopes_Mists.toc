@@ -5,8 +5,8 @@
 ## OptionalDeps: OmniCD, BigWigs, Details, WarpDeplete
 
 ## DefaultState: enabled
-## Version: 20250731
-## X-PreviousVersion: 20250518
+## Version: 20250618
+## X-PreviousVersion: 20250512
 ## SavedVariables: ProjectHopesDB
 
 ## Interface: 50500
