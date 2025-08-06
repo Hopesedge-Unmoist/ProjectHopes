@@ -466,17 +466,24 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
     end
 
-    if name == "Tank" and enable and E.db.ProjectHopes.border.Maintankofftank then
-        for i = 1, 2 do 
-            local TankFrame = _G["ElvUF_TankUnitButton"..i]
-            BorderAndSeparator(TankFrame)
-        end
-    end
+    for i = 1, numGroup do
+        local unit = group .. i
+        local enabled = UF.db.units[group].enable
 
-    if name == "Assist" and enable and E.db.ProjectHopes.border.AssistUnits then
-        for i = 1, 2 do 
-            local AssistFrame = _G["ElvUF_AssistUnitButton"..i]
-            BorderAndSeparator(AssistFrame)
+        if unit == "boss"..i and enabled and config.Boss and E.db.unitframe.units.boss.enable then
+            local BF = _G["ElvUF_Boss"..i]
+            BorderAndSeparator(BF)
+            if BF.Power and BF.Power.separator then
+                BF.Power.separator:SetIgnoreParentAlpha(false)
+            end
+            if BF.border then
+                BF.border:SetFrameLevel(22)
+            end
+        end
+
+        if unit == "arena"..i and enabled and config.Arena and E.db.unitframe.units.arena.enable then
+            local AF = _G["ElvUF_Arena"..i]
+            BorderAndSeparator(AF)
         end
     end
 end

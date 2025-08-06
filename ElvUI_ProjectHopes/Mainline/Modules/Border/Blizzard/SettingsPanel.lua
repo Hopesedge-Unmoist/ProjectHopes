@@ -53,7 +53,7 @@ end
 function S:SettingsPanel()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.blizzardOptions) then return end
 	if not E.db.ProjectHopes.skins.blizzardOptions then return end
---[[
+
 	local SettingsPanel = _G.SettingsPanel
 	BORDER:CreateBorder(SettingsPanel)
 
@@ -144,7 +144,6 @@ function S:SettingsPanel()
 			end
 		end
 	end
-	]]
 end
 
 S:AddCallback('SettingsPanel')
