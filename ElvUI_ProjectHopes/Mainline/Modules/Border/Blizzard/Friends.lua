@@ -42,7 +42,7 @@ local function ReskinFriendButton(button)
 	end
 
 	local invite = button.travelPassButton
-	BORDER:CreateBorder(invite, nil, nil, nil, nil, nil, true, true)
+	BORDER:CreateBorder(invite, nil, nil, nil, nil, nil, false, true)
 
 	local icon = invite:CreateTexture(nil, 'ARTWORK')
 	BORDER:CreateBorder(icon)
@@ -137,19 +137,7 @@ function S:FriendsFrame()
 	end)
 
 	--Who Frame
-	_G.WhoFrameWhoButton:Size(75, 16)
-	_G.WhoFrameWhoButton:ClearAllPoints()
-	_G.WhoFrameWhoButton:SetPoint("TOPLEFT", _G.WhoFrameEditBox.backdrop, "BOTTOMLEFT", 0, -6)
 
-	_G.WhoFrameAddFriendButton:Size(110, 16)
-	_G.WhoFrameAddFriendButton:ClearAllPoints()
-	_G.WhoFrameAddFriendButton:SetPoint("RIGHT", _G.WhoFrameGroupInviteButton, "LEFT", -6, 0)
-
-	_G.WhoFrameGroupInviteButton:Size(110, 16)
-	_G.WhoFrameGroupInviteButton:ClearAllPoints()
-	_G.WhoFrameGroupInviteButton:SetPoint("TOPRIGHT", _G.WhoFrameEditBox.backdrop, "BOTTOMRIGHT", 0, -6)
-
-	BORDER:CreateBorder(_G.WhoFrameDropdown, nil, nil, nil, nil, nil, true, true)
 
 	-- Bottom Tabs
 	HandleTabs()
@@ -211,7 +199,6 @@ function S:FriendsFrame()
 
 	hooksecurefunc(Reward, 'UpdateRewards', RAFRewards)
 	RAFRewards()
-
 end
 
 S:AddCallback('FriendsFrame')

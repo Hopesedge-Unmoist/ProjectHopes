@@ -167,8 +167,8 @@ function S:BlizzardMiscFrames()
 		--BORDER:CreateBorder(itemFrame, nil, -8, 8, 7, -8)
 		--BORDER:HandleIconBorder(itemFrame.IconBorder, itemFrame.border)
 
-	end]]
-
+	end
+]]
 	-- UIWidget
 	S:SecureHook(
 		S,
