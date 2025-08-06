@@ -42,7 +42,7 @@ local function ReskinFriendButton(button)
 	end
 
 	local invite = button.travelPassButton
-	BORDER:CreateBorder(invite, nil, nil, nil, nil, nil, false, true)
+	BORDER:CreateBorder(invite, nil, nil, nil, nil, nil, true, true)
 
 	local icon = invite:CreateTexture(nil, 'ARTWORK')
 	BORDER:CreateBorder(icon)
@@ -137,9 +137,6 @@ function S:FriendsFrame()
 	end)
 
 	--Who Frame
-	BORDER:CreateBorder(_G.WhoFrame)
-	BORDER:CreateBorder(_G.WhoFrameEditBox, nil, nil, nil, nil, nil, true, false)
-
 	_G.WhoFrameWhoButton:Size(75, 16)
 	_G.WhoFrameWhoButton:ClearAllPoints()
 	_G.WhoFrameWhoButton:SetPoint("TOPLEFT", _G.WhoFrameEditBox.backdrop, "BOTTOMLEFT", 0, -6)
@@ -214,6 +211,7 @@ function S:FriendsFrame()
 
 	hooksecurefunc(Reward, 'UpdateRewards', RAFRewards)
 	RAFRewards()
+
 end
 
 S:AddCallback('FriendsFrame')

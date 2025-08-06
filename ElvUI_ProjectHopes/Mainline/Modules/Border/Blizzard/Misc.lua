@@ -166,8 +166,8 @@ function S:BlizzardMiscFrames()
 		--local itemFrame = _G['StaticPopup'..i..'ItemFrame'] --removed for now
 		--BORDER:CreateBorder(itemFrame, nil, -8, 8, 7, -8)
 		--BORDER:HandleIconBorder(itemFrame.IconBorder, itemFrame.border)
-]]
-	end
+
+	end]]
 
 	-- UIWidget
 	S:SecureHook(

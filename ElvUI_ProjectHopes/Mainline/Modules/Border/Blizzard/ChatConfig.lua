@@ -112,15 +112,21 @@ function S:ChatConfig()
 	BORDER:CreateBorder(_G.ChatConfigCombatSettingsFilters.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 
 	-- TextToSpeech    
-	BORDER:CreateBorder(_G.TextToSpeechFramePlaySampleButton, nil, nil, nil, nil, nil, false, true)
-	BORDER:CreateBorder(_G.TextToSpeechFramePlaySampleAlternateButton, nil, nil, nil, nil, nil, false, true)
-	BORDER:CreateBorder(_G.TextToSpeechDefaultButton, nil, nil, nil, nil, nil, false, true)
-	BORDER:CreateBorder(_G.TextToSpeechCharacterSpecificButton, nil, nil, nil, nil, nil, true, true)
 
-	BORDER:CreateBorder(_G.TextToSpeechFrameTtsVoiceDropdown)
-	BORDER:CreateBorder(_G.TextToSpeechFrameTtsVoiceAlternateDropdown)
-	BORDER:CreateBorder(_G.TextToSpeechFrameAdjustRateSlider)
-	BORDER:CreateBorder(_G.TextToSpeechFrameAdjustVolumeSlider)
+
+		if _G.TextToSpeechFramePlaySampleButton then
+			BORDER:CreateBorder(_G.TextToSpeechFramePlaySampleButton, nil, nil, nil, nil, nil, false, true)
+			BORDER:CreateBorder(_G.TextToSpeechFramePlaySampleAlternateButton, nil, nil, nil, nil, nil, false, true)
+			BORDER:CreateBorder(_G.TextToSpeechDefaultButton, nil, nil, nil, nil, nil, false, true)
+			BORDER:CreateBorder(_G.TextToSpeechCharacterSpecificButton, nil, nil, nil, nil, nil, true, true)
+
+			BORDER:CreateBorder(_G.TextToSpeechFrameTtsVoiceDropdown)
+			BORDER:CreateBorder(_G.TextToSpeechFrameTtsVoiceAlternateDropdown)
+			BORDER:CreateBorder(_G.TextToSpeechFrameAdjustRateSlider)
+			BORDER:CreateBorder(_G.TextToSpeechFrameAdjustVolumeSlider)
+	end
+
+
 
 	for _, checkbox in pairs({ -- check boxes
 		'PlayActivitySoundWhenNotFocusedCheckButton',
@@ -145,6 +151,7 @@ function S:ChatConfig()
 			end
 		end
 	end)
+
 end
 
 S:AddCallback('ChatConfig')

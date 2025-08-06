@@ -12,6 +12,7 @@ function S:LossOfControlFrame()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.losscontrol) then return end
 	if not E.db.ProjectHopes.skins.lossOfControl then return end
 
+
     local LossOfControlFrame = _G.LossOfControlFrame
     BORDER:CreateBorder(LossOfControlFrame.Icon)
 end
