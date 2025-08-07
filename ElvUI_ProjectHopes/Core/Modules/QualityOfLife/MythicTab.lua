@@ -10,95 +10,99 @@ local TELEPORT_TO_DUNGEON = TELEPORT_TO_DUNGEON
 local SPELL_FAILED_NOT_KNOWN = SPELL_FAILED_NOT_KNOWN
 
 MTb.MAP_ID_TO_SPELL_IDS = {        
-  -- Cataclysm
-  [438] = {410080}, -- The Vortex Pinnacle
-  [456] = {424142}, -- Throne of the Tides
-  [507] = {445424}, -- Grim Batol
-   
-  -- Pandaria
-  [2]   = {131204}, -- Temple of the Jade Serpent
-  [56]  = {131205}, -- Stormstout Brewery
-  [57]  = {131225}, -- Gate of the Setting Sun
-  [58]  = {131206}, -- Shado-Pan Monastery
-  [59]  = {131228}, -- Siege of Niuzao Temple
-  [60]  = {131222}, -- Mogu'shan Palace
-  [76]  = {131232}, -- Scholomance
-  [77]  = {131231}, -- Scarlet Halls
-  [78]  = {131229}, -- Scarlet Monastery
-   
-  -- Warlords of Draenor
-  [161] = {159898}, -- Skyreach
-  [163] = {159895}, -- Bloodmaul Slag Mines
-  [164] = {159897}, -- Auchindoun
-  [165] = {159899}, -- Shadowmoon Burial Grounds
-  [166] = {159900}, -- Grimrail Depot
-  [167] = {159902}, -- Upper Blackrock Spire
-  [168] = {159901}, -- The Everbloom
-  [169] = {159896}, -- Iron Docks
-   
-  -- Legion
-  [197] = {}, -- Eye of Azshara
-  [198] = {424163}, -- Darkheart Thicket
-  [199] = {424153}, -- Black Rook Hold
-  [200] = {393764}, -- Halls of Valor
-  [206] = {410078}, -- Neltharion's Lair
-  [207] = {}, -- Vault of the Wardens
-  [208] = {}, -- Maw of Souls
-  [209] = {}, -- The Arcway
-  [210] = {393766}, -- Court of Stars
-  [227] = {373262}, -- Lower Karazhan
-  [233] = {}, -- Cathedral of Eternal Night
-  [234] = {373262}, -- Upper Karazhan
-  [239] = {}, -- Seat of the Triumvirate
-   
-  -- Battle for Azeroth
-  [244] = {424187}, -- Atal'Dazar
-  [245] = {410071}, -- Freehold
-  [246] = {}, -- Tol Dagor
-  [247] = {467555, 467553 }, -- The MOTHERLODE!!
-  [248] = {424167}, -- Waycrest Manor
-  [249] = {}, -- Kings' Rest
-  [250] = {}, -- Temple of Sethraliss
-  [251] = {410074}, -- The Underrot
-  [252] = {}, -- Shrine of the Storm
-  [353] = {445418, 464256}, -- Siege of Boralus
-  [369] = {373274}, -- Mechagon Junkyard
-  [370] = {373274}, -- Mechagon Workshop
-   
-  -- Shadowlands
-  [375] = {354464}, -- Mists of Tirna Scithe
-  [376] = {354462}, -- The Necrotic Wake
-  [377] = {354468}, -- De Other Side
-  [378] = {354465}, -- Halls of Atonement
-  [379] = {354463}, -- Plaguefall
-  [380] = {354469}, -- Sanguine Depths
-  [381] = {354466}, -- Spires of Ascension
-  [382] = {354467}, -- Theater of Pain
-  [391] = {367416}, -- Streets of Wonder
-  [392] = {367416}, -- So'leah's Gambit
-   
-  -- Dragonflight
-  [399] = {393256}, -- Ruby Life Pools
-  [400] = {393262}, -- The Nokhud Offensive
-  [401] = {393279}, -- The Azure Vault
-  [402] = {393273}, -- Algeth'ar Academy
-  [403] = {393222}, -- Uldaman: Legacy of Tyr
-  [404] = {393276}, -- Neltharus
-  [405] = {393267}, -- Brackenhide Hollow
-  [406] = {393283}, -- Halls of Infusion
-  [463] = {424197}, -- Dawn of the Infinite: Galakrond's Fall
-  [464] = {424197}, -- Dawn of the Infinite: Murozond's Rise
-   
-  -- The War Within
-  [499] = {445444}, -- Priory of the Sacred Flame
-  [500] = {445443}, -- The Rookery
-  [501] = {445269}, -- The Stonevault
-  [502] = {445416}, -- City of Threads
-  [503] = {445417}, -- Ara-Kara, City of Echoes
-  [504] = {445441}, -- Darkflame Cleft
-  [505] = {445414}, -- The Dawnbreaker
-  [506] = {445440}, -- Cinderbrew Meadery
-  [525] = {1216786}, -- Operation: Floodgate
+        -- Note: Find map IDs at: https://wago.tools/db2/MapChallengeMode
+        
+        -- Cataclysm
+        [438] = {410080}, -- The Vortex Pinnacle
+        [456] = {424142}, -- Throne of the Tides
+        [507] = {445424}, -- Grim Batol
+        
+        -- Pandaria
+        [2]   = {131204}, -- Temple of the Jade Serpent
+        [56]  = {131205}, -- Stormstout Brewery
+        [57]  = {131225}, -- Gate of the Setting Sun
+        [58]  = {131206}, -- Shado-Pan Monastery
+        [59]  = {131228}, -- Siege of Niuzao Temple
+        [60]  = {131222}, -- Mogu'shan Palace
+        [76]  = {131232}, -- Scholomance
+        [77]  = {131231}, -- Scarlet Halls
+        [78]  = {131229}, -- Scarlet Monastery
+        
+        -- Warlords of Draenor
+        [161] = {159898}, -- Skyreach
+        [163] = {159895}, -- Bloodmaul Slag Mines
+        [164] = {159897}, -- Auchindoun
+        [165] = {159899}, -- Shadowmoon Burial Grounds
+        [166] = {159900}, -- Grimrail Depot
+        [167] = {159902}, -- Upper Blackrock Spire
+        [168] = {159901}, -- The Everbloom
+        [169] = {159896}, -- Iron Docks
+        
+        -- Legion
+        [197] = {}, -- Eye of Azshara
+        [198] = {424163}, -- Darkheart Thicket
+        [199] = {424153}, -- Black Rook Hold
+        [200] = {393764}, -- Halls of Valor
+        [206] = {410078}, -- Neltharion's Lair
+        [207] = {}, -- Vault of the Wardens
+        [208] = {}, -- Maw of Souls
+        [209] = {}, -- The Arcway
+        [210] = {393766}, -- Court of Stars
+        [227] = {373262}, -- Lower Karazhan
+        [233] = {}, -- Cathedral of Eternal Night
+        [234] = {373262}, -- Upper Karazhan
+        [239] = {}, -- Seat of the Triumvirate
+        
+        -- Battle for Azeroth
+        [244] = {424187}, -- Atal'Dazar
+        [245] = {410071}, -- Freehold
+        [246] = {}, -- Tol Dagor
+        [247] = {467553, 467555}, -- The MOTHERLODE!!
+        [248] = {424167}, -- Waycrest Manor
+        [249] = {}, -- Kings' Rest
+        [250] = {}, -- Temple of Sethraliss
+        [251] = {410074}, -- The Underrot
+        [252] = {}, -- Shrine of the Storm
+        [353] = {445418, 464256}, -- Siege of Boralus
+        [369] = {373274}, -- Mechagon Junkyard
+        [370] = {373274}, -- Mechagon Workshop
+        
+        -- Shadowlands
+        [375] = {354464}, -- Mists of Tirna Scithe
+        [376] = {354462}, -- The Necrotic Wake
+        [377] = {354468}, -- De Other Side
+        [378] = {354465}, -- Halls of Atonement
+        [379] = {354463}, -- Plaguefall
+        [380] = {354469}, -- Sanguine Depths
+        [381] = {354466}, -- Spires of Ascension
+        [382] = {354467}, -- Theater of Pain
+        [391] = {367416}, -- Tazavesh: Streets of Wonder
+        [392] = {367416}, -- Tazavesh: So'leah's Gambit
+        
+        -- Dragonflight
+        [399] = {393256}, -- Ruby Life Pools
+        [400] = {393262}, -- The Nokhud Offensive
+        [401] = {393279}, -- The Azure Vault
+        [402] = {393273}, -- Algeth'ar Academy
+        [403] = {393222}, -- Uldaman: Legacy of Tyr
+        [404] = {393276}, -- Neltharus
+        [405] = {393267}, -- Brackenhide Hollow
+        [406] = {393283}, -- Halls of Infusion
+        [463] = {424197}, -- Dawn of the Infinite: Galakrond's Fall
+        [464] = {424197}, -- Dawn of the Infinite: Murozond's Rise
+        
+        -- The War Within
+        [499] = {445444}, -- Priory of the Sacred Flame
+        [500] = {445443}, -- The Rookery
+        [501] = {445269}, -- The Stonevault
+        [502] = {445416}, -- City of Threads
+        [503] = {445417}, -- Ara-Kara, City of Echoes
+        [504] = {445441}, -- Darkflame Cleft
+        [505] = {445414}, -- The Dawnbreaker
+        [506] = {445440}, -- Cinderbrew Meadery
+        [525] = {1216786}, -- Operation: Floodgate
+        [542] = {1237215}, -- Eco-Dome Al'dani
+  
 }
 
 -- Function to update the tooltip for the dungeon teleport buttons
