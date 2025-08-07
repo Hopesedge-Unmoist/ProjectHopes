@@ -152,9 +152,10 @@ function S:BlizzardMiscFrames()
 		end)
 
 		for j = 1, 4 do
-			local button = StaticPopup['button'..j]
+			local button = _G["StaticPopup"..i.."Button"..j]
 			BORDER:CreateBorder(button, nil, nil, nil, nil, nil, false, true)
 		end
+
 
 		local editbox = _G['StaticPopup'..i..'EditBox']
 		BORDER:CreateBorder(_G['StaticPopup'..i..'MoneyInputFrameGold'], nil, nil, nil, nil, nil, true, false)

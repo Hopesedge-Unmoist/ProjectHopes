@@ -13,7 +13,7 @@ function S:LossOfControlFrame()
 	if not E.db.ProjectHopes.skins.lossOfControl then return end
 
     local LossOfControlFrame = _G.LossOfControlFrame
-    BORDER:CreateBorder(LossOfControlFrame.Icon.backdrop)
+    BORDER:CreateBorder(LossOfControlFrame.backdrop)
 end
 
 S:AddCallback('LossOfControlFrame')
