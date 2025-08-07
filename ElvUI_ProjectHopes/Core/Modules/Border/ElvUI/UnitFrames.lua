@@ -177,12 +177,14 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
 
         local Raid1BorderHSeparator = {}
         for i = 2, 8 do
-            Raid1BorderHSeparator[i] = CreateFrame("Frame", nil, Raid1Frames, BackdropTemplateMixin and "BackdropTemplate")
+      --      Raid1BorderHSeparator[i] = CreateFrame("Frame", nil, Raid1Frames, BackdropTemplateMixin and "BackdropTemplate")
+            Raid1BorderHSeparator[i] = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate")
+
             Raid1BorderHSeparator[i]:SetBackdrop(Private.Separator)
             Raid1BorderHSeparator[i]:SetHeight(16)
             Raid1BorderHSeparator[i]:SetFrameLevel(Raid1Frames:GetFrameLevel() + 21)
             Raid1BorderHSeparator[i]:SetPoint("TOPRIGHT", _G["ElvUF_Raid1Group"..i], 0, 4)
-            Raid1BorderHSeparator[i]:SetPoint("LEFT", Raid1Frames, 0, 0)
+            Raid1BorderHSeparator[i]:SetPoint("LEFT", Raid1Frames, 0, 0)  -- Line 185
             Raid1BorderHSeparator[i]:Hide()
         end
 

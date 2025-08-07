@@ -365,13 +365,13 @@ function ProjectHopes:Config()
 	POABS.UnitFrames.args.assistunitborder.args.desc.args.feature = ACH:Description(L["Adds a border to the Assist Unitframe."], 1, "medium")
 	POABS.UnitFrames.args.assistunitborder.args.maintankofftank = ACH:Toggle(L["Enable"], nil, 3, nil, false, "full",function() return E.db.ProjectHopes.border.AssistUnits end,function(_, value) E.db.ProjectHopes.border.AssistUnits = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.unitframe.units.assist.enable end)
 	
-	POABS.UnitFrames.args.bossborders = ACH:Group(L["Boss"], nil, 1, nil, nil, nil, function() return not E.db.unitframe.units.boss.enable end, not E.Retail, nil)
+	POABS.UnitFrames.args.bossborders = ACH:Group(L["Boss"], nil, 1, nil, nil, nil, function() return not E.db.unitframe.units.boss.enable end, not E.Classic, nil)
 	POABS.UnitFrames.args.bossborders.args.desc = ACH:Group(L["Description"], nil, 1)
 	POABS.UnitFrames.args.bossborders.args.desc.inline = true
 	POABS.UnitFrames.args.bossborders.args.desc.args.feature = ACH:Description(L["Adds a border to the Boss Unitframes"], 1, "medium")
 	POABS.UnitFrames.args.bossborders.args.boss = ACH:Toggle(L["Enable"], nil, 3, nil, false, "full",function() return E.db.ProjectHopes.border.Boss end,function(_, value) E.db.ProjectHopes.border.Boss = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.unitframe.units.boss.enable end)
 
-	POABS.UnitFrames.args.arenaborders = ACH:Group(L["Arena"], nil, 1, nil, nil, nil, function() return not E.db.unitframe.units.arena.enable end, not E.Retail, nil)
+	POABS.UnitFrames.args.arenaborders = ACH:Group(L["Arena"], nil, 1, nil, nil, nil, function() return not E.db.unitframe.units.arena.enable end, E.Classic, nil)
 	POABS.UnitFrames.args.arenaborders.args.desc = ACH:Group(L["Description"], nil, 1)
 	POABS.UnitFrames.args.arenaborders.args.desc.inline = true
 	POABS.UnitFrames.args.arenaborders.args.desc.args.feature = ACH:Description(L["Adds a border to the Arena Unitframes"], 1, "medium")
