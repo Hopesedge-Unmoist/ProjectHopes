@@ -358,6 +358,43 @@ do
     end
 end
 
+
+function BORDER:HandleStaticPopup(popup)
+	if not popup then return end
+	BORDER:CreateBorder(popup)
+
+	local i = 1
+	local button = E:StaticPopup_GetElement(popup, 'Button'..i)
+	while button do
+		BORDER:CreateBorder(button, nil, nil, nil, nil, nil, false, true)
+
+        i = i + 1
+		button = E:StaticPopup_GetElement(popup, 'Button'..i)
+	end
+
+	local moneyInputFrame = E:StaticPopup_GetElement(popup, 'MoneyInputFrame')
+	if moneyInputFrame then
+        BORDER:CreateBorder(moneyInputFrame.gold, nil, nil, nil, nil, nil, true, false)
+		BORDER:CreateBorder(moneyInputFrame.silver, nil, nil, nil, nil, nil, true, false)
+		BORDER:CreateBorder(moneyInputFrame.copper, nil, nil, nil, nil, nil, true, false)
+	end
+
+	local editBox = E:StaticPopup_GetElement(popup, 'EditBox')
+	if editBox then
+        BORDER:CreateBorder(editbox, nil, nil, nil, nil, nil, true, false)
+	end
+
+	local itemFrame = E:StaticPopup_GetElement(popup, 'ItemFrame')
+	if itemFrame then
+		local item = itemFrame.Item or itemFrame
+        BORDER:CreateBorder(item.backdrop, nil, -8, 8, 7, -8)
+		BORDER:HandleIconBorder(item.IconBorder, item.backdrop.border)
+        if item.backdrop then 
+            item.backdrop:SetBackdrop("")
+        end
+	end
+end
+
 function BORDER:CreateSeparator(frame, frameLevel, Point1, Point2)
     if not frame or frame.separator then
         return

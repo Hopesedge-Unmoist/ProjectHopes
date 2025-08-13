@@ -140,33 +140,8 @@ function S:BlizzardMiscFrames()
 	end
 
 	-- reskin popup buttons
-	for i = 1, 4 do
-		local StaticPopup = _G['StaticPopup'..i]
-		BORDER:CreateBorder(StaticPopup)
-
-		StaticPopup:HookScript('OnShow', function() -- UpdateRecapButton is created OnShow
-			if StaticPopup.UpdateRecapButton and (not StaticPopup.UpdateRecapButtonHookedBorder) then
-				StaticPopup.UpdateRecapButtonHookedBorder = true -- we should only hook this once
-				hooksecurefunc(StaticPopup, 'UpdateRecapButton', S.UpdateRecapButton)
-			end
-		end)
-
-		for j = 1, 4 do
-			local button = _G["StaticPopup"..i.."Button"..j]
-			BORDER:CreateBorder(button, nil, nil, nil, nil, nil, false, true)
-		end
-
-
-		local editbox = _G['StaticPopup'..i..'EditBox']
-		BORDER:CreateBorder(_G['StaticPopup'..i..'MoneyInputFrameGold'], nil, nil, nil, nil, nil, true, false)
-		BORDER:CreateBorder(_G['StaticPopup'..i..'MoneyInputFrameSilver'], nil, nil, nil, nil, nil, true, false)
-		BORDER:CreateBorder(_G['StaticPopup'..i..'MoneyInputFrameCopper'], nil, nil, nil, nil, nil, true, false)
-		BORDER:CreateBorder(editbox, nil, nil, nil, nil, nil, true, false)
-
-		local ItemFrame = _G['StaticPopup'..i..'ItemFrame']
-		local IconTexture = _G['StaticPopup'..i..'ItemFrameIconTexture']
-
-		BORDER:CreateBorder(IconTexture, nil, -8, 8, 7, -8)
+	for i = 1, E.MAX_STATIC_POPUPS do
+		BORDER:HandleStaticPopup(_G['StaticPopup'..i])
 	end
 
 	-- UIWidget
