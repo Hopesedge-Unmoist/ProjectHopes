@@ -6,12 +6,12 @@
 
 ## DefaultState: enabled
 ## Author: Hopesedge
-## Version: 20250806
-## X-PreviousVersion: 20250731
+## Version: 20250816
+## X-PreviousVersion: 20250806
 ## SavedVariables: ProjectHopesDB
 
 ## Interface: 110200
-## X-Required-ElvUI: 13.95
+## X-Required-ElvUI: 13.96
 
 ## AddonCompartmentFunc: ProjectHopes_OnAddonCompartmentClick
 ## IconTexture: Interface\AddOns\ElvUI_ProjectHopes\Media\Textures\ProjectHopes2025logo

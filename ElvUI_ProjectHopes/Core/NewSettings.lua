@@ -2,6 +2,12 @@ local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+		'v|cff99ff20250816|r 16/08/2025',
+	' • I keep forgetting this shit sorry.',
+	' • Border fixes.',
+	' • Reconfig DriveButton to be config for Cloak.',
+	' • Fix for quick delete.',
+' ',
 	'v|cff99ff20250618|r 18/06/2025',
 	' • Border for Aura indicators',
 	' • Nil cleans for borders. .',
