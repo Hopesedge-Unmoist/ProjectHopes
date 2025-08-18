@@ -314,7 +314,7 @@ function ProjectHopes:Config()
 	POABS.UnitFrames.args.targetborder.args.target = ACH:Toggle(L["Enable"], nil, 3, nil, false, "full",function() return E.db.ProjectHopes.border.Target end,function(_, value) E.db.ProjectHopes.border.Target = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.unitframe.units.target.enable end)
 	POABS.UnitFrames.args.targetborder.args.targetsep = ACH:Toggle(L["Power/Health Separator"], nil, 4, nil, false, "full",function() return E.db.ProjectHopes.border.Targetsep end,function(_, value) E.db.ProjectHopes.border.Targetsep = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.unitframe.units.target.power.enable or not E.db.ProjectHopes.border.Target end)
 
-	POABS.UnitFrames.args.focusborder = ACH:Group(L["Focus"], nil, 1, nil, nil, nil, function() return not E.db.unitframe.units.focus.enable end, not E.Retail, nil)
+	POABS.UnitFrames.args.focusborder = ACH:Group(L["Focus"], nil, 1, nil, nil, nil, function() return not E.db.unitframe.units.focus.enable end, E.Classic, nil)
 	POABS.UnitFrames.args.focusborder.args.desc = ACH:Group(L["Description"], nil, 1)
 	POABS.UnitFrames.args.focusborder.args.desc.inline = true
 	POABS.UnitFrames.args.focusborder.args.desc.args.feature = ACH:Description(L["Adds a border to the Focus Unitframes."], 1, "medium")
@@ -365,7 +365,7 @@ function ProjectHopes:Config()
 	POABS.UnitFrames.args.assistunitborder.args.desc.args.feature = ACH:Description(L["Adds a border to the Assist Unitframe."], 1, "medium")
 	POABS.UnitFrames.args.assistunitborder.args.maintankofftank = ACH:Toggle(L["Enable"], nil, 3, nil, false, "full",function() return E.db.ProjectHopes.border.AssistUnits end,function(_, value) E.db.ProjectHopes.border.AssistUnits = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.unitframe.units.assist.enable end)
 	
-	POABS.UnitFrames.args.bossborders = ACH:Group(L["Boss"], nil, 1, nil, nil, nil, function() return not E.db.unitframe.units.boss.enable end, not E.Classic, nil)
+	POABS.UnitFrames.args.bossborders = ACH:Group(L["Boss"], nil, 1, nil, nil, nil, function() return not E.db.unitframe.units.boss.enable end, E.Classic, nil)
 	POABS.UnitFrames.args.bossborders.args.desc = ACH:Group(L["Description"], nil, 1)
 	POABS.UnitFrames.args.bossborders.args.desc.inline = true
 	POABS.UnitFrames.args.bossborders.args.desc.args.feature = ACH:Description(L["Adds a border to the Boss Unitframes"], 1, "medium")
