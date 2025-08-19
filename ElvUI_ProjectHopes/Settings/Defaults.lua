@@ -99,6 +99,10 @@ P.ProjectHopes = {
 		-- Raid
 		raid = false,
 		raiddps = false,
+		raid2 = false,
+		raid2dps = false,
+		raid3 = false,
+		raid3dps = false,
 		-- Pet
 		Pet = false,
 		Petsep = false,

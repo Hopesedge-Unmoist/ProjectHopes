@@ -132,18 +132,18 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         BORDER:CreateBorder(PartyFrame, 20, -9, 9, 9, -9)
         BORDER:CreateBackground(PartyFrame, -2, 2, 2, -2)
 
-        for i = 2, 5 do
-            local unitButton = _G["ElvUF_PartyGroup1UnitButton" .. i] -- Dynamically fetch the button
-            if unitButton then
-                if E.db.unitframe.units.party.growthDirection == "UP_RIGHT" or 
-                   E.db.unitframe.units.party.growthDirection == "UP_LEFT" or 
-                   E.db.unitframe.units.party.growthDirection == "DOWN_LEFT" or 
-                   E.db.unitframe.units.party.growthDirection == "DOWN_RIGHT" then
-                    BORDER:CreateSeparator(unitButton, 22, nil, PartyFrame)
-                else
-                    BORDER:CreateVSeparator(unitButton, 22, nil, PartyFrame)
-                end
+        if E.db.unitframe.units.party.growthDirection == "UP_LEFT" or E.db.unitframe.units.party.growthDirection == "UP_RIGHT" then
+            for i = 1, 4 do 
+                local unitButton = _G["ElvUF_PartyGroup1UnitButton" .. i]
+                BORDER:CreateSeparator(unitButton, 22, nil, PartyFrame)
             end
+        elseif E.db.unitframe.units.party.growthDirection == "DOWN_LEFT" or E.db.unitframe.units.party.growthDirection == "DOWN_RIGHT" then
+            for i = 2, 5 do
+                local unitButton = _G["ElvUF_PartyGroup1UnitButton" .. i]
+                BORDER:CreateSeparator(unitButton, 22, nil, PartyFrame)
+            end
+        else 
+            BORDER:CreateVSeparator(unitButton, 22, nil, PartyFrame)
         end
     elseif name == "Party" and enable and E.db.ProjectHopes.border.PartySpaced then
         for i = 1,5 do
@@ -262,10 +262,10 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
     end
 
-    if name == "Raid2" and enable and E.db.ProjectHopes.border.raid then
+    if name == "Raid2" and enable and E.db.ProjectHopes.border.raid2 then
         local Raid2Frames = _G["ElvUF_Raid2"]
         BORDER:CreateBorder(Raid2Frames, 20, -9, 9, 9, -9)
-        if E.db.ProjectHopes.border.raidbackdrop then
+        if E.db.ProjectHopes.border.raid2backdrop then
             BORDER:CreateBackground(Raid2Frames, -2, 2, 2, -2)
         end
 
@@ -321,7 +321,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
             Raid2Frames.border:SetPoint("TOPLEFT", Raid2Frames, -9, 9)
             Raid2Frames.border:SetPoint("TOPRIGHT", Raid2Frames, 9, -9)
             Raid2Frames.border:SetPoint("BOTTOMRIGHT", groupnum, 9, -9)
-            if E.db.ProjectHopes.border.raidbackdrop then
+            if E.db.ProjectHopes.border.raid2backdrop then
                 Raid2Frames.background:SetPoint("TOPLEFT", Raid2Frames, -3, 3)
                 Raid2Frames.background:SetPoint("TOPRIGHT", Raid2Frames, 3, -3)
                 Raid2Frames.background:SetPoint("BOTTOMRIGHT", groupnum, 3, -3)	
@@ -334,7 +334,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end)
     end
 
-    if name == "Raid2" and enable and E.db.ProjectHopes.border.raiddps then
+    if name == "Raid2" and enable and E.db.ProjectHopes.border.raid2dps then
         for k = 1, 8 do
             for l = 1, 5 do
                 local slots = {_G["ElvUF_Raid2Group"..k..'UnitButton'..l]}
@@ -365,10 +365,10 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
     end
 
-    if name == "Raid3" and enable and E.db.ProjectHopes.border.raid then
+    if name == "Raid3" and enable and E.db.ProjectHopes.border.raid3 then
         local Raid3Frames = _G["ElvUF_Raid3"]
         BORDER:CreateBorder(Raid3Frames, 20, -9, 9, 9, -9)
-        if E.db.ProjectHopes.border.raidbackdrop then
+        if E.db.ProjectHopes.border.raid3backdrop then
             BORDER:CreateBackground(Raid3Frames, -2, 2, 2, -2)
         end
 
@@ -424,7 +424,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
             Raid3Frames.border:SetPoint("TOPLEFT", Raid3Frames, -9, 9)
             Raid3Frames.border:SetPoint("TOPRIGHT", Raid3Frames, 9, -9)
             Raid3Frames.border:SetPoint("BOTTOMRIGHT", groupnum, 9, -9)
-            if E.db.ProjectHopes.border.raidbackdrop then
+            if E.db.ProjectHopes.border.raid3backdrop then
                 Raid3Frames.background:SetPoint("TOPLEFT", Raid3Frames, -3, 3)
                 Raid3Frames.background:SetPoint("TOPRIGHT", Raid3Frames, 3, -3)
                 Raid3Frames.background:SetPoint("BOTTOMRIGHT", groupnum, 3, -3)	
@@ -437,7 +437,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end)
     end
 
-    if name == "Raid3" and enable and E.db.ProjectHopes.border.raiddps then
+    if name == "Raid3" and enable and E.db.ProjectHopes.border.raid3dps then
         for k = 1, 8 do
             for l = 1, 5 do
                 local slots = {_G["ElvUF_Raid3Group"..k..'UnitButton'..l]}
