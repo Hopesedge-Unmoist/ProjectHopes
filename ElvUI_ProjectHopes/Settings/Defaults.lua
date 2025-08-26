@@ -34,17 +34,76 @@ V.ProjectHopes = {
 -- Defaults: E.db.ProjectHopes
 P.ProjectHopes = {
 	-- UnitFrame Generals
+	portraits = {
+				--player portrait
+		playerframelevel = 20,
+		playerSize = 50, 
+		playerMirror = false,
+		playerClass = false,
+		playerClassTexture = "hd",
+		playerClassBackdropColor = { r = 1, g = 1, b = 1, a = 1 },
+		playerBorderColor = false,
+		playerUnitframeAnchor = false,
+		playerPosition = "left",
+		playerOffsetX = 12,
+		playerOffsetY = 0,
+				--target portrait
+		targetframelevel = 20,
+		targetSize = 50, 
+		targetMirror = false,
+		targetClass = false,
+		targetClassTexture = "hd",
+		targetClassBackdropColor = { r = 1, g = 1, b = 1, a = 1 },
+		targetBorderColor = false,
+		targetUnitframeAnchor = false,
+		targetPosition = "right",
+		targetOffsetX = -12,
+		targetOffsetY = 0,
+
+		--focus portrait
+		focusframelevel = 20,
+		focusSize = 50, 
+		focusMirror = false,
+		focusClass = false,
+		focusClassTexture = "hd",
+		focusClassBackdropColor = { r = 1, g = 1, b = 1, a = 1 },
+		focusBorderColor = false,
+		focusUnitframeAnchor = false,
+		focusPosition = "right",
+		focusOffsetX = -12,
+		focusOffsetY = 0,
+
+		--targettarget portrait
+		targettargetframelevel = 20,
+		targettargetSize = 50, 
+		targettargetMirror = false,
+		targettargetClass = false,
+		targettargetClassTexture = "hd",
+		targettargetClassBackdropColor = { r = 1, g = 1, b = 1, a = 1 },
+		targettargetBorderColor = false,
+		targettargetUnitframeAnchor = false,
+		targettargetPosition = "right",
+		targettargetOffsetX = -12,
+		targettargetOffsetY = 0,
+
+				--boss portrait
+		bossframelevel = 20,
+		bossSize = 50, 
+		bossMirror = false,
+		bossBorderColor = false,
+		bossUnitframeAnchor = false,
+		bossPosition = "right",
+		bossOffsetX = -12,
+		bossOffsetY = 0,
+
+	},
+
 	unitframe = {
 		unitFramesGlowline = false,
 		unitFramesGlowlinecolor = { r = 1, g = 1, b = 1, a = 1 },
 		unitFramesGlowlineWidth = 5,
 		infopanelontop = false,
-		framelevelPortraits = 20,
-		classPortraits = false, 
-		playerpositionPortraits = -20,
-		targetpositionPortraits = 20,
-		focuspositionPortraits = 20,
-		targettargetpositionPortraits = 20.
+
 	},
 	-- qualityOfLife
 	qualityOfLife = {

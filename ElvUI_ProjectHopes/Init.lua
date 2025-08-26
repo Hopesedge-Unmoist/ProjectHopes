@@ -19,6 +19,8 @@ Private.Name = E:TextGradient('ProjectHopes', 0.6, 0.6, 0.6, 1, 0.78, 0.03)
 Private.Texture = 'HopesUI'
 Private.RequiredElvUI = tonumber(GetAddOnMetadata(Name, 'X-Required-ElvUI'))
 Private.Version = tonumber(GetAddOnMetadata(Name, 'Version'))
+Private.Media = {}
+Private.Portraits = {}
 
 E.private.ProjectHopes = E.private.ProjectHopes or {}
 E.private.ProjectHopes.qualityOfLife = E.private.ProjectHopes.qualityOfLife or {}
@@ -29,23 +31,38 @@ local suffix = darkMode and "_Dark" or ""
 local noShadow = "(NoShadow)" .. suffix
 local path = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\"
 
+-- Border
 Private.Border = {bgFile = nil, edgeFile = path .. "Borders\\HopesUI" .. suffix .. ".tga", tileSize = 0, edgeSize = 16, insets = { left = 8, right = 8, top = 8, bottom = 8 }}
+Private.BorderLight = {bgFile = nil, edgeFile = path .. "Borders\\HopesUI_Light.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
+
+-- Separators
 Private.Separator = {bgFile = path .. "Textures\\HopesUI_Separator" .. suffix .. ".tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = { left = 0, right = 0, top = 0, bottom = 0 }}
 Private.vSeparator = {bgFile = path .. "Textures\\HopesUI_vSeparator" .. suffix .. ".tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = { left = 0, right = 0, top = 0, bottom = 0 }}
+
+-- Portraits
 Private.Circle = path .. "Textures\\PortraitBorderMain" .. suffix .. ".tga"
 Private.PortraitBorder = path .. "Textures\\PortraitBorder" .. noShadow .. ".tga"
-Private.BorderLight = {bgFile = nil, edgeFile = path .. "Borders\\HopesUI_Light.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
-Private.BackgroundTexture = {bgFile = path .. "Textures\\Square_White.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}}
-Private.Glowline = path .. "Textures\\Glowline.tga"
-Private.MinimapRectangle = path .. "Textures\\Rectangle.tga"
+Private.Portrait = path .. "Textures\\CircleMaskScalable.tga"
+Private.PortraitBorderColor = path .. "Textures\\PortraitBorder(Colorable).tga"
+Private.Portraits.Mask = path .. "Textures\\Portrait\\Portrait_Mask.tga"
+Private.Portraits.Background = path .. "Textures\\Portrait\\Portrait_Background.tga" 
+Private.Portraits.Border = path .. "Textures\\Portrait\\Portrait_Border" .. suffix .. ".tga"
+Private.Portraits.BorderColor = path .. "Textures\\Portrait\\Portrait_BorderColor.tga" 
+
+-- Shield Overlay
 Private.AbsorbOverlay = path .. "Textures\\Shield-Overlay.blp"
 Private.AbsorbGlow = path .. "Textures\\Shield-Overshield.blp"
 Private.AbsorbTexture = path .. "Textures\\Shield-Fill.tga"
-Private.Portrait = path .. "Textures\\CircleMaskScalable.tga"
-Private.PortraitBorderColor = path .. "Textures\\PortraitBorder(Colorable).tga"
-Private.Font = path .. "Fonts\\Expressway.ttf"
-Private.TargetGlow = {bgFile = nil, edgeFile = path .. "Borders\\Targetglow.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
+
+-- Glowline
+Private.Glowline = path .. "Textures\\Glowline.tga"
 Private.CastbarGlow = path .. "Textures\\CastbarGlow.tga"
+Private.TargetGlow = {bgFile = nil, edgeFile = path .. "Borders\\Targetglow.tga", tileSize = 0, edgeSize = 16, insets = {left = 8, right = 8, top = 8, bottom = 8}}
+
+-- Misc Textures
+Private.BackgroundTexture = {bgFile = path .. "Textures\\Square_White.tga", edgeFile = nil, tileSize = 0, edgeSize = 0, insets = {left = 0, right = 0, top = 0, bottom = 0}}
+Private.MinimapRectangle = path .. "Textures\\Rectangle.tga"
+Private.Font = path .. "Fonts\\Expressway.ttf"
 Private.HopesUI = path .. "Statusbar\\HopesUI.tga"
 
 E.Media.Textures.RoleIcons = path .. "Textures\\RoleIcons.tga" -- White Role Icons. 

@@ -1,6 +1,10 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui/'>
+	<Script file='Core.lua'/>
+
 	<Script file='TargetPortraits.lua'/>
 	<Script file='PlayerPortraits.lua'/>
 	<Script file='FocusPortraits.lua'/>
 	<Script file='TargetTargetPortraits.lua'/>
+	<Script file='BossPortraits.lua'/>
+	<Script file='PetPortraits.lua'/>
 </Ui>

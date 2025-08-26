@@ -77,3 +77,36 @@ LSM:Register("sound","|cffffc9078|r", [[Interface\Addons\ElvUI_ProjectHopes\Medi
 LSM:Register("sound","|cffffc9079|r", [[Interface\Addons\ElvUI_ProjectHopes\Media\Sounds\9.ogg]])
 LSM:Register("sound","|cffffc90710|r", [[Interface\Addons\ElvUI_ProjectHopes\Media\Sounds\10.ogg]])
  
+local texCoords = {
+	WARRIOR     = { 0, 0, 0, 0.125, 0.125, 0, 0.125, 0.125 },
+	MAGE        = { 0.125, 0, 0.125, 0.125, 0.25, 0, 0.25, 0.125 },
+	ROGUE       = { 0.25, 0, 0.25, 0.125, 0.375, 0, 0.375, 0.125 },
+	DRUID       = { 0.375, 0, 0.375, 0.125, 0.5, 0, 0.5, 0.125 },
+	EVOKER      = { 0.5, 0, 0.5, 0.125, 0.625, 0, 0.625, 0.125 },
+	HUNTER      = { 0, 0.125, 0, 0.25, 0.125, 0.125, 0.125, 0.25 },
+	SHAMAN      = { 0.125, 0.125, 0.125, 0.25, 0.25, 0.125, 0.25, 0.25 },
+	PRIEST      = { 0.25, 0.125, 0.25, 0.25, 0.375, 0.125, 0.375, 0.25 },
+	WARLOCK     = { 0.375, 0.125, 0.375, 0.25, 0.5, 0.125, 0.5, 0.25 },
+	PALADIN     = { 0, 0.25, 0, 0.375, 0.125, 0.25, 0.125, 0.375 },
+	DEATHKNIGHT = { 0.125, 0.25, 0.125, 0.375, 0.25, 0.25, 0.25, 0.375 },
+	MONK        = { 0.25, 0.25, 0.25, 0.375, 0.375, 0.25, 0.375, 0.375 },
+	DEMONHUNTER = { 0.375, 0.25, 0.375, 0.375, 0.5, 0.25, 0.5, 0.375 },
+}
+
+Private.Media = {
+	Class = {
+		blizzard = {
+			texture = "Interface\\WorldStateFrame\\Icons-Classes",
+			texCoords = CLASS_ICON_TCOORDS,
+			name = LSM["Blizzard"],
+			transparent = true,
+		},
+		hd = {
+			texture = "Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ClassIcons\\classHD.tga",
+			texCoords = texCoords,
+			name = LSM["Blizzard HD"],
+      transparent = false,
+		},
+  },
+}
+
