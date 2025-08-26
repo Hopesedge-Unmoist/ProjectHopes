@@ -2,6 +2,10 @@ local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+			'v|cff99ff20250826|r 26/08/2025',
+	' • RaidFrame bug for somereason..',
+	' • Completly new portraits module, alot of features.',
+' ',
 		'v|cff99ff20250816|r 16/08/2025',
 	' • I keep forgetting this shit sorry.',
 	' • Border fixes.',
@@ -104,7 +108,14 @@ ProjectHopes.ChangelogTBL = {
 
 function ProjectHopes:LoadNewSettings()
 	
-
+	E.db["ProjectHopes"]["portraits"]["bossBorderColor"] = true
+	E.db["ProjectHopes"]["portraits"]["bossMirror"] = true
+	E.db["ProjectHopes"]["portraits"]["bossframelevel"] = 25
+	E.db["ProjectHopes"]["portraits"]["focusBorderColor"] = true
+	E.db["ProjectHopes"]["portraits"]["focusMirror"] = true
+	E.db["ProjectHopes"]["portraits"]["playerBorderColor"] = true
+	E.db["ProjectHopes"]["portraits"]["targetBorderColor"] = true
+	E.db["ProjectHopes"]["portraits"]["targetMirror"] = true
 	
 	--- Keep this stuff ---
 	Private:Print("New features is now set. Have fun!")
