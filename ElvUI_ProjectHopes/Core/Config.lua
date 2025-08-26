@@ -2,6 +2,7 @@ local Name, Private = ...
 local E, _, V, P, G = unpack(ElvUI)
 local D = E:GetModule('Distributor');
 local PI = E:GetModule('PluginInstaller');
+local PORTRAIT = E:GetModule('Portrait', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 
 local LSM = E.Libs.LSM
 
@@ -15,9 +16,24 @@ local GetCVar, GetCVarBool = GetCVar, GetCVarBool
 local SetCVar = SetCVar
 local MiniMapButtonSelect = {NOANCHOR = 'No Anchor Bar', HORIZONTAL = 'Horizontal', VERTICAL = 'Vertical'}
 local MiniMapButtonDirection = {NORMAL = 'Normal', REVERSED = 'Reversed'}
-local PORTRAITANCHORPOINT = {RIGHT = 'Right', LEFT, 'Right'}
+local PORTRAITANCHORPOINT = {
+    CENTER      = "Center",
+    LEFT        = "Left",
+    RIGHT       = "Right",
+    TOP         = "Top",
+    BOTTOM      = "Bottom",
+    TOPLEFT     = "Top Left",
+    TOPRIGHT    = "Top Right",
+    BOTTOMLEFT  = "Bottom Left",
+    BOTTOMRIGHT = "Bottom Right",
+}
 
-local SPECIALTHANKS = { '|cffffc607Ayije|r', '|cff14b4d3Jiberish|r', E:TextGradient('Angelos', 0.7, 0.3, 1, 1, 0.9, 0.2), }
+local SPECIALTHANKS = { 
+	'|cffffc607Ayije|r', 
+	'|cff14b4d3Jiberish|r', 
+	E:TextGradient('Angelos', 0.7, 0.3, 1, 1, 0.9, 0.2), 
+	'|cff2ab6ffHoffa|r'
+}
 local PLUGINSUPPORT = { 
 	'|cffa207faRepooc|r',
 	E:TextGradient('Simpy but my name needs to be longer.', 0.18,1.00,0.49, 0.32,0.85,1.00, 0.55,0.38,0.85, 1.00,0.55,0.71, 1.00,0.68,0.32), 
