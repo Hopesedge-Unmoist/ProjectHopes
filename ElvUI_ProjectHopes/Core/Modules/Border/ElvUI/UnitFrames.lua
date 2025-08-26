@@ -176,7 +176,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
 
         local Raid1BorderHSeparator = {}
-        for i = 2, 8 do
+        for i = 2, E.db.unitframe.units.raid1.numGroups do
       --      Raid1BorderHSeparator[i] = CreateFrame("Frame", nil, Raid1Frames, BackdropTemplateMixin and "BackdropTemplate")
             Raid1BorderHSeparator[i] = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate")
 
@@ -197,7 +197,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     maxSubgroup = subgroup
                 end
             end
-            for i = 2, 8 do
+            for i = 2, E.db.unitframe.units.raid1.numGroups do
                 if i <= maxSubgroup then
                     Raid1BorderHSeparator[i]:Show() 
                 else
@@ -281,7 +281,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
 
         local Raid2BorderHSeparator = {}
-        for i = 2, 8 do
+        for i = 2, E.db.unitframe.units.raid2.numGroups do
             Raid2BorderHSeparator[i] = CreateFrame("Frame", nil, Raid2Frames, BackdropTemplateMixin and "BackdropTemplate")
             Raid2BorderHSeparator[i]:SetBackdrop(Private.Separator)
             Raid2BorderHSeparator[i]:SetHeight(16)
@@ -300,7 +300,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     maxSubgroup = subgroup
                 end
             end
-            for i = 2, 8 do
+            for i = 2, E.db.unitframe.units.raid2.numGroups do
                 if i <= maxSubgroup then
                     Raid2BorderHSeparator[i]:Show() 
                 else
@@ -384,7 +384,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
 
         local Raid3BorderHSeparator = {}
-        for i = 2, 8 do
+        for i = 2, E.db.unitframe.units.raid3.numGroups do
             Raid3BorderHSeparator[i] = CreateFrame("Frame", nil, Raid3Frames, BackdropTemplateMixin and "BackdropTemplate")
             Raid3BorderHSeparator[i]:SetBackdrop(Private.Separator)
             Raid3BorderHSeparator[i]:SetHeight(16)
@@ -403,7 +403,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     maxSubgroup = subgroup
                 end
             end
-            for i = 2, 8 do
+            for i = 2, E.db.unitframe.units.raid3.numGroups do
                 if i <= maxSubgroup then
                     Raid3BorderHSeparator[i]:Show() 
                 else
