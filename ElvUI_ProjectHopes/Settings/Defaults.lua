@@ -36,6 +36,7 @@ P.ProjectHopes = {
 	-- UnitFrame Generals
 	portraits = {
 				--player portrait
+		playerpor = false
 		playerframelevel = 20,
 		playerSize = 50, 
 		playerMirror = false,
@@ -47,7 +48,10 @@ P.ProjectHopes = {
 		playerPosition = "left",
 		playerOffsetX = 12,
 		playerOffsetY = 0,
+		playerStrata = "HIGH",
+
 				--target portrait
+		targetpor = false
 		targetframelevel = 20,
 		targetSize = 50, 
 		targetMirror = false,
@@ -59,8 +63,10 @@ P.ProjectHopes = {
 		targetPosition = "right",
 		targetOffsetX = -12,
 		targetOffsetY = 0,
+		targetStrata = "HIGH",
 
 		--focus portrait
+		focuspor = false
 		focusframelevel = 20,
 		focusSize = 50, 
 		focusMirror = false,
@@ -72,8 +78,10 @@ P.ProjectHopes = {
 		focusPosition = "right",
 		focusOffsetX = -12,
 		focusOffsetY = 0,
+		focusStrata = "HIGH",
 
 		--targettarget portrait
+		targettargetpor = false
 		targettargetframelevel = 20,
 		targettargetSize = 50, 
 		targettargetMirror = false,
@@ -85,8 +93,10 @@ P.ProjectHopes = {
 		targettargetPosition = "right",
 		targettargetOffsetX = -12,
 		targettargetOffsetY = 0,
+		targettargetStrata = "HIGH",
 
-				--boss portrait
+		--boss portrait
+		bosspor = false
 		bossframelevel = 20,
 		bossSize = 50, 
 		bossMirror = false,
@@ -95,7 +105,19 @@ P.ProjectHopes = {
 		bossPosition = "right",
 		bossOffsetX = -12,
 		bossOffsetY = 0,
+		bossStrata = "HIGH",
 
+		--pet portrait
+		petpor = false
+		petframelevel = 20,
+		petSize = 50, 
+		petMirror = false,
+		petBorderColor = false,
+		petUnitframeAnchor = false,
+		petPosition = "right",
+		petOffsetX = -12,
+		petOffsetY = 0,
+		petStrata = "HIGH",
 	},
 
 	unitframe = {

@@ -5,6 +5,7 @@ local translitMark = "!"
 
 local strfind, strmatch, utf8lower, utf8sub = strfind, strmatch, string.utf8lower, string.utf8sub
 local gmatch, gsub, format, tonumber, strsplit = gmatch, gsub, format, tonumber, strsplit
+
 local UnitName = UnitName
 local UnitHealth = UnitHealth
 local UnitHealthMax = UnitHealthMax
@@ -19,6 +20,10 @@ local UnitGetIncomingHeals = UnitGetIncomingHeals
 local UnitGetTotalAbsorbs = UnitGetTotalAbsorbs
 local UnitGetTotalHealAbsorbs = UnitGetTotalHealAbsorbs
 local UnitClass = UnitClass
+local UnitGUID = UnitGUID
+local UnitIsAFK = UnitIsAFK
+local UnitIsDND = UnitIsDND
+
 local strupper = strupper
 local UnitGroupRolesAssigned = UnitGroupRolesAssigned
 local UnitIsGroupLeader = UnitIsGroupLeader
@@ -163,4 +168,39 @@ E:AddTag("Hopes:name", "UNIT_NAME_UPDATE UNIT_HEALTH UNIT_TARGET PLAYER_FLAGS_CH
 	end
 
 	return name
+end)
+
+local unitStatus = {}
+E:AddTag("Hopes:statustimer", 1, function(unit)
+	if not UnitIsPlayer(unit) then return end
+	
+	local guid = UnitGUID(unit)
+	if not guid then return end
+	
+	local currentStatus = unitStatus[guid]
+	local newStatusType
+	
+	if not UnitIsConnected(unit) then
+		newStatusType = "Offline"
+	elseif UnitIsDead(unit) or UnitIsGhost(unit) then
+		newStatusType = "Dead"
+	elseif UnitIsAFK(unit) then
+		newStatusType = "AFK"
+	elseif UnitIsDND(unit) then
+		newStatusType = "DND"
+	end
+	
+	if newStatusType then
+		if not currentStatus or currentStatus[1] ~= newStatusType then
+			unitStatus[guid] = { newStatusType, GetTime() }
+		end
+	else
+		unitStatus[guid] = nil
+		return
+	end
+	
+	local timer = GetTime() - unitStatus[guid][2]
+	local mins = floor(timer / 60)
+	local secs = floor(timer % 60)
+	return format("%01.f:%02.f", mins, secs)
 end)
