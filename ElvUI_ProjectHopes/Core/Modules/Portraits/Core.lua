@@ -84,8 +84,7 @@ function PORTRAIT:UpdatePortrait(unit, color, classIcon, mirror, classIconTextur
     local refs = self.frames[unit]
     if not refs then return end
 
-    -- Use displayUnit for getting portrait data, but unit for frame reference
-    local portraitUnit = displayUnit or unit
+    local portraitUnit = (not UnitExists(unit) and displayUnit) and displayUnit or unit
     
     local media, coords = self:GetClassMedia(portraitUnit, classIconTexture)
     local c = color or { r = 1, g = 1, b = 1, a = 1 }
