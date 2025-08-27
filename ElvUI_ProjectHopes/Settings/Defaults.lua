@@ -36,7 +36,7 @@ P.ProjectHopes = {
 	-- UnitFrame Generals
 	portraits = {
 				--player portrait
-		playerpor = false
+		playerpor = false,
 		playerframelevel = 20,
 		playerSize = 50, 
 		playerMirror = false,
@@ -51,7 +51,7 @@ P.ProjectHopes = {
 		playerStrata = "HIGH",
 
 				--target portrait
-		targetpor = false
+		targetpor = false,
 		targetframelevel = 20,
 		targetSize = 50, 
 		targetMirror = false,
@@ -66,7 +66,7 @@ P.ProjectHopes = {
 		targetStrata = "HIGH",
 
 		--focus portrait
-		focuspor = false
+		focuspor = false,
 		focusframelevel = 20,
 		focusSize = 50, 
 		focusMirror = false,
@@ -81,7 +81,7 @@ P.ProjectHopes = {
 		focusStrata = "HIGH",
 
 		--targettarget portrait
-		targettargetpor = false
+		targettargetpor = false,
 		targettargetframelevel = 20,
 		targettargetSize = 50, 
 		targettargetMirror = false,
@@ -96,7 +96,7 @@ P.ProjectHopes = {
 		targettargetStrata = "HIGH",
 
 		--boss portrait
-		bosspor = false
+		bosspor = false,
 		bossframelevel = 20,
 		bossSize = 50, 
 		bossMirror = false,
@@ -108,7 +108,7 @@ P.ProjectHopes = {
 		bossStrata = "HIGH",
 
 		--pet portrait
-		petpor = false
+		petpor = false,
 		petframelevel = 20,
 		petSize = 50, 
 		petMirror = false,
