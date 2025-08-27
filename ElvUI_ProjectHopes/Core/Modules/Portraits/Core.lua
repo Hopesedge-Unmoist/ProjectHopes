@@ -84,7 +84,10 @@ function PORTRAIT:UpdatePortrait(unit, color, classIcon, mirror, classIconTextur
     local refs = self.frames[unit]
     if not refs then return end
 
-    local portraitUnit = (not UnitExists(unit) and displayUnit) and displayUnit or unit
+    local portraitUnit = unit
+    if not UnitExists(unit) and displayUnit then
+        portraitUnit = displayUnit
+    end
     
     local media, coords = self:GetClassMedia(portraitUnit, classIconTexture)
     local c = color or { r = 1, g = 1, b = 1, a = 1 }
@@ -171,7 +174,7 @@ function PORTRAIT:CreatePortrait(unit, parent, size, framelevel, color, classIco
     self:UpdatePortrait(unit, color, classIcon, mirror, classIconTexture, borderColor, displayUnit)
 
     if borderColor then
-        local portraitUnit = displayUnit or unit
+        local portraitUnit = (not UnitExists(unit) and displayUnit) and displayUnit or unit
         local c = self:GetUnitColor(portraitUnit)
         portrait.borderColor:SetVertexColor(c.r or 0.8, c.g or 0.8, c.b or 0.8, 1)
     end
