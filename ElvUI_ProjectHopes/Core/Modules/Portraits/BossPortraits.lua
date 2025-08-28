@@ -5,10 +5,9 @@ local UF = E:GetModule('UnitFrames')
 
 local BP = E:NewModule('Boss Portrait', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 
-function BP:PortraitCreation(forceShow, usePlayerUnit)
+function BP:PortraitCreation(forceShow, displayUnit)
     for i = 1, 8 do
         local unit = "boss" .. i
-        local displayUnit = usePlayerUnit and "player" or nil
         local parent = UF[unit]
 
         if UnitExists(unit) or forceShow then
@@ -21,7 +20,7 @@ function BP:PortraitCreation(forceShow, usePlayerUnit)
                 E.db.ProjectHopes.portraits.bossMirror,
                 E.db.ProjectHopes.portraits.bossClassTexture,
                 E.db.ProjectHopes.portraits.bossBorderColor,
-                displayUnit
+                displayUnit -- only passed in if hook says so
             )
 
             PORTRAIT:UpdatePosition(unit, 
@@ -36,6 +35,22 @@ function BP:PortraitCreation(forceShow, usePlayerUnit)
         else
             if PORTRAIT.frames[unit] and PORTRAIT.frames[unit].frame then
                 PORTRAIT.frames[unit].frame:Hide()
+                -- Clear stored displayUnit when test mode ends
+                PORTRAIT.frames[unit].displayUnit = nil
+                PORTRAIT.frames[unit].frame.displayUnit = nil
+            end
+        end
+    end
+
+    -- If no displayUnit was passed, clear all existing ones
+    if not displayUnit then
+        for i = 1, 8 do
+            local unit = "boss" .. i
+            if PORTRAIT.frames[unit] then
+                PORTRAIT.frames[unit].displayUnit = nil
+                if PORTRAIT.frames[unit].frame then
+                    PORTRAIT.frames[unit].frame.displayUnit = nil
+                end
             end
         end
     end
@@ -55,7 +70,7 @@ function BP:Initialize()
 
     hooksecurefunc(UF, "ToggleForceShowGroupFrames", function(_, groupType, maxFrames)
         if groupType == "boss" then
-            BP:PortraitCreation(true, true)
+            self:PortraitCreation(true, "player")
         end
     end)
 end
