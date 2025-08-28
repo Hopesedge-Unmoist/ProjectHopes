@@ -94,15 +94,16 @@ function PORTRAIT:UpdatePortrait(unit, color, classIcon, mirror, classIconTextur
 
     self:HandleBackground(refs.bgTex, media, c)
 
-    if classIcon and media and coords then
+    local useClassIcon = classIcon and UnitIsPlayer(portraitUnit) and media and coords
+    
+    if useClassIcon then
         self:SetPortraitTexture(refs.portraitTex, media, coords)
     else
         refs.portraitTex:SetTexCoord(0, 1, 0, 1)
         SetPortraitTexture(refs.portraitTex, portraitUnit)
     end
     
-    -- Always apply mirroring last to ensure it's not overridden
-    if classIcon and media and coords then
+    if useClassIcon then
         self:Mirror(refs.portraitTex, mirror, coords)
     else
         self:Mirror(refs.portraitTex, mirror)
