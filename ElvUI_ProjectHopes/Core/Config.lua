@@ -48,10 +48,11 @@ local PLUGINSUPPORT = {
 	'|cffd1ce96Flamanis|r', 
 	'|cff919191Toxi|r', 
 	'|cff919191fang2shou|r',
-	'|cffc4c9ceBlinkii|r',
+	'|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r, Thanks for helping with Portrait, and thanks for letting me use your Texture.',
 	'|cffdb171eTrenchy|r',
-	
+	E:TextGradient("Eltruism", 0.50, 0.70, 1, 0.67, 0.95, 1) .. ', Thanks for helping with coding.'
 }
+
 
 local function SortList(a, b)
 	return E:StripString(a) < E:StripString(b)
