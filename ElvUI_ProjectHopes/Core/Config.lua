@@ -8,12 +8,10 @@ local LSM = E.Libs.LSM
 
 local L = E.Libs.ACL:GetLocale('ElvUI', E.global.general.locale)
 local pairs, sort = pairs, sort
-local format, tonumber, tostring = format, tonumber, tostring
+local format, tostring = format, tostring
 local tconcat, tinsert = table.concat, table.insert
 local IsAddOnLoaded = _G.C_AddOns and _G.C_AddOns.IsAddOnLoaded or _G.IsAddOnLoaded
 
-local GetCVar, GetCVarBool = GetCVar, GetCVarBool
-local SetCVar = SetCVar
 local MiniMapButtonSelect = {NOANCHOR = 'No Anchor Bar', HORIZONTAL = 'Horizontal', VERTICAL = 'Vertical'}
 local MiniMapButtonDirection = {NORMAL = 'Normal', REVERSED = 'Reversed'}
 local PORTRAITANCHORPOINT = {
@@ -55,12 +53,6 @@ local PLUGINSUPPORT = {
 	
 }
 
-local function CheckRaid()
-	if tonumber(GetCVar('RAIDsettingsEnabled')) == 0 then
-		return true
-	end
-end
-
 local function SortList(a, b)
 	return E:StripString(a) < E:StripString(b)
 end
@@ -86,10 +78,6 @@ function ProjectHopes:Config()
 	ProjectHopes.Options = ACH:Group("|TInterface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ProjectHopes2025logo.tga:14:14:0:0|t" .. Private.Name, nil, 20)
 
 	local POA = ProjectHopes.Options.args
-
-	-- Don't export this
-	D.blacklistedKeys.global.ProjectHopes = {}
-	D.blacklistedKeys.global.ProjectHopes.dev = true
 
 	-- Header
 	POA.logo = ACH:Description(nil, 1, nil, 'Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\ProjectHopes2025 with banner.tga', nil, 256, 256)
@@ -145,19 +133,20 @@ function ProjectHopes:Config()
 	POAMA.minimapbutton.args.backdrop = ACH:Toggle(L['Backdrop'], nil, 6, nil, false, nil, nil, nil, function() return not E.db.ProjectHopes.minimapbutton.enable or E.db.ProjectHopes.minimapbutton.skinstyle == 'NOANCHOR' end)
 	POAMA.minimapbutton.args.border = ACH:Toggle(L['Border for Icons'], nil, 7, nil, false, nil, nil, nil, function() return not E.db.ProjectHopes.minimapbutton.enable end)
 	POAMA.minimapbutton.args.mouseover = ACH:Toggle(L['Mouse Over'], L['The frame is not shown unless you mouse over the frame.'], 7, nil, false, nil, nil, function(info, value) E.db.ProjectHopes.minimapbutton.mouseover = value; MB:ChangeMouseOverSetting() end, function() return not E.db.ProjectHopes.minimapbutton.enable or E.db.ProjectHopes.minimapbutton.skinstyle == 'NOANCHOR' end)
+
 	-- Minimap Instance Difficulty
-	POAMA.minimapid = ACH:Group(L["Minimap Instance Difficulty"], nil, 3, nil, function(info) return E.db.ProjectHopes.minimapid [info[#info]] end, function(info, value) E.db.ProjectHopes.minimapid[info[#info]] = value E:StaticPopup_Show("ProjectHopes_RL") end, nil, nil, nil)
+	POAMA.minimapid = ACH:Group(L["Minimap Instance Difficulty"], nil, 3)
 	POAMA.minimapid.args.desc = ACH:Group(L["Description"], nil, 1)
 	POAMA.minimapid.args.desc.inline = true
 	POAMA.minimapid.args.desc.args.feature = ACH:Description(L["Add Instance Difficulty in text format."], 1, "medium")
-	POAMA.minimapid.args.enable = ACH:Toggle(L["Enable"], nil, 3, nil, nil, nil, nil, nil, nil, nil)
-	POAMA.minimapid.args.align = ACH:Select(L["Text Align"], nil, 4, {LEFT = L["Left"], CENTER = L["Center"], RIGHT = L["Right"]}, nil, nil, nil, nil, nil, nil)
-	POAMA.minimapid.args.hideBlizzard = ACH:Toggle(L["Hide Blizzard Indicator"], nil, 5, nil, nil, nil, nil, nil, nil, nil)
-	POAMA.minimapid.args.font = ACH:Group(L["Font"], nil, 6, nil, function(info) return E.db.ProjectHopes.minimapid.font[info[#info]] end, function(info, value) E.db.ProjectHopes.minimapid.font[info[#info]] = value E:StaticPopup_Show("ProjectHopes_RL") end, nil, nil, nil)
-	POAMA.minimapid.args.font.inline = true
-	POAMA.minimapid.args.font.args.name = ACH:SharedMediaFont(L["Font"], nil, 1, nil, nil, nil, nil, nil, nil, nil)
-	POAMA.minimapid.args.font.args.style = ACH:Select(L["Outline"], nil, 2, {NONE = L["None"], OUTLINE = L["OUTLINE"], THICKOUTLINE = L["THICKOUTLINE"], SHADOW = L["SHADOW"], SHADOWOUTLINE = L["SHADOWOUTLINE"], SHADOWTHICKOUTLINE = L["SHADOWTHICKOUTLINE"], MONOCHROME = L["MONOCHROME"], MONOCHROMEOUTLINE = L["MONOCROMEOUTLINE"], MONOCHROMETHICKOUTLINE = L["MONOCHROMETHICKOUTLINE"]}, nil, nil, nil, nil, nil, nil)
-	POAMA.minimapid.args.font.args.size = ACH:Range(L["Size"], nil, 3, { min = 5, max = 60, step = 1 }, nil, nil, nil, nil, nil)
+	POAMA.minimapid.args.enable = ACH:Toggle(L["Enable"], nil, 1, nil, nil, nil, function() return E.db.ProjectHopes.minimapid.enable end, function(_, value) E.db.ProjectHopes.minimapid.enable = value E:StaticPopup_Show("ProjectHopes_RL") end)
+	POAMA.minimapid.args.options = ACH:Group(L["Options"], nil, 3, nil, nil, nil, nil, function() return not E.db.ProjectHopes.minimapid.enable end)
+	POAMA.minimapid.args.options.inline = true
+	POAMA.minimapid.args.options.args.hideBlizzard = ACH:Toggle(L["Hide Blizzard Indicator"], "|cFFFF0000" .. L["Requires a UI Reload"] .. "|r", 2, nil, nil, nil, function() return E.db.ProjectHopes.minimapid.hideBlizzard end, function(_, value) E.db.ProjectHopes.minimapid.hideBlizzard = value E:StaticPopup_Show("ProjectHopes_RL") end)
+	POAMA.minimapid.args.options.args.font = ACH:SharedMediaFont(L["Font"], nil, 3, nil, function() return E.db.ProjectHopes.minimapid.font.name end, function(_, value) E.db.ProjectHopes.minimapid.font.name = value ID:UpdateDifficultyText(value, E.db.ProjectHopes.minimapid.font.style, E.db.ProjectHopes.minimapid.font.size, E.db.ProjectHopes.minimapid.align) end)
+	POAMA.minimapid.args.options.args.style = ACH:FontFlags(L["Outline"], nil, 4, nil, function() return E.db.ProjectHopes.minimapid.font.style end, function(_, value) E.db.ProjectHopes.minimapid.font.style = value ID:UpdateDifficultyText(E.db.ProjectHopes.minimapid.font.name, value, E.db.ProjectHopes.minimapid.font.size, E.db.ProjectHopes.minimapid.align) end)
+	POAMA.minimapid.args.options.args.size = ACH:Range(L["Size"], nil, 5, { min = 5, max = 60, step = 1 }, nil, function() return E.db.ProjectHopes.minimapid.font.size end, function(_, value) E.db.ProjectHopes.minimapid.font.size = value ID:UpdateDifficultyText(E.db.ProjectHopes.minimapid.font.name, E.db.ProjectHopes.minimapid.font.style, value, E.db.ProjectHopes.minimapid.align) end)
+	POAMA.minimapid.args.options.args.align = ACH:Select(L["Text Align"], nil, 6, TEXTALIGNMENT, nil, "medium", function() return E.db.ProjectHopes.minimapid.align or "LEFT" end, function(_, value) E.db.ProjectHopes.minimapid.align = value ID:UpdateDifficultyText(E.db.ProjectHopes.minimapid.font.name, E.db.ProjectHopes.minimapid.font.style, E.db.ProjectHopes.minimapid.font.size, value)	end)
 
 	POA.Unitframes = ACH:Group(E:TextGradient(L["UnitFrames"], 0.6, 0.6, 0.6, 0.34, 1, 0.67), nil, 3, 'tab')
 	local POAUFA = POA.Unitframes.args

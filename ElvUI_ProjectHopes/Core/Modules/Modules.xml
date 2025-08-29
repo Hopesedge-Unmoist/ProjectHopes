@@ -7,5 +7,4 @@
 	<Include file="HealthBackdrop\HealthBackdrop.xml"/>
 	<Include file="QualityOfLife\QualityOfLife.xml"/>
 	<Include file="Misc\Misc.xml"/>
-	<Include file="Changelog\Changelog.xml"/>
 </Ui>
