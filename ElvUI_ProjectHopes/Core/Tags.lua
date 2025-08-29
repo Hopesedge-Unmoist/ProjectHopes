@@ -85,26 +85,21 @@ E:AddTag('Hopes:role', 'UNIT_NAME_UPDATE PLAYER_ROLES_ASSIGNED GROUP_ROSTER_UPDA
 end)
 
 E:AddTag("Hopes:leader", "GROUP_ROSTER_UPDATE", function(unit)
-	local leader = UnitIsGroupLeader(unit)
-	local assist = UnitIsGroupAssistant(unit)
-	local isTank = GetPartyAssignment("MAINTANK", unit)
-	local isMainAssist = GetPartyAssignment("MAINASSIST", unit)
-	if leader and not assist and not isTank and not isMainAssist then
-		return "|TInterface\\GROUPFRAME\\UI-GROUP-LEADERICON.BLP:0:0:0:0|t"
-	elseif assist and not leader and not isTank and not isMainAssist then
-		return "|TInterface\\GROUPFRAME\\UI-GROUP-ASSISTANTICON.BLP:0:0:0:0|t"
-	elseif isTank and isMainAssist and not leader and not assist then
-		return "|TInterface\\GROUPFRAME\\UI-GROUP-MAINTANKICON.BLP:0:0:0:0|t".."|TInterface\\GROUPFRAME\\UI-GROUP-MAINASSISTICON.BLP:0:0:0:0|t"
-	elseif isTank and not isMainAssist and not leader and not assist then
-		return "|TInterface\\GROUPFRAME\\UI-GROUP-MAINTANKICON.BLP:0:0:0:0|t"
-	elseif isMainAssist and not isTank and not leader and not assist then
-		return "|TInterface\\GROUPFRAME\\UI-GROUP-MAINASSISTICON.BLP:0:0:0:0|t"
-	elseif leader and isTank then
-		return "|TInterface\\GROUPFRAME\\UI-GROUP-LEADERICON.BLP:0:0:0:0|t".."|TInterface\\GROUPFRAME\\UI-GROUP-MAINTANKICON.BLP:0:0:0:0|t"
-	elseif assist and isTank and not isMainAssist and not leader then
-		return "|TInterface\\GROUPFRAME\\UI-GROUP-ASSISTANTICON.BLP:0:0:0:0|t".."|TInterface\\GROUPFRAME\\UI-GROUP-MAINTANKICON.BLP:0:0:0:0|t"
-	end
+    local leader = UnitIsGroupLeader(unit)
+    local assist = UnitIsGroupAssistant(unit)
+
+    local icon = { 
+        leader = "|TInterface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\Roles\\LEADER:0:0:0:0|t",
+        assist = "|TInterface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\Roles\\ASSIST:0:0:0:0|t",
+    }
+
+    if leader then
+        return icon.leader
+    elseif assist then
+        return icon.assist
+    end
 end)
+
 
 E:AddTag("Hopes:raidmarker", 'RAID_TARGET_UPDATE', function(unit)
 	local index = GetRaidTargetIndex(unit)
