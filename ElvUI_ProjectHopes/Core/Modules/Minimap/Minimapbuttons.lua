@@ -13,6 +13,7 @@ local LibDBIcon = LibStub('LibDBIcon-1.0')
 -- Based on Square Minimap Buttons
 -- Original authors: Azilroka, Sinaris
 -- Updated for WOD/Legion/BFA/Classic/SL by Tevoll
+-- Updated for DF/WAR by Hopesedge
 
 local sub, len, find = string.sub, string.len, string.find
 

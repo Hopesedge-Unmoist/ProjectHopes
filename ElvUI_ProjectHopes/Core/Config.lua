@@ -51,6 +51,7 @@ local PLUGINSUPPORT = {
 	'|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r, Thanks for helping with Portrait, and thanks for letting me use your Texture.',
 	'|cffdb171eTrenchy|r',
 	E:TextGradient("Eltruism", 0.50, 0.70, 1, 0.67, 0.95, 1) .. ', Thanks for helping with coding.'
+	'|cff919191Tevoll|r, Minimap Buttons.',
 }
 
 
