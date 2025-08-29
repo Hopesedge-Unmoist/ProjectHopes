@@ -41,6 +41,7 @@ local SPECIALTHANKS = {
 	E:TextGradient('Angelos', 0.7, 0.3, 1, 1, 0.9, 0.2), 
 	'|cff2ab6ffHoffa|r'
 }
+
 local PLUGINSUPPORT = { 
 	'|cffa207faRepooc|r',
 	E:TextGradient('Simpy but my name needs to be longer.', 0.18,1.00,0.49, 0.32,0.85,1.00, 0.55,0.38,0.85, 1.00,0.55,0.71, 1.00,0.68,0.32), 
@@ -50,8 +51,9 @@ local PLUGINSUPPORT = {
 	'|cff919191fang2shou|r',
 	'|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r, Thanks for helping with Portrait, and thanks for letting me use your Texture.',
 	'|cffdb171eTrenchy|r',
-	E:TextGradient("Eltruism", 0.50, 0.70, 1, 0.67, 0.95, 1) .. ', Thanks for helping with coding.'
+	E:TextGradient("Eltruism", 0.50, 0.70, 1, 0.67, 0.95, 1) .. ', Thanks for helping with coding.',
 	'|cff919191Tevoll|r, Minimap Buttons.',
+	'|cff3dff98Kringels|r, Help with coding Tags.',
 }
 
 
