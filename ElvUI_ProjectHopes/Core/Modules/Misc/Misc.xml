@@ -1,5 +1,4 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui/'>
 	<Script file='FrameMover.lua'/>
-	<Script file='InfoPanel.lua'/>
 	<Script file='Unitframes_Glowline.lua'/>
 </Ui>
