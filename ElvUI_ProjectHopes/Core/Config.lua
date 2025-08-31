@@ -288,12 +288,6 @@ function ProjectHopes:Config()
 	POAPOR.pet.args.Position.args.petOffsetY = ACH:Range(L["Y Offset (Down/Up)"], nil, 9, {min=-200,max=200,step=1}, nil, function() return E.db.ProjectHopes.portraits.petOffsetY or 0 end, function(_, value) E.db.ProjectHopes.portraits.petOffsetY = value PORTRAIT:UpdatePosition("pet",E.db.ProjectHopes.portraits.petPosition or "center",E.db.ProjectHopes.portraits.petOffsetX or 0,value, E.db.ProjectHopes.portraits.petStrata) end)
 	POAPOR.pet.args.Position.args.petStrata = ACH:Select(L["Frame Strata"], nil, 10, PORTRAITFRAMESTRATA, nil, nil, function() return E.db.ProjectHopes.portraits.petStrata or "MEDIUM" end, function(_, value) E.db.ProjectHopes.portraits.petStrata = value PORTRAIT:UpdatePosition("pet", E.db.ProjectHopes.portraits.petPosition or "center", E.db.ProjectHopes.portraits.petOffsetX or 0, E.db.ProjectHopes.portraits.petOffsetY or 0, value) end)
 
-	POAUFA.Infopanel = ACH:Group(L["InfoPanel"], nil, 5)
-	POAUFA.Infopanel.args.desc = ACH:Group(L["Description"], nil, 1)
-	POAUFA.Infopanel.args.desc.inline = true
-	POAUFA.Infopanel.args.desc.args.feature = ACH:Description(L["Moves Infopanel on top of the frame."], 1, "medium")
-	POAUFA.Infopanel.args.infopanelontop = ACH:Toggle(L["InfoPanel On Top"], L["This moves the Info Panel on the top of UnitFrames"], 5, nil, false, nil, function() return E.db.ProjectHopes.unitframe.infopanelontop end,function(_, value) E.db.ProjectHopes.unitframe.infopanelontop = value E:StaticPopup_Show('ProjectHopes_RL') end)
-
 	POA.Tooltip = ACH:Group(E:TextGradient(L["Tooltip"], 0.6, 0.6, 0.6, 0.30, 1, 0.92), nil, 3, nil, function(info) return E.private.ProjectHopes.qualityOfLife[info[#info]] end, function(info, value) E.private.ProjectHopes.qualityOfLife[info[#info]] = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
 	local POATPA = POA.Tooltip.args
 	POATPA.desc = ACH:Group(L["Description"], nil, 1)
