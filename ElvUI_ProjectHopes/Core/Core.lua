@@ -98,7 +98,7 @@ function ProjectHopes:DebugMode(msg)
 		for i = 1, GetNumAddOns() do
 			local name = GetAddOnInfo(i)
 			if not AddOns[name] and E:IsAddOnEnabled(name) then
-				DisableAddOn(name, E.myname)
+				DisableAddOn(name, E.myguid)
 				ProjectHopesDB.ProjectHopesDisabledAddOns[name] = i
 			end
 		end
@@ -107,7 +107,7 @@ function ProjectHopes:DebugMode(msg)
 	elseif switch == 'off' then
 		if next(ProjectHopesDB.ProjectHopesDisabledAddOns) then
 			for name in pairs(ProjectHopesDB.ProjectHopesDisabledAddOns) do
-				EnableAddOn(name, E.myname)
+				EnableAddOn(name, E.myguid)
 			end
 			wipe(ProjectHopesDB.ProjectHopesDisabledAddOns)
 			C_UI_Reload()

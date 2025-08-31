@@ -54,6 +54,7 @@ local PLUGINSUPPORT = {
 	E:TextGradient("Eltruism", 0.50, 0.70, 1, 0.67, 0.95, 1) .. ', Thanks for helping with coding.',
 	'|cff919191Tevoll|r, Minimap Buttons.',
 	'|cff3dff98Kringels|r, Help with coding Tags.',
+	'|cff4beb2cLuckyoneUI|r, Made all this possible with template of his plugin.',
 }
 
 
