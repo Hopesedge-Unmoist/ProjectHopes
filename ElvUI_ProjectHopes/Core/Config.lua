@@ -45,11 +45,11 @@ local SPECIALTHANKS = {
 local PLUGINSUPPORT = { 
 	'|cffa207faRepooc|r, Changelog code and minimap coding help.',
 	E:TextGradient('Simpy but my name needs to be longer.', 0.18,1.00,0.49, 0.32,0.85,1.00, 0.55,0.38,0.85, 1.00,0.55,0.71, 1.00,0.68,0.32), 
-	'|cff919191Azilroka|r', 
+	'|cff919191Azilroka|r, Orignal author of Minimap Buttons, all credits go to him.', 
 	'|cffd1ce96Flamanis|r', 
 	'|cff919191Toxi|r', 
 	'|cff919191fang2shou|r',
-	'|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r, Thanks for helping with Portrait, and thanks for letting me use your Texture.',
+	'|CFF00A3FFB|r|CFF00B4FFl|r|CFF00C6FFi|r|CFF00D8FFn|r|CFF00EAFFk|r|CFF00F6FFi|r|CFF00F6FFi|r, Thanks for helping with Portrait, and thanks for the Statusbar Texture.',
 	'|cffdb171eTrenchy|r',
 	E:TextGradient("Eltruism", 0.50, 0.70, 1, 0.67, 0.95, 1) .. ', Thanks for helping with coding.',
 	'|cff919191Tevoll|r, Minimap Buttons.',
