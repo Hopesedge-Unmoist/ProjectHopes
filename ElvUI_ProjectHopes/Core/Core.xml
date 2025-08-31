@@ -4,6 +4,5 @@
 	<Script file='Config.lua'/>
 	<Script file='Core.lua'/>
 	<Script file='Tags.lua'/>
-	<Script file='GameMenu.lua'/>
 	<Script file='NewSettings.lua'/>
 </Ui>
