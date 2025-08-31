@@ -352,10 +352,6 @@ function ProjectHopes:Config()
 	POAFMA.desc.args.feature = ACH:Description(L["This module provides the feature that repositions the frames with drag and drop."], 1, "medium")
 	POAFMA.enable = ACH:Toggle(L["Enable"], nil, 1)
 	POAFMA.elvUIBags = ACH:Toggle(L["Move ElvUI Bags"], nil, 2, nil, nil, nil, nil, nil, function() return not E.private.ProjectHopes.qualityOfLife.frameMover.enable end)
-	POAFMA.remember = ACH:Group(L["Remeber Positions"], nil, 3, nil, nil, nil, function() return not E.private.ProjectHopes.qualityOfLife.frameMover.enable end)
-	POAFMA.remember.inline = true
-	POAFMA.remember.args.rememberPositions = ACH:Toggle(L["Enable"], nil, 2, nil, nil, nil, nil, nil, function(info, value) E.private.ProjectHopes.qualityOfLife.frameMover[info[#info]] = value end)
-	POAFMA.remember.args.clearHistory = ACH:Toggle(L["Clear History"], nil, 2, nil, nil, nil, nil, function() E.private.ProjectHopes.qualityOfLife.frameMover.framePositions = {} end)
 
 	POA.Tags = ACH:Group(E:TextGradient(L["Tags"], 0.6, 0.6, 0.6, 1, 0.31, 0.55), nil, 5)
 	local POATSA = POA.Tags.args
