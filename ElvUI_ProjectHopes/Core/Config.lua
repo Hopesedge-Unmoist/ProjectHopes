@@ -43,7 +43,7 @@ local SPECIALTHANKS = {
 }
 
 local PLUGINSUPPORT = { 
-	'|cffa207faRepooc|r',
+	'|cffa207faRepooc|r, Changelog code and minimap coding help.',
 	E:TextGradient('Simpy but my name needs to be longer.', 0.18,1.00,0.49, 0.32,0.85,1.00, 0.55,0.38,0.85, 1.00,0.55,0.71, 1.00,0.68,0.32), 
 	'|cff919191Azilroka|r', 
 	'|cffd1ce96Flamanis|r', 

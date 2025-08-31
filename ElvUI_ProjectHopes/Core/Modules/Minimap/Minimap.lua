@@ -6,7 +6,7 @@ local _G = _G
 local RMM = E:NewModule('Rectangle Minimap', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 local IconParents = {}
 
-function RMM:UpdateMoverSize()
+function RMM:UpdateMoverSize() -- Full credit to Repooc. 
 	if E.db.datatexts.panels.MinimapPanel.enable then
 		_G.ElvUI_MinimapHolder:Height((_G.Minimap:GetHeight() + (_G.MinimapPanel and (_G.MinimapPanel:GetHeight() + E.Border) or 24)) + E.Spacing*3-((E.MinimapSize/6.1)))
 	else
@@ -14,7 +14,7 @@ function RMM:UpdateMoverSize()
 	end
 end
 
-function RMM:UpdateLocationText()
+function RMM:UpdateLocationText() -- Full credit to Repooc. 
 	_G.Minimap.location:ClearAllPoints()
 	_G.Minimap.location:Point('TOP', _G.Minimap, 'TOP', 0, -45)
 end
