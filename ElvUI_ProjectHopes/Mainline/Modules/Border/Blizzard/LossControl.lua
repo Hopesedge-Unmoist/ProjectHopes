@@ -35,6 +35,12 @@ function S:LossOfControlFrame()
     BORDER:CreateBorder(LossOfControlFrame.backdrop)
 
     hooksecurefunc(LossOfControlFrame, 'SetUpDisplay', MoveText)
+
+
+    -- Debug test
+
+    --Run this first: /run LossOfControlFrame.fadeTime = 2000; LossOfControlFrame:SetUpDisplay(true, 'CONFUSE', 2094, 'Disoriented', 136208, GetTime() + 8, 8, 0, 5, 2)
+    --Run this second: /run LossOfControlFrame:Show(); LossOfControlFrame.Icon:SetTexture(136208); LossOfControlFrame.AbilityName:SetText("Disoriented")
 end
 
 S:AddCallback('LossOfControlFrame')
