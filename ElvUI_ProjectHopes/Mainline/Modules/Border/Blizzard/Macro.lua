@@ -47,6 +47,10 @@ function S:Blizzard_MacroUI()
 	-- Big icon
 	BORDER:CreateBorder(_G.MacroFrameSelectedMacroButton)
 
+	-- Macro Text commands
+	BORDER:CreateBorder(_G.MacroFrameTextBackground, 1, -5, 5, 5, -5)
+
+	
 	-- handle the macro buttons
 	hooksecurefunc(MacroFrame.MacroSelector.ScrollBox, 'Update', function()
 		for _, button in next, { MacroFrame.MacroSelector.ScrollBox.ScrollTarget:GetChildren() } do
