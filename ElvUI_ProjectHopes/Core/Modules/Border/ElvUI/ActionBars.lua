@@ -30,7 +30,8 @@ function S:ElvUI_ActionBar_SkinButton(button, useBackdrop)
 
 
 
-	BORDER:CreateBorder(button, 2)
+	BORDER:CreateBorder(button, 3)
+	
 	if button.BorderShadow then
 		button.BorderShadow:Kill()
 	end
@@ -245,7 +246,7 @@ function S:ElvUI_ActionBars()
 		for i = 1, _G.ExtraActionBarFrame:GetNumChildren() do
 			local button = _G["ExtraActionButton" .. i]
 			if button then
-				BORDER:CreateBorder(button)
+				BORDER:CreateBorder(button, 3)
 			end
 		end
 	end
@@ -260,7 +261,7 @@ function S:ElvUI_ActionBars()
 			AB,
 			"SetupFlyoutButton",
 			function(_, button)
-				BORDER:CreateBorder(button)
+				BORDER:CreateBorder(button, 3)
 			end)
 	end
     -- Keybind
