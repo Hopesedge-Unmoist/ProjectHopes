@@ -16,8 +16,14 @@ function S:Blizzard_ItemInteractionUI()
 	local itemSlot = mainFrame.ItemSlot
 	BORDER:HandleIcon(itemSlot.Icon, true)
 
+	if mainFrame.CurrencyCost then
+		BORDER:HandleIcon(mainFrame.CurrencyCost.Currency.Icon, true)
+	end
+
 	local buttonFrame = mainFrame.ButtonFrame            
 	if buttonFrame.Currency then
+		buttonFrame.Currency.Count:ClearAllPoints()
+		buttonFrame.Currency.Count:SetPoint("RIGHT", buttonFrame.Currency.Icon, "LEFT", -7, 0)
 		BORDER:HandleIcon(buttonFrame.Currency.Icon, true)
 	end
 
