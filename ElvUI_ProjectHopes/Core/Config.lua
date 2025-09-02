@@ -361,6 +361,7 @@ function ProjectHopes:Config()
 	POATSA.tag6 = ACH:Input(L["Shows the percent health and absorb without %, and hide it when 0 or 100"], nil, 3, nil, 'full', function() return '[Hopes:perpp]' end, nil, nil, not E.Retail)
 	POATSA.tag7 = ACH:Input(L["Name tag that changes the color of name based on class, raidmarker and unit."], nil, 3, nil, 'full', function() return '[Hopes:name]' end, nil, nil)
 	POATSA.tag8 = ACH:Input(L["Displays the Unit Status time."], nil, 3, nil, 'full', function() return '[Hopes:statustimer]' end, nil, nil)
+	POATSA.tag9 = ACH:Input(L["Shows the Max health of Unit at 100% health, if under 100% it switches to percent health without percent icon."], nil, 3, nil, 'full', function() return '[Hopes:maxhealth:percent]' end, nil, nil)
 
 	POA.BuffsDebuffs = ACH:Group(E:TextGradient(L["Buffs & Debuffs"], 0.6, 0.6, 0.6, 1, 0.45, 0.30), nil, 3)
 	local POABDS = POA.BuffsDebuffs.args

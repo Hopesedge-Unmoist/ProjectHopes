@@ -62,6 +62,21 @@ E:AddTag('Hopes:perhp', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_ABSORB_AMOUNT_CHANGED U
 	end
 end)
 
+E:AddTag('Hopes:maxhealth:percent', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION UNIT_NAME_UPDATE', function(unit)
+	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
+	local health = UnitHealth(unit)
+	local max = UnitHealthMax(unit)
+	local CurrentPercent = (health/max)*100
+	
+	if (status) then
+		return status
+	elseif health == max then
+		return E:ShortValue(health)
+	else
+		return format("%.0f", CurrentPercent)
+	end
+end)
+
 E:AddTag('Hopes:healabsorbs', 'UNIT_HEAL_ABSORB_AMOUNT_CHANGED', function(unit)
     local healAbsorb = UnitGetTotalHealAbsorbs(unit) or 0
     if healAbsorb ~= 0 then
