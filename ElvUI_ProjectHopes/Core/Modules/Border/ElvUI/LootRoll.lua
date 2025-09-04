@@ -72,13 +72,15 @@ function S:ElvUI_LootRoll()
         local numItems = GetNumLootItems()
         for i = 1, numItems do
             local slot = _G["ElvLootSlot"..i]
-            local slotframe = slot.iconFrame
-            if slotframe and slot.name then
-                local r, g, b = slot.name:GetTextColor()
+            if slot then
+                local slotframe = slot.iconFrame
+                if slotframe and slot.name then
+                    local r, g, b = slot.name:GetTextColor()
 
-                BORDER:CreateBorder(slotframe, nil, -7, 7, 7, -7)
-                slotframe.border:SetBackdrop(Private.BorderLight)
-                slotframe.border:SetBackdropBorderColor(r, g, b)
+                    BORDER:CreateBorder(slotframe, nil, -7, 7, 7, -7)
+                    slotframe.border:SetBackdrop(Private.BorderLight)
+                    slotframe.border:SetBackdropBorderColor(r, g, b)
+                end
             end
         end
     end)  
