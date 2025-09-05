@@ -1,6 +1,8 @@
 local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
+if not E.Retail then return end
+
 local ID = E:NewModule("InstanceDifficulty", "AceEvent-3.0", "AceHook-3.0")
 local M = E:GetModule("Minimap")
 local EP = LibStub("LibElvUIPlugin-1.0")
