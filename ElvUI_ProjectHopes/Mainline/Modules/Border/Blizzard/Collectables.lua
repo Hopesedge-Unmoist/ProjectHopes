@@ -38,7 +38,6 @@ end
 local function selectedTextureShow(texture) -- used for pets/mounts
 	local parent = texture:GetParent()
 	parent.border:SetBackdropBorderColor(1, .8, .1)
-	parent.icon.backdrop.border:SetBackdropBorderColor(1, .8, .1)
 end
 
 local function selectedTextureHide(texture) -- used for pets/mounts
@@ -46,7 +45,6 @@ local function selectedTextureHide(texture) -- used for pets/mounts
 	if not parent.hovered then
 		local r, g, b = 132/255, 132/255, 132/255
 		parent.border:SetBackdropBorderColor(r, g, b)
-		parent.icon.backdrop.border:SetBackdropBorderColor(r, g, b)
 	end
 end
 
@@ -54,7 +52,6 @@ local function buttonOnEnter(button)
 	local r, g, b = 1, 0.78, 0.03
 	local icon = button.icon or button.Icon
 	button.border:SetBackdropBorderColor(r, g, b)
-	icon.backdrop.border:SetBackdropBorderColor(r, g, b)
 	button.hovered = true
 end
 
@@ -62,11 +59,9 @@ local function buttonOnLeave(button)
 	local icon = button.icon or button.Icon
 	if button.selected or (button.SelectedTexture and button.SelectedTexture:IsShown()) then
 		button.border:SetBackdropBorderColor(1, .8, .1)
-		icon.backdrop.border:SetBackdropBorderColor(1, .8, .1)
 	else
 		local r, g, b = 132/255, 132/255, 132/255
 		button.border:SetBackdropBorderColor(r, g, b)
-		icon.backdrop.border:SetBackdropBorderColor(r, g, b)
 	end
 	button.hovered = nil
 end
@@ -83,9 +78,11 @@ local function JournalScrollButtons(frame)
 			bu.border:SetBackdrop(Private.BorderLight)
 			bu.border:SetBackdropBorderColor(r, g, b)
 
-			BORDER:CreateBorder(icon.backdrop, 1, -7, 8, 8, -8)
+			BORDER:CreateBorder(icon.backdrop, 2, -7, 8, 8, -8)
+			BORDER:HandleIconBorder(bu.iconBorder, icon.backdrop.border)
+
 			icon.backdrop.border:SetBackdrop(Private.BorderLight)
-			icon.backdrop.border:SetBackdropBorderColor(r, g, b)
+
 			bu:HookScript('OnEnter', buttonOnEnter)
 			bu:HookScript('OnLeave', buttonOnLeave)
 
@@ -145,10 +142,7 @@ local function SkinMountFrame()
 	BORDER:CreateBorder(_G.MountJournalSummonRandomFavoriteButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.MountJournal.FilterDropdown, nil, nil, nil, nil, nil, false, true)
 
-	--local Flyout = _G.MountJournal.DynamicFlightFlyout            
-	--HandleDynamicFlightButton(Flyout.DynamicFlightModeButton, 4)
-	--HandleDynamicFlightButton(Flyout.OpenDynamicFlightSkillTreeButton, 4)
-	HandleDynamicFlightButton(_G.MountJournal.ToggleDynamicFlightFlyoutButton, 1)
+	HandleDynamicFlightButton(_G.MountJournal.ToggleDynamicFlightFlyoutButton, 3)
 
 	local MountJournal = _G.MountJournal
 	BORDER:HandleIcon(MountJournal.MountDisplay.InfoButton.Icon)
@@ -168,14 +162,14 @@ end
 local function SkinPetFrame()
 	BORDER:CreateBorder(_G.PetJournalSummonButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.PetJournalFindBattle, nil, nil, nil, nil, nil, false, true)
-	BORDER:CreateBorder(_G.PetJournalSummonRandomFavoritePetButton, nil, nil, nil, nil, nil, false, true)
+	BORDER:CreateBorder(_G.PetJournal.SummonRandomPetSpellFrame.Button, nil, nil, nil, nil, nil, true, true)
 
 	local PetJournal = _G.PetJournal
 	BORDER:CreateBorder(_G.PetJournalSearchBox, nil, nil, nil, nil, nil, true, false)
 	BORDER:CreateBorder(_G.PetJournal.FilterDropdown, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.PetJournal.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 
-	BORDER:CreateBorder(_G.PetJournalHealPetButton, nil, nil, nil, nil, nil, true, true)
+	BORDER:CreateBorder(_G.PetJournal.HealPetSpellFrame.Button, nil, nil, nil, nil, nil, true, true)
 
 	for i = 1, 3 do
 		local petButton = _G['PetJournalLoadoutPet'..i]
@@ -183,6 +177,7 @@ local function SkinPetFrame()
 		local petButtonXPBar = _G['PetJournalLoadoutPet'..i..'XPBar']
 		BORDER:CreateBorder(petButton, 0, nil, nil, nil, nil, true, false)
 		BORDER:CreateBorder(petButtonHealthFrame, 1, nil, nil, nil, nil, true, false)
+		petButtonHealthFrame:SetHeight(16)
 		BORDER:CreateBorder(petButtonXPBar)
 		for index = 1, 3 do
 			local f = _G['PetJournalLoadoutPet'..i..'Spell'..index]
@@ -208,6 +203,7 @@ local function SkinPetFrame()
 	end
 
 	BORDER:CreateBorder(_G.PetJournalPetCardHealthFramehealthStatusBar, 1, nil, nil, nil, nil, true, false)
+	_G.PetJournalPetCardHealthFramehealthStatusBar:SetHeight(14)
 	BORDER:CreateBorder(_G.PetJournalPetCardXPBar, 1, nil, nil, nil, nil, true, false)
 
 	hooksecurefunc(PetJournal.ScrollBox, 'Update', JournalScrollButtons)
