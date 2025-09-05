@@ -164,6 +164,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
             BORDER:CreateBackground(Raid1Frames, -2, 2, 2, -2)
         end
 
+        local NumberGroupsRaid1 = E.db.unitframe.units.raid3.numGroups
         local Raid1BorderVSeparator = {}
         for i = 1, 5 do
             Raid1BorderVSeparator[i] = CreateFrame("Frame", nil, Raid1Frames, BackdropTemplateMixin and "BackdropTemplate")
@@ -176,7 +177,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
 
         local Raid1BorderHSeparator = {}
-        for i = 2, E.db.unitframe.units.raid1.numGroups do
+        for i = 2, NumberGroupsRaid1 do
       --      Raid1BorderHSeparator[i] = CreateFrame("Frame", nil, Raid1Frames, BackdropTemplateMixin and "BackdropTemplate")
             Raid1BorderHSeparator[i] = CreateFrame("Frame", nil, UIParent, BackdropTemplateMixin and "BackdropTemplate")
 
@@ -197,7 +198,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     maxSubgroup = subgroup
                 end
             end
-            for i = 2, E.db.unitframe.units.raid1.numGroups do
+            for i = 2, NumberGroupsRaid1 do
                 if i <= maxSubgroup then
                     Raid1BorderHSeparator[i]:Show() 
                 else
@@ -268,7 +269,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         if E.db.ProjectHopes.border.raid2backdrop then
             BORDER:CreateBackground(Raid2Frames, -2, 2, 2, -2)
         end
-
+        local NumberGroupsRaid2 = E.db.unitframe.units.raid2.numGroups
         local Raid2BorderVSeparator = {}
         for i = 1, 5 do
             Raid2BorderVSeparator[i] = CreateFrame("Frame", nil, Raid2Frames, BackdropTemplateMixin and "BackdropTemplate")
@@ -281,7 +282,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
 
         local Raid2BorderHSeparator = {}
-        for i = 2, E.db.unitframe.units.raid2.numGroups do
+        for i = 2, NumberGroupsRaid2 do
             Raid2BorderHSeparator[i] = CreateFrame("Frame", nil, Raid2Frames, BackdropTemplateMixin and "BackdropTemplate")
             Raid2BorderHSeparator[i]:SetBackdrop(Private.Separator)
             Raid2BorderHSeparator[i]:SetHeight(16)
@@ -300,7 +301,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     maxSubgroup = subgroup
                 end
             end
-            for i = 2, E.db.unitframe.units.raid2.numGroups do
+            for i = 2, NumberGroupsRaid2 do
                 if i <= maxSubgroup then
                     Raid2BorderHSeparator[i]:Show() 
                 else
@@ -372,6 +373,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
             BORDER:CreateBackground(Raid3Frames, -2, 2, 2, -2)
         end
 
+        local NumberGroupsRaid3 = E.db.unitframe.units.raid3.numGroups
         local Raid3BorderVSeparator = {}
         for i = 1, 5 do
             Raid3BorderVSeparator[i] = CreateFrame("Frame", nil, Raid3Frames, BackdropTemplateMixin and "BackdropTemplate")
@@ -384,7 +386,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         end
 
         local Raid3BorderHSeparator = {}
-        for i = 2, E.db.unitframe.units.raid3.numGroups do
+        for i = 2, NumberGroupsRaid3 do
             Raid3BorderHSeparator[i] = CreateFrame("Frame", nil, Raid3Frames, BackdropTemplateMixin and "BackdropTemplate")
             Raid3BorderHSeparator[i]:SetBackdrop(Private.Separator)
             Raid3BorderHSeparator[i]:SetHeight(16)
@@ -403,7 +405,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     maxSubgroup = subgroup
                 end
             end
-            for i = 2, E.db.unitframe.units.raid3.numGroups do
+            for i = 2, NumberGroupsRaid3 do
                 if i <= maxSubgroup then
                     Raid3BorderHSeparator[i]:Show() 
                 else
