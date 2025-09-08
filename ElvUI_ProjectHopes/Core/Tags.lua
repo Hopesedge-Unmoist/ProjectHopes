@@ -60,7 +60,7 @@ E:AddTag('Hopes:perhp', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_ABSORB_AMOUNT_CHANGED U
 	else
 		return format("%.0f", tper)
 	end
-end, not E.Retail)
+end)
 
 E:AddTag('Hopes:maxhealth:percent', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION UNIT_NAME_UPDATE', function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
@@ -139,6 +139,25 @@ E:AddTag("Hopes:raidmarker", 'RAID_TARGET_UPDATE', function(unit)
 end)
 
 E:AddTag('Hopes:perpp', 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER UNIT_CONNECTION', function(unit)
+    local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
+    local powerType = UnitPowerType(unit)
+    local cur = UnitPower(unit, powerType)
+    local max = UnitPowerMax(unit, powerType)
+
+    if status or (powerType ~= 0 and cur == 0) or max == 0 then
+        return nil
+    else
+        return format("%.0f", (cur / max) * 100)
+    end
+end)
+
+E:AddTag('Hopes:healerperpp', 'UNIT_POWER_FREQUENT UNIT_MAXPOWER UNIT_DISPLAYPOWER UNIT_CONNECTION PLAYER_ROLES_ASSIGNED GROUP_ROSTER_UPDATE', function(unit)
+    local role = UnitGroupRolesAssigned(unit)
+    
+    if role ~= "HEALER" then
+        return nil
+    end
+    
     local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
     local powerType = UnitPowerType(unit)
     local cur = UnitPower(unit, powerType)
