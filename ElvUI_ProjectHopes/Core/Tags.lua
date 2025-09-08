@@ -99,6 +99,19 @@ E:AddTag('Hopes:role', 'UNIT_NAME_UPDATE PLAYER_ROLES_ASSIGNED GROUP_ROSTER_UPDA
 	end
 end)
 
+E:AddTag('Hopes:roletext', 'UNIT_NAME_UPDATE PLAYER_ROLES_ASSIGNED GROUP_ROSTER_UPDATE', function(unit, _, args)
+	local v = tonumber(args) or 1
+	local role = UnitGroupRolesAssigned(unit)
+
+	if v == 1 then
+		local roleText = {
+			HEALER = "|cff00ff96HEALER|r",
+			TANK = "|cff00a5ffTANK|r"
+		}
+		return roleText[role]
+	end
+end)
+
 E:AddTag("Hopes:leader", "GROUP_ROSTER_UPDATE", function(unit)
     local leader = UnitIsGroupLeader(unit)
     local assist = UnitIsGroupAssistant(unit)

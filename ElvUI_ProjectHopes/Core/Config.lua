@@ -353,7 +353,7 @@ function ProjectHopes:Config()
 	POATSA.desc.inline = true
 	POATSA.desc.args.feature = ACH:Description(L["This is where you can find all the miscellaneous modules that dont fit a catagory."], 1, "medium")
 	POATSA.spacer = ACH:Spacer(2, 'full')
-	POATSA.tag1 = ACH:Input(L["Shows the Units role when selected."], nil, 3, nil, 'full', function() return '[Hopes:role]' end, nil, nil)
+	POATSA.tag1 = ACH:Input(L["Shows the Units role with icon."], nil, 3, nil, 'full', function() return '[Hopes:role]' end, nil, nil)
 	POATSA.tag2 = ACH:Input(L["Shows the percent health and absorb without %."], nil, 3, nil, 'full', function() return '[Hopes:perhp]' end, nil, nil, not E.Retail)
 	POATSA.tag3 = ACH:Input(L["Shows the Units raidmarker when selected."], nil, 3, nil, 'full', function() return '[Hopes:raidmarker]' end, nil, nil)
 	POATSA.tag4 = ACH:Input(L["Shows the Leader Icon or Assist icon if the unit is Leader or Assist."], nil, 3, nil, 'full', function() return '[Hopes:leader]' end, nil, nil, not E.Retail)
@@ -362,6 +362,7 @@ function ProjectHopes:Config()
 	POATSA.tag7 = ACH:Input(L["Name tag that changes the color of name based on class, raidmarker and unit."], nil, 3, nil, 'full', function() return '[Hopes:name]' end, nil, nil)
 	POATSA.tag8 = ACH:Input(L["Displays the Unit Status time."], nil, 3, nil, 'full', function() return '[Hopes:statustimer]' end, nil, nil)
 	POATSA.tag9 = ACH:Input(L["Shows the Max health of Unit at 100% health, if under 100% it switches to percent health without percent icon."], nil, 3, nil, 'full', function() return '[Hopes:maxhealth:percent]' end, nil, nil)
+	POATSA.tag10 = ACH:Input(L["Shows the Units role with text (DPS is not shown)."], nil, 3, nil, 'full', function() return '[Hopes:roletext]' end, nil, nil)
 
 	POA.BuffsDebuffs = ACH:Group(E:TextGradient(L["Buffs & Debuffs"], 0.6, 0.6, 0.6, 1, 0.45, 0.30), nil, 3)
 	local POABDS = POA.BuffsDebuffs.args
