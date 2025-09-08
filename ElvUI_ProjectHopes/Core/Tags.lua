@@ -60,7 +60,7 @@ E:AddTag('Hopes:perhp', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_ABSORB_AMOUNT_CHANGED U
 	else
 		return format("%.0f", tper)
 	end
-end)
+end, not E.Retail)
 
 E:AddTag('Hopes:maxhealth:percent', 'UNIT_HEALTH UNIT_MAXHEALTH UNIT_CONNECTION UNIT_NAME_UPDATE', function(unit)
 	local status = UnitIsDead(unit) and L["Dead"] or UnitIsGhost(unit) and L["Ghost"] or not UnitIsConnected(unit) and L["Offline"]
