@@ -403,6 +403,7 @@ function BORDER:CreateSeparator(frame, frameLevel, Point1, Point2)
     if frame:GetObjectType() == "Texture" then
         frame = frame:GetParent()
     end
+    
     local separator = CreateFrame("Frame", nil, frame, "BackdropTemplate")
     separator:SetBackdrop(Private.Separator)
     separator:SetFrameLevel((frameLevel and frame:GetFrameLevel() + frameLevel) or frame:GetFrameLevel() + 5)
