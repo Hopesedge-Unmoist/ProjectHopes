@@ -37,7 +37,7 @@ local genericIgnores = {
 	"GatherNote",
 	"GuildInstance",
 	"HandyNotesPin",
-	"MinimMap",
+	"MiniMap",
 	"Spy_MapNoteList_mini",
 	"ZGVMarker",
 	'poiMinimap',
