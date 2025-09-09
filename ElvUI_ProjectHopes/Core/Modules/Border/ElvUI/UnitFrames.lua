@@ -1196,7 +1196,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border[separatorName]:SetFrameLevel(Raid2Frames.border:GetFrameLevel() - 1)
                     Raid2Frames.border[separatorName]:SetHeight(16)
                 end
-                Raid2Frames.border[separatorName]:SetPoint("LEFT", Raid2Frames.border, 0, -8)
+                Raid2Frames.border[separatorName]:SetPoint("LEFT", Raid2Frames.border, 8, -8)
                 Raid2Frames.border[separatorName]:SetPoint("TOPRIGHT", Raid2Frames.border, -8, - xPosition)
             end
 
@@ -1874,7 +1874,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border[separatorName]:SetFrameLevel(Raid3Frames.border:GetFrameLevel() - 1)
                     Raid3Frames.border[separatorName]:SetHeight(16)
                 end
-                Raid3Frames.border[separatorName]:SetPoint("LEFT", Raid3Frames.border, 0, -8)
+                Raid3Frames.border[separatorName]:SetPoint("LEFT", Raid3Frames.border, 8, -8)
                 Raid3Frames.border[separatorName]:SetPoint("TOPRIGHT", Raid3Frames.border, -8, - xPosition)
             end
 
