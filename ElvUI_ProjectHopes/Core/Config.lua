@@ -447,7 +447,7 @@ function ProjectHopes:Config()
 	POABS.UnitFrames.args.raid1border.args.desc.inline = true
 	POABS.UnitFrames.args.raid1border.args.desc.args.feature = ACH:Description(L["Adds a border to the Raid1 Unitframe."], 1, "medium")
 	POABS.UnitFrames.args.raid1border.args.raid = ACH:Toggle(L["Heal"], nil, 3, nil, false, "full",function() return E.db.ProjectHopes.border.raid end,function(_, value) E.db.ProjectHopes.border.raid = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.unitframe.units.raid1.enable end)
-	POABS.UnitFrames.args.raid1border.args.raidbackdrop = ACH:Toggle(L["Heal (Backdrop)"], nil, 4, nil, false, "full",function() return E.db.ProjectHopes.border.raid2backdrop end,function(_, value) E.db.ProjectHopes.border.raid2backdrop = value E:StaticPopup_Show('ProjectHopes_RL') end, nil, function() return not E.db.ProjectHopes.border.raid2 end)
+	POABS.UnitFrames.args.raid1border.args.raidbackdrop = ACH:Toggle(L["Heal (Backdrop)"], nil, 4, nil, false, "full",function() return E.db.ProjectHopes.border.raidbackdrop end,function(_, value) E.db.ProjectHopes.border.raidbackdrop = value E:StaticPopup_Show('ProjectHopes_RL') end, nil, function() return not E.db.ProjectHopes.border.raid end)
 	POABS.UnitFrames.args.raid1border.args.raiddps = ACH:Toggle(L["DPS/TANK"], nil, 5, nil, false, "full",function() return E.db.ProjectHopes.border.raiddps end,function(_, value) E.db.ProjectHopes.border.raiddps = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.db.unitframe.units.raid1.enable end)
 
 	POABS.UnitFrames.args.raid2border = ACH:Group(L["Raid2"], nil, 1, nil, nil, nil, function() return not E.db.unitframe.units.raid2.enable end, nil, nil)
