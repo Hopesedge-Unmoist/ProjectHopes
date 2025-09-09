@@ -571,7 +571,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                         Raid1Frames.background:ClearAllPoints()
                         Raid1Frames.background:SetPoint("TOPRIGHT", Raid1Frames, 4, -4)
                         Raid1Frames.background:SetPoint("BOTTOMRIGHT", Raid1Frames, 4, -4)
-                        Raid1Frames.background:SetPoint("TOPLEFT", lastGroup, -5, 4)	
+                        Raid1Frames.background:SetPoint("TOPLEFT", lastGroup, -4, 4)	
                     end
                 end
             end
@@ -735,7 +735,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                         Raid1Frames.background:ClearAllPoints()
                         Raid1Frames.background:SetPoint("BOTTOMRIGHT", Raid1Frames, -4, 4)
                         Raid1Frames.background:SetPoint("TOPRIGHT", Raid1Frames, 4, 4)
-                        Raid1Frames.background:SetPoint("BOTTOMLEFT", lastGroup, -5, -4)	
+                        Raid1Frames.background:SetPoint("BOTTOMLEFT", lastGroup, -4, -4)	
                     end
                 end
             end
@@ -1251,7 +1251,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                         Raid2Frames.background:ClearAllPoints()
                         Raid2Frames.background:SetPoint("TOPRIGHT", Raid2Frames, 4, -4)
                         Raid2Frames.background:SetPoint("BOTTOMRIGHT", Raid2Frames, 4, -4)
-                        Raid2Frames.background:SetPoint("TOPLEFT", lastGroup, -5, 4)	
+                        Raid2Frames.background:SetPoint("TOPLEFT", lastGroup, -4, 4)	
                     end
                 end
             end
@@ -1417,7 +1417,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                         Raid2Frames.background:ClearAllPoints()
                         Raid2Frames.background:SetPoint("BOTTOMRIGHT", Raid2Frames, -4, 4)
                         Raid2Frames.background:SetPoint("TOPRIGHT", Raid2Frames, 4, 4)
-                        Raid2Frames.background:SetPoint("BOTTOMLEFT", lastGroup, -5, -4)	
+                        Raid2Frames.background:SetPoint("BOTTOMLEFT", lastGroup, -4, -4)	
                     end
                 end
             end
@@ -1929,7 +1929,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                         Raid3Frames.background:ClearAllPoints()
                         Raid3Frames.background:SetPoint("TOPRIGHT", Raid3Frames, 4, -4)
                         Raid3Frames.background:SetPoint("BOTTOMRIGHT", Raid3Frames, 4, -4)
-                        Raid3Frames.background:SetPoint("TOPLEFT", lastGroup, -5, 4)	
+                        Raid3Frames.background:SetPoint("TOPLEFT", lastGroup, -4, 4)	
                     end
                 end
             end
@@ -2093,7 +2093,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                         Raid3Frames.background:ClearAllPoints()
                         Raid3Frames.background:SetPoint("BOTTOMRIGHT", Raid3Frames, -4, 4)
                         Raid3Frames.background:SetPoint("TOPRIGHT", Raid3Frames, 4, 4)
-                        Raid3Frames.background:SetPoint("BOTTOMLEFT", lastGroup, -5, -4)	
+                        Raid3Frames.background:SetPoint("BOTTOMLEFT", lastGroup, -4, -4)	
                     end
                 end
             end
