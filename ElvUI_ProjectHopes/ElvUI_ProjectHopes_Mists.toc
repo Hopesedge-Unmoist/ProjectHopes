@@ -5,12 +5,12 @@
 ## OptionalDeps: OmniCD, BigWigs, Details, WarpDeplete
 
 ## DefaultState: enabled
-## Version: 20250826
-## X-PreviousVersion: 20250816
+## Version: 20250909
+## X-PreviousVersion: 20250826
 ## SavedVariables: ProjectHopesDB
 
 ## Interface: 50500
-## X-Required-ElvUI: 13.96
+## X-Required-ElvUI: 13.97
 
 Load.xml
 Mists\Mists.xml

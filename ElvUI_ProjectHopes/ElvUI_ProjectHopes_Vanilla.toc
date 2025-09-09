@@ -6,12 +6,12 @@
 
 ## DefaultState: enabled
 ## Author: Hopesedge
-## Version: 20250826
-## X-PreviousVersion: 20250816
+## Version: 20250909
+## X-PreviousVersion: 20250826
 ## SavedVariables: ProjectHopesDB
 
-## Interface: 11507
-## X-Required-ElvUI: 13.96
+## Interface: 11506, 11507
+## X-Required-ElvUI: 13.97
 
 Load.xml
 Classic\Classic.xml
