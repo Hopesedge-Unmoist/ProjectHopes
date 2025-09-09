@@ -28,8 +28,6 @@ function S:ElvUI_ActionBar_SkinButton(button, useBackdrop)
 			return
 	end
 
-
-
 	BORDER:CreateBorder(button, 3)
 	
 	if button.BorderShadow then
@@ -253,7 +251,9 @@ function S:ElvUI_ActionBars()
     -- Vehicle leave button
     do
         local button = _G.MainMenuBarVehicleLeaveButton
-        BORDER:CreateBorder(button, nil, nil, nil, nil, nil, true, true)
+				if button.backdrop then
+       		BORDER:CreateBorder(button, nil, nil, nil, nil, nil, true, true)
+				end
     end
 	if E.Retail then
 		-- Flyout
