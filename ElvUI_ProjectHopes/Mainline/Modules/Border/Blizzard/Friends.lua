@@ -197,6 +197,9 @@ function S:FriendsFrame()
 	local Reward = _G.RecruitAFriendRewardsFrame
 	BORDER:CreateBorder(Reward)
 
+	-- Raidinfo
+	BORDER:CreateBorder(_G.RaidInfoFrame)
+
 	hooksecurefunc(Reward, 'UpdateRewards', RAFRewards)
 	RAFRewards()
 end
