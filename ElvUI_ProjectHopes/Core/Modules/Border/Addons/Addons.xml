@@ -8,6 +8,7 @@
 	<Script file='Hekili.lua'/>
 	<Script file='MazeHelper.lua'/>
 	<Script file='OmniCD.lua'/>
+	<Script file='OPie.lua'/>
 	<Script file='RaiderIO.lua'/>
 	<Script file='Ranker.lua'/>
 	<Script file='RareScanner.lua'/>
