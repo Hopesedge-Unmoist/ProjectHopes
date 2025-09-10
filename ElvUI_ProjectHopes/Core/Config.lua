@@ -55,6 +55,8 @@ local PLUGINSUPPORT = {
 	'|cff919191Tevoll|r, Minimap Buttons.',
 	'|cff3dff98Kringels|r, Help with coding Tags.',
 	'|cff4beb2cLuckyoneUI|r, Made all this possible with template of his plugin.',
+	'|cff919191AcidWeb|r, Thanks for help with the baseline code of OPie skin.', 
+
 }
 
 
