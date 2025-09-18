@@ -392,7 +392,7 @@ function S:LookingForGroupFrames()
 	BORDER:CreateBorder(_G.LFGListInviteDialog.AcceptButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(_G.LFGListInviteDialog.DeclineButton, nil, nil, nil, nil, nil, false, true)
 
-	BORDER:CreateBorder(LFGListFrame.SearchPanel.SearchBox, nil, nil, nil, nil, nil, true, false)
+	BORDER:CreateBorder(LFGListFrame.SearchPanel.SearchBox, nil, nil, nil, 1, nil, true, false)
 	BORDER:CreateBorder(LFGListFrame.SearchPanel.BackButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(LFGListFrame.SearchPanel.SignUpButton, nil, nil, nil, nil, nil, false, true)
 
@@ -400,6 +400,7 @@ function S:LookingForGroupFrames()
 	BORDER:CreateBorder(LFGListFrame.SearchPanel.ScrollBox.StartGroupButton, nil, nil, nil, nil, nil, false, true)
 
 	BORDER:CreateBorder(LFGListFrame.SearchPanel.FilterButton, nil, nil, nil, nil, nil, false, true)
+	LFGListFrame.SearchPanel.FilterButton.ResetButton:SetFrameLevel(LFGListFrame.SearchPanel.FilterButton.border:GetFrameLevel() + 1)
 	BORDER:CreateBorder(LFGListFrame.SearchPanel.RefreshButton, nil, nil, nil, nil, nil, false, true)
 	BORDER:CreateBorder(LFGListFrame.SearchPanel.BackToGroupButton, nil, nil, nil, nil, nil, false, true)
 
