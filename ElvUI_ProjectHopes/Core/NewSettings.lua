@@ -2,6 +2,14 @@ local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+	'v|cff99ff20250919|r 19/09/2025',
+	' • Fixing better background to raidframes.',
+	' • Fix for minimapbuttons.',
+	' • Added skin for Opie.',
+	' • Fix for border white on profie switch.',
+	' • Fix for minimap moved 1 px down on profile switch.',
+	' • Fix overlap of borders in LFG.',
+' ',
 	'v|cff99ff20250909|r 09/09/2025',
 	' • Added missing border on RaidinfoFrame.',
 	' • Fix for Extra Button border not anchoring..',
