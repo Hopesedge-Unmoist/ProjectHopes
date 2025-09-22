@@ -3,6 +3,7 @@ local E, _, V, P, G = unpack(ElvUI)
 local D = E:GetModule('Distributor');
 local PI = E:GetModule('PluginInstaller');
 local PORTRAIT = E:GetModule('Portrait', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
+local OS = E:GetModule('Overshields', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 
 local LSM = E.Libs.LSM
 
@@ -162,7 +163,13 @@ function ProjectHopes:Config()
 	POAUFA.overshield.args.desc.inline = true
 	POAUFA.overshield.args.desc.args.feature = ACH:Description(L["Add a texture to Over Absorb with a Glowline at the end."], 1, "medium")
 	POAUFA.overshield.args.absorb = ACH:Toggle(L["Enable"], L["Toggle Overshield textures."], 2, nil, false, nil,function() return E.db.ProjectHopes.overshield.Absorb end, function(_, value) E.db.ProjectHopes.overshield.Absorb = value E:StaticPopup_Show('ProjectHopes_RL') end)
-	
+	POAUFA.overshield.args.config = ACH:Group(L["Configuration, HopesUI Defaults:"], nil, 3, nil, nil, nil, nil, function() return not E.db.ProjectHopes.overshield.Absorb end)
+	POAUFA.overshield.args.config.inline = true
+	POAUFA.overshield.args.config.args.absorbwrapped = ACH:Execute(L["Set Absorb style to Wrapped"], nil, 3, function() OS:SetAllHealPredictionProperty("absorbStyle", "WRAPPED") end, nil, nil, 200, nil, nil, function() return not E.db.ProjectHopes.overshield.Absorb end)
+	POAUFA.overshield.args.config.args.absorheight  = ACH:Execute(L["Set Absorb height to -1"], nil, 4, function() OS:SetAllHealPredictionProperty("height", -1) end, nil, nil, 200, nil, nil, function() return not E.db.ProjectHopes.overshield.Absorb end)
+	POAUFA.overshield.args.config.args.changeColor = ACH:Execute(L["Change the color of the absorb bar."], nil, 4, function() E.db.unitframe.colors.healPrediction.absorbs = { r = 0.47450983524323, g = 0.86274516582489, b = 1, a = 1 } E.db.unitframe.colors.healPrediction.overabsorbs = { r = 1, g = 1, b = 1, a = 1 } end, nil, nil, 250)
+	POAUFA.overshield.args.config.args.changeMaxOverflow = ACH:Execute(L["Set Max Overflow to 0"], nil, 5, function() E.db.unitframe.colors.healPrediction.maxOverflow = 0 end, nil, nil, 200)
+
 	POAUFA.customtargetborder = ACH:Group(L["Target Border"], nil, 1)
 	POAUFA.customtargetborder.args.desc = ACH:Group(L["Description"], nil, 1)
 	POAUFA.customtargetborder.args.desc.inline = true
