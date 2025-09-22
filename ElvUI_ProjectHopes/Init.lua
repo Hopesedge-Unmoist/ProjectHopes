@@ -51,7 +51,7 @@ Private.Portraits.BorderColor = path .. "Textures\\Portrait\\Portrait_BorderColo
 
 -- Shield Overlay
 Private.AbsorbOverlay = path .. "Textures\\Shield-Overlay.blp"
-Private.AbsorbGlow = path .. "Textures\\Shield-Overshield.blp"
+Private.AbsorbGlow = path .. "Textures\\Shield-Overshield.tga"
 Private.AbsorbTexture = path .. "Textures\\Shield-Fill.tga"
 
 -- Glowline
