@@ -130,14 +130,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
         local PartyFrame = _G["ElvUF_PartyGroup1"]
             
         BORDER:CreateBorder(PartyFrame, 20, -9, 9, 9, -9)
-        if not PartyFrame.background then
-            PartyFrame.background = PartyFrame:CreateTexture(nil, "BACKGROUND", nil) -- sublevel 1
-            PartyFrame.background:SetTexture(Private.Background)
-            PartyFrame.background:SetPoint("TOPLEFT", PartyFrame.border, "TOPLEFT", 9, -9)
-            PartyFrame.background:SetPoint("BOTTOMRIGHT", PartyFrame.border, "BOTTOMRIGHT", -9, 9)
-            PartyFrame.background:SetVertexColor(0.1254901960784314, 0.1254901960784314, 0.1254901960784314)
-        end
-
+        BORDER:CreateBackground(PartyFrame, -2, 2, 2, -2)
 
         if E.db.unitframe.units.party.growthDirection == "UP_LEFT" or E.db.unitframe.units.party.growthDirection == "UP_RIGHT" then
             for i = 1, 4 do 
@@ -157,6 +150,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
             local f = _G["ElvUF_PartyGroup1UnitButton"..i]
             if f then
                 BORDER:CreateBorder(f, 22, -9, 9, 9, -9)
+                BORDER:CreateBackground(f, -2, 2, 2, -2)
                 BORDER:CreateSeparator(f.Power)
 
             end
@@ -173,13 +167,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
 
         BORDER:CreateBorder(Raid1Frames, 20, -9, 9, 9, -9)
         if E.db.ProjectHopes.border.raidbackdrop then
-            if not Raid1Frames.background then
-                Raid1Frames.background = Raid1Frames:CreateTexture(nil, "BACKGROUND", nil) -- sublevel 1
-                Raid1Frames.background:SetTexture(Private.Background)
-                Raid1Frames.background:SetPoint("TOPLEFT", Raid1Frames.border, "TOPLEFT", 6, -6)
-                Raid1Frames.background:SetPoint("BOTTOMRIGHT", Raid1Frames.border, "BOTTOMRIGHT", -6, 6)
-                Raid1Frames.background:SetVertexColor(0.1254901960784314, 0.1254901960784314, 0.1254901960784314)
-            end
+            BORDER:CreateBackground(Raid1Frames, -4, 4, 4, -4)
         end
 
         local growth = E.db.unitframe.units.raid1.growthDirection
@@ -247,6 +235,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid1Frames.border:SetPoint("TOPLEFT", Raid1Frames, -9, 9)
                     Raid1Frames.border:SetPoint("TOPRIGHT", Raid1Frames, 9, -9)
                     Raid1Frames.border:SetPoint("BOTTOMRIGHT", lastGroup, 9, -9)
+                    
+                    if E.db.ProjectHopes.border.raidbackdrop and Raid1Frames.background then
+                        Raid1Frames.background:ClearAllPoints()
+                        Raid1Frames.background:SetPoint("TOPLEFT", Raid1Frames, -4, 4)
+                        Raid1Frames.background:SetPoint("TOPRIGHT", Raid1Frames, 4, -4)
+                        Raid1Frames.background:SetPoint("BOTTOMRIGHT", lastGroup, 4, -4)	
+                    end
                 end
             end
 
@@ -323,6 +318,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid1Frames.border:SetPoint("BOTTOMLEFT", Raid1Frames, -9, -9)
                     Raid1Frames.border:SetPoint("BOTTOMRIGHT", Raid1Frames, -9, 9)
                     Raid1Frames.border:SetPoint("TOPRIGHT", lastGroup, 9, 9)
+                    
+                    if E.db.ProjectHopes.border.raidbackdrop and Raid1Frames.background then
+                        Raid1Frames.background:ClearAllPoints()
+                        Raid1Frames.background:SetPoint("BOTTOMLEFT", Raid1Frames, -4, -4)
+                        Raid1Frames.background:SetPoint("BOTTOMRIGHT", Raid1Frames, -4, 4)
+                        Raid1Frames.background:SetPoint("TOPRIGHT", lastGroup, 4, 4)	
+                    end
                 end
             end
 
@@ -398,6 +400,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid1Frames.border:SetPoint("TOPLEFT", Raid1Frames, -9, 9)
                     Raid1Frames.border:SetPoint("TOPRIGHT", Raid1Frames, 9, -9)
                     Raid1Frames.border:SetPoint("BOTTOMLEFT", lastGroup, 9, -9)
+                    
+                    if E.db.ProjectHopes.border.raidbackdrop and Raid1Frames.background then
+                        Raid1Frames.background:ClearAllPoints()
+                        Raid1Frames.background:SetPoint("TOPLEFT", Raid1Frames, -4, 4)
+                        Raid1Frames.background:SetPoint("TOPRIGHT", Raid1Frames, 4, -4)
+                        Raid1Frames.background:SetPoint("BOTTOMRIGHT", lastGroup, 4, -4)	
+                    end
                 end
             end
 
@@ -475,6 +484,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid1Frames.border:SetPoint("BOTTOMRIGHT", Raid1Frames, 9, -9)
                     Raid1Frames.border:SetPoint("BOTTOMLEFT", Raid1Frames, 9, -9)
                     Raid1Frames.border:SetPoint("TOPLEFT", lastGroup, -9, 9)
+                    
+                    if E.db.ProjectHopes.border.raidbackdrop and Raid1Frames.background then
+                        Raid1Frames.background:ClearAllPoints()
+                        Raid1Frames.background:SetPoint("BOTTOMRIGHT", Raid1Frames, 4, -4)
+                        Raid1Frames.background:SetPoint("BOTTOMLEFT", Raid1Frames, 4, -4)
+                        Raid1Frames.background:SetPoint("TOPLEFT", lastGroup, -4, 4)	
+                    end
                 end
             end
 
@@ -550,6 +566,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid1Frames.border:SetPoint("TOPRIGHT", Raid1Frames, 9, -9)
                     Raid1Frames.border:SetPoint("BOTTOMRIGHT", Raid1Frames, 9, -9)
                     Raid1Frames.border:SetPoint("TOPLEFT", lastGroup, -9, 9)
+                    
+                    if E.db.ProjectHopes.border.raidbackdrop and Raid1Frames.background then
+                        Raid1Frames.background:ClearAllPoints()
+                        Raid1Frames.background:SetPoint("TOPRIGHT", Raid1Frames, 4, -4)
+                        Raid1Frames.background:SetPoint("BOTTOMRIGHT", Raid1Frames, 4, -4)
+                        Raid1Frames.background:SetPoint("TOPLEFT", lastGroup, -4, 4)	
+                    end
                 end
             end
 
@@ -625,6 +648,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid1Frames.border:SetPoint("TOPLEFT", Raid1Frames, -9, 9)
                     Raid1Frames.border:SetPoint("BOTTOMLEFT", Raid1Frames, 9, -9)
                     Raid1Frames.border:SetPoint("TOPRIGHT", lastGroup, 9, -9)
+                    
+                    if E.db.ProjectHopes.border.raidbackdrop and Raid1Frames.background then
+                        Raid1Frames.background:ClearAllPoints()
+                        Raid1Frames.background:SetPoint("TOPLEFT", Raid1Frames, -4, 4)
+                        Raid1Frames.background:SetPoint("BOTTOMLEFT", Raid1Frames, -4, -4)
+                        Raid1Frames.background:SetPoint("TOPRIGHT", lastGroup, 5, 4)	
+                    end
                 end
             end
 
@@ -700,6 +730,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid1Frames.border:SetPoint("BOTTOMRIGHT", Raid1Frames, -9, 9)
                     Raid1Frames.border:SetPoint("TOPRIGHT", Raid1Frames, 9, 9)
                     Raid1Frames.border:SetPoint("BOTTOMLEFT", lastGroup, -9, -9)
+                    
+                    if E.db.ProjectHopes.border.raidbackdrop and Raid1Frames.background then
+                        Raid1Frames.background:ClearAllPoints()
+                        Raid1Frames.background:SetPoint("BOTTOMRIGHT", Raid1Frames, -4, 4)
+                        Raid1Frames.background:SetPoint("TOPRIGHT", Raid1Frames, 4, 4)
+                        Raid1Frames.background:SetPoint("BOTTOMLEFT", lastGroup, -4, -4)	
+                    end
                 end
             end
 
@@ -774,6 +811,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid1Frames.border:SetPoint("BOTTOMLEFT", Raid1Frames, 9, -9)
                     Raid1Frames.border:SetPoint("TOPLEFT", Raid1Frames, -9, 9)
                     Raid1Frames.border:SetPoint("BOTTOMRIGHT", lastGroup, 9, 9)
+                    
+                    if E.db.ProjectHopes.border.raidbackdrop and Raid1Frames.background then
+                        Raid1Frames.background:ClearAllPoints()
+                        Raid1Frames.background:SetPoint("BOTTOMLEFT", Raid1Frames, 4, -4)
+                        Raid1Frames.background:SetPoint("TOPLEFT", Raid1Frames, -4, 4)
+                        Raid1Frames.background:SetPoint("BOTTOMRIGHT", lastGroup, 5, 4)	
+                    end
                 end
             end
 
@@ -798,13 +842,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
 
         BORDER:CreateBorder(Raid2Frames, 20, -9, 9, 9, -9)
         if E.db.ProjectHopes.border.raid2backdrop then
-            if not Raid2Frames.background then
-                Raid2Frames.background = Raid2Frames:CreateTexture(nil, "BACKGROUND", nil) -- sublevel 1
-                Raid2Frames.background:SetTexture(Private.Background)
-                Raid2Frames.background:SetPoint("TOPLEFT", Raid2Frames.border, "TOPLEFT", 6, -6)
-                Raid2Frames.background:SetPoint("BOTTOMRIGHT", Raid2Frames.border, "BOTTOMRIGHT", -6, 6)
-                Raid2Frames.background:SetVertexColor(0.1254901960784314, 0.1254901960784314, 0.1254901960784314)
-            end
+            BORDER:CreateBackground(Raid2Frames, -4, 4, 4, -4)
         end
 
         local growth = E.db.unitframe.units.raid2.growthDirection
@@ -872,6 +910,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border:SetPoint("TOPLEFT", Raid2Frames, -9, 9)
                     Raid2Frames.border:SetPoint("TOPRIGHT", Raid2Frames, 9, -9)
                     Raid2Frames.border:SetPoint("BOTTOMRIGHT", lastGroup, 9, -9)
+                    
+                    if E.db.ProjectHopes.border.raid2backdrop and Raid2Frames.background then
+                        Raid2Frames.background:ClearAllPoints()
+                        Raid2Frames.background:SetPoint("TOPLEFT", Raid2Frames, -4, 4)
+                        Raid2Frames.background:SetPoint("TOPRIGHT", Raid2Frames, 4, -4)
+                        Raid2Frames.background:SetPoint("BOTTOMRIGHT", lastGroup, 4, -4)	
+                    end
                 end
             end
 
@@ -949,6 +994,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border:SetPoint("BOTTOMLEFT", Raid2Frames, -9, -9)
                     Raid2Frames.border:SetPoint("BOTTOMRIGHT", Raid2Frames, -9, 9)
                     Raid2Frames.border:SetPoint("TOPRIGHT", lastGroup, 9, 9)
+                    
+                    if E.db.ProjectHopes.border.raid2backdrop and Raid2Frames.background then
+                        Raid2Frames.background:ClearAllPoints()
+                        Raid2Frames.background:SetPoint("BOTTOMLEFT", Raid2Frames, -4, -4)
+                        Raid2Frames.background:SetPoint("BOTTOMRIGHT", Raid2Frames, -4, 4)
+                        Raid2Frames.background:SetPoint("TOPRIGHT", lastGroup, 4, 4)	
+                    end
                 end
             end
 
@@ -1026,6 +1078,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border:SetPoint("TOPLEFT", Raid2Frames, -9, 9)
                     Raid2Frames.border:SetPoint("TOPRIGHT", Raid2Frames, 9, -9)
                     Raid2Frames.border:SetPoint("BOTTOMLEFT", lastGroup, 9, -9)
+                    
+                    if E.db.ProjectHopes.border.raid2backdrop and Raid2Frames.background then
+                        Raid2Frames.background:ClearAllPoints()
+                        Raid2Frames.background:SetPoint("TOPLEFT", Raid2Frames, -4, 4)
+                        Raid2Frames.background:SetPoint("TOPRIGHT", Raid2Frames, 4, -4)
+                        Raid2Frames.background:SetPoint("BOTTOMRIGHT", lastGroup, 4, -4)	
+                    end
                 end
             end
 
@@ -1104,6 +1163,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border:SetPoint("BOTTOMRIGHT", Raid2Frames, 9, -9)
                     Raid2Frames.border:SetPoint("BOTTOMLEFT", Raid2Frames, 9, -9)
                     Raid2Frames.border:SetPoint("TOPLEFT", lastGroup, -9, 9)
+                    
+                    if E.db.ProjectHopes.border.raid2backdrop and Raid2Frames.background then
+                        Raid2Frames.background:ClearAllPoints()
+                        Raid2Frames.background:SetPoint("BOTTOMRIGHT", Raid2Frames, 4, -4)
+                        Raid2Frames.background:SetPoint("BOTTOMLEFT", Raid2Frames, 4, -4)
+                        Raid2Frames.background:SetPoint("TOPLEFT", lastGroup, -4, 4)	
+                    end
                 end
             end
 
@@ -1130,7 +1196,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border[separatorName]:SetFrameLevel(Raid2Frames.border:GetFrameLevel() - 1)
                     Raid2Frames.border[separatorName]:SetHeight(16)
                 end
-                Raid2Frames.border[separatorName]:SetPoint("LEFT", Raid2Frames.border, 0, -8)
+                Raid2Frames.border[separatorName]:SetPoint("LEFT", Raid2Frames.border, 8, -8)
                 Raid2Frames.border[separatorName]:SetPoint("TOPRIGHT", Raid2Frames.border, -8, - xPosition)
             end
 
@@ -1180,6 +1246,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border:SetPoint("TOPRIGHT", Raid2Frames, 9, -9)
                     Raid2Frames.border:SetPoint("BOTTOMRIGHT", Raid2Frames, 9, -9)
                     Raid2Frames.border:SetPoint("TOPLEFT", lastGroup, -9, 9)
+                    
+                    if E.db.ProjectHopes.border.raid2backdrop and Raid2Frames.background then
+                        Raid2Frames.background:ClearAllPoints()
+                        Raid2Frames.background:SetPoint("TOPRIGHT", Raid2Frames, 4, -4)
+                        Raid2Frames.background:SetPoint("BOTTOMRIGHT", Raid2Frames, 4, -4)
+                        Raid2Frames.background:SetPoint("TOPLEFT", lastGroup, -4, 4)	
+                    end
                 end
             end
 
@@ -1256,6 +1329,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border:SetPoint("TOPLEFT", Raid2Frames, -9, 9)
                     Raid2Frames.border:SetPoint("BOTTOMLEFT", Raid2Frames, 9, -9)
                     Raid2Frames.border:SetPoint("TOPRIGHT", lastGroup, 9, -9)
+                    
+                    if E.db.ProjectHopes.border.raid2backdrop and Raid2Frames.background then
+                        Raid2Frames.background:ClearAllPoints()
+                        Raid2Frames.background:SetPoint("TOPLEFT", Raid2Frames, -4, 4)
+                        Raid2Frames.background:SetPoint("BOTTOMLEFT", Raid2Frames, -4, -4)
+                        Raid2Frames.background:SetPoint("TOPRIGHT", lastGroup, 5, 4)	
+                    end
                 end
             end
 
@@ -1332,6 +1412,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border:SetPoint("BOTTOMRIGHT", Raid2Frames, -9, 9)
                     Raid2Frames.border:SetPoint("TOPRIGHT", Raid2Frames, 9, 9)
                     Raid2Frames.border:SetPoint("BOTTOMLEFT", lastGroup, -9, -9)
+                    
+                    if E.db.ProjectHopes.border.raid2backdrop and Raid2Frames.background then
+                        Raid2Frames.background:ClearAllPoints()
+                        Raid2Frames.background:SetPoint("BOTTOMRIGHT", Raid2Frames, -4, 4)
+                        Raid2Frames.background:SetPoint("TOPRIGHT", Raid2Frames, 4, 4)
+                        Raid2Frames.background:SetPoint("BOTTOMLEFT", lastGroup, -4, -4)	
+                    end
                 end
             end
 
@@ -1407,6 +1494,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid2Frames.border:SetPoint("BOTTOMLEFT", Raid2Frames, 9, -9)
                     Raid2Frames.border:SetPoint("TOPLEFT", Raid2Frames, -9, 9)
                     Raid2Frames.border:SetPoint("BOTTOMRIGHT", lastGroup, 9, 9)
+                    
+                    if E.db.ProjectHopes.border.raid2backdrop and Raid2Frames.background then
+                        Raid2Frames.background:ClearAllPoints()
+                        Raid2Frames.background:SetPoint("BOTTOMLEFT", Raid2Frames, 4, -4)
+                        Raid2Frames.background:SetPoint("TOPLEFT", Raid2Frames, -4, 4)
+                        Raid2Frames.background:SetPoint("BOTTOMRIGHT", lastGroup, 5, 4)	
+                    end
                 end
             end
 
@@ -1431,13 +1525,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
 
         BORDER:CreateBorder(Raid3Frames, 20, -9, 9, 9, -9)
         if E.db.ProjectHopes.border.raid3backdrop then
-            if not Raid3Frames.background then
-                Raid3Frames.background = Raid3Frames:CreateTexture(nil, "BACKGROUND", nil) -- sublevel 1
-                Raid3Frames.background:SetTexture(Private.Background)
-                Raid3Frames.background:SetPoint("TOPLEFT", Raid3Frames.border, "TOPLEFT", 6, -6)
-                Raid3Frames.background:SetPoint("BOTTOMRIGHT", Raid3Frames.border, "BOTTOMRIGHT", -6, 6)
-                Raid3Frames.background:SetVertexColor(0.1254901960784314, 0.1254901960784314, 0.1254901960784314)
-            end
+            BORDER:CreateBackground(Raid3Frames, -4, 4, 4, -4)
         end
 
         local growth = E.db.unitframe.units.raid3.growthDirection
@@ -1505,6 +1593,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border:SetPoint("TOPLEFT", Raid3Frames, -9, 9)
                     Raid3Frames.border:SetPoint("TOPRIGHT", Raid3Frames, 9, -9)
                     Raid3Frames.border:SetPoint("BOTTOMRIGHT", lastGroup, 9, -9)
+                    
+                    if E.db.ProjectHopes.border.raid3backdrop and Raid3Frames.background then
+                        Raid3Frames.background:ClearAllPoints()
+                        Raid3Frames.background:SetPoint("TOPLEFT", Raid3Frames, -4, 4)
+                        Raid3Frames.background:SetPoint("TOPRIGHT", Raid3Frames, 4, -4)
+                        Raid3Frames.background:SetPoint("BOTTOMRIGHT", lastGroup, 4, -4)	
+                    end
                 end
             end
 
@@ -1581,6 +1676,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border:SetPoint("BOTTOMLEFT", Raid3Frames, -9, -9)
                     Raid3Frames.border:SetPoint("BOTTOMRIGHT", Raid3Frames, -9, 9)
                     Raid3Frames.border:SetPoint("TOPRIGHT", lastGroup, 9, 9)
+                    
+                    if E.db.ProjectHopes.border.raid3backdrop and Raid3Frames.background then
+                        Raid3Frames.background:ClearAllPoints()
+                        Raid3Frames.background:SetPoint("BOTTOMLEFT", Raid3Frames, -4, -4)
+                        Raid3Frames.background:SetPoint("BOTTOMRIGHT", Raid3Frames, -4, 4)
+                        Raid3Frames.background:SetPoint("TOPRIGHT", lastGroup, 4, 4)	
+                    end
                 end
             end
 
@@ -1656,6 +1758,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border:SetPoint("TOPLEFT", Raid3Frames, -9, 9)
                     Raid3Frames.border:SetPoint("TOPRIGHT", Raid3Frames, 9, -9)
                     Raid3Frames.border:SetPoint("BOTTOMLEFT", lastGroup, 9, -9)
+                    
+                    if E.db.ProjectHopes.border.raid3backdrop and Raid3Frames.background then
+                        Raid3Frames.background:ClearAllPoints()
+                        Raid3Frames.background:SetPoint("TOPLEFT", Raid3Frames, -4, 4)
+                        Raid3Frames.background:SetPoint("TOPRIGHT", Raid3Frames, 4, -4)
+                        Raid3Frames.background:SetPoint("BOTTOMRIGHT", lastGroup, 4, -4)	
+                    end
                 end
             end
 
@@ -1733,6 +1842,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border:SetPoint("BOTTOMRIGHT", Raid3Frames, 9, -9)
                     Raid3Frames.border:SetPoint("BOTTOMLEFT", Raid3Frames, 9, -9)
                     Raid3Frames.border:SetPoint("TOPLEFT", lastGroup, -9, 9)
+                    
+                    if E.db.ProjectHopes.border.raid3backdrop and Raid3Frames.background then
+                        Raid3Frames.background:ClearAllPoints()
+                        Raid3Frames.background:SetPoint("BOTTOMRIGHT", Raid3Frames, 4, -4)
+                        Raid3Frames.background:SetPoint("BOTTOMLEFT", Raid3Frames, 4, -4)
+                        Raid3Frames.background:SetPoint("TOPLEFT", lastGroup, -4, 4)	
+                    end
                 end
             end
 
@@ -1758,7 +1874,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border[separatorName]:SetFrameLevel(Raid3Frames.border:GetFrameLevel() - 1)
                     Raid3Frames.border[separatorName]:SetHeight(16)
                 end
-                Raid3Frames.border[separatorName]:SetPoint("LEFT", Raid3Frames.border, 0, -8)
+                Raid3Frames.border[separatorName]:SetPoint("LEFT", Raid3Frames.border, 8, -8)
                 Raid3Frames.border[separatorName]:SetPoint("TOPRIGHT", Raid3Frames.border, -8, - xPosition)
             end
 
@@ -1808,6 +1924,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border:SetPoint("TOPRIGHT", Raid3Frames, 9, -9)
                     Raid3Frames.border:SetPoint("BOTTOMRIGHT", Raid3Frames, 9, -9)
                     Raid3Frames.border:SetPoint("TOPLEFT", lastGroup, -9, 9)
+                    
+                    if E.db.ProjectHopes.border.raid3backdrop and Raid3Frames.background then
+                        Raid3Frames.background:ClearAllPoints()
+                        Raid3Frames.background:SetPoint("TOPRIGHT", Raid3Frames, 4, -4)
+                        Raid3Frames.background:SetPoint("BOTTOMRIGHT", Raid3Frames, 4, -4)
+                        Raid3Frames.background:SetPoint("TOPLEFT", lastGroup, -4, 4)	
+                    end
                 end
             end
 
@@ -1883,6 +2006,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border:SetPoint("TOPLEFT", Raid3Frames, -9, 9)
                     Raid3Frames.border:SetPoint("BOTTOMLEFT", Raid3Frames, 9, -9)
                     Raid3Frames.border:SetPoint("TOPRIGHT", lastGroup, 9, -9)
+                    
+                    if E.db.ProjectHopes.border.raid3backdrop and Raid3Frames.background then
+                        Raid3Frames.background:ClearAllPoints()
+                        Raid3Frames.background:SetPoint("TOPLEFT", Raid3Frames, -4, 4)
+                        Raid3Frames.background:SetPoint("BOTTOMLEFT", Raid3Frames, -4, -4)
+                        Raid3Frames.background:SetPoint("TOPRIGHT", lastGroup, 5, 4)	
+                    end
                 end
             end
 
@@ -1958,6 +2088,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border:SetPoint("BOTTOMRIGHT", Raid3Frames, -9, 9)
                     Raid3Frames.border:SetPoint("TOPRIGHT", Raid3Frames, 9, 9)
                     Raid3Frames.border:SetPoint("BOTTOMLEFT", lastGroup, -9, -9)
+                    
+                    if E.db.ProjectHopes.border.raid3backdrop and Raid3Frames.background then
+                        Raid3Frames.background:ClearAllPoints()
+                        Raid3Frames.background:SetPoint("BOTTOMRIGHT", Raid3Frames, -4, 4)
+                        Raid3Frames.background:SetPoint("TOPRIGHT", Raid3Frames, 4, 4)
+                        Raid3Frames.background:SetPoint("BOTTOMLEFT", lastGroup, -4, -4)	
+                    end
                 end
             end
 
@@ -2032,6 +2169,13 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid3Frames.border:SetPoint("BOTTOMLEFT", Raid3Frames, 9, -9)
                     Raid3Frames.border:SetPoint("TOPLEFT", Raid3Frames, -9, 9)
                     Raid3Frames.border:SetPoint("BOTTOMRIGHT", lastGroup, 9, 9)
+                    
+                    if E.db.ProjectHopes.border.raid3backdrop and Raid3Frames.background then
+                        Raid3Frames.background:ClearAllPoints()
+                        Raid3Frames.background:SetPoint("BOTTOMLEFT", Raid3Frames, 4, -4)
+                        Raid3Frames.background:SetPoint("TOPLEFT", Raid3Frames, -4, 4)
+                        Raid3Frames.background:SetPoint("BOTTOMRIGHT", lastGroup, 5, 4)	
+                    end
                 end
             end
 
