@@ -1,19 +1,23 @@
 local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
+
 local CH = E:GetModule('Chat')
 local DT = E:GetModule('DataTexts')
+local S = E:GetModule('Skins')
+local PI = E:GetModule('PluginInstaller')
+
 local AceAddon = E.Libs.AceAddon
 local C_UI_Reload = C_UI.Reload
 local format, print = format, print
 local hooksecurefunc = hooksecurefunc
 local SetCVar = SetCVar
-local S = E:GetModule('Skins')
 local GameMenuFrame = _G.GameMenuFrame
 local DisableAddOn = C_AddOns.DisableAddOn
 local EnableAddOn = C_AddOns.EnableAddOn
 local GetAddOnInfo = C_AddOns.GetAddOnInfo
 local GetNumAddOns = C_AddOns.GetNumAddOns
 local LoadAddOn = C_AddOns.LoadAddOn
+local IsAddOnLoaded = _G.C_AddOns and _G.C_AddOns.IsAddOnLoaded
 
 -- Global strings
 local ACCEPT = ACCEPT
@@ -117,6 +121,20 @@ function ProjectHopes:DebugMode(msg)
 		Private:Print('Or use /ProjectHopesdebug off')
 	end
 end
+
+function ProjectHopes:Toggles(msg)
+    if msg == 'install' then
+        if not IsAddOnLoaded("ElvUI_ProjectHopes_Data") then
+						Private:Print("Data addon missing...")
+            return
+        end
+        PI:Queue(ProjectHopes_Data.InstallerData)
+    else
+        E:ToggleOptions()
+        E.Libs.AceConfigDialog:SelectGroup('ElvUI', 'ProjectHopes')
+    end
+end
+
 
 -- Register all commands
 local function LoadCommands()
