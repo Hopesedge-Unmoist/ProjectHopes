@@ -93,6 +93,9 @@ function ProjectHopes:Config()
 	-- Spacer
 	POA.header = ACH:Spacer(2, 'full')
 
+	-- TESTER
+	--POA.TESTER = ACH:Group(E:TextGradient(L["TESTER"], 1, 0.6, 0.6, 1, 0.62, 0.58), nil, 1)
+
 	-- information
 	POA.information = ACH:Group(E:TextGradient(L["Information"], 0.6, 0.6, 0.6, 0.63, 0.62, 0.58), nil, 1)
 	
@@ -158,7 +161,7 @@ function ProjectHopes:Config()
 
 	POA.Unitframes = ACH:Group(E:TextGradient(L["UnitFrames"], 0.6, 0.6, 0.6, 0.34, 1, 0.67), nil, 3, 'tab')
 	local POAUFA = POA.Unitframes.args
-	POAUFA.overshield = ACH:Group(L["Overshield"], nil, 1, nil, nil, nil, nil, function() return not E.Retail and not E.Mists end)
+	POAUFA.overshield = ACH:Group(L["Overshield"], nil, 1, nil, nil, nil, nil, function() return E.Classic end)
 	POAUFA.overshield.args.desc = ACH:Group(L["Description"], nil, 1)
 	POAUFA.overshield.args.desc.inline = true
 	POAUFA.overshield.args.desc.args.feature = ACH:Description(L["Add a texture to Over Absorb with a Glowline at the end."], 1, "medium")
@@ -325,7 +328,28 @@ function ProjectHopes:Config()
 	POAANA.fastLoot = ACH:Toggle(L["Fast Loot"], nil, 4, nil, false, 'full')
 	POAANA.detailsResize = ACH:Toggle(L["Details AutoResizer"], L["Resize Details Window 2 based on Zone type.\n   - Shows 2 players for none/party zone.\n   - Shows 5 players in raid zone."], 4, nil, false, 'full')
 
-	POA.weakAurasAnchors = ACH:Group(E:TextGradient(L["Weakaura Anchors"], 0.6, 0.6, 0.6, 0.29, 0.35, 1), nil, 5)
+	POA.Media = ACH:Group(E:TextGradient(L["Media"], 0.6, 0.6, 0.6, 0.95, 0.75, 0.2), nil, 3)
+	local POAMAA = POA.Media.args
+	POAMAA.desc = ACH:Group(L["Description"], nil, 1)
+	POAMAA.desc.inline = true
+	POAMAA.desc.args.feature = ACH:Description(L["This module let you set the font, outline and statusbar everywhere within |cff1784d1ElvUI|r"], 1, "medium")
+
+	POAMAA.font = ACH:Group(L[""], nil, 2)
+	POAMAA.font.inline = true
+	POAMAA.font.args.fontselect = ACH:SharedMediaFont(L["Font"], nil, 1, nil, function() return E.db.ProjectHopes.font end, function(_,key) E.db.ProjectHopes.font = key end)
+	POAMAA.font.args.fontbutton = ACH:Execute(L["Set Fonts"], nil, 2, function() ProjectHopes:SetAllFonts(E.db.ProjectHopes.font) end)
+
+	POAMAA.outline = ACH:Group(L[""], nil, 3)
+	POAMAA.outline.inline = true
+	POAMAA.outline.args.outlineselect = ACH:FontFlags(L["Font Outline"], nil, 1, nil, function() return E.db.ProjectHopes.outline end, function(_,key) E.db.ProjectHopes.outline = key end)
+	POAMAA.outline.args.outlinebutton = ACH:Execute(L["Set Outline"], nil, 2, function() ProjectHopes:SetAllOutlines(E.db.ProjectHopes.outline) end)
+
+	POAMAA.statusbar = ACH:Group(L[""], nil, 4)
+	POAMAA.statusbar.inline = true
+	POAMAA.statusbar.args.statusbarselect = ACH:SharedMediaStatusbar(L["Statusbar"], nil, 1, nil, function() return E.db.ProjectHopes.statusbar end, function(_,key) E.db.ProjectHopes.statusbar = key end)
+	POAMAA.statusbar.args.statusbarbutton = ACH:Execute(L["Set Statusbar"], nil, 2, function() ProjectHopes:SetAllStatusbars(E.db.ProjectHopes.statusbar) end)
+
+	POA.weakAurasAnchors = ACH:Group(E:TextGradient(L["Weakaura Anchors"], 0.6, 0.6, 0.6, 0.29, 0.35, 1), nil, 3)
 	local POAWA = POA.weakAurasAnchors.args
 	POAWA.desc = ACH:Group(L["Description"], nil, 1)
 	POAWA.desc.inline = true
@@ -341,7 +365,7 @@ function ProjectHopes:Config()
 	POAWA.desc2.args.feature5 = ACH:Description(L["After you have typed in one of the anchors, you can go to '"].."|cffffc607/emove|r"..L["' and select '"]..Private.Name..L["' in the '"].."|cffffc607Config Mode|r"..L["' move the Anchors around."], 5, "medium")
 	POAWA.desc2.args.feature6 = ACH:Description(" ", 6, nil, 'Interface\\AddOns\\ElvUI_ProjectHopes\\Media\\Textures\\WeakauraAnchorDemo.tga', nil, 512, 512)
 
-	POA.Miscellaneous = ACH:Group(E:TextGradient(L["Miscellaneous"], 0.6, 0.6, 0.6, 0.65, 0.32, 1), nil, 5)
+	POA.Miscellaneous = ACH:Group(E:TextGradient(L["Miscellaneous"], 0.6, 0.6, 0.6, 0.65, 0.32, 1), nil, 3)
 	local POAMSA = POA.Miscellaneous.args
 	POAMSA.desc = ACH:Group(L["Description"], nil, 1)
 	POAMSA.desc.inline = true
@@ -349,7 +373,7 @@ function ProjectHopes:Config()
 	POAMSA.mplusimprovements = ACH:Toggle(L["Mythic+ Tab Improvements"], nil, 4, nil, false, 'full', function() return E.db.ProjectHopes.qualityOfLife.mplusimprovements end,function(_, value) E.db.ProjectHopes.qualityOfLife.mplusimprovements = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
 	POAMSA.driveButton = ACH:Toggle(L["Cloak Minimap Button, for faster config of Reshii Cloak"], nil, 4, nil, false, 'full', function() return E.db.ProjectHopes.qualityOfLife.driveButton end,function(_, value) E.db.ProjectHopes.qualityOfLife.driveButton = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
 
-	POA.frameMover = ACH:Group(E:TextGradient(L["Frame Mover"], 0.6, 0.6, 0.6, 0.98, 0.34, 1), nil, 5, nil, function(info) return E.private.ProjectHopes.qualityOfLife.frameMover[info[#info]] end, function(info, value) E.private.ProjectHopes.qualityOfLife.frameMover[info[#info]] = value E:StaticPopup_Show("ProjectHopes_RL") end)
+	POA.frameMover = ACH:Group(E:TextGradient(L["Frame Mover"], 0.6, 0.6, 0.6, 0.98, 0.34, 1), nil, 3, nil, function(info) return E.private.ProjectHopes.qualityOfLife.frameMover[info[#info]] end, function(info, value) E.private.ProjectHopes.qualityOfLife.frameMover[info[#info]] = value E:StaticPopup_Show("ProjectHopes_RL") end)
 	local POAFMA = POA.frameMover.args
 	POAFMA.desc = ACH:Group(L["Description"], nil, 1)
 	POAFMA.desc.inline = true
@@ -357,7 +381,7 @@ function ProjectHopes:Config()
 	POAFMA.enable = ACH:Toggle(L["Enable"], nil, 1)
 	POAFMA.elvUIBags = ACH:Toggle(L["Move ElvUI Bags"], nil, 2, nil, nil, nil, nil, nil, function() return not E.private.ProjectHopes.qualityOfLife.frameMover.enable end)
 
-	POA.Tags = ACH:Group(E:TextGradient(L["Tags"], 0.6, 0.6, 0.6, 1, 0.31, 0.55), nil, 5)
+	POA.Tags = ACH:Group(E:TextGradient(L["Tags"], 0.6, 0.6, 0.6, 1, 0.31, 0.55), nil, 3)
 	local POATSA = POA.Tags.args
 	POATSA.desc = ACH:Group(L["Description"], nil, 1)
 	POATSA.desc.inline = true
@@ -765,9 +789,15 @@ end
 	ACH:Group(name, desc, order, childGroups, get, set, disabled, hidden, func)
 	ACH:Header(name, order, get, set, hidden)
 	ACH:Input(name, desc, order, multiline, width, get, set, disabled, hidden, validate)
-	ACH:MultiSelect(name, desc, order, values, confirm, width, get, set, disabled, hidden)
-	ACH:Range(name, desc, order, values, width, get, set, disabled, hidden)
-	ACH:Select(name, desc, order, values, confirm, width, get, set, disabled, hidden)
-	ACH:Spacer(order, width, hidden)
+	ACH:Select(name, desc, order, values, confirm, width, get, set, disabled, hidden, sortByValue)
+	ACH:MultiSelect(name, desc, order, values, confirm, width, get, set, disabled, hidden, sortByValue)
 	ACH:Toggle(name, desc, order, tristate, confirm, width, get, set, disabled, hidden)
+	ACH:Range(name, desc, order, values, width, get, set, disabled, hidden)
+	ACH:Spacer(order, width, hidden)
+	ACH:SharedMediaFont(name, desc, order, width, get, set, disabled, hidden)
+	ACH:SharedMediaSound(name, desc, order, width, get, set, disabled, hidden)
+	ACH:SharedMediaStatusbar(name, desc, order, width, get, set, disabled, hidden)
+	ACH:SharedMediaBackground(name, desc, order, width, get, set, disabled, hidden)
+	ACH:SharedMediaBorder(name, desc, order, width, get, set, disabled, hidden)
+	ACH:FontFlags(name, desc, order, width, get, set, disabled, hidden)
 ]]
