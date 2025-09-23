@@ -8,5 +8,4 @@
 	<Include file='Core\Core.xml'/>
 	<Include file='Media\Media.xml'/>
 	<Include file="Settings\Settings.xml"/>
-
 </Ui>

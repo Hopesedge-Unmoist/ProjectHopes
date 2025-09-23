@@ -158,7 +158,7 @@ function ProjectHopes:Config()
 
 	POA.Unitframes = ACH:Group(E:TextGradient(L["UnitFrames"], 0.6, 0.6, 0.6, 0.34, 1, 0.67), nil, 3, 'tab')
 	local POAUFA = POA.Unitframes.args
-	POAUFA.overshield = ACH:Group(L["Overshield"], nil, 1, nil, nil, nil, nil, function() return not E.Retail end)
+	POAUFA.overshield = ACH:Group(L["Overshield"], nil, 1)
 	POAUFA.overshield.args.desc = ACH:Group(L["Description"], nil, 1)
 	POAUFA.overshield.args.desc.inline = true
 	POAUFA.overshield.args.desc.args.feature = ACH:Description(L["Add a texture to Over Absorb with a Glowline at the end."], 1, "medium")

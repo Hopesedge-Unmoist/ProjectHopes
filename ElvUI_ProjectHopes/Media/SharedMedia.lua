@@ -16,6 +16,9 @@ LSM:Register('statusbar','Blizzard Cast Background', [[Interface\AddOns\ElvUI_Pr
 LSM:Register('statusbar','Blizzard Cast Channel', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Statusbar\blizzcastchannel.tga]])
 LSM:Register('statusbar','Blizzard Cast Nonbreakable', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Statusbar\blizzcastnonbreakable.tga]])
 LSM:Register('statusbar','Blizzard Desat', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Statusbar\blizzdesat.tga]])
+LSM:Register('statusbar','Overshield', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Statusbar\Shield-Overlay.tga]])
+
+
 
 -- Borders
 E.private.ProjectHopes = E.private.ProjectHopes or {}
