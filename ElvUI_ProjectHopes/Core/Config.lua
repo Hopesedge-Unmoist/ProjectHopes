@@ -158,11 +158,12 @@ function ProjectHopes:Config()
 
 	POA.Unitframes = ACH:Group(E:TextGradient(L["UnitFrames"], 0.6, 0.6, 0.6, 0.34, 1, 0.67), nil, 3, 'tab')
 	local POAUFA = POA.Unitframes.args
-	POAUFA.overshield = ACH:Group(L["Overshield"], nil, 1)
+	POAUFA.overshield = ACH:Group(L["Overshield"], nil, 1, nil, nil, nil, nil, function() return not E.Retail or E.Mists end)
 	POAUFA.overshield.args.desc = ACH:Group(L["Description"], nil, 1)
 	POAUFA.overshield.args.desc.inline = true
 	POAUFA.overshield.args.desc.args.feature = ACH:Description(L["Add a texture to Over Absorb with a Glowline at the end."], 1, "medium")
 	POAUFA.overshield.args.absorb = ACH:Toggle(L["Enable"], L["Toggle Overshield textures."], 2, nil, false, nil,function() return E.db.ProjectHopes.overshield.Absorb end, function(_, value) E.db.ProjectHopes.overshield.Absorb = value E:StaticPopup_Show('ProjectHopes_RL') end)
+	
 	POAUFA.overshield.args.config = ACH:Group(L["Configuration, HopesUI Defaults:"], nil, 3, nil, nil, nil, nil, function() return not E.db.ProjectHopes.overshield.Absorb end)
 	POAUFA.overshield.args.config.inline = true
 	POAUFA.overshield.args.config.args.absorbwrapped = ACH:Execute(L["Set Absorb style to Wrapped"], nil, 3, function() OS:SetAllHealPredictionProperty("absorbStyle", "WRAPPED") end, nil, nil, 200, nil, nil, function() return not E.db.ProjectHopes.overshield.Absorb end)
