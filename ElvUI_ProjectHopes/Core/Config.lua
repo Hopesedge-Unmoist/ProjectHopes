@@ -327,7 +327,7 @@ function ProjectHopes:Config()
 	POAANA.fastLoot = ACH:Toggle(L["Fast Loot"], nil, 4, nil, false, 'full')
 	POAANA.detailsResize = ACH:Toggle(L["Details AutoResizer"], L["Resize Details Window 2 based on Zone type.\n   - Shows 2 players for none/party zone.\n   - Shows 5 players in raid zone."], 4, nil, false, 'full')
 
-	POA.Media = ACH:Group(E:TextGradient(L["Media"], 0.6, 0.6, 0.6, 0.95, 0.75, 0.2), nil, 3)
+	POA.Media = ACH:Group(E:TextGradient(L["Media"], 0.6, 0.6, 0.6, 1, 0.45, 0.30), nil, 3)
 	local POAMAA = POA.Media.args
 	POAMAA.desc = ACH:Group(L["Description"], nil, 1)
 	POAMAA.desc.inline = true
@@ -441,14 +441,6 @@ function ProjectHopes:Config()
 	POATSA.tag9 = ACH:Input(L["Shows the Max health of Unit at 100% health, if under 100% it switches to percent health without percent icon."], nil, 3, nil, 'full', function() return '[Hopes:maxhealth:percent]' end, nil, nil)
 	POATSA.tag10 = ACH:Input(L["Shows the Units role with text (DPS is not shown)."], nil, 3, nil, 'full', function() return '[Hopes:roletext]' end, nil, nil)
 	POATSA.tag11 = ACH:Input(L["Shows healer only power in percent without %."], nil, 3, nil, 'full', function() return '[Hopes:healerperpp]' end, nil, nil)
-
-	POA.BuffsDebuffs = ACH:Group(E:TextGradient(L["Buffs & Debuffs"], 0.6, 0.6, 0.6, 1, 0.45, 0.30), nil, 3)
-	local POABDS = POA.BuffsDebuffs.args
-	POABDS.desc = ACH:Group(L["Description"], nil, 1)
-	POABDS.desc.inline = true
-	POABDS.desc.args.feature = ACH:Description(L["This module adds border to buffs and debuffs on unitframes and at minimap."], 1, "medium")
-	POABDS.uf = ACH:Toggle(L["Toggle the border of Buffs and Debuffs at Unitframes."], nil, 2, nil, false, "full", function() return E.db.ProjectHopes.border.AuraUF end, function(_, value) E.db.ProjectHopes.border.AuraUF = value E:StaticPopup_Show('ProjectHopes_RL') end, nil)
-	POABDS.minimap = ACH:Toggle(L["Toggle the border of Buffs and Debuffs at minimap."], nil, 2, nil, false, "full", function() return E.db.ProjectHopes.border.Aura end, function(_, value) E.db.ProjectHopes.border.Aura = value E:StaticPopup_Show('ProjectHopes_RL') end, function() return not E.private.auras.enable end)
 
 	POA.Borders = ACH:Group(E:TextGradient(L["Borders"], 0.6, 0.6, 0.6, 1, 0.93, 0.66), nil, 3, 'tab')
 	local POABS = POA.Borders.args
@@ -786,6 +778,7 @@ function ProjectHopes:Config()
 		actionBarsButton = L["Actionbars Button"],
 		afk = L["AFK Mode"],
 		altPowerBar = L["Alt Power"],
+		minimapAuras = L["Minimap Auras"],
 		chatDataPanels = L["Chat Data Panels"],
 		castbar = L["CastBars"],
 		chatPanels = L["Chat Panels"],
@@ -803,6 +796,7 @@ function ProjectHopes:Config()
 		tooltips = L["Tooltips"],
 		Minimap = L["Minimap"],
 		nameplates = L["Nameplates"],
+		unitframeAuras = L["Unitframe Auras"],
 	}
 
 	if E.Retail then

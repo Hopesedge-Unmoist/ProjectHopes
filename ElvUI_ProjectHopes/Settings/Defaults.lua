@@ -217,10 +217,6 @@ P.ProjectHopes = {
 		-- Arena
 		Arena = false,
 		Arenasep = false,
-		-- Buffs/Debuffs
-		Aura = false, 
-		AuraUF = false, 
-		-- Minimap
 		-- Bag
 		Bag = false,
 		Bagslot = false,
