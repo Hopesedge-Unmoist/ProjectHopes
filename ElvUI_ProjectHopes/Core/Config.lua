@@ -377,7 +377,7 @@ function ProjectHopes:Config()
 	POAMAA.fctmedia.args.outline.inline = true
 	POAMAA.fctmedia.args.outline.args.outlineselect = ACH:FontFlags(L["Font Outline"], nil, 1, nil, function() return E.db.ProjectHopes.fctoutline end, function(_,key) E.db.ProjectHopes.fctoutline = key end)
 	POAMAA.fctmedia.args.outline.args.outlinebutton = ACH:Execute(L["Set Outline"], nil, 2, function() ProjectHopes:SetFCTOutlines(E.db.ProjectHopes.fctoutline) end)
-	POAMAA.weakauramedia = ACH:Group(L["|cffFFD100WeakAuras Media|r"], nil, 2, nil, nil, nil, nil, function() return not IsAddOnLoaded("WeakAuras")end)
+	POAMAA.weakauramedia = ACH:Group(L["|cffFFD100WeakAuras Media|r, |cffa23838Use at own Risk. Can break Weakauras! Backup of weakauras recommended|r."], nil, 2, nil, nil, nil, nil, function() return not IsAddOnLoaded("WeakAuras")end)
 	POAMAA.weakauramedia.inline = true
 	POAMAA.weakauramedia.args.font = ACH:Group(L[""], nil, 3)
 	POAMAA.weakauramedia.args.font.inline = true
