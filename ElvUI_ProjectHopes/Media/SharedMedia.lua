@@ -6,7 +6,9 @@ if LSM == nil then return end
 
 -- Fonts
 LSM:Register('font','Expressway', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Fonts\Expressway.ttf]])
-LSM:Register('font','Noto', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Fonts\NotoSans.ttf.ttf]])
+LSM:Register('font','Noto', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Fonts\NotoSans.ttf]])
+LSM:Register('font','HopesUI', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Fonts\HopesUI.ttf]])
+
 -- Statusbar Textures
 LSM:Register('statusbar','HopesUI', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Statusbar\HopesUI.tga]])
 LSM:Register('statusbar','Health Fill', [[Interface\AddOns\ElvUI_ProjectHopes\Media\Statusbar\Grid2_HP_Fill.tga]])
