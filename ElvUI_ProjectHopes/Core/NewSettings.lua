@@ -2,6 +2,14 @@ local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+		'v|cff99ffxxxxr xx/xx/2025',
+	' • Added new module for Setting fonts, outline and statusbar.',
+	' • Added new font.',
+	' • Fix for /projecthopes to open config.',
+	' • Revert background on raidframes.',
+	' • Reworked OverShield module, to use ElvUIs own module for it, just changing texture.',
+	' • Removed "Buffs and Debuffs" and moved em into ElvUI skinning instead.',
+' ',
 	'v|cff99ff20250919|r 19/09/2025',
 	' • Fixing better background to raidframes.',
 	' • Fix for minimapbuttons.',
