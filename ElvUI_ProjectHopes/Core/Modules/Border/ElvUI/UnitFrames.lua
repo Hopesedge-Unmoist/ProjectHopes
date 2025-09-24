@@ -2321,7 +2321,7 @@ function S:ElvUI_UnitFrames_Construct_AuraBars(_, f)
 end
 
 function S:ElvUI_UnitFrames_Buffindicator(_, button)
-    if not E.db.ProjectHopes.border.AuraUF then
+    if not E.db.ProjectHopes.skins.unitframeAuras then
         return
     end
     

@@ -16,7 +16,7 @@ function S:ElvUI_Auras_SkinIcon(_, button)
 end
 
 function S:ElvUI_Auras()
-	if not E.private.auras.enable or not E.db.ProjectHopes.border.Aura then
+	if not E.private.auras.enable or not E.db.ProjectHopes.skins.minimapAuras then
 		return
 	end
 
