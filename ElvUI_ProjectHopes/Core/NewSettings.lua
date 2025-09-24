@@ -57,7 +57,10 @@ ProjectHopes.ChangelogTBL = {
 }
 
 function ProjectHopes:LoadNewSettings()
-	
+	E.db.ProjectHopes.border.Aura = E.db.ProjectHopes.skins.minimapAuras
+	E.db.ProjectHopes.border.AuraUF = E.db.ProjectHopes.skins.unitframeAuras
+
+
 	--- Keep this stuff ---
 	Private:Print("New features is now set. Have fun!")
 	E:StaticPopup_Show('ProjectHopes_RL')
