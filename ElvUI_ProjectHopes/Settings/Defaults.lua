@@ -373,5 +373,7 @@ P.ProjectHopes = {
 		statusReport = false,
 		totemTracker = false,
 		Minimap = false,
+		minimapAuras = false,
+		unitframeAuras = false,
 	},
 }
