@@ -2,6 +2,7 @@ local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
 local ACH = E.Libs.ACH
+local ID = E:GetModule("InstanceDifficulty", "AceEvent-3.0", "AceHook-3.0")
 
 function ProjectHopes:Minimap()
   local POA = ProjectHopes.Options.args
@@ -38,9 +39,9 @@ function ProjectHopes:Minimap()
 	POAMA.minimapid.args.options.inline = true
 	POAMA.minimapid.args.options.args.hideBlizzard = ACH:Toggle(L["Hide Blizzard Indicator"], "|cFFFF0000" .. L["Requires a UI Reload"] .. "|r", 2, nil, nil, nil, function() return E.db.ProjectHopes.minimapid.hideBlizzard end, function(_, value) E.db.ProjectHopes.minimapid.hideBlizzard = value E:StaticPopup_Show("ProjectHopes_RL") end)
 	POAMA.minimapid.args.options.args.font = ACH:SharedMediaFont(L["Font"], nil, 3, nil, function() return E.db.ProjectHopes.minimapid.font.name end, function(_, value) E.db.ProjectHopes.minimapid.font.name = value ID:UpdateDifficultyText(value, E.db.ProjectHopes.minimapid.font.style, E.db.ProjectHopes.minimapid.font.size, E.db.ProjectHopes.minimapid.align) end)
-	POAMA.minimapid.args.options.args.style = ACH:FontFlags(L["Outline"], nil, 4, nil, function() return E.db.ProjectHopes.minimapid.font.style end, function(_, value) E.db.ProjectHopes.minimapid.font.style = value ID:UpdateDifficultyText(E.db.ProjectHopes.minimapid.font.name, value, E.db.ProjectHopes.minimapid.font.size, E.db.ProjectHopes.minimapid.align) end)
-	POAMA.minimapid.args.options.args.size = ACH:Range(L["Size"], nil, 5, { min = 5, max = 60, step = 1 }, nil, function() return E.db.ProjectHopes.minimapid.font.size end, function(_, value) E.db.ProjectHopes.minimapid.font.size = value ID:UpdateDifficultyText(E.db.ProjectHopes.minimapid.font.name, E.db.ProjectHopes.minimapid.font.style, value, E.db.ProjectHopes.minimapid.align) end)
-	POAMA.minimapid.args.options.args.align = ACH:Select(L["Text Align"], nil, 6, { CENTER = L["Center"], LEFT = L["Left"], RIGHT = L["Right"] }, nil, "medium", function() return E.db.ProjectHopes.minimapid.align or "LEFT" end, function(_, value) E.db.ProjectHopes.minimapid.align = value ID:UpdateDifficultyText(E.db.ProjectHopes.minimapid.font.name, E.db.ProjectHopes.minimapid.font.style, E.db.ProjectHopes.minimapid.font.size, value)	end)
+	POAMA.minimapid.args.options.args.style = ACH:FontFlags(L["Font Outline"], nil, 4, nil, function() return E.db.ProjectHopes.minimapid.font.style end, function(_, value) E.db.ProjectHopes.minimapid.font.style = value ID:UpdateDifficultyText(E.db.ProjectHopes.minimapid.font.name, value, E.db.ProjectHopes.minimapid.font.size, E.db.ProjectHopes.minimapid.align) end)
+	POAMA.minimapid.args.options.args.size = ACH:Range(L["Font Size"], nil, 5, Private.Values.FontSize, nil, function() return E.db.ProjectHopes.minimapid.font.size end, function(_, value) E.db.ProjectHopes.minimapid.font.size = value ID:UpdateDifficultyText(E.db.ProjectHopes.minimapid.font.name, E.db.ProjectHopes.minimapid.font.style, value, E.db.ProjectHopes.minimapid.align) end)
+	POAMA.minimapid.args.options.args.align = ACH:Select(L["Font Align"], nil, 6, Private.Values.TextAlign, nil, "medium", function() return E.db.ProjectHopes.minimapid.align or "LEFT" end, function(_, value) E.db.ProjectHopes.minimapid.align = value ID:UpdateDifficultyText(E.db.ProjectHopes.minimapid.font.name, E.db.ProjectHopes.minimapid.font.style, E.db.ProjectHopes.minimapid.font.size, value)	end)
 end
 
 --[[

@@ -22,7 +22,7 @@ function ID:CreateDifficultyFrame()
     difficultyText = difficultyFrame:CreateFontString(nil, "OVERLAY")
     difficultyText:SetPoint("CENTER", difficultyFrame, "CENTER")
 
-    E:CreateMover(difficultyFrame, "PHInstanceDifficultyFrameMover", L["Instance Difficulty"], nil, nil, nil, "ALL,PROJECTHOPES", function() return E.db.ProjectHopes.minimapid.difficulty.enable end, "ProjectHopes,maps")
+    E:CreateMover(difficultyFrame, "PHInstanceDifficultyFrameMover", L["Instance Difficulty"], nil, nil, nil, "ALL,PROJECTHOPES", function() return E.db.ProjectHopes.minimapid.enable end, "ProjectHopes,maps")
 end
 
 function ID:UpdateDifficultyText(font, outline, size, align)

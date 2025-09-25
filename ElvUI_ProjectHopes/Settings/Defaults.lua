@@ -1,8 +1,6 @@
 local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
-local MiniMapButtonSelect = {NOANCHOR = 'No Anchor Bar', HORIZONTAL = 'Horizontal', VERTICAL = 'Vertical'}
-local MiniMapButtonDirection = {NORMAL = 'Normal', REVERSED = 'Reversed'}
 local norm = format("|cff1eff00%s|r", L["[ABBR] Normal"])
 local hero = format("|cff0070dd%s|r", L["[ABBR] Heroic"])
 local myth = format("|cffa335ee%s|r", L["[ABBR] Mythic"])
@@ -45,12 +43,12 @@ P.ProjectHopes = {
 		playerClassBackdropColor = { r = 1, g = 1, b = 1, a = 1 },
 		playerBorderColor = false,
 		playerUnitframeAnchor = false,
-		playerPosition = "left",
+		playerPosition = "LEFT",
 		playerOffsetX = 12,
 		playerOffsetY = 0,
 		playerStrata = "HIGH",
 
-				--target portrait
+		--target portrait
 		targetpor = false,
 		targetframelevel = 20,
 		targetSize = 50, 
@@ -60,7 +58,7 @@ P.ProjectHopes = {
 		targetClassBackdropColor = { r = 1, g = 1, b = 1, a = 1 },
 		targetBorderColor = false,
 		targetUnitframeAnchor = false,
-		targetPosition = "right",
+		targetPosition = "RIGHT",
 		targetOffsetX = -12,
 		targetOffsetY = 0,
 		targetStrata = "HIGH",
@@ -75,7 +73,7 @@ P.ProjectHopes = {
 		focusClassBackdropColor = { r = 1, g = 1, b = 1, a = 1 },
 		focusBorderColor = false,
 		focusUnitframeAnchor = false,
-		focusPosition = "right",
+		focusPosition = "RIGHT",
 		focusOffsetX = -12,
 		focusOffsetY = 0,
 		focusStrata = "HIGH",
@@ -90,7 +88,7 @@ P.ProjectHopes = {
 		targettargetClassBackdropColor = { r = 1, g = 1, b = 1, a = 1 },
 		targettargetBorderColor = false,
 		targettargetUnitframeAnchor = false,
-		targettargetPosition = "right",
+		targettargetPosition = "RIGHT",
 		targettargetOffsetX = -12,
 		targettargetOffsetY = 0,
 		targettargetStrata = "HIGH",
@@ -102,7 +100,7 @@ P.ProjectHopes = {
 		bossMirror = false,
 		bossBorderColor = false,
 		bossUnitframeAnchor = false,
-		bossPosition = "right",
+		bossPosition = "RIGHT",
 		bossOffsetX = -12,
 		bossOffsetY = 0,
 		bossStrata = "HIGH",
@@ -114,7 +112,7 @@ P.ProjectHopes = {
 		petMirror = false,
 		petBorderColor = false,
 		petUnitframeAnchor = false,
-		petPosition = "right",
+		petPosition = "RIGHT",
 		petOffsetX = -12,
 		petOffsetY = 0,
 		petStrata = "HIGH",
@@ -147,13 +145,15 @@ P.ProjectHopes = {
 		mouseover = false,
 	},
 	-- Minimap Instance Difficulty
-	["minimapid"] = {
-		["enable"] = false,
-		["hideBlizzard"] = true,
-		["align"] = "LEFT",
-		["font"] = {
-			["size"] = 20,
-			},
+	minimapid = {
+		enable = false,
+		hideBlizzard = true,
+		font = {
+			name = "Expressway",
+			style = "OUTLINE",
+			size = 20,
+		},
+		align = "LEFT",
 	},
 	-- Overshield Absorb
 	overshield = {
@@ -375,5 +375,6 @@ P.ProjectHopes = {
 		Minimap = false,
 		minimapAuras = false,
 		unitframeAuras = false,
+		nameplates = false,
 	},
 }
