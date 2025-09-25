@@ -1,10 +1,11 @@
 local Name, Private = ...
+local E, L, V, P, G = unpack(ElvUI)
 
-local E, _, V, P, G = unpack(ElvUI)
 local EP = LibStub('LibElvUIPlugin-1.0')
 local PI = E:GetModule('PluginInstaller')
 
 local AceAddon = _G.LibStub("AceAddon-3.0")
+local ACH = E.Libs.ACH
 
 local tonumber = tonumber
 local GetAddOnMetadata = (C_AddOns and C_AddOns.GetAddOnMetadata) or GetAddOnMetadata
@@ -66,6 +67,15 @@ Private.Font = path .. "Fonts\\Expressway.ttf"
 Private.HopesUI = path .. "Statusbar\\HopesUI.tga"
 
 E.Media.Textures.RoleIcons = path .. "Textures\\RoleIcons.tga" -- White Role Icons. 
+
+Private.Values = {
+	FontFlags = ACH.FontValues,
+	FontSize = { min = 8, max = 64, step = 1 },
+	TextPositions = { BOTTOMRIGHT = L["BOTTOMRIGHT"], BOTTOMLEFT = L["BOTTOMLEFT"], TOPRIGHT = L["TOPRIGHT"], TOPLEFT = L["TOPLEFT"], BOTTOM = L["BOTTOM"], TOP = L["TOP"] },
+	AllPoints = { TOPLEFT = L["TOPLEFT"], LEFT = L["LEFT"], BOTTOMLEFT = L["BOTTOMLEFT"], RIGHT = L["RIGHT"], TOPRIGHT = L["TOPRIGHT"], BOTTOMRIGHT = L["BOTTOMRIGHT"], TOP = L["TOP"], BOTTOM = L["BOTTOM"], CENTER = L["CENTER"] },
+	Anchors = { TOPLEFT = L["TOPLEFT"], LEFT = L["LEFT"], BOTTOMLEFT = L["BOTTOMLEFT"], RIGHT = L["RIGHT"], TOPRIGHT = L["TOPRIGHT"], BOTTOMRIGHT = L["BOTTOMRIGHT"], TOP = L["TOP"], BOTTOM = L["BOTTOM"] },
+	Strata = { BACKGROUND = L["BACKGROUND"], LOW = L["LOW"], MEDIUM = L["MEDIUM"], HIGH = L["HIGH"], DIALOG = L["DIALOG"], TOOLTIP = L["TOOLTIP"] },
+}
 
 ----------------------------------------------------------------------
 ------------------------------- Events -------------------------------
