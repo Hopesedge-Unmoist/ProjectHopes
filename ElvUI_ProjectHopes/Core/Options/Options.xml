@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">\
+	<!-- Core Config -->
+	<Script file='Core.lua'/>
+
+	<!-- Modules -->
+	<Script file='Automation.lua'/>
+	<Script file='Borders.lua'/>
+	<Script file='FrameMover.lua'/>
+	<Script file='Media.lua'/>
+	<Script file='Minimap.lua'/>
+	<Script file='Miscellaneous.lua'/>
+	<Script file='Portaits.lua'/>
+	<Script file='Tags.lua'/>
+	<Script file='Tooltip.lua'/>
+	<Script file='Unitframes.lua'/>
+	<Script file='WeakAurasAnchors.lua'/>
+</Ui>
