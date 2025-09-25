@@ -1,6 +1,6 @@
 local Name, Private = ...
-local E, L, V, P, G = unpack(ElvUI)
 
+local E, L, V, P, G = unpack(ElvUI)
 local EP = LibStub('LibElvUIPlugin-1.0')
 local PI = E:GetModule('PluginInstaller')
 
@@ -53,7 +53,6 @@ Private.Portraits.BorderColor = path .. "Textures\\Portrait\\Portrait_BorderColo
 -- Shield Overlay
 Private.AbsorbOverlay = path .. "Textures\\Shield-Overlay.blp"
 Private.AbsorbGlow = path .. "Textures\\Shield-Overshield.tga"
-Private.AbsorbTexture = path .. "Textures\\Shield-Fill.tga"
 
 -- Glowline
 Private.Glowline = path .. "Textures\\Glowline.tga"
