@@ -43,34 +43,269 @@ local FRAME_DATA = {
     
     addons = {
         ["Blizzard_AchievementUI"] = {
-            AchievementFrame = { "AchievementFrame.Header", "AchievementFrame.SearchResults" }
+		    ["AchievementFrame"] = {
+			    "AchievementFrame.Header",
+			    "AchievementFrame.SearchResults",
+		    },
+	    },
+        ["Blizzard_AlliedRacesUI"] = {
+            "AlliedRacesFrame",
         },
-        ["Blizzard_AlliedRacesUI"] = { "AlliedRacesFrame" },
+        ["Blizzard_ArchaeologyUI"] = {
+            "ArchaeologyFrame",
+        },
+        ["Blizzard_ArtifactUI"] = {
+            "ArtifactFrame",
+        },
+        ["Blizzard_AuctionHouseUI"] = {
+            "AuctionHouseFrame",
+        },
+        ["Blizzard_AzeriteEssenceUI"] = {
+            "AzeriteEssenceUI",
+        },
+        ["Blizzard_AzeriteRespecUI"] = {
+            "AzeriteRespecFrame",
+        },
+        ["Blizzard_AzeriteUI"] = {
+            "AzeriteEmpoweredItemUI",
+        },
+        ["Blizzard_BindingUI"] = {
+            "KeyBindingFrame",
+        },
+        ["Blizzard_BlackMarketUI"] = {
+            "BlackMarketFrame",
+        },
+        ["Blizzard_Calendar"] = {
+            ["CalendarFrame"] = {
+                "CalendarCreateEventFrame",
+                "CalendarCreateEventInviteListScrollFrame",
+                "CalendarViewEventFrame",
+                "CalendarViewEventFrame.HeaderFrame",
+                "CalendarViewEventInviteListScrollFrame",
+                "CalendarViewHolidayFrame",
+            },
+        },
+        ["Blizzard_ChallengesUI"] = {
+            "ChallengesKeystoneFrame",
+        },
+        ["Blizzard_Channels"] = {
+            "ChannelFrame",
+            "CreateChannelPopup",
+        },
+        ["Blizzard_ClickBindingUI"] = {
+            ["ClickBindingFrame"] = {
+                "ClickBindingFrame.ScrollBox",
+            },
+            "ClickBindingFrame.TutorialFrame",
+        },
+        ["Blizzard_ChromieTimeUI"] = {
+            "ChromieTimeFrame",
+        },
+        ["Blizzard_Collections"] = {
+            "CollectionsJournal",
+            "WardrobeFrame",
+        },
+        ["Blizzard_Communities"] = {
+            "ClubFinderGuildFinderFrame.RequestToJoinFrame",
+            "ClubFinderCommunityAndGuildFinderFrame.RequestToJoinFrame",
+            ["CommunitiesFrame"] = {
+                "CommunitiesFrame.GuildMemberDetailFrame",
+                "CommunitiesFrame.NotificationSettingsDialog",
+            },
+            "CommunitiesFrame.RecruitmentDialog",
+            "CommunitiesSettingsDialog",
+            "CommunitiesGuildLogFrame",
+            "CommunitiesGuildNewsFiltersFrame",
+            "CommunitiesGuildTextEditFrame",
+        },
+        ["Blizzard_Contribution"] = {
+            "ContributionCollectionFrame",
+        },
+        ["Blizzard_CovenantPreviewUI"] = {
+            "CovenantPreviewFrame",
+        },
+        ["Blizzard_CovenantRenown"] = {
+            "CovenantRenownFrame",
+        },
+        ["Blizzard_CovenantSanctum"] = {
+            "CovenantSanctumFrame",
+        },
+        ["Blizzard_DeathRecap"] = {
+            "DeathRecapFrame",
+        },
+        ["Blizzard_DelvesCompanionConfiguration"] = {
+            "DelvesCompanionConfigurationFrame",
+            "DelvesCompanionAbilityListFrame",
+        },
+        ["Blizzard_EncounterJournal"] = {
+            ["EncounterJournal"] = {
+                "EncounterJournal.instanceSelect.ScrollBox",
+                "EncounterJournal.encounter.info.overviewScroll",
+                "EncounterJournal.encounter.info.detailsScroll",
+            },
+        },
+        ["Blizzard_ExpansionLandingPage"] = {
+            "ExpansionLandingPage",
+        },
+        ["Blizzard_FlightMap"] = {
+            "FlightMapFrame",
+        },
+        ["Blizzard_GarrisonUI"] = {
+            "GarrisonBuildingFrame",
+            "GarrisonCapacitiveDisplayFrame",
+            "GarrisonMissionFrame",
+            "GarrisonMonumentFrame",
+            "GarrisonRecruiterFrame",
+            "GarrisonRecruitSelectFrame",
+            "GarrisonShipyardFrame",
+            "OrderHallMissionFrame",
+            "BFAMissionFrame",
+            ["CovenantMissionFrame"] = {
+                "CovenantMissionFrame.MissionTab",
+                "CovenantMissionFrame.MissionTab.MissionPage",
+                "CovenantMissionFrame.MissionTab.MissionPage.CostFrame",
+                "CovenantMissionFrame.MissionTab.MissionPage.StartMissionFrame",
+                "CovenantMissionFrame.MissionTab.MissionList.MaterialFrame",
+                "CovenantMissionFrame.FollowerList.listScroll",
+                "CovenantMissionFrame.FollowerList.MaterialFrame",
+            },
+            ["GarrisonLandingPage"] = {
+                "GarrisonLandingPageReportListListScrollFrame",
+                "GarrisonLandingPageFollowerListListScrollFrame",
+            },
+        },
+        ["Blizzard_GenericTraitUI"] = {
+            ["GenericTraitFrame"] = {
+                "GenericTraitFrame.ButtonsParent",
+            },
+        },
+        ["Blizzard_GMChatUI"] = {
+            "GMChatStatusFrame",
+        },
+        ["Blizzard_GuildBankUI"] = {
+            "GuildBankFrame",
+        },
+        ["Blizzard_GuildControlUI"] = {
+            "GuildControlUI",
+        },
+        ["Blizzard_GuildUI"] = {
+            "GuildFrame",
+        },
+        ["Blizzard_InspectUI"] = {
+            "InspectFrame",
+        },
+        ["Blizzard_IslandsPartyPoseUI"] = {
+            "IslandsPartyPoseFrame",
+        },
+        ["Blizzard_IslandsQueueUI"] = {
+            "IslandsQueueFrame",
+        },
+        ["Blizzard_ItemAlterationUI"] = {
+            "TransmogrifyFrame",
+        },
+        ["Blizzard_ItemInteractionUI"] = {
+            "ItemInteractionFrame",
+        },
+        ["Blizzard_ItemSocketingUI"] = {
+            "ItemSocketingFrame",
+        },
+        ["Blizzard_ItemUpgradeUI"] = {
+            "ItemUpgradeFrame",
+        },
+        ["Blizzard_LookingForGuildUI"] = {
+            "LookingForGuildFrame",
+        },
+        ["Blizzard_MacroUI"] = {
+            "MacroFrame",
+        },
+        ["Blizzard_MajorFactions"] = {
+            "MajorFactionRenownFrame",
+        },
+        ["Blizzard_ObliterumUI"] = {
+            "ObliterumForgeFrame",
+        },
+        ["Blizzard_OrderHallUI"] = {
+            "OrderHallTalentFrame",
+        },
+        ["Blizzard_PlayerSpells"] = {
+            "HeroTalentsSelectionDialog",
+            ["PlayerSpellsFrame"] = {
+                "PlayerSpellsFrame.TalentsFrame.ButtonsParent",
+                "PlayerSpellsFrame.SpecFrame.DisabledOverlay",
+            },
+        },
+        ["Blizzard_PlayerChoice"] = {
+            "PlayerChoiceFrame",
+        },
+        ["Blizzard_Professions"] = {
+            ["ProfessionsFrame"] = {
+                "ProfessionsFrame.CraftingPage.CraftingOutputLog",
+                "ProfessionsFrame.CraftingPage.CraftingOutputLog.ScrollBox",
+            },
+        },
+        ["Blizzard_ProfessionsBook"] = {
+            "ProfessionsBookFrame",
+        },
         ["Blizzard_ProfessionsCustomerOrders"] = {
-            ProfessionsCustomerOrdersFrame = { 
+            ["ProfessionsCustomerOrdersFrame"] = {
                 "ProfessionsCustomerOrdersFrame.Form",
-                "ProfessionsCustomerOrdersFrame.Form.CurrentListings" 
-            }
+                "ProfessionsCustomerOrdersFrame.Form.CurrentListings",
+            },
         },
-        ["Blizzard_PVPMatch"] = { "PVPMatchResults" },
-        ["Blizzard_PVPUI"] = { "PVPMatchScoreboard" },
-        ["Blizzard_ReforgingUI"] = { "ReforgingFrame" },
-        ["Blizzard_ScrappingMachineUI"] = { "ScrappingMachineFrame" },
-        ["Blizzard_Soulbinds"] = { "SoulbindViewer" },
-        ["Blizzard_StableUI"] = { "StableFrame" },
-        ["Blizzard_SubscriptionInterstitialUI"] = { "SubscriptionInterstitialFrame" },
-        ["Blizzard_TalentUI"] = { "PlayerTalentFrame" },
-        ["Blizzard_TimeManager"] = { "TimeManagerFrame" },
-        ["Blizzard_TorghastLevelPicker"] = { "TorghastLevelPickerFrame" },
-        ["Blizzard_TrainerUI"] = { "ClassTrainerFrame" },
+        ["Blizzard_PVPMatch"] = {
+            "PVPMatchResults",
+        },
+        ["Blizzard_PVPUI"] = {
+            "PVPMatchScoreboard",
+        },
+        ["Blizzard_ReforgingUI"] = {
+            "ReforgingFrame",
+        },
+        ["Blizzard_ScrappingMachineUI"] = {
+            "ScrappingMachineFrame",
+        },
+        ["Blizzard_Soulbinds"] = {
+            "SoulbindViewer",
+        },
+        ["Blizzard_StableUI"] = {
+            "StableFrame",
+        },
+        ["Blizzard_SubscriptionInterstitialUI"] = {
+            "SubscriptionInterstitialFrame",
+        },
+        ["Blizzard_TalentUI"] = {
+            "PlayerTalentFrame",
+        },
+        ["Blizzard_TimeManager"] = {
+            "TimeManagerFrame",
+        },
+        ["Blizzard_TorghastLevelPicker"] = {
+            "TorghastLevelPickerFrame",
+        },
+        ["Blizzard_TrainerUI"] = {
+            "ClassTrainerFrame",
+        },
         ["Blizzard_UIPanels_Game"] = {
-            CurrencyTransferMenu = {},
-            CharacterFrame = { "PaperDollFrame", "ReputationFrame", "TokenFrame", "TokenFramePopup" }
+            "CurrencyTransferMenu",
+            ["CharacterFrame"] = {
+                "PaperDollFrame",
+                "ReputationFrame",
+                "TokenFrame",
+                "TokenFramePopup",
+            },
         },
-        ["Blizzard_VoidStorageUI"] = { "VoidStorageFrame" },
-        ["Blizzard_WarboardUI"] = { "WarboardQuestChoiceFrame" },
-        ["Blizzard_WarfrontsPartyPoseUI"] = { "WarfrontsPartyPoseFrame" },
-        ["Blizzard_WeeklyRewards"] = { "WeeklyRewardsFrame" }
+        ["Blizzard_VoidStorageUI"] = {
+            "VoidStorageFrame",
+        },
+        ["Blizzard_WarboardUI"] = {
+            "WarboardQuestChoiceFrame",
+        },
+        ["Blizzard_WarfrontsPartyPoseUI"] = {
+            "WarfrontsPartyPoseFrame",
+        },
+        ["Blizzard_WeeklyRewards"] = {
+            "WeeklyRewardsFrame",
+        },
     }
 }
 
