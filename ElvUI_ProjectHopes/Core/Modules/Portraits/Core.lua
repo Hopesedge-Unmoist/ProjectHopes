@@ -47,33 +47,26 @@ function PORTRAIT:UpdatePosition(unit, position, offsetX, offsetY, strata)
     
     frame:ClearAllPoints()
     
-    if position == "left" then
+    if position == "LEFT" then
         frame:SetPoint("RIGHT", parent, "LEFT", offsetX - gap, offsetY)
-    elseif position == "right" then
+    elseif position == "RIGHT" then
         frame:SetPoint("LEFT", parent, "RIGHT", offsetX + gap, offsetY)
-    elseif position == "top" then
+    elseif position == "TOP" then
         frame:SetPoint("BOTTOM", parent, "TOP", offsetX, offsetY + gap)
-    elseif position == "bottom" then
+    elseif position == "BOTTOM" then
         frame:SetPoint("TOP", parent, "BOTTOM", offsetX, offsetY - gap)
-    elseif position == "topleft" then
+    elseif position == "TOPLEFT" then
         frame:SetPoint("BOTTOMRIGHT", parent, "TOPLEFT", offsetX - gap, offsetY + gap)
-    elseif position == "topright" then
+    elseif position == "TOPRIGHT" then
         frame:SetPoint("BOTTOMLEFT", parent, "TOPRIGHT", offsetX + gap, offsetY + gap)
-    elseif position == "bottomleft" then
+    elseif position == "BOTTOMLEFT" then
         frame:SetPoint("TOPRIGHT", parent, "BOTTOMLEFT", offsetX - gap, offsetY - gap)
-    elseif position == "bottomright" then
+    elseif position == "BOTTOMRIGHT" then
         frame:SetPoint("TOPLEFT", parent, "BOTTOMRIGHT", offsetX + gap, offsetY - gap)
-    elseif position == "overlay" or position == "center" then
+    elseif position == "CENTER" then
         frame:SetPoint("CENTER", parent, "CENTER", offsetX, offsetY)
-    elseif position == "leftoverlay" then
-        frame:SetPoint("LEFT", parent, "LEFT", offsetX, offsetY)
-    elseif position == "rightoverlay" then
-        frame:SetPoint("RIGHT", parent, "RIGHT", offsetX, offsetY)
-    elseif position == "topoverlay" then
-        frame:SetPoint("TOP", parent, "TOP", offsetX, offsetY)
-    elseif position == "bottomoverlay" then
-        frame:SetPoint("BOTTOM", parent, "BOTTOM", offsetX, offsetY)
     else
+        -- Default fallback for any unrecognized position
         frame:SetPoint("CENTER", parent, "CENTER", offsetX, offsetY)
     end
 
