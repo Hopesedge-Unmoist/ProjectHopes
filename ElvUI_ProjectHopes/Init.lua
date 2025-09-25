@@ -68,8 +68,8 @@ Private.HopesUI = path .. "Statusbar\\HopesUI.tga"
 E.Media.Textures.RoleIcons = path .. "Textures\\RoleIcons.tga" -- White Role Icons. 
 
 Private.Values = {
-	FontFlags = ACH.FontValues,
 	FontSize = { min = 8, max = 64, step = 1 },
+	TextAlign = { CENTER = L["Center"], LEFT = L["Left"], RIGHT = L["Right"] },
 	TextPositions = { BOTTOMRIGHT = L["BOTTOMRIGHT"], BOTTOMLEFT = L["BOTTOMLEFT"], TOPRIGHT = L["TOPRIGHT"], TOPLEFT = L["TOPLEFT"], BOTTOM = L["BOTTOM"], TOP = L["TOP"] },
 	AllPoints = { TOPLEFT = L["TOPLEFT"], LEFT = L["LEFT"], BOTTOMLEFT = L["BOTTOMLEFT"], RIGHT = L["RIGHT"], TOPRIGHT = L["TOPRIGHT"], BOTTOMRIGHT = L["BOTTOMRIGHT"], TOP = L["TOP"], BOTTOM = L["BOTTOM"], CENTER = L["CENTER"] },
 	Anchors = { TOPLEFT = L["TOPLEFT"], LEFT = L["LEFT"], BOTTOMLEFT = L["BOTTOMLEFT"], RIGHT = L["RIGHT"], TOPRIGHT = L["TOPRIGHT"], BOTTOMRIGHT = L["BOTTOMRIGHT"], TOP = L["TOP"], BOTTOM = L["BOTTOM"] },
