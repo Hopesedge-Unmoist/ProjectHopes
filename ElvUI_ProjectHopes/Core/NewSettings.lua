@@ -9,6 +9,7 @@ ProjectHopes.ChangelogTBL = {
 	' • Revert background on raidframes.',
 	' • Reworked OverShield module, to use ElvUIs own module for it, just changing texture.',
 	' • Removed "Buffs and Debuffs" and moved em into ElvUI skinning instead.',
+	' • Reconfig of Config files.',
 ' ',
 	'v|cff99ff20250919|r 19/09/2025',
 	' • Fixing better background to raidframes.',
