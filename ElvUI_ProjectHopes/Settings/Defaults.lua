@@ -128,6 +128,7 @@ P.ProjectHopes = {
 		mplusimprovements = false,
 		driveButton = false,
 		BigWigsIcons = false,
+		greatVaultInfo = false,
 	},
 	-- Rectangle Minimap
 	minimap = {

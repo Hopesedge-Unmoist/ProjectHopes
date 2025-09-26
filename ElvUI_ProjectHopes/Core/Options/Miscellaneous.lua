@@ -13,6 +13,7 @@ function ProjectHopes:Miscellaneous()
 	POAMSA.desc.args.feature = ACH:Description(L["This is where you can find all the miscellaneous modules that dont fit a catagory."], 1, "medium")
 	POAMSA.mplusimprovements = ACH:Toggle(L["Mythic+ Tab Improvements"], nil, 4, nil, false, 'full', function() return E.db.ProjectHopes.qualityOfLife.mplusimprovements end,function(_, value) E.db.ProjectHopes.qualityOfLife.mplusimprovements = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
 	POAMSA.driveButton = ACH:Toggle(L["Cloak Minimap Button, for faster config of Reshii Cloak"], nil, 4, nil, false, 'full', function() return E.db.ProjectHopes.qualityOfLife.driveButton end,function(_, value) E.db.ProjectHopes.qualityOfLife.driveButton = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
+	POAMSA.greatVaultInfo = ACH:Toggle(L["Adds more Information to the Great Vault window"], nil, 4, nil, false, 'full', function() return E.db.ProjectHopes.qualityOfLife.greatVaultInfo end,function(_, value) E.db.ProjectHopes.qualityOfLife.greatVaultInfo = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
 end
 
 --[[
