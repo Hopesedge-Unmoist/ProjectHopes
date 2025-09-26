@@ -2,7 +2,7 @@ local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
-		'v|cff99ffxxxxr xx/xx/2025',
+		'v|cff99ff20250926|r 26/09/2025',
 	' • Added new module for Setting fonts, outline and statusbar.',
 	' • Added new font.',
 	' • Fix for /projecthopes to open config.',
@@ -10,7 +10,11 @@ ProjectHopes.ChangelogTBL = {
 	' • Reworked OverShield module, to use ElvUIs own module for it, just changing texture.',
 	' • Removed "Buffs and Debuffs" and moved em into ElvUI skinning instead.',
 	' • Reconfig of Config files.',
-	' • Fix for MinimapInstanceDifficulty that dont allow select font, align or Outline. .',
+	' • Fix for MinimapInstanceDifficulty that dont allow select font, align or Outline.',
+	' • Cleanup in textures.',
+	' • Fix for FrameMover not to being allowed to move all frames.',
+	' • Fix Itemframe in Mists',
+	' • TOC update to newest ElvUI version.',
 ' ',
 	'v|cff99ff20250919|r 19/09/2025',
 	' • Fixing better background to raidframes.',
