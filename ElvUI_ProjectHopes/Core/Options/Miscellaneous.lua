@@ -16,6 +16,7 @@ function ProjectHopes:Miscellaneous()
 	POAMSA.greatVaultInfo = ACH:Toggle(L["Adds more Information to the Great Vault window"], nil, 4, nil, false, 'full', function() return E.db.ProjectHopes.qualityOfLife.greatVaultInfo end,function(_, value) E.db.ProjectHopes.qualityOfLife.greatVaultInfo = value E:StaticPopup_Show('ProjectHopes_RL') end, not E.Retail, not E.Retail)
 end
 
+
 --[[
 	ACH:Color(name, desc, order, alpha, width, get, set, disabled, hidden)
 	ACH:Description(name, order, fontSize, image, imageCoords, imageWidth, imageHeight, width, hidden)
