@@ -101,9 +101,9 @@ function S:BlizzardMiscFrames()
 		BORDER:CreateBorder(_G['StaticPopup'..i..'MoneyInputFrameSilver'], nil, nil, nil, nil, nil, true, false)
 		BORDER:CreateBorder(_G['StaticPopup'..i..'MoneyInputFrameCopper'], nil, nil, nil, nil, nil, true, false)
 
-		local itemFrame = _G['StaticPopup'..i..'ItemFrame']
-		BORDER:CreateBorder(itemFrame, nil, -8, 8, 7, -8)
-		BORDER:HandleIconBorder(itemFrame.IconBorder, itemFrame.border)
+		--local itemFrame = _G['StaticPopup'..i..'ItemFrame']
+		--BORDER:CreateBorder(itemFrame, nil, -8, 8, 7, -8)
+		--BORDER:HandleIconBorder(itemFrame.IconBorder, itemFrame.border)
 	end
 
 	--DropDownMenu
