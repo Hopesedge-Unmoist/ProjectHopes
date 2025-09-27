@@ -2,6 +2,12 @@ local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+		'v|cff99ff20250927|r 27/09/2025',
+	' • Added Great Vault info, found under Misc module.',
+	' • Bugfix for Portraits being dumbdumb',
+	' • Bugfix for Overshield being dumbdumb',
+	' • Bugfix for WarpDeplete Skin being dumbdumb',
+' ',
 		'v|cff99ff20250926|r 26/09/2025',
 	' • Added new module for Setting fonts, outline and statusbar.',
 	' • Added new font.',
@@ -63,8 +69,6 @@ ProjectHopes.ChangelogTBL = {
 }
 
 function ProjectHopes:LoadNewSettings()
-	E.db.ProjectHopes.border.Aura = E.db.ProjectHopes.skins.minimapAuras
-	E.db.ProjectHopes.border.AuraUF = E.db.ProjectHopes.skins.unitframeAuras
 
 
 	--- Keep this stuff ---
