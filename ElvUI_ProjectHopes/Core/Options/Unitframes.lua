@@ -1,10 +1,11 @@
 local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
-local OS = E:GetModule('Overshields', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 
 local ACH = E.Libs.ACH
 
 function ProjectHopes:Unitframes()
+	local OS = E:GetModule('Overshields', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
+
   local POA = ProjectHopes.Options.args
 
 	POA.Unitframes = ACH:Group(E:TextGradient(L["UnitFrames"], 0.6, 0.6, 0.6, 0.34, 1, 0.67), nil, 3, 'tab')
