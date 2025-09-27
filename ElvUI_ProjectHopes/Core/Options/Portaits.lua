@@ -1,10 +1,11 @@
 local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
-local PORTRAIT = E:GetModule('Portrait', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0');
 
 local ACH = E.Libs.ACH
 
 function ProjectHopes:Portaits()
+	local PORTRAIT = E:GetModule('Portrait', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
+
   local POA = ProjectHopes.Options.args
 
 	POA.Portaits = ACH:Group(E:TextGradient(L["Portraits"], 0.6, 0.6, 0.6, 0.34, 1, 0.67), nil, 3, 'tab')
@@ -40,7 +41,7 @@ function ProjectHopes:Portaits()
 	POAPOR.target.args.Position.inline = true
 	POAPOR.target.args.Position.args.targetframelevel = ACH:Range(L["Framelevel"], nil, 5, { min = -100, max = 100, step = 1 }, "medium", function() return E.db.ProjectHopes.portraits.targetframelevel end, function(_, value) E.db.ProjectHopes.portraits.targetframelevel = value E:StaticPopup_Show('ProjectHopes_RL') end)
 	POAPOR.target.args.Position.args.targetSize = ACH:Range(L["Size of Portrait:"], nil, 5, { min = 0, max = 200, step = 1 }, "medium", function() return E.db.ProjectHopes.portraits.targetSize end, function(_, value) E.db.ProjectHopes.portraits.targetSize = value PORTRAIT:UpdateSize("target", E.db.ProjectHopes.portraits.targetSize, E.db.ProjectHopes.portraits.targetClass) end)
-	POAPOR.target.args.Position.args.targetPosition = ACH:Select(L["Position"], nil, 7, Private.Values.AllPoints, nil, "medium", function() return E.db.ProjectHopes.portraits.targetPosition or "center" end, function(_, value) E.db.ProjectHopes.portraits.targetPosition = value PORTRAIT:UpdatePortrait("target",E.db.ProjectHopes.portraits.targetClassBackdropColor,E.db.ProjectHopes.portraits.targetClass,E.db.ProjectHopes.portraits.targetMirror,E.db.ProjectHopes.portraits.targetClassTexture,E.db.ProjectHopes.portraits.targetBorderColor) PORTRAIT:UpdatePosition("target",value,E.db.ProjectHopes.portraits.targetOffsetX or 0,E.db.ProjectHopes.portraits.targetOffsetY or 0) end)
+	POAPOR.target.args.Position.args.targetPosition = ACH:Select(L["Position"], nil, 7, Private.Values.AllPoints, nil, "medium", function() return E.db.ProjectHopes.portraits.targetPosition or "CENTER" end, function(_, value) E.db.ProjectHopes.portraits.targetPosition = value PORTRAIT:UpdatePortrait("target",E.db.ProjectHopes.portraits.targetClassBackdropColor,E.db.ProjectHopes.portraits.targetClass,E.db.ProjectHopes.portraits.targetMirror,E.db.ProjectHopes.portraits.targetClassTexture,E.db.ProjectHopes.portraits.targetBorderColor) PORTRAIT:UpdatePosition("target",value,E.db.ProjectHopes.portraits.targetOffsetX or 0,E.db.ProjectHopes.portraits.targetOffsetY or 0) end)
 	POAPOR.target.args.Position.args.targetOffsetX = ACH:Range(L["X Offset (Left/Right)"], nil, 8, {min=-200,max=200,step=1}, nil, function() return E.db.ProjectHopes.portraits.targetOffsetX or 0 end, function(_, value) E.db.ProjectHopes.portraits.targetOffsetX = value PORTRAIT:UpdatePosition("target",E.db.ProjectHopes.portraits.targetPosition, value,E.db.ProjectHopes.portraits.targetOffsetY or 0, E.db.ProjectHopes.portraits.targetStrata) end)
 	POAPOR.target.args.Position.args.targetOffsetY = ACH:Range(L["Y Offset (Down/Up)"], nil, 9, {min=-200,max=200,step=1}, nil, function() return E.db.ProjectHopes.portraits.targetOffsetY or 0 end, function(_, value) E.db.ProjectHopes.portraits.targetOffsetY = value PORTRAIT:UpdatePosition("target",E.db.ProjectHopes.portraits.targetPosition, E.db.ProjectHopes.portraits.targetOffsetX or 0,value, E.db.ProjectHopes.portraits.targetStrata) end)
 	POAPOR.target.args.Position.args.targetStrata = ACH:Select(L["Frame Strata"], nil, 10, Private.Values.Strata, nil, nil, function() return E.db.ProjectHopes.portraits.targetStrata or "MEDIUM" end, function(_, value) E.db.ProjectHopes.portraits.targetStrata = value PORTRAIT:UpdatePosition("target", E.db.ProjectHopes.portraits.targetPosition,  E.db.ProjectHopes.portraits.targetOffsetX or 0, E.db.ProjectHopes.portraits.targetOffsetY or 0, value) end)
