@@ -150,7 +150,7 @@ function ProjectHopes:Borders()
 	end
 
 	if E.Retail then
-		if IsAddOnLoaded("WarpDeplete") then addontoggles.warpDeplete = L["WarpDeplete"] end
+		if IsAddOnLoaded("WarpDeplete") then addontoggles.warpdeplete = L["WarpDeplete"] end
 		if IsAddOnLoaded("RaiderIO") then addontoggles.raiderio = L["RaiderIO"] end
 		if IsAddOnLoaded("Simulationcraft") then addontoggles.simulationcraft = L["Simulationcraft"] end
 		if IsAddOnLoaded("MazeHelper") then addontoggles.mazeHelper = L["Maze Helper"] end
