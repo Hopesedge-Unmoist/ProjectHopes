@@ -165,6 +165,7 @@ end
 
 function buttonAPI:SetDominantColor(r, g, b)
 	r, g, b = r or 1, g or 1, b or 0.6
+	self.edge:SetVertexColor(r, g, b)    -- Bright inner color
 	self.hiEdge:SetVertexColor(r, g, b)    -- Bright edge color
 	self.iglow:SetVertexColor(r, g, b)     -- Inner glow color
 	self.oglow:SetVertexColor(r, g, b)     -- Outer glow color
@@ -283,71 +284,82 @@ local CreateButtonIndicator do
 
 		local buttonIndicator = setmetatable({
 			[0] = mainFrame,
-			cooldownFrame = CreateFrame("Cooldown", nil, visualFrame, "CooldownFrameTemplate"),
-			bufferFrame   = bufferFrame,
+			bufferFrame = bufferFrame,
 		}, apiMetatable)
 
-		-- cooldown
+		-- Cooldown frame
+		buttonIndicator.cooldownFrame = CreateFrame("Cooldown", nil, visualFrame, "CooldownFrameTemplate")
 		buttonIndicator.cooldownFrame:ClearAllPoints()
 		buttonIndicator.cooldownFrame:SetSize(buttonSize - 4, buttonSize - 4)
 		buttonIndicator.cooldownFrame:SetPoint("CENTER")
 
-		-- Outer glow effect (highlight border, hidden by default)
+		-- Border textures
+		local borderLow = visualFrame:CreateTexture(nil, "OVERLAY")
+		borderLow:SetAllPoints()
+		borderLow:SetTexture("Interface\\AddOns\\OPie\\gfx\\borderlo")
+
+		buttonIndicator.edge = visualFrame:CreateTexture(nil, "OVERLAY", nil, 1)
+		buttonIndicator.edge:SetAllPoints()
+		buttonIndicator.edge:SetTexture("Interface\\AddOns\\OPie\\gfx\\borderhi")
+
+		-- Outer glow highlight
 		buttonIndicator.hiEdge = CreateQuadTexture("BACKGROUND", buttonSize * 2, "Interface\\AddOns\\OPie\\gfx\\oglow", mainFrame)
 		buttonIndicator.hiEdge:SetShown(false)
 
-		-- icon layers
-		local workingTexture = visualFrame:CreateTexture(nil, "OVERLAY")
-		workingTexture:SetAllPoints()
-
-		workingTexture, buttonIndicator.icon = visualFrame:CreateTexture(nil, "ARTWORK", nil, -2), workingTexture
-		workingTexture:SetPoint("CENTER")
-		workingTexture:SetSize(60 * buttonSize/64, 60 * buttonSize/64)
-		workingTexture:SetColorTexture(0.15, 0.15, 0.15, 0.85)
-
-		workingTexture, buttonIndicator.iconBackground = visualFrame:CreateTexture(nil, "ARTWORK", nil, 2), workingTexture
-		workingTexture:SetSize(60 * buttonSize/64, 60 * buttonSize/64)
-		workingTexture:SetPoint("CENTER")
-		workingTexture:SetColorTexture(0, 0, 0)
-
-		-- Inner glow background
+		-- Outer glow background
 		buttonIndicator.oglow = visualFrame:CreateTexture(nil, "ARTWORK", nil, 1)
 		buttonIndicator.oglow:SetAllPoints()
 		buttonIndicator.oglow:SetTexture("Interface\\AddOns\\OPie\\gfx\\iglow")
-		buttonIndicator.oglow:SetAlpha(nested and 0.6 or 1) -- Dimmer for nested buttons
+		buttonIndicator.oglow:SetAlpha(nested and 0.6 or 1)
 
-				-- Additional inner glow (centered, slightly smaller)
+		-- Inner glow (active state)
 		buttonIndicator.iglow = visualFrame:CreateTexture(nil, "ARTWORK")
 		buttonIndicator.iglow:SetPoint("CENTER")
-		buttonIndicator.iglow:SetSize(60 * buttonSize/64, 60 * buttonSize/64) -- Slightly smaller than button
+		buttonIndicator.iglow:SetSize(60 * buttonSize/64, 60 * buttonSize/64)
+		buttonIndicator.iglow:SetTexture("Interface\\AddOns\\OPie\\gfx\\iglow")
+		buttonIndicator.iglow:SetShown(false)
 
-				-- Dimming overlay when not usable
+		-- Icon background (gray)
+		buttonIndicator.iconBackground = visualFrame:CreateTexture(nil, "ARTWORK", nil, -2)
+		buttonIndicator.iconBackground:SetPoint("CENTER")
+		buttonIndicator.iconBackground:SetSize(60 * buttonSize/64, 60 * buttonSize/64)
+		buttonIndicator.iconBackground:SetColorTexture(0,0,0)
+
+		-- Main icon texture
+		buttonIndicator.icon = visualFrame:CreateTexture(nil, "ARTWORK", nil, 2)
+		buttonIndicator.icon:SetSize(60 * buttonSize/64, 60 * buttonSize/64)
+		buttonIndicator.icon:SetPoint("CENTER")
+
+		-- Dimming veil
 		buttonIndicator.veil = visualFrame:CreateTexture(nil, "ARTWORK", nil, 3)
 		buttonIndicator.veil:SetAllPoints()
-		buttonIndicator.veil:SetTexture("Interface\\AddOns\\OPie\\gfx\\ribbon") -- Using ribbon texture as referenced
-		buttonIndicator.veil:Hide()
+		buttonIndicator.veil:SetTexture("Interface\\AddOns\\OPie\\gfx\\ribbon")
+		buttonIndicator.veil:SetAlpha(0)
 
-		-- Status ribbon (mana/range indicators)
+		-- Status ribbon
 		buttonIndicator.ribbon = visualFrame:CreateTexture(nil, "ARTWORK", nil, 4)
 		buttonIndicator.ribbon:SetPoint("BOTTOMLEFT", 4, 4)
+		buttonIndicator.ribbon:SetSize(buttonSize - 8, 4)
+		buttonIndicator.ribbon:SetTexture("Interface\\AddOns\\OPie\\gfx\\ribbon")
+		buttonIndicator.ribbon:Hide()
 
-		-- overlay icon
+		-- Overlay icon
 		buttonIndicator.overlayIcon = visualFrame:CreateTexture(nil, "ARTWORK", nil, 5)
 		buttonIndicator.overlayIcon:SetPoint("TOPRIGHT", -2, -2)
 		buttonIndicator.overlayIcon:SetSize(16, 16)
 		buttonIndicator.overlayIcon:Hide()
 
-		-- count
+		-- Count text
 		buttonIndicator.countText = visualFrame:CreateFontString(nil, "OVERLAY", "NumberFontNormal")
 		buttonIndicator.countText:SetJustifyH("RIGHT")
 		buttonIndicator.countText:SetPoint("BOTTOMRIGHT", -2, 1)
 
-		-- keybind
+		-- Keybind text
 		buttonIndicator.keybindText = visualFrame:CreateFontString(nil, "OVERLAY", "NumberFontNormalSmallGray")
 		buttonIndicator.keybindText:SetJustifyH("RIGHT")
 		buttonIndicator.keybindText:SetPoint("TOPRIGHT", -2, -3)
 
-		-- equipment banner
+		-- Equipment banner
 		buttonIndicator.equipmentBanner = visualFrame:CreateTexture(nil, "ARTWORK", nil, 2)
 		buttonIndicator.equipmentBanner:SetSize(buttonSize/5, buttonSize/4)
 		buttonIndicator.equipmentBanner:SetTexture("Interface\\GuildFrame\\GuildDifficulty")
@@ -355,7 +367,7 @@ local CreateButtonIndicator do
 		buttonIndicator.equipmentBanner:SetPoint("TOPLEFT", 6 * buttonSize/64, -3 * buttonSize/64)
 		buttonIndicator.equipmentBanner:Hide()
 
-		-- label
+		-- Label text
 		buttonIndicator.labelText = visualFrame:CreateFontString(nil, "OVERLAY", "TextStatusBarText")
 		buttonIndicator.labelText:SetSize(buttonSize - 4, 12)
 		buttonIndicator.labelText:SetJustifyH("CENTER")
@@ -364,22 +376,23 @@ local CreateButtonIndicator do
 		buttonIndicator.labelText:SetPoint("BOTTOMLEFT", 3, 2)
 		buttonIndicator.labelText:SetPoint("BOTTOMRIGHT", buttonIndicator.countText, "BOTTOMLEFT", 2, 0)
 
-		-- quality
+		-- Quality mark
 		buttonIndicator.qualityMark = visualFrame:CreateTexture(nil, "ARTWORK", nil, 3)
 		buttonIndicator.qualityMark:SetPoint("TOPLEFT", 4, -4)
 		buttonIndicator.qualityMark:SetSize(14, 14)
 		buttonIndicator.qualityMark:Hide()
 
-		-- mask
-		local iconMask = visualFrame:CreateMaskTexture()
-		iconMask:SetTexture(Private.Background)
-		iconMask:SetAllPoints()
-		buttonIndicator.icon:AddMaskTexture(iconMask)
+		-- Icon mask
+		buttonIndicator.iconMask = visualFrame:CreateMaskTexture()
+		buttonIndicator.iconMask:SetTexture("Interface\\AddOns\\OPie\\gfx\\iconmask")
+		buttonIndicator.iconMask:SetAllPoints()
+		buttonIndicator.icon:AddMaskTexture(buttonIndicator.iconMask)
 
-		-- border
+		-- Border using ProjectHopes
 		BORDER:CreateBorder(mainFrame)
 		mainFrame.border:SetBackdrop(Private.BorderLight)
 
+		-- Additional properties
 		buttonIndicator.cooldownText = buttonIndicator.cooldownFrame.cdText
 		buttonIndicator.iconAspect = 1
 
