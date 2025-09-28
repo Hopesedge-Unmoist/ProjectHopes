@@ -147,12 +147,50 @@ local function LoadCommands()
 	end
 end
 
+-- Reconfig ElvUI Game Menu Button so one can open ProjectHopes from the gamemenu. 
+local function Reconfig_ElvUI_GameMenuButton()
+  local ElvUI_GameMenuButton = _G.ElvUI_GameMenuButton
+  
+  if ElvUI_GameMenuButton then
+    hooksecurefunc(GameMenuFrame, 'Layout', function()
+			ElvUI_GameMenuButton:SetFormattedText('%sElvUI|r %s', E.media.hexvaluecolor, Private.Name)    
+    end)
+   
+    ElvUI_GameMenuButton:RegisterForClicks("AnyUp")
+    
+    ElvUI_GameMenuButton:SetScript("OnClick", function(_, button)
+      if not InCombatLockdown() then
+        if button == "LeftButton" then
+          E:ToggleOptions()
+          HideUIPanel(_G["GameMenuFrame"])
+        else
+          E:ToggleOptions()
+          E.Libs.AceConfigDialog:SelectGroup('ElvUI', 'ProjectHopes')
+          HideUIPanel(_G["GameMenuFrame"])
+        end
+      end
+    end)
+    
+    ElvUI_GameMenuButton:HookScript("OnEnter", function()
+      _G["GameTooltip"]:SetOwner(ElvUI_GameMenuButton, 'ANCHOR_RIGHT')
+      _G["GameTooltip"]:AddDoubleLine(L["Left Click:"], L["ElvUI Config Menu"], 1, 1, 1)
+      _G["GameTooltip"]:AddDoubleLine(L["Right Click:"], Private.Name .. L[" Config Menu"], 1, 1, 1)
+      _G["GameTooltip"]:Show()
+    end)
+    
+    ElvUI_GameMenuButton:HookScript("OnLeave", function()
+      _G["GameTooltip"]:Hide()
+    end)
+  end
+end
+
 -- Events
 function ProjectHopes:PLAYER_ENTERING_WORLD(_, initLogin, isReload)
 	if initLogin or not ProjectHopesDB.ProjectHopesDisabledAddOns then
 		ProjectHopesDB.ProjectHopesDisabledAddOns = {}
 	end
 
+	Reconfig_ElvUI_GameMenuButton()
 	LoadCommands()
 end
 
@@ -160,4 +198,3 @@ end
 function ProjectHopes:RegisterEvents()
 	ProjectHopes:RegisterEvent('PLAYER_ENTERING_WORLD')
 end
-
