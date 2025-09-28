@@ -7,4 +7,6 @@
 	<Script file='Tags.lua'/>
 	<Script file='NewSettings.lua'/>
 	<Script file='MediaSetup.lua'/>
+	<Include file="Developer\Developer.xml"/>
+
 </Ui>
