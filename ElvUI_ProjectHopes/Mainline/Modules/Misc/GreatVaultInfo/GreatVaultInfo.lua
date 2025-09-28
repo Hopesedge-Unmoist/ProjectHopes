@@ -100,14 +100,14 @@ local function GreatVaultInfo()
     { "8", "|cff56c680678|r", "|cff5a91c8691|r", "|cffab16e8704|r", "|cffff7f00717|r" },
   }
 
-  local contentDungoen = frame:CreateFontString(nil, "OVERLAY")
-  contentDungoen:FontTemplate(nil, 14, "OUTLINE")
-  contentDungoen:SetJustifyH("LEFT")
-  contentDungoen:SetJustifyV("TOP")
-  contentDungoen:SetPoint("TOPLEFT", contentRaid, "BOTTOMLEFT", 0, -170)
+  local contentDungeon = frame:CreateFontString(nil, "OVERLAY")
+  contentDungeon:FontTemplate(nil, 14, "OUTLINE")
+  contentDungeon:SetJustifyH("LEFT")
+  contentDungeon:SetJustifyV("TOP")
+  contentDungeon:SetPoint("TOPLEFT", contentRaid, "BOTTOMLEFT", 0, -170)
 
-  local dungoenTable = {
-    { E:TextGradient("Dungoens:", 0.6, 0.6, 0.6, 1, 0.77, 0.02), "+2", "+3", "+4", "+5", "+6"},
+  local dungeonTable = {
+    { E:TextGradient("Dungeons:", 0.6, 0.6, 0.6, 1, 0.77, 0.02), "+2", "+3", "+4", "+5", "+6"},
     { "Run", "|cff5a91c8684|r", "|cff5a91c8684|r", "|cff5a91c8688|r", "|cff5a91c8691|r", "|cffab16e8694|r"},
     { "Vault", "|cffab16e8694|r", "|cffab16e8694|r", "|cffab16e8697|r", "|cffab16e8697|r", "|cffab16e8701|r"},
     { "", "", "", "", "", "" },
@@ -122,7 +122,7 @@ local function GreatVaultInfo()
   contentWorld:FontTemplate(nil, 14, "OUTLINE")
   contentWorld:SetJustifyH("LEFT")
   contentWorld:SetJustifyV("TOP")
-  contentWorld:SetPoint("TOPLEFT", contentDungoen, "BOTTOMLEFT", 0, -150)
+  contentWorld:SetPoint("TOPLEFT", contentDungeon, "BOTTOMLEFT", 0, -150)
 
   local worldTable = {
     { E:TextGradient("World:", 0.6, 0.6, 0.6, 1, 0.77, 0.02), "1", "2", "3", "4"},
@@ -137,7 +137,7 @@ local function GreatVaultInfo()
 
   CreateTable(frame, content, ilvlTable)
   CreateTable(frame, contentRaid, raidTable)
-  CreateTable(frame, contentDungoen, dungoenTable)
+  CreateTable(frame, contentDungoen, dungeonTable)
   CreateTable(frame, contentWorld, worldTable)
 
 
