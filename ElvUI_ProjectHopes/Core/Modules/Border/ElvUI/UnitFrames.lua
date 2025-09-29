@@ -2285,7 +2285,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
 end
 
 function S:ElvUI_UnitFrames_PostUpdateAura(uf, _, button)
-    if not E.db.ProjectHopes or not E.db.ProjectHopes.border.AuraUF then return end
+    if not E.db.ProjectHopes or not E.db.ProjectHopes.skins.unitframeAuras then return end
     if uf.isNameplate then return end
 
     if not button.IsBorder then
