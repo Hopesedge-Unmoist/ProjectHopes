@@ -447,7 +447,7 @@ function S:ElvUI_UnitFramesGroupRaidParty(_, group, groupFilter, template, heade
                     Raid1Frames.border[vseparatorName]:SetHeight(16)
 
                 end
-                Raid1Frames.border[vseparatorName]:SetPoint("RIGHT", Raid1Frames.border, 8, 0)
+                Raid1Frames.border[vseparatorName]:SetPoint("RIGHT", Raid1Frames.border, -8, 0)
                 Raid1Frames.border[vseparatorName]:SetPoint("TOPLEFT", _G["ElvUF_Raid1Group"..k], 0, 4)
             end
             
