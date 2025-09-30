@@ -2,6 +2,15 @@ local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+			'v|cff99ff20250930|r 30/09/2025',
+	' • Added GameMenu way to open ProjectHopes.',
+	' • Bugfix Raid frames can have multiple border enable.',
+	' • Bugfix Raid LEFT_UP separator too long.',
+	' • Bugfix Unitframe auras border not working.',
+	' • Bugfix Opie skin not working properly.',
+	' • Bugfix Great Vault typo.',
+	' • Bugfix Alerts overlap.',
+' ',
 		'v|cff99ff20250927|r 27/09/2025',
 	' • Added Great Vault info, found under Misc module.',
 	' • Bugfix for Portraits being dumbdumb',
