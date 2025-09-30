@@ -107,7 +107,7 @@ local function SkinInvasionAlert(frame)
 end
 
 local function SkinWorldQuestCompleteAlert(frame)
-	BORDER:CreateBorder(frame, nil, nil, nil, nil, nil, true)
+	BORDER:CreateBorder(frame, 1, nil, nil, nil, nil, true)
 	BORDER:CreateBorder(frame.QuestTexture.b)
 	frame.QuestTexture:ClearAllPoints()
 	frame.QuestTexture:Point('LEFT', frame.backdrop, 'LEFT', 7, 0)
