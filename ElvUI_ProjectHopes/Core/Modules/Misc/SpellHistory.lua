@@ -95,6 +95,8 @@ local function BuildIconFrame(parent, name)
 end
 
 function SpellHistory:Initialize()
+	if not E.db.ProjectHopes.gcd.enable then return end
+	
 	self.lastSpellID = nil
 	self.recentCasts = {}
 	self.lastInterruptedIcon = nil
