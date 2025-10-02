@@ -31,6 +31,20 @@ V.ProjectHopes = {
 
 -- Defaults: E.db.ProjectHopes
 P.ProjectHopes = {
+	-- GCD
+	gcd = {
+		enable = false,
+		growth = "LEFT",
+		mainIconSize = 45,
+		historyIconSize = 36,
+		historyCount = 5,
+		blacklist = {
+			[75] = true,
+			[6603] = true,
+			[467718] = true,
+			[1228085] = true,
+		},
+	},
 	-- UnitFrame Generals
 	portraits = {
 				--player portrait
