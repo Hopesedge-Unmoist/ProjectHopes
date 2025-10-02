@@ -1,4 +1,5 @@
 <Ui xmlns='http://www.blizzard.com/wow/ui/'>
 	<Script file='FrameMover.lua'/>
 	<Script file='Unitframes_Glowline.lua'/>
+	<Script file='SpellHistory.lua'/>
 </Ui>
