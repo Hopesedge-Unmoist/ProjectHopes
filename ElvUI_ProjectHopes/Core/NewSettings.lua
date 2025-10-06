@@ -2,6 +2,9 @@ local Name, Private = ...
 local E, L, V, P, G = unpack(ElvUI)
 
 ProjectHopes.ChangelogTBL = {
+			'v|cff99ff20251006|r 06/10/2025',
+	' • Added Spell History Module.',
+' ',
 			'v|cff99ff20250930|r 30/09/2025',
 	' • Added GameMenu way to open ProjectHopes.',
 	' • Bugfix Raid frames can have multiple border enable.',
