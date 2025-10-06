@@ -118,7 +118,18 @@ end
 function SpellHistory:BuildDisplay()
 	self.display = {}
 	self.mainAnchor = CreateFrame("Frame", "SpellHistoryAnchor", UIParent)
-	self.mainAnchor:SetSize(MAIN_ICON_SIZE, MAIN_ICON_SIZE)
+	
+	-- Get size based on ratio setting
+	local mainWidth, mainHeight
+	if E.db.ProjectHopes.gcd.keepRatio then
+		mainWidth = E.db.ProjectHopes.gcd.mainIconSize
+		mainHeight = E.db.ProjectHopes.gcd.mainIconSize
+	else
+		mainWidth = E.db.ProjectHopes.gcd.mainIconWidth or MAIN_ICON_SIZE
+		mainHeight = E.db.ProjectHopes.gcd.mainIconHeight or MAIN_ICON_SIZE
+	end
+	
+	self.mainAnchor:SetSize(mainWidth, mainHeight)
 	self.mainAnchor:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
     
 	E:CreateMover(self.mainAnchor, "SpellHistoryMover", "Spell History Tracker", nil, nil, nil, "ALL,GENERAL")
@@ -140,8 +151,27 @@ function SpellHistory:BuildDisplay()
 			end
 		end
 
-		local size = (i == 0) and MAIN_ICON_SIZE or ICON_SIZE
-		self.display[i]:SetSize(size, size)
+		-- Set size based on ratio or custom dimensions
+		local width, height
+		if i == 0 then
+			if E.db.ProjectHopes.gcd.keepRatio then
+				width = E.db.ProjectHopes.gcd.mainIconSize
+				height = E.db.ProjectHopes.gcd.mainIconSize
+			else
+				width = E.db.ProjectHopes.gcd.mainIconWidth or MAIN_ICON_SIZE
+				height = E.db.ProjectHopes.gcd.mainIconHeight or MAIN_ICON_SIZE
+			end
+		else
+			if E.db.ProjectHopes.gcd.keepRatio then
+				width = E.db.ProjectHopes.gcd.historyIconSize
+				height = E.db.ProjectHopes.gcd.historyIconSize
+			else
+				width = E.db.ProjectHopes.gcd.historyIconWidth or ICON_SIZE
+				height = E.db.ProjectHopes.gcd.historyIconHeight or ICON_SIZE
+			end
+		end
+		
+		self.display[i]:SetSize(width, height)
 		self.display[i]:SetScale(1)
 		self.display[i]:SetAlpha(1)
 		self.display[i]:EnableMouse(false)
@@ -393,21 +423,37 @@ function SpellHistory:PLAYER_EQUIPMENT_CHANGED()
 end
 
 function SpellHistory:UpdateMainIconSize()
-	MAIN_ICON_SIZE = E.db.ProjectHopes.gcd.mainIconSize
+	if not self.display or not self.display[0] then return end
 	
-	if self.display and self.display[0] then
-		self.display[0]:SetSize(MAIN_ICON_SIZE, MAIN_ICON_SIZE)
-		self.mainAnchor:SetSize(MAIN_ICON_SIZE, MAIN_ICON_SIZE)
+	local width, height
+	if E.db.ProjectHopes.gcd.keepRatio then
+		MAIN_ICON_SIZE = E.db.ProjectHopes.gcd.mainIconSize
+		width = MAIN_ICON_SIZE
+		height = MAIN_ICON_SIZE
+	else
+		width = E.db.ProjectHopes.gcd.mainIconWidth or MAIN_ICON_SIZE
+		height = E.db.ProjectHopes.gcd.mainIconHeight or MAIN_ICON_SIZE
 	end
+	
+	self.display[0]:SetSize(width, height)
+	self.mainAnchor:SetSize(width, height)
 end
 
 function SpellHistory:UpdateHistoryIconSize()
-	ICON_SIZE = E.db.ProjectHopes.gcd.historyIconSize
-	
 	if not self.display then return end
 	
+	local width, height
+	if E.db.ProjectHopes.gcd.keepRatio then
+		ICON_SIZE = E.db.ProjectHopes.gcd.historyIconSize
+		width = ICON_SIZE
+		height = ICON_SIZE
+	else
+		width = E.db.ProjectHopes.gcd.historyIconWidth or ICON_SIZE
+		height = E.db.ProjectHopes.gcd.historyIconHeight or ICON_SIZE
+	end
+	
 	for i = 1, MAX_HISTORY_COUNT do
-		self.display[i]:SetSize(ICON_SIZE, ICON_SIZE)
+		self.display[i]:SetSize(width, height)
 	end
 end
 
