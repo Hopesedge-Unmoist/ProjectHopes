@@ -36,7 +36,11 @@ P.ProjectHopes = {
 		enable = false,
 		growth = "LEFT",
 		mainIconSize = 45,
+		mainIconWidth = 45, 
+		mainIconHeight = 45,
 		historyIconSize = 36,
+		historyIconWidth = 36,
+		historyIconHeight = 36,
 		historyCount = 5,
 		blacklist = {
 			[75] = true,
@@ -44,6 +48,7 @@ P.ProjectHopes = {
 			[467718] = true,
 			[1228085] = true,
 		},
+		keepRatio = true
 	},
 	-- UnitFrame Generals
 	portraits = {
