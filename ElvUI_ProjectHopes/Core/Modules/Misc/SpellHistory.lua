@@ -11,8 +11,9 @@ local HISTORY_COUNT = E.db.ProjectHopes.gcd.historyCount or 5
 local MAIN_ICON_SIZE = E.db.ProjectHopes.gcd.mainIconSize or 47
 local MAX_HISTORY_COUNT = 10
 
-local GetItemInfo = C_Item and C_Item.GetItemInfo
-local GetItemSpell = C_Item and C_Item.GetItemSpell
+-- Classic compatibility layer
+local GetItemInfo = C_Item and C_Item.GetItemInfo or _G.GetItemInfo
+local GetItemSpell = C_Item and C_Item.GetItemSpell or _G.GetItemSpell
 
 local EquippedItems = {}
 
@@ -28,26 +29,41 @@ local function IsSpellBlacklisted(spellID)
   return E.db.ProjectHopes.gcd.blacklist and E.db.ProjectHopes.gcd.blacklist[spellID] or false
 end
 
+-- Classic-compatible spell info fetcher
 local fetchSpellInfo = function(spellID)
 	if not spellID then
 		return nil
 	end
 
-	local spellInfo = C_Spell.GetSpellInfo(spellID)
-	if spellInfo then
-		return spellInfo.name, nil, spellInfo.iconID, spellInfo.castTime, spellInfo.minRange, spellInfo.maxRange,
-			spellInfo.spellID, spellInfo.originalIconID
+	if E.Retail and C_Spell and C_Spell.GetSpellInfo then
+		-- Retail version
+		local spellInfo = C_Spell.GetSpellInfo(spellID)
+		if spellInfo then
+			return spellInfo.name, nil, spellInfo.iconID, spellInfo.castTime, spellInfo.minRange, spellInfo.maxRange,
+				spellInfo.spellID, spellInfo.originalIconID
+		end
+	else
+		-- Classic version
+		return GetSpellInfo(spellID)
 	end
 end
 
+-- Classic-compatible spell cooldown fetcher
 local fetchSpellCooldown = function(spellID)
 	if not spellID then
 		return nil
 	end
-	local spellCooldownInfo = C_Spell.GetSpellCooldown(spellID)
-	if spellCooldownInfo then
-		return spellCooldownInfo.startTime, spellCooldownInfo.duration, spellCooldownInfo.isEnabled,
-			spellCooldownInfo.modRate
+	
+	if E.Retail and C_Spell and C_Spell.GetSpellCooldown then
+		-- Retail version
+		local spellCooldownInfo = C_Spell.GetSpellCooldown(spellID)
+		if spellCooldownInfo then
+			return spellCooldownInfo.startTime, spellCooldownInfo.duration, spellCooldownInfo.isEnabled,
+				spellCooldownInfo.modRate
+		end
+	else
+		-- Classic version
+		return GetSpellCooldown(spellID)
 	end
 end
 
@@ -295,11 +311,11 @@ function SpellHistory:UNIT_SPELLCAST_START(event, unit)
 
 	if name and frameIcon then
 
-    if IsSpellBlacklisted(spellid) then
-      frameIcon:Hide()
-      iconFrame:Hide()
-      return
-    end
+		if IsSpellBlacklisted(spellid) then
+			frameIcon:Hide()
+			iconFrame:Hide()
+			return
+		end
 
 		frameIcon:SetTexture(texture)
 		iconFrame.spellid = spellid

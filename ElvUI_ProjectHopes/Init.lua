@@ -69,9 +69,11 @@ E.Media.Textures.RoleIcons = path .. "Textures\\RoleIcons.tga" -- White Role Ico
 
 Private.Values = {
 	FontSize = { min = 8, max = 64, step = 1 },
+	IconSize = { min = 16, max = 64, step = 1 },
 	TextAlign = { CENTER = L["Center"], LEFT = L["Left"], RIGHT = L["Right"] },
 	TextPositions = { BOTTOMRIGHT = L["BOTTOMRIGHT"], BOTTOMLEFT = L["BOTTOMLEFT"], TOPRIGHT = L["TOPRIGHT"], TOPLEFT = L["TOPLEFT"], BOTTOM = L["BOTTOM"], TOP = L["TOP"] },
 	AllPoints = { TOPLEFT = L["TOPLEFT"], LEFT = L["LEFT"], BOTTOMLEFT = L["BOTTOMLEFT"], RIGHT = L["RIGHT"], TOPRIGHT = L["TOPRIGHT"], BOTTOMRIGHT = L["BOTTOMRIGHT"], TOP = L["TOP"], BOTTOM = L["BOTTOM"], CENTER = L["CENTER"] },
+	Growth = { LEFT = L["LEFT"], RIGHT = L["RIGHT"], UP = L["UP"], DOWN = L["DOWN"] },
 	Anchors = { TOPLEFT = L["TOPLEFT"], LEFT = L["LEFT"], BOTTOMLEFT = L["BOTTOMLEFT"], RIGHT = L["RIGHT"], TOPRIGHT = L["TOPRIGHT"], BOTTOMRIGHT = L["BOTTOMRIGHT"], TOP = L["TOP"], BOTTOM = L["BOTTOM"] },
 	Strata = { BACKGROUND = L["BACKGROUND"], LOW = L["LOW"], MEDIUM = L["MEDIUM"], HIGH = L["HIGH"], DIALOG = L["DIALOG"], TOOLTIP = L["TOOLTIP"] },
 }
