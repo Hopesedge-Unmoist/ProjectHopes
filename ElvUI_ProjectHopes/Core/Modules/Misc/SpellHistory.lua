@@ -4,12 +4,13 @@ local E, L, V, P, G = unpack(ElvUI)
 local SpellHistory = E:NewModule('SpellHistory', 'AceHook-3.0', 'AceEvent-3.0', 'AceTimer-3.0')
 local BORDER = E:GetModule('BORDER')
 
-local ICON_SIZE = E.db.ProjectHopes.gcd.historyIconSize or 36
+local ICON_SIZE = 36
 local ICON_GAP = 6
-local GROWTH_DIRECTION = E.db.ProjectHopes.gcd.growth or "LEFT"
-local HISTORY_COUNT = E.db.ProjectHopes.gcd.historyCount or 5  
-local MAIN_ICON_SIZE = E.db.ProjectHopes.gcd.mainIconSize or 47
+local GROWTH_DIRECTION = "LEFT"
+local HISTORY_COUNT = 5  
+local MAIN_ICON_SIZE = 47
 local MAX_HISTORY_COUNT = 10
+local ICON_SPACING = 6
 
 -- Classic compatibility layer
 local GetItemInfo = C_Item and C_Item.GetItemInfo or _G.GetItemInfo
@@ -113,6 +114,13 @@ end
 function SpellHistory:Initialize()
 	if not E.db.ProjectHopes.gcd.enable then return end
 	
+	-- Update local variables from database
+	ICON_SIZE = E.db.ProjectHopes.gcd.historyIconSize or 36
+	GROWTH_DIRECTION = E.db.ProjectHopes.gcd.growth or "LEFT"
+	HISTORY_COUNT = E.db.ProjectHopes.gcd.historyCount or 5
+	MAIN_ICON_SIZE = E.db.ProjectHopes.gcd.mainIconSize or 47
+	ICON_SPACING = E.db.ProjectHopes.gcd.iconSpacing or 6
+	
 	self.lastSpellID = nil
 	self.recentCasts = {}
 	self.lastInterruptedIcon = nil
@@ -157,13 +165,13 @@ function SpellHistory:BuildDisplay()
 			self.display[i]:SetPoint("CENTER", self.mainAnchor, "CENTER", 0, 0)
 		else
 			if GROWTH_DIRECTION == "LEFT" then
-				self.display[i]:SetPoint("RIGHT", self.display[i - 1], "LEFT", -ICON_GAP, 0)
+				self.display[i]:SetPoint("RIGHT", self.display[i - 1], "LEFT", -ICON_SPACING, 0)
 			elseif GROWTH_DIRECTION == "RIGHT" then
-				self.display[i]:SetPoint("LEFT", self.display[i - 1], "RIGHT", ICON_GAP, 0)
+				self.display[i]:SetPoint("LEFT", self.display[i - 1], "RIGHT", ICON_SPACING, 0)
 			elseif GROWTH_DIRECTION == "UP" then
-				self.display[i]:SetPoint("BOTTOM", self.display[i - 1], "TOP", 0, ICON_GAP)
+				self.display[i]:SetPoint("BOTTOM", self.display[i - 1], "TOP", 0, ICON_SPACING)
 			elseif GROWTH_DIRECTION == "DOWN" then
-				self.display[i]:SetPoint("TOP", self.display[i - 1], "BOTTOM", 0, -ICON_GAP)
+				self.display[i]:SetPoint("TOP", self.display[i - 1], "BOTTOM", 0, -ICON_SPACING)
 			end
 		end
 
@@ -494,13 +502,33 @@ function SpellHistory:UpdateGrowthDirection()
 		self.display[i]:ClearAllPoints()
 		
 		if GROWTH_DIRECTION == "LEFT" then
-			self.display[i]:SetPoint("RIGHT", self.display[i - 1], "LEFT", -ICON_GAP, 0)
+			self.display[i]:SetPoint("RIGHT", self.display[i - 1], "LEFT", -ICON_SPACING, 0)
 		elseif GROWTH_DIRECTION == "RIGHT" then
-			self.display[i]:SetPoint("LEFT", self.display[i - 1], "RIGHT", ICON_GAP, 0)
+			self.display[i]:SetPoint("LEFT", self.display[i - 1], "RIGHT", ICON_SPACING, 0)
 		elseif GROWTH_DIRECTION == "UP" then
-			self.display[i]:SetPoint("BOTTOM", self.display[i - 1], "TOP", 0, ICON_GAP)
+			self.display[i]:SetPoint("BOTTOM", self.display[i - 1], "TOP", 0, ICON_SPACING)
 		elseif GROWTH_DIRECTION == "DOWN" then
-			self.display[i]:SetPoint("TOP", self.display[i - 1], "BOTTOM", 0, -ICON_GAP)
+			self.display[i]:SetPoint("TOP", self.display[i - 1], "BOTTOM", 0, -ICON_SPACING)
+		end
+	end
+end
+
+function SpellHistory:UpdateIconSpacing()
+	ICON_SPACING = E.db.ProjectHopes.gcd.iconSpacing or 6
+	
+	if not self.display then return end
+	
+	for i = 1, MAX_HISTORY_COUNT do
+		self.display[i]:ClearAllPoints()
+		
+		if GROWTH_DIRECTION == "LEFT" then
+			self.display[i]:SetPoint("RIGHT", self.display[i - 1], "LEFT", -ICON_SPACING, 0)
+		elseif GROWTH_DIRECTION == "RIGHT" then
+			self.display[i]:SetPoint("LEFT", self.display[i - 1], "RIGHT", ICON_SPACING, 0)
+		elseif GROWTH_DIRECTION == "UP" then
+			self.display[i]:SetPoint("BOTTOM", self.display[i - 1], "TOP", 0, ICON_SPACING)
+		elseif GROWTH_DIRECTION == "DOWN" then
+			self.display[i]:SetPoint("TOP", self.display[i - 1], "BOTTOM", 0, -ICON_SPACING)
 		end
 	end
 end
