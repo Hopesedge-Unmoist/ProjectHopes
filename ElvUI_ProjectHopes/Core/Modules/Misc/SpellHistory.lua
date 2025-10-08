@@ -25,6 +25,18 @@ local equipmentSlots = {
 	"Finger0Slot",	"Finger1Slot",	"Trinket0Slot",	"Trinket1Slot",
 }
 
+-- Resource type mapping for different classes
+local RESOURCE_TYPES = {
+	["PALADIN"] = Enum.PowerType.HolyPower or 9,
+	["MONK"] = Enum.PowerType.Chi or 12,
+	["ROGUE"] = Enum.PowerType.ComboPoints or 4,
+	["DRUID"] = Enum.PowerType.ComboPoints or 4,
+	["WARLOCK"] = Enum.PowerType.SoulShards or 7,
+	["MAGE"] = Enum.PowerType.ArcaneCharges or 16,
+	["DEATHKNIGHT"] = Enum.PowerType.Runes or 5,
+	["EVOKER"] = Enum.PowerType.Essence or 19,
+}
+
 local function IsSpellBlacklisted(spellID)
   if not spellID then return false end
   return E.db.ProjectHopes.gcd.blacklist and E.db.ProjectHopes.gcd.blacklist[spellID] or false
@@ -68,6 +80,41 @@ local fetchSpellCooldown = function(spellID)
 	end
 end
 
+-- Get resource cost for a spell
+local function GetSpellResourceCost(spellID)
+	if not spellID then return 0 end
+	
+	local _, _, classID = UnitClass("player")
+	local className = select(2, UnitClass("player"))
+	local resourceType = RESOURCE_TYPES[className]
+	
+	if not resourceType then return 0 end
+	
+	-- Try to get spell power cost
+	if E.Retail and C_Spell and C_Spell.GetSpellPowerCost then
+		local costs = C_Spell.GetSpellPowerCost(spellID)
+		if costs then
+			for _, costInfo in ipairs(costs) do
+				if costInfo.type == resourceType then
+					return costInfo.cost or 0
+				end
+			end
+		end
+	elseif GetSpellPowerCost then
+		-- Classic fallback
+		local costs = GetSpellPowerCost(spellID)
+		if costs then
+			for _, costInfo in ipairs(costs) do
+				if costInfo.type == resourceType then
+					return costInfo.cost or 0
+				end
+			end
+		end
+	end
+	
+	return 0
+end
+
 local function scanEquipment()
 	for _, v in pairs(equipmentSlots) do
 		local idx = GetInventorySlotInfo(string.upper(v))
@@ -105,9 +152,15 @@ local function BuildIconFrame(parent, name)
 	frame.cooldown:SetAllPoints(frame)
 	frame.cooldown:SetReverse(true)
 	frame.cooldown:SetDrawEdge(false)
-			
+
+	frame.costText = frame:CreateFontString(nil, "OVERLAY")
+	frame.costText:FontTemplate(nil, 15, 'OUTLINE')
+	frame.costText:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 2, 0)
+	frame.costText:SetTextColor(1, 1, 1)
+	frame.costText:Hide()
+
 	BORDER:CreateBorder(frame)
-	
+
 	return frame
 end
 
@@ -266,11 +319,13 @@ function SpellHistory:RecordCast(spellid, wasFailed, isItem)
 
 			if icon then
 				local timestamp = GetTime()
+				local resourceCost = GetSpellResourceCost(id)
 				local currentCount = E.db.ProjectHopes.gcd.historyCount or HISTORY_COUNT
 				if #self.recentCasts >= currentCount then
 					table.remove(self.recentCasts, currentCount)
 				end
-				table.insert(self.recentCasts, 1, { icon, _, wasFailed, timestamp, id })
+				-- Structure: { icon, _, wasFailed, timestamp, spellID, itemID, resourceCost }
+				table.insert(self.recentCasts, 1, { icon, _, wasFailed, timestamp, id, nil, resourceCost })
 			end
 		end
 	end
@@ -286,13 +341,24 @@ function SpellHistory:RefreshDisplay()
 
 		if i > currentCount then
 			iconFrame:Hide()
+			iconFrame.costText:Hide()
 		elseif cast then
 			if not self.testMode and cast[4] and timestamp - cast[4] > 5 then
 				iconFrame:Hide()
+				iconFrame.costText:Hide()
 			else
 				iconFrame.icon:SetTexture(cast[1])
 				iconFrame.spellid = cast[5]
-				iconFrame.itemid = cast[6] or nil  
+				iconFrame.itemid = cast[6] or nil
+				
+				-- Display resource cost if > 0
+				if cast[7] and cast[7] > 0 then
+					iconFrame.costText:SetText(cast[7])
+					iconFrame.costText:Show()
+				else
+					iconFrame.costText:Hide()
+				end
+				
 				iconFrame:Show()
 
 				if cast[3] then
@@ -305,6 +371,7 @@ function SpellHistory:RefreshDisplay()
 			end
 		else
 			iconFrame:Hide()
+			iconFrame.costText:Hide()
 		end
 	end
 end
@@ -322,12 +389,22 @@ function SpellHistory:UNIT_SPELLCAST_START(event, unit)
 		if IsSpellBlacklisted(spellid) then
 			frameIcon:Hide()
 			iconFrame:Hide()
+			iconFrame.costText:Hide()
 			return
 		end
 
 		frameIcon:SetTexture(texture)
 		iconFrame.spellid = spellid
 		frameIcon:SetDesaturated(true)
+
+		-- Show resource cost on main icon
+		local resourceCost = GetSpellResourceCost(spellid)
+		if resourceCost and resourceCost > 0 then
+			iconFrame.costText:SetText(resourceCost)
+			iconFrame.costText:Show()
+		else
+			iconFrame.costText:Hide()
+		end
 
 		frameIcon:Show()
 		local duration = (endTime - startTime) / 1000
@@ -338,6 +415,7 @@ function SpellHistory:UNIT_SPELLCAST_START(event, unit)
 	else
 		frameIcon:Hide()
 		iconFrame:Hide()
+		iconFrame.costText:Hide()
 	end
 end
 
@@ -354,6 +432,15 @@ function SpellHistory:UNIT_SPELLCAST_CHANNEL_START(event, unit)
 		iconFrame.spellid = spellid
 		frameIcon:SetDesaturated(true)
 
+		-- Show resource cost on main icon
+		local resourceCost = GetSpellResourceCost(spellid)
+		if resourceCost and resourceCost > 0 then
+			iconFrame.costText:SetText(resourceCost)
+			iconFrame.costText:Show()
+		else
+			iconFrame.costText:Hide()
+		end
+
 		frameIcon:Show()
 		local duration = (endTime - startTime) / 1000
 		endTime = endTime / 1000
@@ -363,6 +450,7 @@ function SpellHistory:UNIT_SPELLCAST_CHANNEL_START(event, unit)
 	else
 		frameIcon:Hide()
 		iconFrame:Hide()
+		iconFrame.costText:Hide()
 	end
 end
 
@@ -372,6 +460,7 @@ function SpellHistory:UNIT_SPELLCAST_STOP(event, unit)
 	local name = UnitCastingInfo("player")
 	if not name then
 		self.display[0]:Hide()
+		self.display[0].costText:Hide()
 	end
 end
 
@@ -381,6 +470,7 @@ function SpellHistory:UNIT_SPELLCAST_CHANNEL_STOP(event, unit)
 	local name = UnitChannelInfo("player")
 	if not name then
 		self.display[0]:Hide()
+		self.display[0].costText:Hide()
 	end
 end
 
@@ -538,6 +628,7 @@ function SpellHistory:TestDisplay()
 		self.testMode = false
 		wipe(self.recentCasts)
 		self.display[0]:Hide()
+		self.display[0].costText:Hide()
 		self:RefreshDisplay()
 	else
 		self.testMode = true
@@ -548,7 +639,9 @@ function SpellHistory:TestDisplay()
 		
 		local currentCount = E.db.ProjectHopes.gcd.historyCount or HISTORY_COUNT
 		for i = 1, currentCount do
-			table.insert(self.recentCasts, { HistoryIcon, nil, false, timestamp, 0 })
+			-- Test with varying resource costs
+			local testCost = (i % 5) + 1
+			table.insert(self.recentCasts, { HistoryIcon, nil, false, timestamp, 0, nil, testCost })
 		end
 		
 		local iconFrame = self.display[0]
@@ -556,6 +649,8 @@ function SpellHistory:TestDisplay()
 		iconFrame.icon:SetDesaturated(false)
 		iconFrame.icon:SetVertexColor(1, 1, 1)
 		iconFrame.spellid = 0
+		iconFrame.costText:SetText("3")
+		iconFrame.costText:Show()
 		iconFrame:Show()
 		
 		self:RefreshDisplay()
