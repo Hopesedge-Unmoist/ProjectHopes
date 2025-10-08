@@ -42,13 +42,6 @@ local NUM_BAG_SLOTS = NUM_BAG_SLOTS
 
 local IsAddOnLoaded = C_AddOns.IsAddOnLoaded
 
--- Function to create Gold colored text
-local function CreateGoldText(text)
-    if not text then return "" end
-    return "|cffffc907" .. text .. "|r" -- Gold color code in WoW is "ffc907"
-end
-
--- Function to add custom lines to the tooltip with highlighting the found upgrade level
 local function AddCustomLine(tooltip, ...)
     local firstlogin = true
     if firstlogin then 
@@ -56,12 +49,12 @@ local function AddCustomLine(tooltip, ...)
         local foundLine = false
         local foundText = nil
         local upgradeOrder = {
-            "Explorer 642-664",
-            "Adventurer - 655-677",
-            "Veteran - 668-691",
-            "Champion - 681-703",
-            "Hero - 694-710",
-            "Mythic - 707-723",
+            "|cff999999Explorer 642-664|r",
+            "|cffd9d9d9Adventurer - 655-677|r",
+            "|cff56c680Veteran - 668-691|r",
+            "|cff5a91c8Champion - 681-704|r",
+            "|cffab16e8Hero - 694-717|r",
+            "|cffff7f00Mythic - 707-723|r",
         }
         
         local upgradeTextMapping = {
@@ -70,10 +63,10 @@ local function AddCustomLine(tooltip, ...)
             ["Upgrade Level: Veteran"] = upgradeOrder[3],
             ["Upgrade Level: Champion"] = upgradeOrder[4],
             ["Upgrade Level: Hero"] = upgradeOrder[5],
-            ["Upgrade Level: Myth"] = upgradeOrder[6],
+            ["Upgrade Level: Mythic"] = upgradeOrder[6],
         }
 
-		for i = tooltip:NumLines(), 1, -1 do
+        for i = tooltip:NumLines(), 1, -1 do
             local lineTextObject = _G[tooltip:GetName() .. "TextLeft" .. i]
             if lineTextObject then
                 local text = lineTextObject:GetText()
@@ -92,16 +85,20 @@ local function AddCustomLine(tooltip, ...)
         
         if foundLine then
             tooltip:AddLine(" ") -- Blank line for separation
-            local lineNum = tooltip:NumLines() + 1
-            for _, upgradeDesc in ipairs(upgradeOrder) do
-                if foundText == upgradeDesc then
-                    -- Apply green effect to the found line
-                    tooltip:AddLine(CreateGoldText(upgradeDesc))
-                else
-                    -- Show other text in grey
-                    tooltip:AddLine("|cff808080" .. upgradeDesc .. "|r")
+            local startLine = tooltip:NumLines() + 1
+            for i, upgradeDesc in ipairs(upgradeOrder) do
+                tooltip:AddLine(upgradeDesc)
+                local lineNum = startLine + i - 1
+                local lineTextObject = _G[tooltip:GetName() .. "TextLeft" .. lineNum]
+                if lineTextObject then
+                    if foundText == upgradeDesc then
+                        local r, g, b = lineTextObject:GetTextColor()
+                        lineTextObject:SetTextColor(r, g, b, 1.0)
+                    else
+                        local r, g, b = lineTextObject:GetTextColor()
+                        lineTextObject:SetTextColor(r, g, b, 0.2)
+                    end
                 end
-                lineNum = lineNum + 1
             end
             tooltip:Show()
         end

@@ -8,7 +8,6 @@ local function CreateTable(parent, anchor, dataTable, cellHeight)
     cellHeight = cellHeight or 14
     local colWidths = {}
 
-    -- Measure column widths by widest text
     for col = 1, #dataTable[1] do
         local maxW = 0
         for row = 1, #dataTable do
@@ -21,7 +20,6 @@ local function CreateTable(parent, anchor, dataTable, cellHeight)
         colWidths[col] = maxW + 10 -- padding
     end
 
-    -- Place actual fontstrings
     for row = 1, #dataTable do
         local xOffset = 0
         for col = 1, #dataTable[row] do
@@ -37,7 +35,6 @@ local function CreateTable(parent, anchor, dataTable, cellHeight)
         end
     end
 end
-
 
 local function GreatVaultInfo()
   if not E.db.ProjectHopes.qualityOfLife.greatVaultInfo then return end
@@ -79,7 +76,7 @@ local function GreatVaultInfo()
     { "|cff999999642-664|r", "|cffd9d9d9655-678|r", "|cff56c680668-691|r" },
     { "", "", "" },
     { "Champion", "Hero", "Myth" },
-    { "|cff5a91c8681-704|r", "|cffab16e8694-710|r", "|cffff7f00707-723|r" },
+    { "|cff5a91c8681-704|r", "|cffab16e8694-717|r", "|cffff7f00707-723|r" },
   }
 
   local contentRaid = frame:CreateFontString(nil, "OVERLAY")
@@ -114,9 +111,7 @@ local function GreatVaultInfo()
     { " ", "+7", "+8", "+9", "+10", ""},
     { "Run", "|cffab16e8694|r", "|cffab16e8697|r", "|cffab16e8697|r", "|cffab16e8701|r", ""},
     { "Vault", "|cffab16e8704|r", "|cffab16e8704|r", "|cffab16e8704|r", "|cffff7f00707|r", ""},
-
   }
-
 
   local contentWorld = frame:CreateFontString(nil, "OVERLAY")
   contentWorld:FontTemplate(nil, 14, "OUTLINE")
@@ -132,7 +127,6 @@ local function GreatVaultInfo()
     { " ", "5", "6", "7", "8"},
     { "Run", "|cff56c680668|r", "|cff56c680671|r", "|cff5a91c8681|r", "|cff5a91c8684|r"},
     { "Vault", "|cff5a91c8681|r", "|cff5a91c8688|r", "|cff5a91c8691|r", "|cffab16e8694|r"},
-
   }
 
   CreateTable(frame, content, ilvlTable)
@@ -140,17 +134,11 @@ local function GreatVaultInfo()
   CreateTable(frame, contentDungoen, dungeonTable)
   CreateTable(frame, contentWorld, worldTable)
 
-
   -- keep refs
   frame.content = content
   frame.contentRaid = contentRaid
   frame.contentDungoen = contentDungoen
   frame.contentWorld = contentWorld
-
 end
 
-
 S:AddCallbackForAddon('Blizzard_WeeklyRewards', GreatVaultInfo)
-
-
-
