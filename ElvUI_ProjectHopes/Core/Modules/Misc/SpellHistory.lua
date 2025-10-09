@@ -12,7 +12,6 @@ local MAIN_ICON_SIZE = 47
 local MAX_HISTORY_COUNT = 10
 local ICON_SPACING = 6
 
--- Classic compatibility layer
 local GetItemInfo = C_Item and C_Item.GetItemInfo or _G.GetItemInfo
 local GetItemSpell = C_Item and C_Item.GetItemSpell or _G.GetItemSpell
 
@@ -25,7 +24,6 @@ local equipmentSlots = {
 	"Finger0Slot",	"Finger1Slot",	"Trinket0Slot",	"Trinket1Slot",
 }
 
--- Resource type mapping for different classes
 local RESOURCE_TYPES = {
 	["PALADIN"] = Enum.PowerType.HolyPower or 9,
 	["MONK"] = Enum.PowerType.Chi or 12,
@@ -42,45 +40,38 @@ local function IsSpellBlacklisted(spellID)
   return E.db.ProjectHopes.gcd.blacklist and E.db.ProjectHopes.gcd.blacklist[spellID] or false
 end
 
--- Classic-compatible spell info fetcher
 local fetchSpellInfo = function(spellID)
 	if not spellID then
 		return nil
 	end
 
 	if E.Retail and C_Spell and C_Spell.GetSpellInfo then
-		-- Retail version
 		local spellInfo = C_Spell.GetSpellInfo(spellID)
 		if spellInfo then
 			return spellInfo.name, nil, spellInfo.iconID, spellInfo.castTime, spellInfo.minRange, spellInfo.maxRange,
 				spellInfo.spellID, spellInfo.originalIconID
 		end
 	else
-		-- Classic version
 		return GetSpellInfo(spellID)
 	end
 end
 
--- Classic-compatible spell cooldown fetcher
 local fetchSpellCooldown = function(spellID)
 	if not spellID then
 		return nil
 	end
 	
 	if E.Retail and C_Spell and C_Spell.GetSpellCooldown then
-		-- Retail version
 		local spellCooldownInfo = C_Spell.GetSpellCooldown(spellID)
 		if spellCooldownInfo then
 			return spellCooldownInfo.startTime, spellCooldownInfo.duration, spellCooldownInfo.isEnabled,
 				spellCooldownInfo.modRate
 		end
 	else
-		-- Classic version
 		return GetSpellCooldown(spellID)
 	end
 end
 
--- Get resource cost for a spell
 local function GetSpellResourceCost(spellID)
 	if not spellID then return 0 end
 	
@@ -90,7 +81,6 @@ local function GetSpellResourceCost(spellID)
 	
 	if not resourceType then return 0 end
 	
-	-- Try to get spell power cost
 	if E.Retail and C_Spell and C_Spell.GetSpellPowerCost then
 		local costs = C_Spell.GetSpellPowerCost(spellID)
 		if costs then
@@ -101,7 +91,6 @@ local function GetSpellResourceCost(spellID)
 			end
 		end
 	elseif GetSpellPowerCost then
-		-- Classic fallback
 		local costs = GetSpellPowerCost(spellID)
 		if costs then
 			for _, costInfo in ipairs(costs) do
@@ -167,7 +156,6 @@ end
 function SpellHistory:Initialize()
 	if not E.db.ProjectHopes.gcd.enable then return end
 	
-	-- Update local variables from database
 	ICON_SIZE = E.db.ProjectHopes.gcd.historyIconSize or 36
 	GROWTH_DIRECTION = E.db.ProjectHopes.gcd.growth or "LEFT"
 	HISTORY_COUNT = E.db.ProjectHopes.gcd.historyCount or 5
@@ -182,6 +170,10 @@ function SpellHistory:Initialize()
 	self.lastSuccessTime = 0
 	self.currentGCD = 1.5 / ((GetHaste() / 100) + 1)
 	self.testMode = false
+	self.currentEmpowerStage = nil
+	self.currentEmpowerSpellID = nil
+	self.empowerStageFromCLEU = nil
+	self.isEmpowerActive = false
 
 	self:BuildDisplay()
 	self:SetupEventHandler()
@@ -196,7 +188,6 @@ function SpellHistory:BuildDisplay()
 	self.display = {}
 	self.mainAnchor = CreateFrame("Frame", "SpellHistoryAnchor", UIParent)
 	
-	-- Get size based on ratio setting
 	local mainWidth, mainHeight
 	if E.db.ProjectHopes.gcd.keepRatio then
 		mainWidth = E.db.ProjectHopes.gcd.mainIconSize
@@ -228,7 +219,6 @@ function SpellHistory:BuildDisplay()
 			end
 		end
 
-		-- Set size based on ratio or custom dimensions
 		local width, height
 		if i == 0 then
 			if E.db.ProjectHopes.gcd.keepRatio then
@@ -286,11 +276,16 @@ function SpellHistory:HookEvents()
 	self.eventHandler:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_START", "player")
 	self.eventHandler:RegisterUnitEvent("UNIT_SPELLCAST_CHANNEL_STOP", "player")
 	self.eventHandler:RegisterUnitEvent("UNIT_SPELLCAST_STOP", "player")
+	if E.Retail then 
+		self.eventHandler:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_START", "player")
+		self.eventHandler:RegisterUnitEvent("UNIT_SPELLCAST_EMPOWER_STOP", "player")
+	end
 	self.eventHandler:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self.eventHandler:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+	self.eventHandler:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
 
-function SpellHistory:RecordCast(spellid, wasFailed, isItem)
+function SpellHistory:RecordCast(spellid, wasFailed, isItem, empowerStage)
 	if not spellid then return end
 
 	local spellIDsToRecord = {}
@@ -324,8 +319,7 @@ function SpellHistory:RecordCast(spellid, wasFailed, isItem)
 				if #self.recentCasts >= currentCount then
 					table.remove(self.recentCasts, currentCount)
 				end
-				-- Structure: { icon, _, wasFailed, timestamp, spellID, itemID, resourceCost }
-				table.insert(self.recentCasts, 1, { icon, _, wasFailed, timestamp, id, nil, resourceCost })
+				table.insert(self.recentCasts, 1, { icon, _, wasFailed, timestamp, id, nil, resourceCost, empowerStage })
 			end
 		end
 	end
@@ -351,8 +345,10 @@ function SpellHistory:RefreshDisplay()
 				iconFrame.spellid = cast[5]
 				iconFrame.itemid = cast[6] or nil
 				
-				-- Display resource cost if > 0
-				if cast[7] and cast[7] > 0 then
+				if cast[8] and cast[8] >= 2 then
+					iconFrame.costText:SetText(cast[8])
+					iconFrame.costText:Show()
+				elseif cast[7] and cast[7] > 0 then
 					iconFrame.costText:SetText(cast[7])
 					iconFrame.costText:Show()
 				else
@@ -376,6 +372,116 @@ function SpellHistory:RefreshDisplay()
 	end
 end
 
+function SpellHistory:COMBAT_LOG_EVENT_UNFILTERED()
+	local timestamp, subEvent, _, sourceGUID, sourceName, sourceFlags, sourceRaidFlags, destGUID, destName, destFlags, destRaidFlags = CombatLogGetCurrentEventInfo()
+	
+	if sourceGUID ~= UnitGUID("player") then return end
+	
+	if subEvent == "SPELL_EMPOWER_START" then
+		local spellId, spellName, spellSchool = select(12, CombatLogGetCurrentEventInfo())
+		self.empowerStageFromCLEU = 1
+		self.currentEmpowerSpellID = spellId
+		self.isEmpowerActive = true
+	elseif subEvent == "SPELL_EMPOWER_INTERRUPT" then
+		local spellId, spellName, spellSchool = select(12, CombatLogGetCurrentEventInfo())
+		if not self.empowerInterruptCount then
+			self.empowerInterruptCount = 0
+		end
+		self.empowerInterruptCount = self.empowerInterruptCount + 1
+		
+		if #self.recentCasts > 0 then
+			local mostRecentCast = self.recentCasts[1]
+			if mostRecentCast[5] == spellId and mostRecentCast[3] == true then
+				mostRecentCast[8] = self.empowerInterruptCount
+				self:RefreshDisplay()
+			end
+		end
+		
+		self:ScheduleTimer(function()
+			self.empowerInterruptCount = nil
+		end, 0.5)
+	elseif subEvent == "SPELL_EMPOWER_END" then
+		local spellId, spellName, spellSchool = select(12, CombatLogGetCurrentEventInfo())
+		local param15 = select(15, CombatLogGetCurrentEventInfo())
+				
+		if param15 and type(param15) == "number" then
+			local displayStage = param15
+			
+			if #self.recentCasts > 0 then
+				local mostRecentCast = self.recentCasts[1]
+				if mostRecentCast[5] == spellId then
+					mostRecentCast[8] = displayStage
+					self:RefreshDisplay()
+				end
+			end
+		end
+		
+		self.isEmpowerActive = false
+		self.currentEmpowerSpellID = nil
+		self.empowerStageFromCLEU = nil
+	end
+end
+
+function SpellHistory:UNIT_SPELLCAST_EMPOWER_START(event, unit)
+	if unit ~= "player" then return end
+	
+	local name, text, texture, startTime, endTime, isTradeSkill, notInterruptible, spellid = UnitChannelInfo("player")
+	local iconFrame = self.display[0]
+	local frameIcon = iconFrame.icon
+	local frameCooldown = iconFrame.cooldown
+
+	if name and frameIcon then
+		if IsSpellBlacklisted(spellid) then
+			frameIcon:Hide()
+			iconFrame:Hide()
+			iconFrame.costText:Hide()
+			return
+		end
+
+		frameIcon:SetTexture(texture)
+		iconFrame.spellid = spellid
+		frameIcon:SetDesaturated(true)
+
+		iconFrame.costText:Hide()
+
+		frameIcon:Show()
+		local duration = (endTime - startTime) / 1000
+		endTime = endTime / 1000
+		applyCooldown(frameCooldown, endTime - duration, duration, duration > 0, true)
+		frameCooldown:SetHideCountdownNumbers(true)
+		iconFrame:Show()
+	else
+		frameIcon:Hide()
+		iconFrame:Hide()
+		iconFrame.costText:Hide()
+	end
+end
+
+function SpellHistory:UNIT_SPELLCAST_EMPOWER_STOP(event, unit)
+	if unit ~= "player" then return end
+	
+	if self.currentEmpowerSpellID and self.empowerStageFromCLEU then
+		self:ScheduleTimer(function()
+			if self.currentEmpowerSpellID then
+				if #self.recentCasts > 0 then
+					local mostRecentCast = self.recentCasts[1]
+					if mostRecentCast[5] == self.currentEmpowerSpellID then
+						mostRecentCast[3] = true 
+						self:RefreshDisplay()
+					end
+				end
+				
+				self.isEmpowerActive = false
+				self.currentEmpowerSpellID = nil
+				self.empowerStageFromCLEU = nil
+			end
+		end, 0.1)
+	end
+	
+	self.display[0]:Hide()
+	self.display[0].costText:Hide()
+end
+
 function SpellHistory:UNIT_SPELLCAST_START(event, unit)
 	if unit ~= "player" then return end
 	
@@ -396,16 +502,7 @@ function SpellHistory:UNIT_SPELLCAST_START(event, unit)
 		frameIcon:SetTexture(texture)
 		iconFrame.spellid = spellid
 		frameIcon:SetDesaturated(true)
-
-		-- Show resource cost on main icon
-		local resourceCost = GetSpellResourceCost(spellid)
-		if resourceCost and resourceCost > 0 then
-			iconFrame.costText:SetText(resourceCost)
-			iconFrame.costText:Show()
-		else
-			iconFrame.costText:Hide()
-		end
-
+		iconFrame.costText:Hide()
 		frameIcon:Show()
 		local duration = (endTime - startTime) / 1000
 		endTime = endTime / 1000
@@ -431,16 +528,7 @@ function SpellHistory:UNIT_SPELLCAST_CHANNEL_START(event, unit)
 		frameIcon:SetTexture(texture)
 		iconFrame.spellid = spellid
 		frameIcon:SetDesaturated(true)
-
-		-- Show resource cost on main icon
-		local resourceCost = GetSpellResourceCost(spellid)
-		if resourceCost and resourceCost > 0 then
-			iconFrame.costText:SetText(resourceCost)
-			iconFrame.costText:Show()
-		else
-			iconFrame.costText:Hide()
-		end
-
+		iconFrame.costText:Hide()
 		frameIcon:Show()
 		local duration = (endTime - startTime) / 1000
 		endTime = endTime / 1000
@@ -490,11 +578,15 @@ function SpellHistory:UNIT_SPELLCAST_SUCCEEDED(event, unit, castGUID, spellid)
 	end
 
 	local itemid = EquippedItems[spellid]
+	local empowerStage = nil
+	if self.currentEmpowerSpellID == spellid then
+		empowerStage = 1  
+	end
 
 	if itemid then
-		self:RecordCast(itemid, nil, true)
+		self:RecordCast(itemid, nil, true, empowerStage)
 	else
-		self:RecordCast(spellid, nil)
+		self:RecordCast(spellid, nil, false, empowerStage)
 	end
 	
 	self.lastSuccessIcon = icon
@@ -517,11 +609,22 @@ function SpellHistory:UNIT_SPELLCAST_INTERRUPTED(event, unit, castGUID, spellid)
 	end
 	
 	local itemid = EquippedItems[spellid]
+	local empowerStage = nil
+	local wasEmpower = (self.currentEmpowerSpellID == spellid)
+	if wasEmpower then
+		empowerStage = self.empowerStageFromCLEU or 1
+	end
 
 	if itemid then
-		self:RecordCast(itemid, true, true)
+		self:RecordCast(itemid, true, true, empowerStage)
 	else
-		self:RecordCast(spellid, true)
+		self:RecordCast(spellid, true, false, empowerStage)
+	end
+	
+	if wasEmpower then
+		self.isEmpowerActive = false
+		self.currentEmpowerSpellID = nil
+		self.empowerStageFromCLEU = nil
 	end
 	
 	self.lastInterruptedIcon = icon
@@ -639,9 +742,9 @@ function SpellHistory:TestDisplay()
 		
 		local currentCount = E.db.ProjectHopes.gcd.historyCount or HISTORY_COUNT
 		for i = 1, currentCount do
-			-- Test with varying resource costs
 			local testCost = (i % 5) + 1
-			table.insert(self.recentCasts, { HistoryIcon, nil, false, timestamp, 0, nil, testCost })
+			local testEmpower = i <= 4 and i or nil
+			table.insert(self.recentCasts, { HistoryIcon, nil, false, timestamp, 0, nil, testCost, testEmpower })
 		end
 		
 		local iconFrame = self.display[0]
