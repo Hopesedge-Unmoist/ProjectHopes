@@ -71,7 +71,7 @@ function S:FriendsFrame()
 	if not E.db.ProjectHopes.skins.friends then return end
 
 	BORDER:CreateBorder(_G.FriendsListFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
-	BORDER:CreateBorder(_G.IgnoreListFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
+	BORDER:CreateBorder(_G.FriendsFrame.IgnoreListWindow.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(_G.WhoFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(_G.FriendsFriendsFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(_G.QuickJoinFrame.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
@@ -101,6 +101,8 @@ function S:FriendsFrame()
 	local FriendsFrameBattlenetFrame = _G.FriendsFrameBattlenetFrame
 	BORDER:CreateBorder(FriendsFrameBattlenetFrame)
 	FriendsFrameBattlenetFrame.BroadcastFrame:Point('TOPLEFT', FriendsFrame, 'TOPRIGHT', 7, 0)
+
+	BORDER:CreateBorder(FriendsFrameBattlenetFrame.ContactsMenuButton.Icon, nil, nil, nil, nil, nil, true, false)
 
 	BORDER:CreateBorder(FriendsFrameBattlenetFrame.BroadcastFrame)
 	BORDER:CreateBorder(FriendsFrameBattlenetFrame.BroadcastFrame.EditBox, nil, nil, nil, nil, nil, true, false)
@@ -141,12 +143,9 @@ function S:FriendsFrame()
 
 	-- Bottom Tabs
 	HandleTabs()
-
-	for i = 1, 3 do
-		local tab = _G['FriendsTabHeaderTab'..i]
-		if tab then
-			BORDER:CreateBorder(tab, nil, nil, nil, nil, nil, true, true)
-		end
+	
+	for _, tab in next, { _G.FriendsTabHeader.TabSystem:GetChildren() } do
+		BORDER:CreateBorder(tab, nil, nil, nil, nil, nil, true, true)
 	end
 
 	--View Friends BN Frame
