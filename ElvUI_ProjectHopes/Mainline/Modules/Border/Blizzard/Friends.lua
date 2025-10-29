@@ -102,7 +102,7 @@ function S:FriendsFrame()
 	BORDER:CreateBorder(FriendsFrameBattlenetFrame)
 	FriendsFrameBattlenetFrame.BroadcastFrame:Point('TOPLEFT', FriendsFrame, 'TOPRIGHT', 7, 0)
 
-	BORDER:CreateBorder(FriendsFrameBattlenetFrame.ContactsMenuButton.Icon, nil, nil, nil, nil, nil, true, false)
+	--BORDER:CreateBorder(FriendsFrameBattlenetFrame.ContactsMenuButton, nil, nil, nil, nil, nil, true, false)
 
 	BORDER:CreateBorder(FriendsFrameBattlenetFrame.BroadcastFrame)
 	BORDER:CreateBorder(FriendsFrameBattlenetFrame.BroadcastFrame.EditBox, nil, nil, nil, nil, nil, true, false)

@@ -29,7 +29,9 @@ local function ReskinSlotButton(button)
 			icon.backdrop:Hide()
 		end
 		BORDER:CreateBorder(button, nil, -9, 9, 9, -9)
-		BORDER:HandleIconBorder(button.IconBorder, button.border)
+		--BORDER:HandleIconBorder(button.IconBorder, button.border)
+		BORDER:BindBorderColorWithBorder(button.border, icon.backdrop)
+
 		button.IsBorder = true
 	end
 end
@@ -80,6 +82,70 @@ local function HandleOutputButtons(frame)
 	end
 end
 
+local professionFlyoutHooks = {}
+local professionFlyoutSchematics = {}
+local function HandleProfessionsItemFlyout()
+	for form in next, professionFlyoutSchematics do
+		for _, child in next, { form:GetChildren() } do
+			if child.InitializeContents and not professionFlyoutHooks[child] then
+				E:Delay(0.05, HandleItemFlyoutContents, child)
+
+				hooksecurefunc(child, 'InitializeContents', HandleItemFlyoutContents)
+			end
+		end
+	end
+end
+
+local function HandleSchematicInit(form)
+	if form.reagentSlotPool then
+		for slot in form.reagentSlotPool:EnumerateActive() do
+			ReskinSlotButton(slot.Button)
+		end
+	end
+
+	if form.salvageSlot then
+		ReskinSlotButton(form.salvageSlot.Button)
+	end
+
+	if form.enchantSlot then
+		ReskinSlotButton(form.enchantSlot.Button)
+	end
+end
+
+local function HandleSchematicForm(form, noParchment)
+	if professionFlyoutSchematics[form] == nil then
+		professionFlyoutSchematics[form] = not not noParchment
+
+		hooksecurefunc(form, 'Init', HandleSchematicInit)
+	end
+
+	local TrackRecipeCheckBox = form.TrackRecipeCheckbox
+	if TrackRecipeCheckBox then
+		BORDER:CreateBorder(TrackRecipeCheckBox, nil, nil, nil, nil, nil, true, true)
+	end
+
+	local QualityCheckBox = form.AllocateBestQualityCheckbox
+	if QualityCheckBox then
+		BORDER:CreateBorder(QualityCheckBox, nil, nil, nil, nil, nil, true, true)
+	end
+
+	local QualityDialog = form.QualityDialog
+	if QualityDialog then
+		BORDER:CreateBorder(QualityDialog.AcceptButton, nil, nil, nil, nil, nil, false, true)
+		BORDER:CreateBorder(QualityDialog.CancelButton, nil, nil, nil, nil, nil, false, true)
+
+		ReskinQualityContainer(QualityDialog.Container1)
+		ReskinQualityContainer(QualityDialog.Container2)
+		ReskinQualityContainer(QualityDialog.Container3)
+	end
+
+	local OutputIcon = form.OutputIcon
+	if OutputIcon then
+		BORDER:HandleIcon(OutputIcon.Icon, true)
+		BORDER:BindBorderColorWithBorder(OutputIcon.Icon.backdrop.border, OutputIcon.Icon.backdrop)
+	end
+end
+
 local function ReskinOutputLog(outputlog)
 	BORDER:CreateBorder(outputlog.ScrollBar.Track.Thumb, nil, nil, nil, nil, nil, true, true)
 	BORDER:CreateBorder(outputlog)
@@ -107,6 +173,13 @@ function S:Blizzard_Professions()
 	for _, tab in next, {_G.ProfessionsFrame.TabSystem:GetChildren()} do
 		BORDER:CreateBorder(tab, nil, nil, nil, nil, nil, true, true)
 	end
+
+	local InspectRecipe = _G.InspectRecipeFrame
+	if InspectRecipe then
+		BORDER:CreateBorder(InspectRecipe)
+		HandleSchematicForm(InspectRecipe.SchematicForm, true)
+	end
+
 
 	-- Reposition Tabs. 
 	ProfessionsFrame.TabSystem:ClearAllPoints()

@@ -7,8 +7,8 @@ local S = E:GetModule('Skins')
 local _G = _G
 local format = format
 local ipairs, unpack = ipairs, unpack
-local GetSocketTypes = GetSocketTypes
 local hooksecurefunc = hooksecurefunc
+local C_ItemSocketInfo_GetSocketItemInfo = C_ItemSocketInfo.GetSocketItemInfo
 
 function S:Blizzard_ItemSocketingUI()
 	if not (E.private.skins.blizzard.enable and E.private.skins.blizzard.socket) then return end
@@ -20,27 +20,26 @@ function S:Blizzard_ItemSocketingUI()
 	_G.ItemSocketingScrollFrame:SetBackdrop()
 
 	for i = 1, _G.MAX_NUM_SOCKETS do
-		local button = _G[format('ItemSocketingSocket%d', i)]
+		local button = _G.ItemSocketingFrame.SocketingContainer['Socket'..i]
 
 		BORDER:CreateBorder(button)
 	end
 
 	hooksecurefunc('ItemSocketingFrame_Update', function()
-		for i, socket in ipairs(_G.ItemSocketingFrame.Sockets) do
+		for i, socket in ipairs(_G.ItemSocketingFrame.SocketingContainer.SocketFrames) do
 			for j = 1, _G.MAX_NUM_SOCKETS do
-				local button = _G[format('ItemSocketingSocket%d', j)]
-				local gemColor = GetSocketTypes(i)
+				local gemColor = C_ItemSocketInfo_GetSocketItemInfo(i)
 				local color = E.GemTypeInfo[gemColor]
 				if color then
-					button.border:SetBackdropBorderColor(color.r, color.g, color.b)
+					socket.border:SetBackdropBorderColor(color.r, color.g, color.b)
 				else
-					button.border:SetBackdropBorderColor(1, 1, 1)
+					socket.border:SetBackdropBorderColor(1, 1, 1)
 				end
 			end
 		end
 	end)
 
-	BORDER:CreateBorder(_G.ItemSocketingSocketButton, nil, nil, nil, nil, nil, false, true)
+	BORDER:CreateBorder(_G.ItemSocketingFrame.SocketingContainer.ApplySocketsButton, nil, nil, nil, nil, nil, false, true)
 end
 
 S:AddCallbackForAddon('Blizzard_ItemSocketingUI')
